@@ -1,0 +1,83 @@
+<body>
+
+<div class="body_box">
+
+<header>
+
+<div class="header">
+	<div class="header_fixed">
+	
+		<div class="header-logo fltL">
+			<a href="{yun:}$config.sy_weburl{/yun}" target="_blank"><img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_unit_logo{/yun}" class="png" ></a>
+		</div>
+	
+		<ul class="yun_m_headernav">
+			<li {yun:}if $js_def == 1{/yun}class="yun_m_headernav_cur"{yun:}/if{/yun}><a  href="index.php">企业中心</a></li>
+			<li {yun:}if $js_def == 2{/yun}class="yun_m_headernav_cur"{yun:}/if{/yun}><a href="index.php?c=job&w=1">职位管理 </a></li>
+			<li {yun:}if $js_def == 3{/yun}class="yun_m_headernav_cur"{yun:}/if{/yun}><a href="index.php?c=hr">简历管理</a></li>
+			<li {yun:}if $js_def == 4{/yun}class="yun_m_headernav_cur"{yun:}/if{/yun}><a href="index.php?c=paylogtc">财务管理</a></li>
+            <li {yun:}if $js_def == 5{/yun}class="yun_m_headernav_cur"{yun:}/if{/yun}><a href="index.php?c=vs">设置</a></li>
+            <li {yun:}if $js_def == 6{/yun}class="yun_m_headernav_cur"{yun:}/if{/yun}><a href="index.php?c=info">资料</a></li>
+
+			<li><a href="{yun:}url m=resume{/yun}" target="_blank">找人才</a></li>
+		</ul>
+		
+		<div class="">
+			<div class="header_m_navright">
+				
+				<!-- 头像-->  
+				<div class="yun_m_headertx"  onMouseOver="headerInfoShow('show')" onMouseOut="headerInfoShow('hide')"> 
+					<a href="{yun:}if empty($spid){/yun}index.php?c=uppic{yun:}else{/yun}javascript:void(0);{yun:}/if{/yun}"> 
+						<img src="{yun:}$company.logo{/yun}" width="25" height="25" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_unit_icon{/yun}','2')"/>
+					</a> 
+					<!--<div class="yun_m_headertx_hi">你好！{yun:}$username{/yun}</div>-->
+					<i class="yun_m_headertx_hi_icon"></i>
+
+					<div class="yun_m_header_info" style="display:none;">
+						{yun:}if empty($spid){/yun}
+							<a href="index.php?c=info" class="yun_m_header_info_a">编辑资料</a>
+						{yun:}/if{/yun}						
+						<a href="{yun:}url  m=company c=show id='`$uid`'{/yun}" target="_blank" class="yun_m_header_info_a"> 预览主页</a>
+
+						{yun:}if empty($spid){/yun}
+							<a href="index.php?c=comtpl" class="yun_m_header_info_a">模板设置</a>						
+							{yun:}if $config.sy_user_change==1{/yun}
+             					<a href="javascript:void(0)" onclick="changeutype();" class="yun_m_header_info_a">切换身份</a>
+				           	{yun:}/if{/yun}
+				         {yun:}/if{/yun}
+						<a href="javascript:void(0)" onClick="logout('index.php?act=logout')" title="退出登录" class="yun_m_header_info_a">退出登录</a>
+					</div> 
+				</div> 
+
+				<!-- 消息 START-->
+				<div class="yun_m_headermsg" onMouseOver="tzmsgNumShow('show')" onMouseOut="tzmsgNumShow('hide')">
+					<i class="yun_m_headermsg_icon"></i>
+					<div class="yun_m_headermsg_p">消息</div>
+					<span class="yun_m_headermsg_n" id="tzmsgNum" style="display:none">0</span>
+					
+					<div class="yun_m_headermsg_box" style="display:none">
+						<div class="yun_m_headermsg_list">
+							<a href="{yun:}$config.sy_weburl{/yun}/member/index.php?c=hr">职位申请  <em class="yun_m_headermsg_list_n" id="jobApplyNum">(0)</em></a>
+						</div>
+						
+						<div class="yun_m_headermsg_list">
+							<a href="{yun:}$config.sy_weburl{/yun}/member/index.php?c=sysnews">系统消息  <em class="yun_m_headermsg_list_n" id="sysmsgNum">(0)</em></a>
+						</div>
+				
+						<div class="yun_m_headermsg_list">
+							<a href="{yun:}$config.sy_weburl{/yun}/member/index.php?c=msg">求职咨询  <em class="yun_m_headermsg_list_n" id="jobAskNum">(0)</em></a> 
+						</div>
+						
+					</div>
+				</div>
+				<!-- 消息 END--> 
+				
+		
+				<a  href="javascript:void(0)"  onclick="jobadd_url('{yun:}$addjobnum{/yun}','{yun:}$config.integral_job{/yun}','','{yun:}$config.com_integral_online{/yun}','{yun:}$config.integral_proportion{/yun}');return false;" class="header_m_nav_fb">发布职位</a>
+				<a href="{yun:}$config.sy_weburl{/yun}" target="_blank" class="header_m_nav_home">网站首页</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clear"></div> 
+</header>

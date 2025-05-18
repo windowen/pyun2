@@ -1,0 +1,64 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+
+<div class="m_user_infocont">
+	{yun:}foreach item=v from=$rows{/yun}
+
+	<div class="com_member_hrlist">
+		<div class="com_member_hrlist_bom">
+			<span class="com_member_hrlist_hrname">{yun:}if $v.usertype==2 {/yun}{yun:}$v.linkman{/yun}.{yun:}$v.linkjob{/yun}{yun:}else{/yun}{yun:}$v.com_name{/yun}{yun:}/if{/yun}
+				{yun:}if $v.isshow == 0{/yun}
+				<i class="Unread_news"></i>
+				{yun:}/if{/yun}
+			</span>
+			<span class="com_member_hrlist_ck">查看了你</span>
+		</div>
+		<div class="com_member_hrlist_top">
+			<div class="com_member_hrlist_logo"> <img src="{yun:}$v.logo_n{/yun}"></div>
+			<div class="com_member_hrlist_gsname">
+				{yun:}if $v.com_name{/yun}
+				
+				<a href="{yun:}url m=wap c=company a=show id=$v.com_id{/yun}" onClick="isshow({yun:}$v.id{/yun})" class=" ">{yun:}$v.com_name{/yun}</a>
+				
+				{yun:}else{/yun}<a class=" " style="color:#b2b2b2">尚未完善公司信息</a>
+				{yun:}/if{/yun}
+			</div>
+			<div class="com_member_hrlist_m">
+				{yun:}if $v.pr_n{/yun}
+				{yun:}$v.pr_n{/yun}
+				{yun:}else{/yun}
+				暂无
+				{yun:}/if{/yun}
+				<span class="yun_newedition_jobline"></span>
+				{yun:}if $v.mun_n{/yun}
+				{yun:}$v.mun_n{/yun}
+				{yun:}else{/yun}
+				暂无
+				{yun:}/if{/yun}
+				<span class="yun_newedition_jobline"></span>
+				{yun:}$industry_name[$v.hy]{/yun}
+			</div>
+		</div>
+		<div class="com_member_cz"><span class="com_member_hrlist_time">{yun:}$v.datetime|date_format:"%Y-%m-%d"{/yun}</span>
+			<a href="javascript:void(0)" onclick="layer_del('确认删除被浏览记录？','index.php?c=delLookResume&del={yun:}$v.id{/yun}')"
+			 class="com_member_cz_sc">删除</a>
+		</div>
+
+	</div>
+
+	{yun:}/foreach{/yun}
+	<div class="pages"> {yun:}$pagenav{/yun}</div>
+	{yun:}if $rows|@count<=0 {/yun} 
+	<div class="wap_member_no">您暂时还没有信息</div>
+	{yun:}/if{/yun}
+</div>
+<script>
+	//已读查看者信息
+	function isshow(id) {
+		let url = wapurl + "member/index.php?c=isshow&id=" + id;
+
+		$.get(url, function(data) {
+
+		});
+	}
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

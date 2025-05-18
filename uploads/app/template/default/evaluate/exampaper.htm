@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+<meta name="description" content="{yun:}$description{/yun}"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="{yun:}$style{/yun}/style/evaluate.css?v={yun:}$config.cachecode{/yun}"/>
+</head>
+<body>
+<!--头部导航-->
+{yun:}include file="$tplstyle/header.htm"{/yun}
+<div class="clear"></div>
+<!--content内容部分-->
+<div class="cp_content">
+<div class="wrap">
+<div class="current_Location  png">您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a>  >  <span>测评试题</span></div>
+<div class="evaluate_showbox">
+<div class="evaluate_showbox_pic"><img src="{yun:}$info.pic_n{/yun}"  width="220" height="140px;"></div>
+
+<div class="evaluate_showbox_rightinfo">
+<div class="evaluate_showbox_rightinfo_name">{yun:}$info.name{/yun}</div>
+<div class="evaluate_showbox_rightinfo_p">
+{yun:}$info.description{/yun}</div>
+<div class="evaluation_results_tit_i">{yun:}$info.visits{/yun} 人访问，{yun:}$info.comnum{/yun} 条评论，{yun:}$info.ctime|date_format:"%Y-%m-%d %H:%M"{/yun} 发布</div>
+</div>
+</div>
+<div class="evaluate_showbox mt20" style="border-top:5px solid #f60">
+<div class="evaluate_showbox_cont">
+<div class="evaluate_showbox_top">
+<div class="evaluate_show_name">{yun:}$info.name{/yun}试题</div>
+<div class="evaluate_show_info">共<em class="evaluate_show_info_n">{yun:}$questions|@count{/yun}</em>题</div>
+
+    <div class="cp_full_yb fl">
+    	
+        <div class="cp_yb_cs c6"></div>
+        <div class="cp_yb_ds c9"></div>
+    </div>
+    </div>    
+    
+   <!--试题列表-->
+    <form  name="gradeform" id="gradeform" action="{yun:}url m=evaluate c=exampaper a=grade{/yun}" method="post">
+    <div class="cp_timu_topic01">
+        {yun:}foreach from=$questions item=item key=lkey{/yun}
+        <div class="evaluate_showbox_list eva{yun:}$item.id{/yun}" tid='{yun:}$item.id{/yun}'>
+        	<!--试题-->
+            <div class="evaluate_showbox_tit f16">{yun:}$lkey+1{/yun}.{yun:}$item.question{/yun} </div>
+            <!--选项列表-->
+            <div class="evaluate_showbox_anw">
+                {yun:}foreach from=$item.option item=option key=k{/yun}
+                <div class="cp_ti_canj radio_{yun:}$item.id{/yun}_{yun:}$k{/yun}"><i class="cp_topic_ti_xz"></i><input type="radio" did='{yun:}$item.id{/yun}' name="q{yun:}$item.id{/yun}" value="{yun:}$k{/yun}" class="none"/><em>{yun:}$item.letters[$k]{/yun}.</em>{yun:}$option{/yun}</div>
+                {yun:}/foreach{/yun}
+            </div>
+        </div>  
+        {yun:}/foreach{/yun}  
+        <div class="cp_tijiao"><input id="submitexam" type="button" class="cp_tj_button" name="submitexam" value="提交答案" ></div>
+        <input type="hidden" name="examid" value="{yun:}$info.id{/yun}" />
+    </div> 
+    </form>  
+    
+    
+</div>
+</div>
+
+
+<div class="clear"></div>
+</div>
+<!--content内容部分结束-->
+<div class="clear"></div>
+<!--尾部导航-->
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"	language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}"	language="javascript"></script>  
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script> 
+<script src="{yun:}$style{/yun}/js/evaluate.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png,.cp_ti_canj');
+</script>
+<![endif]-->
+ <script>
+ var arr={yun:}$arr{/yun};
+ $(document).ready(function () {	
+	 $.each(arr,function(n,v) { 
+		var val=$("input:radio[name='q"+v+"']:checked").val();
+		if(!isNaN(val)){ 
+			$(".radio_"+v+"_"+val).addClass("cp_ti_canj01");
+		} 
+	});
+});
+ </script>
+ {yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun}

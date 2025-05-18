@@ -1,0 +1,408 @@
+<script type="text/javascript">
+var weburl="{yun:}$config.sy_weburl{/yun}";
+function checksiteall(url){
+	var codewebarr="";
+	$(".check_all:checked").each(function(){ 
+		if(codewebarr==""){codewebarr=$(this).val();}else{codewebarr=codewebarr+","+$(this).val();}
+	});
+	if(codewebarr==""){
+		parent.layer.msg('您还未选择任何信息！', 2, 8);	return false;
+	}else{
+		checksite('',codewebarr,url);
+	}
+}
+function checksite(name,id,url){ 
+	if(name==''){
+		$("#com_name").html("");
+	}else if(url=='index.php?m=admin_news&c=checksitedid'){
+		$("#com_name").html("新闻标题：");
+	}else if(url=='index.php?m=zhaopinhui&c=checksitedid'){
+		$("#com_name").html("招聘会标题：");
+	}else if(url=='index.php?m=admin_announcement&c=checksitedid'){
+		$("#com_name").html("公告标题：");
+	}else{
+		$("#com_name").html("用户名：");
+	}
+	name=name.substr(0,15);
+	$('#formDomain').attr('action', url);
+	$('#siteusername').html(name);
+    $('#siteuid').val(id);
+	$.layer({
+		type : 1,
+		title :'分配站点', 
+		closeBtn : [0 , true],
+		border : [10 , 0.3 , '#000', true],
+		area : ['350px','250px'],
+		page : {dom :"#infoboxdomain"}
+	});
+}
+
+function checkguwenall(url){
+	var codewebarr="";
+	$(".check_all:checked").each(function(){ 
+		if(codewebarr==""){codewebarr=$(this).val();}else{codewebarr=codewebarr+","+$(this).val();}
+	});
+	if(codewebarr==""){
+		parent.layer.msg('您还未选择任何信息！', 2, 8);	return false;
+	}else{
+		checkguwen('',codewebarr,url);
+	}
+}
+
+function checkguwen(name,id,url){ 
+	if(name==''){
+		
+		$("#com_username").html("");
+		
+	}else if(url=='index.php?m=admin_company&c=checkguwen'){
+		
+		$("#com_username").html("企业用户名：");
+		
+	}
+	name=name.substr(0,15);
+	$('#formGuwen').attr('action', url);
+	$('#comusername').html(name);
+    $('#comid').val(id);
+	$.layer({
+		type : 1,
+		title :'分配业务员', 
+		closeBtn : [0 , true],
+		border : [10 , 0.3 , '#000', true],
+		area : ['350px','260px'],
+		page : {dom :"#infoguwen"}
+	});
+}
+
+function checkCrmAll(url){
+	var codewebarr="";
+	$(".check_all:checked").each(function(){ 
+		if(codewebarr==""){codewebarr=$(this).val();}else{codewebarr=codewebarr+","+$(this).val();}
+	});
+	if(codewebarr==""){
+		parent.layer.msg('您还未选择任何信息！', 2, 8);	return false;
+	}else{
+		checkCrm('',codewebarr,url);
+	}
+}
+
+function checkCrm(name,id,url){ 
+	
+	if(name==''){
+		
+		$("#com_username").html("");
+		
+	}else if(url=='index.php?m=user_member&c=checkCrm'){
+		
+		$("#com_username").html("个人用户名：");
+		
+	}
+	name=name.substr(0,15);
+	$('#formGuwen').attr('action', url);
+	$('#comusername').html(name);
+    $('#comid').val(id);
+	$.layer({
+		type : 1,
+		title :'分配业务员', 
+		closeBtn : [0 , true],
+		border : [10 , 0.3 , '#000', true],
+		area : ['350px','250px'],
+		page : {dom :"#infoguwen"}
+	});
+}
+function searchdomain(id){
+	var pytoken = $('#pytoken').val();
+	if(id==1){
+	    var keyword = $.trim($('#sitekeyword').val());
+	}else{
+	    var keyword = $.trim($('#domainkeyword').val());
+	}
+	if(!keyword){
+		parent.layer.msg('请输入搜索关键词！', 2, 8);return false;
+	}
+	loadlayer();
+	$.post(weburl+"/index.php?m=ajax&c=selsite",{pytoken:pytoken,keyword:keyword,id:id},function(data){
+		parent.layer.closeAll('loading');
+		if(data==0){
+			parent.layer.msg('请输入搜索关键词！', 2, 8);return false;
+		}else if(data==1){
+			parent.layer.msg('未查询到相关数据！', 2, 8);return false;
+		}else{
+		    if(id==1){
+				$('#did_val').html(data);
+				layui.use(['form'],function(){
+				var f = layui.form;
+				f.render();
+				});
+
+			}else{
+				$('#domain_val').html(data);
+				layui.use(['form'],function(){
+				var f = layui.form;
+				f.render();
+				});
+				
+			}
+		}
+	});
+
+}
+
+/* 搜索顾问姓名 */
+function searchguwen(id){
+	
+	var pytoken = $('#pytoken').val();
+	var keyword = $.trim($('#guwenkeyword').val());
+	
+	if(!keyword){
+		parent.layer.msg('请输入搜索关键词！', 2, 8);return false;
+	}
+	loadlayer();
+	$.post(weburl+"/index.php?m=ajax&c=selcrm",{pytoken:pytoken,keyword:keyword,id:id},function(data){
+		parent.layer.closeAll('loading');
+		if(data==0){
+			parent.layer.msg('请输入搜索关键词！', 2, 8);return false;
+		}else if(data==1){
+			parent.layer.msg('未查询到相关数据！', 2, 8);return false;
+		}else{
+		    if(id==1){
+				$('#gid_val').html(data);
+				layui.use(['form'],function(){
+					var f = layui.form;
+					f.render();
+				});
+			}
+		}
+	});
+}
+
+function searchcrm(id){
+	var pytoken = $('#pytoken').val();
+	if(id==1){
+	    var keyword = $.trim($('#crmkeyword').val());
+	}else{
+	    var keyword = $.trim($('#crmkeyword').val());
+	}
+	if(!keyword){
+		parent.layer.msg('请输入搜索关键词！', 2, 8);return false;
+	}
+	var i=loadlayer();
+	$.post(weburl+"/index.php?m=ajax&c=selcrm",{pytoken:pytoken,keyword:keyword,id:id},function(data){
+		layer.close(i);
+		if(data==0){
+			parent.layer.msg('请输入搜索关键词！', 2, 8);return false;
+		}else if(data==1){
+			parent.layer.msg('未查询到相关数据！', 2, 8);return false;
+		}else{
+		    if(id==1){
+				$('#cid_val').html(data);
+				layui.use(['form'],function(){
+				var f = layui.form;
+				f.render();
+				});
+			}
+		}
+	});
+}
+
+function add_site(id,name){
+    if(id!=''){
+	   $("#domain_val").val(id);
+	}
+	if(name!=''){
+	   $("#domain_name").val(name);
+	}
+	$.layer({
+		type : 1,
+		title :'分配站点', 
+		closeBtn : [0 , true],
+		border : [10 , 0.3 , '#000', true],
+		area : ['400px','230px'],
+		offset: ['20px', ''],
+		page : {dom :"#domainlist"}
+	});
+}
+function check_domain(){
+    
+	var domain_val=$("#domain_val").val();
+	var domain_name = domain_val.split(',');
+		var id=domain_name[0];
+		var name=domain_name[1];
+		$(".city_news_but").val(name);
+		$("#did").val(id);
+	
+	layer.closeAll(); 
+}
+function domaincheck(){
+   var did=$("#did_val").val();
+   if(!did){
+       layer.msg('请选择需要切换的站点',2,8);return false;
+   }
+}
+function guwencheck(){
+   var gid=$("#gid_val").val();
+   if(!gid){
+       layer.msg('请选择需要分配的顾问',2,8);return false;
+   }
+}
+function crmcheck(){
+   var cid=$("#cid_val").val();
+   if(!cid){
+       layer.msg('请选择需要绑定的业务员',2,8);return false;
+   }
+}
+</script>
+<style>
+	.admin_compay_fp{margin-top:15px;}
+	.admin_compay_fp_s{width:100px; text-align:right; font-weight:bold; display:inline-block}
+	.admin_compay_fp_sub{width:140px;height:25px;border:1px solid #ddd;}
+	.admin_compay_fp_sub1{width:50px;height:36px; background:#3692cf;color:#fff;border:none; cursor:pointer;border-radius: 4px;}
+
+	.layui-layer-page .layui-layer-content{
+		overflow: visible !important;
+	}
+</style>
+<div id="infoboxdomain"  style="display:none; width: 350px; ">
+	<form class="layui-form" action="" target="supportiframe" method="post" id="formDomain" onsubmit="return domaincheck()"> 
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s" id="com_name"></span> 
+			<em  id="siteusername"></em>
+		</div>
+		
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s">分站搜索：</span>
+			<input type="text" value="" id="sitekeyword" class="tty_input t_w150">
+			<input type='button' onclick="searchdomain('1')" value="搜索" class="admin_compay_fp_sub1">
+		</div>
+		<div class="admin_compay_fp" style="height:37px;">
+			<span class="admin_compay_fp_s" style="float:left; line-height:37px; display:inline-block; margin-right:3px;">切换站点：</span>
+            
+			<div class="yun_admin_select_box zindex100"> 
+				  <div class="layui-input-inline" style="width: 227px;">
+						<select name="did" id="did_val" lay-filter="did">
+						<option value="">请选择</option>
+						{yun:}foreach from=$Dname key=key item=dlist{/yun}
+						<option  value="{yun:}$key{/yun}" >{yun:}$dlist{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+				  </div>
+           </div>
+		</div>
+		<div class="admin_compay_fp" style="text-align: center;width: 100%;margin-top: 20px;">
+			<input type="submit"  value='确认' class="admin_examine_bth">
+			<input type="button"  onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消' style="margin-left:10px;">
+		</div> 
+		<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+		<input name="uid" value="0" id="siteuid" type="hidden">
+	</form> 
+</div>
+
+<div id="infoguwen"  style="display:none; width: 350px; ">
+	<form class="layui-form" action="" target="supportiframe" method="post" id="formGuwen" onsubmit="return guwencheck()"> 
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s" id="com_username"></span> 
+			<em id="comusername"></em>
+		</div>
+		
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s">顾问搜索：</span>
+			<input type="text" value="" id="guwenkeyword" class="tty_input t_w150">
+			<input type='button' onclick="searchguwen('1')" value="搜索" class="admin_compay_fp_sub1">
+		</div>
+
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s">选择顾问：</span>
+			<div class="layui-input-inline"  style="width: 226px;">
+				<select name="gid" id="gid_val" lay-filter="gid">
+				<option value="">请选择</option>
+				
+				{yun:}foreach from=$gwInfo key=key item=glist{/yun}
+					<option value="{yun:}$glist.uid{/yun}" >{yun:}if $glist.name{/yun}{yun:}$glist.name{/yun}{yun:}else{/yun}{yun:}$glist.username{/yun}{yun:}/if{/yun}</option>
+				{yun:}/foreach{/yun}
+				</select>
+			</div>
+		</div>
+
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s">&nbsp;</span>
+			<input type="submit"  value='确认' class="admin_examine_bth"><input type="button"  onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消' style="margin-left:10px;">
+		</div> 
+		<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+		<input name="comid" value="0" id="comid" type="hidden">
+	</form> 
+</div>
+ 
+
+<div id="infocrm"  style="display:none; width: 350px; ">
+	<form class="layui-form" action="" target="supportiframe" method="post" id="formCrm" onsubmit="return crmcheck()"> 
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s" id="con_name"></span> 
+			<em  id="crmusername"></em>
+		</div>
+		
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s">业务员搜索：</span>
+			<input type="text" value="" id="crmkeyword" class="admin_compay_fp_sub">
+			<input type='button' onclick="searchcrm('1')" value="搜索" class="admin_compay_fp_sub1">
+		</div>
+
+		<div class="admin_compay_fp" style="height:34px;">
+			<span class="admin_compay_fp_s" style="float:left; line-height:34px; display:inline-block; margin-right:5px;">选择业务员：</span>
+            <div class="yun_admin_select_box zindex100"> 
+				<div class="layui-form-item">
+				  <div class="layui-input-inline" >
+						<select name="cid" id="cid_val" lay-filter="cid">
+						<option value="">请选择</option>
+						
+						{yun:}foreach from=$crmlist key=key item=clist{/yun}
+							<option  value="{yun:}$clist.uid{/yun}" >{yun:}$clist.username{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+				  </div>
+				 </div>
+           </div>
+            
+            
+		</div>
+		<div class="admin_compay_fp">
+			<span class="admin_compay_fp_s">&nbsp;</span>
+			<input type="submit"  value='确认' class="admin_examine_bth"><input type="button"  onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消' style="margin-left:10px;">
+		</div> 
+		<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+		<input name="conid" value="0" id="conid" type="hidden">
+	</form> 
+</div>
+
+<div id="domainlist" style="display:none;float:left;width: 100%;">
+<form class="layui-form">
+	<div class="admin_compay_fp">
+		<span class="admin_compay_fp_s">分站搜索：</span>
+		<input type="text" value="" id="domainkeyword" class="tty_input" style="width: 150px;">
+		<input type='button' onclick="searchdomain('2')" value="搜索" class="admin_compay_fp_sub1" style="border-radius: 4px;width: 60px;height: 36px;">
+	</div>
+	<div class="admin_compay_fp" style="height:37px;">
+		<span class="admin_compay_fp_s" style="float:left; line-height:37px; display:inline-block; margin-right:3px;">切换站点：</span>
+		<div class="yun_admin_select_box zindex100">
+			<div class="layui-form-item">
+				  <div class="layui-input-inline" style="width: 235px;">
+						<select name="did" id="domain_val" lay-filter="did">
+						<option value="">请选择</option>
+						{yun:}foreach from=$Dname key=key item=dlist{/yun}
+						<option  value="{yun:}$key{/yun},{yun:}$dlist{/yun}" >{yun:}$dlist{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+				  </div>
+				 </div>
+		</div>
+
+	</div>
+	<div class="admin_compay_fp">
+		<div style="width: 156px; margin: auto;">
+			<input type="button"  value='确认' onclick="check_domain()" class="admin_examine_bth">
+			<input type="button"  onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消' style="margin-left:10px;">
+		</div>
+	</div> 
+	</form>
+</div>
+<script>
+layui.use(['form'],function(form){form.render();});
+</script>

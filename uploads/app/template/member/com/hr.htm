@@ -1,0 +1,361 @@
+ {yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+	<div class="admin_mainbody">
+ 		{yun:}include file="$comstyle/left.htm"{/yun}
+    	
+    	<div class="com_tit"><span class="com_tit_span">我的简历</span></div>
+        
+        <div class='right_box'>
+        	<div class='admincont_box'>
+				<div class="job_list_tit">
+           			<ul>
+                 		<li {yun:}if $smarty.get.c=="hr" {/yun} class="job_list_tit_cur" {yun:}/if{/yun}>
+                            <a href="index.php?c=hr" title="收到简历">收到简历</a>
+                        </li>
+                        <li {yun:}if $smarty.get.c=="down" {/yun} class="job_list_tit_cur" {yun:}/if{/yun}>
+                            <a href="index.php?c=down" title="您已下载的简历记录">已下载简历</a>
+                        </li>
+                        <li {yun:}if $smarty.get.c=="talent_pool" {/yun} class="job_list_tit_cur" {yun:}/if{/yun}>
+                            <a href="index.php?c=talent_pool" title="加入人才库的简历">收藏简历</a>
+                        </li>
+                        <li {yun:}if $smarty.get.c=="look_resume" {/yun} class="job_list_tit_cur" {yun:}/if{/yun}>
+                            <a href="index.php?c=look_resume" title="您浏览简历的记录">浏览简历</a>
+                        </li>
+                        <li {yun:}if $smarty.get.c=="record" {/yun} class="job_list_tit_cur" {yun:}/if{/yun}>
+                            <a href="index.php?c=record" title="网站为您推荐的简历">网站推荐简历</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class='com_body'>
+                	
+                	<div class="com_new_tip mt20">
+						<span class="com_new_tip_h">温馨小提示</span>若遇虚假简历,可在简历详细页举报给平台，平台会对违规简历进行严肃处理
+					</div>
+                    
+                    <div class="admin_textbox_04">
+                 		<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+                       	
+                       	<div class="clear"></div>
+         				
+         				<!-- 筛选部分 -->
+                       	<form class='layui-form' action="index.php" method='get' id='MyForm'> 
+	                       	<input name='c' value='hr' type='hidden'>
+	                       	<div class="com_received_resume_selectbox">
+	                       		
+	                       		<div class="com_received_resume_tdjob">
+	                       		
+	                       			<div class="layui-unselect layui-form-select">
+	                       				<div class="layui-form-item">
+											<div class="layui-input-block">
+										      	<select name="jobid" lay-filter="hr_submit">
+										      		<option value=''>投递职位</option>
+										      		{yun:}foreach from = $JobList item=v {/yun}
+										        		<option value='{yun:}$v.id{/yun}' title='{yun:}$v.name{/yun}' {yun:}if $current.id == $v.id{/yun}selected{yun:}/if{/yun}>{yun:}$v.name{/yun}</option>
+										        	{yun:}/foreach{/yun}
+										      	</select>
+											</div>
+										</div>
+	                       			</div>
+	                       		</div>
+	                       		
+	                       		<div class="com_received_resume_select">
+	            					<div class="layui-unselect layui-form-select">
+	            						<div class="layui-form-item">
+											<div class="layui-input-block">
+										      	<select name="resumetype" lay-filter="hr_submit">
+										      		<option value=''>简历类型</option>
+										        	<option value='1' title='普通简历' {yun:}if $smarty.get.resumetype == 1{/yun}selected{yun:}/if{/yun}>普通简历</option>
+										      	</select>
+											</div>
+										</div>
+	            					</div>
+	            				</div> 
+	            				
+				             	<div class="com_received_resume_select">
+				            		<div class="layui-unselect layui-form-select">
+				            			
+				            			<div class="layui-form-item">
+											<div class="layui-input-block">
+										      	<select name="exp" lay-filter="hr_submit">
+										      		<option value=''>工作经验</option>
+										      		{yun:}foreach from = $userdata.user_word item=v {/yun}
+										        		<option value='{yun:}$v{/yun}' title='{yun:}$cache.userclass_name.$v{/yun}' {yun:}if $smarty.get.exp == $v{/yun}selected{yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}</option>
+										        	{yun:}/foreach{/yun}
+										      	</select>
+											</div>
+										</div>
+				            			 
+				            		</div>
+				            	</div> 	 	
+				 				
+				 				<div class='com_received_resume_select'>
+				 					<div class="layui-unselect layui-form-select">
+				 						
+				 						<div class="layui-form-item">
+											<div class="layui-input-block">
+										      	<select name="edu" lay-filter="hr_submit">
+										      		<option value=''>学历要求</option>
+										      		{yun:}foreach from = $userdata.user_edu item=v {/yun}
+										        		<option value='{yun:}$v{/yun}' title='{yun:}$cache.userclass_name.$v{/yun}' {yun:}if $smarty.get.edu == $v{/yun}selected{yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}</option>
+										        	{yun:}/foreach{/yun}
+										      	</select>
+											</div>
+										</div>
+				 						 
+							        </div>
+							  	</div>
+							  	
+								<div class="com_received_resume_selectsmall">
+								 	<div class="layui-unselect layui-form-select">
+								 		
+								 		<div class="layui-form-item">
+											<div class="layui-input-block">
+										      	<select name="sex" lay-filter="hr_submit">
+										      		<option value=''>性别</option>
+										      		{yun:}foreach from = $user_sex key = key item=v {/yun}
+										        		<option value='{yun:}$key{/yun}' title='{yun:}$v{/yun}' {yun:}if $smarty.get.sex == $key{/yun}selected{yun:}/if{/yun}>{yun:}$v{/yun}</option>
+										        	{yun:}/foreach{/yun}
+										      	</select>
+											</div>
+										</div>
+								 		 
+								 	</div>
+								 </div>
+								 
+	            				<div class="com_received_resume_select">
+	            					<div class="layui-unselect layui-form-select">
+	            					
+	            						<div class="layui-form-item">
+											<div class="layui-input-block">
+										      	<select name="uptime" lay-filter="hr_submit">
+										      		<option value=''>更新时间</option>
+										      		{yun:}foreach from = $uptime key = key item=v {/yun}
+										        		<option value='{yun:}$key{/yun}' title='{yun:}$v{/yun}' {yun:}if $smarty.get.uptime == $key{/yun}selected{yun:}/if{/yun}>{yun:}$v{/yun}</option>
+										        	{yun:}/foreach{/yun}
+										      	</select>
+											</div>
+										</div>
+										
+	            				 	</div>
+	            				</div>
+	            				 
+					     		<div class="com_received_resume_search">
+					              	<input type="text" placeholder="在当前条件下筛选" class="com_received_resume_search_text" name='keyword' value='{yun:}$smarty.get.keyword{/yun}' />
+								  	<input type="submit" value="搜索 " class="com_received_resume_search_bth" />
+								</div>   
+	                     	</div> 
+	                 			
+	                		<div class="clear"></div>
+	                      
+	                 		<div class="com_received_resume_state">
+	               				简历状态：
+	               				{yun:}foreach from = $StateList item = one{/yun}
+									<a href="index.php?c=hr&state={yun:}$one.id{/yun}" {yun:}if $smarty.get.state ==$one.id{/yun}class="com_received_resume_state_cur"{yun:}/if{/yun}>{yun:}$one.name{/yun}({yun:}$one.num{/yun})</a>
+								{yun:}/foreach{/yun}
+	               			</div>     
+                      	</form>
+                      	
+          				<!-- 收到简历列表 -->
+          				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe> 
+                      	<form action='{yun:}$now_url{/yun}&act=hrset' target="supportiframe" method="post" id='myform' class='layui-form'>
+							<table class="com_received_resume" >
+								{yun:}if $rows{/yun}
+								<tr>
+									<th width="25" align="center"></th>
+									<th>基本情况</th>
+									<th>投递职位</th>
+									<th>联系电话</th>
+									<th>状态</th>
+									<th>操作</th>
+								</tr>
+								{yun:}/if{/yun}
+								{yun:}foreach item=v from=$rows{/yun}
+								<tr>
+									<td align="center">
+										<input type="checkbox" name="delid[]" value="{yun:}$v.id{/yun}" class="com_job_list_check" lay-skin="primary" />
+									</td>
+									<td>
+										<div>
+											<a href="{yun:}url m=resume c=show id=$v.eid{/yun}" target="_blank" class="com_received_username">{yun:}$v.name{/yun}</a>
+										</div>
+										
+										<div class="com_received_userinfo">
+											{yun:}if $v.sex{/yun}{yun:}$v.sex{/yun}{yun:}else{/yun}保密{yun:}/if{/yun}
+											<span class="com_received_userinfo_line">|</span>{yun:}$v.age{/yun}岁
+											<span class="com_received_userinfo_line">|</span>{yun:}$v.exp{/yun}经验
+											<span class="com_received_userinfo_line">|</span>{yun:}$v.edu{/yun}学历
+										</div>
+										<div>期望薪资：{yun:}$v.salary{/yun}</div>
+									</td>
+									<td>
+										<div>
+											<a href="{yun:}url m=job c=comapply id=$v.job_id{/yun}" target="_blank" class="com_received_tdjob">{yun:}$v.job_name{/yun}</a>
+										</div>
+										<div class="com_received_tdtime">投递时间：{yun:}$v.datetime|date_format:'%Y-%m-%d'{/yun}</div>
+									</td>
+									
+									<td align="center">
+										
+										<div>
+											{yun:}if $v.islink==1 || in_array($statis.rating,$com_look){/yun}
+
+												<a class="com_received_tellook">{yun:}$v.telphone{/yun}</a>
+											{yun:}else if $statis.down_resume > 0{/yun}
+												<a class="com_received_tellook" href="javascript:void(0);" onclick="isDownResume('{yun:}$v.eid{/yun}','{yun:}Url m='ajax' c='for_link'{/yun}', '{yun:}$statis.down_resume{/yun}')">查看联系方式</a>
+											{yun:}else{/yun}
+
+												<a class="com_received_tellook" href="javascript:void(0);" onclick="downResume('{yun:}$v.eid{/yun}','{yun:}Url m='ajax' c='for_link'{/yun}')">查看联系方式</a>
+											{yun:}/if{/yun}		 
+										</div>
+										
+									</td>
+									
+									<td align="center">
+										<div>
+											{yun:}if $v.is_browse=='1'{/yun}
+												{yun:}if $v.body !=''{/yun}
+												<span class="com_received_zt com_received_zt_bhs"><i class="com_received_zt_icon "></i>取消申请</span>
+												<span onclick="lookreason('{yun:}$v.body{/yun}')" style=" display:block; padding-top:5px;color:#4a89e8; text-decoration:underline; cursor:pointer">查看原因</span>
+												{yun:}else{/yun}
+												<span class="com_received_zt com_received_zt_dcl"><i class="com_received_zt_icon"></i>待处理</span>
+												{yun:}/if{/yun}
+											{yun:}elseif $v.is_browse=='2'{/yun}
+												<span class="com_received_zt com_received_zt_yck"><i class="com_received_zt_icon"></i>已查看</span>
+											{yun:}elseif $v.is_browse=='3'{/yun}
+												<span class="com_received_zt com_received_zt_dtz"><i class="com_received_zt_icon"></i>待通知</span>
+											{yun:}elseif $v.is_browse=='4'{/yun}
+												<span class="com_received_zt com_received_zt_bhs"><i class="com_received_zt_icon"></i>不合适</span>
+											{yun:}elseif $v.is_browse=='5'{/yun}
+												<span class="com_received_zt com_received_zt_wjt"><i class="com_received_zt_icon"></i>未接通</span>
+											{yun:}/if{/yun}
+										</div>
+									</td>
+									
+									<td width="153">
+										<div class="com_received_username_cz">
+										
+											<div class="com_received_username_bth">
+												{yun:}if $v.userid_msg == 1{/yun}
+													<span class="com_received_username_yyq">已邀请</span>
+												{yun:}else{/yun}
+													<a href="javascript:void(0);" onclick="inviteResume(this)" uid="{yun:}$v.uid{/yun}" username="{yun:}$v.name{/yun}" jobid="{yun:}$v.job_id{/yun}" jobtype='{yun:}$v.type{/yun}' jobname="{yun:}$v.job_name{/yun}" class="com_received_username_yqms" >邀请面试</a>
+												{yun:}/if{/yun}
+											</div>
+										
+											<div class="com_received_username_bjbox bj_{yun:}$v.id{/yun}" onmouseover='bjAddClass({yun:}$v.id{/yun});' onmouseout='bjRemoveClass({yun:}$v.id{/yun});' >
+												<span class="com_received_username_bj" style="cursor:pointer;">标记</span>
+												<div class="com_received_username_bjbox_show">
+													<a href="javascript:void(0);" onclick='changeBrowse(1,{yun:}$v.id{/yun})' class="com_received_username_bjbox_show_a"><i class="com_received_username_dclicon"></i>待处理</a> 
+													<a href="javascript:void(0);" onclick='changeBrowse(2,{yun:}$v.id{/yun})' class="com_received_username_bjbox_show_a"><i	class="com_received_username_yckicon"></i>已查看</a> 
+													<a href="javascript:void(0);" onclick='changeBrowse(4,{yun:}$v.id{/yun})' class="com_received_username_bjbox_show_a"><i class="com_received_username_bhgicon"></i>不合适</a> 
+													<a href="javascript:void(0);" onclick='changeBrowse(5,{yun:}$v.id{/yun})' class="com_received_username_bjbox_show_a"><i	class="com_received_username_wjticon"></i>未接通</a> 
+													<a href="javascript:void(0);" onclick='changeBrowse(3,{yun:}$v.id{/yun})' class="com_received_username_bjbox_show_a"><i	class="com_received_username_dtzicon"></i>等通知</a>
+												</div>
+											</div>
+											
+											<div class="com_received_username_bth mt10">
+												<a href="{yun:}url m=resume c=show id=$v.eid{/yun}" target="_blank" class="com_received_username_jlmx">简历详细</a>
+											</div>
+											<div class="com_received_username_bthr mt10">
+												<a href="javascript:void(0);" onclick="layer_del('确定要删除该条职位申请吗？', 'index.php?c=hr&act=hrset&delid={yun:}$v.id{/yun}');" class="com_received_username_bj">删除</a>
+											</div>
+										</div>
+									</td>
+									
+								</tr>
+								
+								{yun:}/foreach{/yun}
+								{yun:}if $rows{/yun}
+								<tr>
+									<td align="center"><input type="checkbox"  lay-filter='allcom' lay-skin="primary" /></td>
+									
+									<td colspan="5">全选 
+										<input class="c_btn_02" type="button" name="subdel" value="批量删除" onclick="return really('delid[]');">
+										<input class="c_btn_02" type="button" name="subdel" value="批量标记" onclick="return changeBrowseAll('1','delid[]');" style="margin-left: 10px;">
+										<div class="diggg">{yun:}$pagenav{/yun}</div>
+									</td>
+								</tr>
+                                {yun:}else{/yun}
+                                <tr>
+									<td colspan="7" class="table_end">
+										<div class="msg_no">
+											<p>亲爱的用户，目前您还没有收到简历。</p>
+											<a href="{yun:}url m=resume{/yun}" class="com_msg_no_bth com_submit">我要主动找人才</a>
+										</div>
+									</td>
+								</tr>
+								{yun:}/if{/yun}
+							</table>          
+	               		</form>
+               		</div>
+           		</div>
+       		</div>
+   		</div>
+	</div>
+</div>
+
+<script>
+
+	layui.use(['form'], function(){
+	    var form = layui.form,
+			$ = layui.$; 
+	    
+		form.on('select(hr_submit)', function(data){
+			$('#MyForm').submit();
+ 		})
+
+ 	    form.on('checkbox(allcom)', function (data) {
+	        $("input[name='delid[]']").each(function () {
+	            this.checked = data.elem.checked;
+	        });
+	        form.render('checkbox');
+	 	});
+	});
+	
+	function bjAddClass(id){
+		$('.bj_'+id).addClass("com_received_username_bjboxcur");
+	}
+	
+	function bjRemoveClass(id){
+		$('.bj_'+id).removeClass("com_received_username_bjboxcur");
+	}
+	
+	function changeBrowse(browse, id){
+		$.post("index.php?c=hr&act=hrset", { id : id, browse : browse }, function(data) {
+			location.reload();
+		});
+	}
+	function changeBrowseAll(browse, name){
+		var chk_value =[];    
+		$('input[name="'+name+'"]:checked').each(function(){    
+			chk_value.push($(this).val());   
+		});   
+		if(chk_value.length==0){
+			layer.msg("请选择要标记的数据！",2,8);return false;
+		}else{
+			layer.confirm("确定标记为已读吗？",function(){
+				$.post("index.php?c=hr&act=hrset",{ids:chk_value,ajax:1},function(data){
+					var data = eval('('+data+')');
+					if(data.errcode == '9'){
+						parent.layer.msg(data.msg, 2, 9,function(){
+							window.location.reload();
+							window.event.returnValue = false;
+							return false;
+						});
+						return false;
+					}else{
+						parent.layer.msg(data.msg, 2, 8);
+						return false;
+					}
+				})
+			});
+		} 
+	}
+	function lookreason(reason){
+		layer.alert(reason);
+	}
+</script>
+
+{yun:}include file="$comstyle/yqms.htm"{/yun}
+{yun:}include file="$comstyle/footer.htm"{/yun}

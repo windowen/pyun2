@@ -1,0 +1,115 @@
+<div id="searchhtml" class="none">
+
+	<div class="search_body">
+		<div class="wap_search_header">
+			<a class="wap_search_headerqx" href="javascript:void(0)" onclick="searchhtmlhide()">取消</a>
+			<form method="get" action="{yun:}$config_wapdomain{/yun}/index.php">
+				<input type="hidden" id="type" name="c" value="{yun:}if $smarty.get.c{/yun}{yun:}$smarty.get.c{/yun}{yun:}else{/yun}job{yun:}/if{/yun}" />
+				<div class="wap_search_text">
+					<input type="text" value="" onkeyup="this.value = this.value.replace(/[,]/g,'');" id="input_search" name="keyword" class="" placeholder="请输入{yun:}if $smarty.get.c=='job' || !$smarty.get.c{/yun}职位名/公司名{yun:}elseif $smarty.get.c=='resume'{/yun}关键字{yun:}/if{/yun}">
+					<div class="wap_search_bth">
+					<input type="submit" value="搜索" class="">
+				</div>
+				</div>
+				
+			</form>
+		</div>
+
+		<div class="search_history">
+			<div class="search_history_tite">
+				<span class="search_history_li">历史搜索</span> 
+				<span class="search_history_shi" style="display:none" id="clearhistory">
+					
+				</span>
+			</div>
+			<div class="search_history_tag_box" id="historylist">
+			   <div class="search_history_no">
+					暂无搜索记录~
+				</div>
+			</div>
+		</div>
+		
+		<div class="search_history">
+			<div class="search_history_tit">最近热搜</div>
+			<div class="search_history_tag_box">
+				{yun:}if $smarty.get.c=='job' || !$smarty.get.c{/yun}
+					{yun:}key limit=12 recom=1 type=3 iswap=1 item=keylist{/yun}
+					<div class="search_history_tag">
+						<a  href="{yun:}$keylist.url{/yun}">{yun:}$keylist.key_name{/yun}</a>
+					</div>
+					{yun:}/key{/yun}
+				
+				{yun:}elseif $smarty.get.c=='resume'{/yun}
+					{yun:}key limit=12 recom=1 type=5 iswap=1 item=key{/yun} 
+						<div class="search_history_tag">
+							<a href="{yun:}$key.url{/yun}">{yun:}$key.key_name{/yun}</a>
+						</div>
+					{yun:}/key{/yun}
+				{yun:}/if{/yun}    
+			</div>
+		</div>
+
+	</div>
+</div>
+<script>
+  
+    function clearhis(type) {
+        $.post("index.php?c=search&a=del", {
+            type: type
+        }, function(data) {
+            if(data) {
+                layer.open({
+                    content: "历史已清除！",
+                    time: 2,
+                    end: function() {
+						 window.location.href =data;
+                    }
+                });
+                return false;
+            } else {
+                layer.open({
+                    content: "操作失败！",
+                    time: 2,
+                    end: 8
+                });
+                return false;
+            }
+        });
+    }
+	function searchhtmlhide(){
+		$("#searchhtml").addClass('none');
+		$("#listhtml").removeClass('none');
+	}
+	$(document).ready(function() {
+		$(".searchnew").on('click', function() {
+			$('body').removeAttr('style');
+			$('.popshow').removeClass('grade-w-roll');
+			$('.popshow').removeAttr('style');
+			$('.popshow').removeClass('popshow');
+			$('.pubtwo').attr('style','display:none');
+			setTimeout(function(){
+				$("#listhtml").addClass('none');
+				$("#searchhtml").removeClass('none');
+			},400);
+		})
+		var type = $("#type").val();
+		$.post("index.php?c=search&a=history", {
+            type: type
+        }, function(data) {
+			if(data){
+				var data = eval('(' + data + ')');
+				if(data.hisid){
+					$("#clearhistory").html("<a href='javascript:void(0);' onclick=\"clearhis('"+data.hisid+"')\">清除历史</a>");
+					$("#clearhistory").show();
+				}
+				if(data.list){
+					var html='';
+					$.each(data.list, function(){
+						html+="<div class=\"search_history_tag\"> <a href=\""+this.url+"\">"+this.key_name+"</a></div>";					
+					});
+					$("#historylist").html(html);
+				}
+			} 
+        });
+	});
+</script>

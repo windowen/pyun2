@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /> 
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.config.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.all.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	</script><script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<title>后台管理</title>
+</head>
+
+<body class="body_ifm">
+
+<script> 
+	var ue = UE.getEditor('myEditor');
+	function forsendemail(type){
+		var emailtype=$("input[name='emailtype']:checked").val();
+		var emailday=$("input[name='emailday']").val();
+		if(emailtype==''){
+			parent.layer.msg('请选择提醒类型！', 2, 8);return false;
+		}
+		if(emailday==''){
+			parent.layer.msg('请填写时间！', 2, 8);return false;
+		} 
+		sendemail(type,emailtype,emailday,1,0,'正在发送……');
+	}
+
+	function sendemail(type,emailtype,emailday,stype,page,msg){
+
+		if(stype=='1'){
+			var ii = parent.layer.load(msg,0);
+			var pytoken=$("input[name='pytoken']").val();
+			if(type=='com'){
+				var url='index.php?m=email&c=sendcom';
+			}else{
+				var url='index.php?m=email&c=senduser';
+			}
+			$.post(url,{emailtype:emailday,pytoken:pytoken,page:page},function(data){
+				parent.layer.close(ii);
+				var data=eval('('+data+')');
+				sendemail(type,emailtype,emailday,data.stype,data.page,data.msg);
+			})
+		}else if(msg=='发送成功！'){
+			parent.layer.close(ii);
+			parent.layer.alert(msg,9);
+		}else{
+			parent.layer.close(ii);
+			parent.layer.alert(msg,8);
+		}	
+	} 
+	function chsendemail(){
+		var utype = $('input[name="utype"]:checked').val();
+ 		if( utype == null){
+			parent.layer.msg("请选择用户类型！",2,8);return false; 
+		}
+		if($("#CheckboxGroup1_5").attr("checked")=='checked'){
+			var email=$("input[name='email_user']").val();
+			if(email==''){
+				parent.layer.msg("请输入自定义邮箱！",2,8);return false;
+			}
+		}
+		var title=$("input[name='email_title']").val();
+		if(title==''){
+			parent.layer.msg("请输入邮件主题！",2,8);return false;
+		}
+		var content = UE.getEditor('myEditor').getContent();
+		if(content==''){
+			parent.layer.msg("请输入邮件内容！",2,8);return false;
+		}
+		var pytoken=$("input[name='pytoken']").val();
+		sendDivEmail(utype,title,content,email,pytoken,3,20,0,0,0,"正在发送，请稍候。。。");
+ 	}
+
+
+	function sendDivEmail(utype,title,content,email,pytoken,status,pagelimit,value,sendok,sendno,msg){
+		if(status=="3"){
+ 			var pagelimit=20;
+			var pytoken=$("input[name='pytoken']").val();
+			var ii = parent.layer.msg(msg,20,{
+				icon:16,shade:0.01
+			});
+
+			$.post("index.php?m=email&c=send",{
+ 				utype:utype,email_title:title,content:content,email_user:email,pytoken:pytoken,
+				pagelimit:pagelimit,value:value,sendok:sendok,sendno:sendno},
+				function(data){
+					parent.layer.close(ii);
+					var data=eval('('+data+')');
+ 					sendDivEmail(utype,title,content,email,pytoken,data.status,pagelimit,data.value,data.sendok,data.sendno,data.msg)
+				})
+		}else{
+			parent.layer.close(ii);
+			parent.layer.alert(msg, 9);
+			location.reload();
+		}
+	}
+ 
+</script>
+
+<div class="infoboxp">
+	<div class="tty-tishi_top">
+	<div class="tabs_info">
+		<ul>
+			<li {yun:}if $smarty.get.c==''{/yun}class="curr"{yun:}/if{/yun}><a  href="index.php?m=email">邮件推广</a></li>
+			<li {yun:}if $smarty.get.c=='msgtg'{/yun}class="curr"{yun:}/if{/yun}><a href="index.php?m=email&c=msgtg">短信推广</a></li>
+			<li {yun:}if $smarty.get.c=='tgresume'{/yun}class="curr"{yun:}/if{/yun} ><a href="index.php?m=email&c=tgresume">简历推广</a></li>
+			<li {yun:}if $smarty.get.c=='tgjob'{/yun}class="curr"{yun:}/if{/yun} > <a href="index.php?m=email&c=tgjob">职位推广</a></li>
+			<li {yun:}if $smarty.get.c=='email'{/yun}class="curr"{yun:}/if{/yun} ><a href="index.php?m=email&c=email">自定义邮件</a></li>
+			<li {yun:}if $smarty.get.c=='msg'{/yun}class="curr"{yun:}/if{/yun}><a  href="index.php?m=email&c=msg">自定义短信</a></li>
+		</ul>
+	</div>
+
+	<div class="clear"></div>
+	
+	<div class="admin_new_tip">
+		<a href="javascript:;" class="admin_new_tip_close"></a>
+		<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+		<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+		<div class="admin_new_tip_list_cont">
+			<div class="admin_new_tip_list">发送邮件时，请选择合适的时间进行发送</div>
+		</div>
+	</div>
+
+	<div class="clear"></div>
+	
+		<iframe  id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+		
+
+		<form name="myform" method="post" target="supportiframe" class="layui-form">
+			<table width="100%" class="table_form">
+				<tr>
+					<th colspan="2" class="admin_bold_box">
+						<div class="admin_bold">自定义邮件</div>
+					</th>
+				</tr>
+				<tr>
+					<th width="120" class="t_fr">选择用户：</th>
+					<td>
+						<div class="layui-input-block">
+							<input type="radio" name="utype" value="1" id="CheckboxGroup1_0" title="个人用户">
+							<input type="radio" name="utype" value="2" id="CheckboxGroup1_1" title="企业用户" >
+							<input type="radio" name="utype" value="5" id="CheckboxGroup1_5" title="自定义用户" >
+						</div>
+						<span class="admin_web_tip">注：全部用户发送，时间较长，建议分批发送</span>
+					</td>
+				</tr> 
+				<tr id="user_email" style="display:none;">
+					<th width="120" class="t_fr">用户邮箱：</th>
+					<td>
+						<input class="layui-input t_w480" type="text" name="email_user" size="50"/>
+						<span class="admin_web_tip">多个邮箱请用,(半角)隔开</span>
+					</td>
+				</tr>
+				<tr class="admin_table_trbg">
+					<th width="120">邮件主题：</th>
+					<td>
+						<input class="layui-input t_w480" type="text" name="email_title" size="40"/>
+						<font color="gray"></font>
+					</td>
+				</tr>
+				<tr>
+					<th width="120" style="float: left;margin-top: 10px;">邮件内容：</th>
+					<td><script id="myEditor" name="content" type="text/plain" style="width:800px;height:300px;"></script></td>
+				</tr>
+				<tr>
+					<th width="120"></th>
+					<td align="left" colspan="2">
+						<input class="layui-btn tty_sub" type="button" value="&nbsp;发 送&nbsp;"  onclick="chsendemail();" />
+						<input class="layui-btn tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+		</form>
+
+		{yun:}if $smarty.get.type=='com'{/yun} 
+			<table width="100%" class="table_form table_form_bg">
+				<tr>
+					<th width="120">提醒类型</th>
+					<td>
+						<div class="admin_td_h"> 
+							<input type="radio" name="emailtype" checked value="1" id="emailtype_1">&nbsp;
+							<label for="emailtype_1">未登录</label>&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="emailtype" value="2" id="emailtype_2">&nbsp;
+							<label for="emailtype_2">会员到期</label>&nbsp;&nbsp;&nbsp;  
+						</div>
+					</td>
+				</tr> 
+				<tr>
+					<th width="120">时间</th>
+					<td>
+						<input type="text" name="emailday" value='7' class="input-text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"> 
+						<span class="admin_web_tip">提示：如输入7则表示7天内为登录用户。</span>
+					</td>
+				</tr> 
+				<tr>
+					<td align="center" colspan="2">
+						<input class="admin_button" type="button" onclick="forsendemail('com')" name="email_send" value="&nbsp;发 送&nbsp;"  />
+						<input class="admin_button" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}"> 
+
+		{yun:}elseif $smarty.get.type=='user'{/yun} 
+			<table width="100%" class="table_form table_form_bg">
+				<tr>
+					<th width="120">提醒类型</th>
+					<td>
+						<div class="admin_td_h"> 
+							<input type="radio" name="emailtype" value="1" checked id="emailtype_1">&nbsp;
+							<label for="emailtype_1">未登录</label>&nbsp;&nbsp;&nbsp;
+							<input type="radio" name="emailtype" value="2" id="emailtype_2">&nbsp;
+							<label for="emailtype_2">未更新简历</label>&nbsp;&nbsp;&nbsp; 
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<th width="120">时间</th>
+					<td>
+						<input type="text" name="emailday"  value='7' class="input-text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"> 
+						<span class="admin_web_tip">提示：如输入7则表示7天内为登录用户。</span>
+					</td>
+				</tr> 
+				
+				<tr>
+					<td align="center" colspan="2">
+						<input class="layui-btn layui-btn-normal" type="button" onclick="forsendemail('user')"  name="email_send" value="&nbsp;发 送&nbsp;"  />
+						<input class="layui-btn layui-btn-normal" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+					</td>
+				</tr>
+			</table>
+			<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}"> 
+
+		{yun:}/if{/yun}
+
+	</div>
+</div>
+
+<script>
+	layui.use(['layer', 'form'], function(){
+		var layer = layui.layer
+			,form = layui.form
+			,$ = layui.$;
+
+		$("input[name='utype']").each(function(){
+			$(this).next().click(function(){
+				var val = $(this).prev().val();
+				if(val=='5'){
+					$("#user_email").show();
+					$("input[name=email_user]").val('');
+				}else{
+					$("#user_email").hide();
+					$("input[name=email_user]").val('');
+				}
+			});
+		});
+	});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <title>{yun:}$config.sy_webname{/yun} - 手机人才网</title>
+        <meta name="keywords" content="人才招聘,网络招聘,wap" />
+        <meta name="description" content="人才招聘网wap网站" />
+        <meta content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
+        <meta name="MobileOptimized" content="240" />
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta content="yes" name="apple-mobile-web-app-capable" />
+        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+        <link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/yun_wap_member.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <script src="{yun:}$config.sy_weburl{/yun}/app/template/wap/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script>
+            //选择快捷输入
+            mui('.mui-popover').on('tap', 'li', function(e) {
+                document.getElementById("name").value = document.getElementById("name").value + this.children[0].innerHTML;
+                mui('.mui-popover').popover('toggle')
+            })
+			var pricename = '{yun:}$config.integral_pricename{/yun}';
+
+            $(document).ready(function(){
+                var isskip = document.getElementById('isskip');
+                if(isskip){
+                    isskip.addEventListener('tap', function(event) {
+                        
+                        var btnArray =['继续完善','跳过'];
+                        mui.confirm('您的简历还没有全部完善，是否确认跳过？', '', btnArray, function(e) {
+                            if(e.index==1){
+                                location.href = wapurl + 'member/index.php?c=rcomplete&eid='+'{yun:}$smarty.get.eid{/yun}';
+                            }
+                        })
+                    })
+                }
+            });
+        </script>
+    </head>
+
+    <body>
+        <!-- Content area -->
+        <div class="body_wap">
+
+            <header class="header_h">
+
+                <div class="header_fixed">
+                    <div class="header">
+
+                        <div class="userheader_bg">
+                            {yun:}if $smarty.get.c=='resume' && $smarty.get.fr=='1' && $expect.integrity<100{/yun}
+                            <a  id="isskip" class="userheader_return" href="javascript:void(0)" ></a>
+                            {yun:}else{/yun}
+                            <a  class="userheader_return {yun:}if !$backurl{/yun}mui-action-back{yun:}/if{/yun}" href="{yun:}if $backurl{/yun}{yun:}$backurl{/yun}{yun:}else{/yun}javascript:history.back(){yun:}/if{/yun}"></a>
+                            {yun:}/if{/yun}
+                            <div class="userheader_tit">{yun:}$headertitle{/yun}</div>
+                            {yun:}if $smarty.get.c=='resume' && $expect && $smarty.get.fr!='1'{/yun}
+						    <span class="yun_usermember_resume_setjl"><a href="{yun:}url m=wap c=resume a=show id=$expect.id{/yun}" class="" style="color:#fff">预览</a></span>
+                           	
+                            {yun:}/if{/yun}
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+        

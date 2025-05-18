@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="./images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="./images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="./images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	</head>
+	
+	<style>
+		.layui-form-checkbox span {width:100px;}
+     	.fore_box_list .layui-form-checkbox span{ width:auto}
+  	</style>
+	
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top"> 
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">管理员根据网站运营需求，添加不同类型的管理员！管理员类型分为：“CRM、超级管理员、分站管理员”用户权限组成相关设置，超级管理员可以根据运营需求设置。</div>
+					</div>
+				</div>
+			
+				<div class="clear"></div>
+			</div>
+			
+			<div style="background:#fff">
+				
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+                <form name="myform" target="supportiframe" action="index.php?m=admin_user&c=savagroup" method="post" id="myform" class="layui-form">
+					
+					<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+					<input type="hidden" value="{yun:}$admin_group.id{/yun}" name="groupid" />
+					<input type="hidden" name="power[]"  value="999"/>
+					
+                	<table class="table_form " width="100%">
+						
+						<tr>
+							<td width="100">用户组名称</td>
+							<td colspan="2" style="padding-left:10px;border-left:1px solid #eee;">
+							<input type="text" name="group_name" id="realname" class="input-text" size="40" value="{yun:}$admin_group.group_name{/yun}">
+							</td>
+						</tr>	
+						
+						<tr>
+                
+			           		<td width="120" valign="top" style="padding-right:15px">
+							  	<ul class="qx_namebox">
+							 		{yun:}foreach item=v key=keyone from=$navigation{/yun}
+			                			<li class="qx_onelist {yun:}if $keyone<1{/yun}qx_cur{yun:}/if{/yun}" data-id='{yun:}$v.id{/yun}'><span class="qx_onelist_s">{yun:}$v.name{/yun}</span>
+							 				<input type="hidden" name="power[]" value="{yun:}if in_array($v.id,$power){/yun}{yun:}$v.id{/yun}{yun:}/if{/yun}" id="group{yun:}$v.id{/yun}" >
+										</li>
+									{yun:}/foreach{/yun}
+							 	</ul>
+			          		</td>
+			                 
+                 			<td valign="top"  width="120" style="border-left:1px solid #eee;border-right:1px solid #eee; padding-right:15px">
+								{yun:}foreach item=v key=keyone from=$navigation{/yun}
+			                 		<ul class="qx_second move{yun:}$v.id{/yun} {yun:}if $keyone>0{/yun}none{yun:}/if{/yun}">
+									 	{yun:}foreach item=val key=keytwo  from=$one_menu[$v.id]{/yun}
+					                 		<li class="{yun:}if $keytwo<1{/yun}qx_second_cur{yun:}/if{/yun}" data-id='{yun:}$val.id{/yun}' data-pid='{yun:}$v.id{/yun}'><span>{yun:}$val.name{/yun}</span>
+									 			<input type="hidden" name="power[]"  value="{yun:}if in_array($val.id,$power){/yun}{yun:}$val.id{/yun}{yun:}/if{/yun}" id="group{yun:}$val.id{/yun}" >
+									 		</li>
+									 	{yun:}/foreach{/yun}
+			                		</ul>
+								{yun:}/foreach{/yun}
+			                </td>
+			                
+                  			<td valign="top">
+							 	{yun:}foreach item=v key=keyone from=$navigation{/yun}
+									
+									{yun:}foreach item=val key=keytwo from=$one_menu[$v.id]{/yun}
+									  	<ul class="qx_level_four  move{yun:}$val.id{/yun} {yun:}if $keyone>0 || $keytwo>0{/yun}none{yun:}/if{/yun}">
+									  		{yun:}foreach item=value  from=$two_menu[$val.id]{/yun}
+									  			<li class="move{yun:}$value.id{/yun}">
+						                          	<div class="fore_box">
+														<div class="fore_box_c">
+						                            		
+						                            		<div class="fore_box_name"> <input type="checkbox" name="power[]" title="{yun:}$value.name{/yun}"  value="{yun:}$value.id{/yun}" {yun:}if in_array($value.id,$power){/yun}checked="checked"{yun:}/if{/yun} id="group{yun:}$value.id{/yun}"   t1="{yun:}$v.id{/yun}" t2="{yun:}$val.id{/yun}" t3=0 lay-filter="power">  </div>
+															
+															{yun:}foreach item=valuemodule from=$three_menu[$value.id]{/yun}
+								                                <span class="fore_box_list">
+															 	<input type="checkbox" name="power[]" title="{yun:}$valuemodule.name{/yun}"  value="{yun:}$valuemodule.id{/yun}" {yun:}if in_array($valuemodule.id,$power){/yun}checked="checked"{yun:}/if{/yun}  t1="{yun:}$v.id{/yun}" t2="{yun:}$val.id{/yun}" t3="{yun:}$value.id{/yun}"  id="group{yun:}$valuemodule.id{/yun}" lay-skin="primary" lay-filter="power">
+								                             	</span>
+														 	{yun:}/foreach{/yun}
+														 	
+						                                </div>
+													</div>         
+									  			</li>
+											{yun:}/foreach{/yun}
+										</ul>
+									{yun:}/foreach{/yun}
+									
+							  	{yun:}/foreach{/yun}
+			              	</td>
+			  			</tr>
+						
+						<tr>
+							<td colspan="3" align="center" height="40" style="border-top:1px solid #eee;">
+								<input class="tty_sub" name="add_group" type="submit" value="提交" id="dosubmit">
+							</td>
+						</tr>
+                	</table>
+              	</form>
+           	</div>
+           	
+           	<div class="clear"></div>
+           	 
+		</div>
+		
+		<script language="javascript">
+			layui.use(['layer', 'form', 'element'], function() {
+			
+				var layer = layui.layer,
+					form = layui.form,
+					element = layui.element,
+					$ = layui.$;
+				
+				form.on('checkbox(power)', function(data) {
+
+					var id = data.elem.id;
+					var t1 = $('#' + id).attr('t1');
+					var t2 = $('#' + id).attr('t2');
+					var t3 = $('#' + id).attr('t3');
+				  
+					if (data.elem.checked) {
+
+						$("#group" + t1).val(t1);
+						$("#group" + t2).val(t2);
+						
+						if(t3 == 0){
+						
+							$('.move' + data.elem.value + ' input[type="checkbox"]').each(function() {
+							
+								$(this).attr("checked", true);
+							});
+						}else{
+							
+							$("#group" + t3).attr("checked", true);
+						}
+ 
+						form.render();
+
+					} else {
+						
+						var t1checked = 0;
+						var t2checked = 0;
+						var t3checked = 0;
+						
+						if(t3 ==0){
+							$('.move' + data.elem.value + ' input[type="checkbox"]').each(function() {
+							
+								$(this).attr("checked", false);
+							});
+						}
+						
+						$('.move' + t2 + ' input[type="checkbox"]:checked').each(function() {
+							t2checked = 1;
+							return false;
+						});
+						
+						$('.move' + t3 + ' input[type="checkbox"]:checked').each(function() {
+							t3checked = 1;
+							return false;
+						});
+						
+						if (t2checked != 1) {
+							$("#group" + t2).val('');
+						}
+						
+						$('.move' + t1 + ' input[type="hidden"]').each(function() {
+						
+							if($(this).val()!=''){
+
+								t1checked = 1;
+								return false;
+							}
+						});
+						
+						if (t1checked != 1) {
+							$("#group" + t1).val('');
+						}
+						
+						form.render();
+					}
+				});
+			});
+
+			$(function(){
+			
+				$('.qx_namebox li').click(function(){
+
+					var secid= $(this).attr('data-id');
+
+					$('.qx_onelist').removeClass('qx_cur');
+					$(this).addClass('qx_cur');
+
+					$('.qx_second').hide();
+					$('.move'+secid).show();
+
+					var thid = $('.move'+secid).find('.qx_second_cur').attr('data-id');
+					
+					$('.qx_level_four').hide();
+					$('.move'+thid).show();
+					
+				});
+
+				$('.qx_second li').click(function(){
+					
+					var thid= $(this).attr('data-id');
+					var pid = $(this).attr('data-pid');
+					$('.move'+pid+' li').removeClass('qx_second_cur');
+					$(this).addClass('qx_second_cur');
+
+					$('.qx_level_four').hide();
+					$('.move'+thid).show();
+				});
+			})
+		</script>
+	</body>
+</html>

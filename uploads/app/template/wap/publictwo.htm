@@ -1,0 +1,621 @@
+<script>
+	$(document).ready(function() {
+		$(".searchOptions_list li a").removeClass("search_h1_box_cur_list");
+		$("#resume").submit(function(e) {
+			var min = $("#minresume").val();
+			var max = $("#maxresume").val();
+			if(min && max && parseInt(max) < parseInt(min)) {
+				$("#minresume").val(max);
+				$("#maxresume").val(min);
+			}
+		});
+		$("#job").submit(function(e) {
+			var min = $("#minjob").val();
+			var max = $("#maxjob").val();
+			if(min && max && parseInt(max) < parseInt(min)) {
+				$("#minjob").val(max);
+				$("#maxjob").val(min);
+			}
+		});
+		$("#lietou").submit(function(e) {
+			var min = $("#minlt").val();
+			var max = $("#maxlt").val();
+			if(min && max && parseInt(max) < parseInt(min)) {
+				$("#minlt").val(max);
+				$("#maxlt").val(min);
+			}
+		});
+	});
+	function check_city_li(id,type){
+		var url=$("#searchurl").val();
+		$.post(wapurl+"/?c=ajax&a=ajax_url",{url:url,type:type,id:id},function(data){
+			location.href=wapurl+data;
+		})
+	}
+	function check_exp_li(id,type){
+      var comexp = $("#comexp").val(); 
+      $('#exp'+comexp).attr('class','');
+      $('#exp'+id).attr('class','conditional_screening_cur');
+      $('#comexp').removeAttr('disabled');
+      $('#comexp').val(id);
+       
+	}
+  function check_edu_li(id,type){
+      var comedu=$("#comedu").val();
+      $('#edu'+comedu).attr('class','');
+      $('#edu'+id).attr('class','conditional_screening_cur');
+      $('#comedu').removeAttr('disabled');
+      $('#comedu').val(id);
+    
+  }
+  function check_uptime_li(id,type){
+      var comuptime=$("#comuptime").val();
+      $('#uptime'+comuptime).attr('class','');
+      $('#uptime'+id).attr('class','conditional_screening_cur');
+      if(id){
+        $('#comuptime').removeAttr('disabled');
+      }else{
+        $('#comuptime').attr("disabled","disabled");
+      }
+      
+      $('#comuptime').val(id);
+  }
+  function check_pr_li(id,type){
+      var compr=$("#compr").val();
+      $('#pr'+compr).attr('class','');
+      $('#pr'+id).attr('class','conditional_screening_cur');
+      if(id){
+        $('#compr').removeAttr('disabled');
+      }else{
+        $('#compr').attr("disabled","disabled");
+      }
+      $('#compr').val(id);
+    
+  }
+    
+  function check_mun_li(id,type){
+     var commun=$("#commun").val();
+      $('#mun'+commun).attr('class','');
+      $('#mun'+id).attr('class','conditional_screening_cur');
+       if(id){
+        $('#commun').removeAttr('disabled');
+      }else{
+        $('#commun').attr("disabled","disabled");
+      }
+      $('#commun').val(id);  
+      
+  }
+  function check_sex_li(id,type){
+     var comsex=$("#comsex").val();
+      $('#sex'+comsex).attr('class','');
+      $('#sex'+id).attr('class','conditional_screening_cur');
+      $('#comsex').removeAttr('disabled');
+      $('#comsex').val(id);  
+  }
+	function check_uedu_li(id,type){
+		var useredu=$("#useredu").val();
+		$('#uedu'+useredu).attr('class','');
+		$('#uedu'+id).attr('class','conditional_screening_cur');
+		$('#useredu').removeAttr('disabled');
+		$('#useredu').val(id);
+	}
+	function check_useruptime_li(id,type){
+		var useruptime=$("#useruptime").val();
+		$('#uuptime'+useruptime).attr('class','');
+		$('#uuptime'+id).attr('class','conditional_screening_cur');
+		$('#useruptime').removeAttr('disabled');
+		$('#useruptime').val(id);
+	}
+	function check_hy_li(id,type){
+		var userhy=$("#userhy").val();
+		$('#hy'+userhy).attr('class','');
+		$('#hy'+id).attr('class','conditional_screening_cur');
+		$('#userhy').removeAttr('disabled');
+		$('#userhy').val(id);
+	}
+	function check_report_li(id,type){
+		var userreport=$("#userreport").val();
+		$('#report'+userreport).attr('class','');
+		$('#report'+id).attr('class','conditional_screening_cur');
+		$('#userreport').removeAttr('disabled');
+		$('#userreport').val(id);
+	}
+	function check_userexp_li(id,type){
+		var userexp=$("#userexp").val();
+		$('#uexp'+userexp).attr('class','');
+		$('#uexp'+id).attr('class','conditional_screening_cur');
+		$('#userexp').removeAttr('disabled');
+		$('#userexp').val(id);
+	}
+	function check_integrity_li(id,type){
+		var userintegrity=$("#userintegrity").val();
+		$('#integrity'+userintegrity).attr('class','');
+		$('#integrity'+id).attr('class','conditional_screening_cur');
+		$('#userintegrity').removeAttr('disabled');
+		$('#userintegrity').val(id);
+	}
+	function check_tag_li(id,type){
+		var usertag=$("#usertag").val();
+		$('#tag'+usertag).attr('class','');
+		$('#tag'+id).attr('class','conditional_screening_cur');
+		if(id){
+			$('#usertag').removeAttr('disabled');
+		}else{
+			$('#usertag').attr("disabled","disabled");
+		}
+		$('#usertag').val(id);
+	}
+	function check_rtype_li(id,type){
+
+		var userrtype=$("#userrtype").val();
+		$('#rtype'+userrtype).attr('class','');
+		$('#rtype'+id).attr('class','conditional_screening_cur');
+		if(id){
+			$('#userrtype').removeAttr('disabled');
+		}else{
+			$('#userrtype').attr("disabled","disabled");
+		}
+		$('#userrtype').val(id);
+	}
+	function check_job_li(id,type){
+		var url=$("#searchurl").val();
+		$.post(wapurl+"/?c=ajax&a=ajax_url",{url:url,type:type,id:id},function(data){
+			location.href=wapurl+data;
+		})
+	}
+	function check_ltjob_li(id,type){
+		var url=$("#searchurl").val();
+		$.post(wapurl+"/?c=ajax&a=ajax_url",{url:url,type:type,id:id},function(data){
+			location.href=wapurl+data;
+		})
+	}
+	function check_redeem_li(id,type){
+		var url=$("#searchurl").val();
+		$.post(wapurl+"/?c=ajax&a=ajax_url",{url:url,type:type,id:id},function(data){
+			location.href=wapurl+data;
+		})
+	}
+</script>
+<!-- Category职位类别 -->
+<div class="Category-eject pubtwo">
+	<ul class="Category-w" id="jobone">
+		{yun:}foreach item=v from=$job_index{/yun}
+		<li class="qCategorytw{yun:}$v{/yun}" onclick="Categorytw('{yun:}$v{/yun}','{yun:}$job_name[$v]{/yun}','jobone')">{yun:}$job_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Category-t" id="jobone_son">
+	</ul>
+	<ul class="Category-s" id="job_post">
+	</ul>
+</div>
+<!-- End Category -->
+
+<!-- grade 城市类别-->
+<div class="grade-eject pubtwo">
+
+	<ul class="grade-w" id="provinceid">
+		<li onclick="check_city_li('0','provinceid');">全部</li>
+		{yun:}foreach item=v from=$city_index{/yun}
+		<li class="qgrade{yun:}$v{/yun}" onclick="grade1('{yun:}$v{/yun}','{yun:}$city_name[$v]{/yun}','provinceid','{yun:}$smarty.get.a{/yun}')">{yun:}$city_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="grade-t" id="cityid"></ul>
+	<ul class="grade-s" id="three_cityid"></ul>
+
+</div>
+<!-- End grade -->
+
+<!-- Substation 分站地区-->
+<div class="Substation-eject Substation-height pubtwo">
+	<ul class="Substation-Substation" id="Substation-Substation">
+		<li>
+			{yun:}if $smarty.get.c=="job"{/yun}
+			<a href="{yun:}searchurl m=wap c=job three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			{yun:}else if $smarty.get.c=="resume"{/yun}
+			<a href="{yun:}searchurl m=wap c=resume three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			{yun:}else if $smarty.get.c=="part"{/yun}
+			<a href="{yun:}searchurl m=wap c=part three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			{yun:}else if $smarty.get.c=="company"{/yun}
+			<a href="{yun:}searchurl m=wap c=company three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			{yun:}else if $smarty.get.c=="post"{/yun}
+			<a href="{yun:}searchurl m=wap c=post three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			{yun:}else if $smarty.get.c=="post" && $smarty.get.a=="service"{/yun}
+			<a href="{yun:}searchurl m=wap c=post three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			{yun:}else if $smarty.get.c=="post" && $smarty.get.a=="famous"{/yun}
+			<a href="{yun:}searchurl m=wap c=post three_cityid='' untype='three_cityid'{/yun}">全部</a>
+			
+			{yun:}/if{/yun}
+
+		</li>
+
+		{yun:}foreach from=$city_type[$config.cityid] item=v{/yun}
+		<li>
+			{yun:}if $smarty.get.c=="job"{/yun}
+			<a href="{yun:}searchurl m=wap c=job three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="resume"{/yun}
+			<a href="{yun:}searchurl m=wap c=resume three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="part"{/yun}
+			<a href="{yun:}searchurl m=wap c=part three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="company"{/yun}
+			<a href="{yun:}searchurl m=wap c=company three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="post"{/yun}
+			<a href="{yun:}searchurl m=wap c=post three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="post" && $smarty.get.a=="service"{/yun}
+			<a href="{yun:}searchurl m=wap c=post three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="post" && $smarty.get.a=="famous"{/yun}
+			<a href="{yun:}searchurl m=wap c=post three_cityid=$v untype='three_cityid'{/yun}">{yun:}$city_name[$v]{/yun}</a>
+			
+			{yun:}/if{/yun}
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Substation -->
+
+
+<!-- End Sortexp -->
+
+<!-- gengduos 找人才更多-->
+<div class="Gengduos-eject pubtwo">
+	<form action="{yun:}$config_wapdomain{/yun}/index.php" method="get" id="resume">
+		<input type="hidden" name="c" value="{yun:}if $smarty.get.c{/yun}{yun:}$smarty.get.c{/yun}{yun:}else{/yun}resume{yun:}/if{/yun}" />
+		<div class="conditional_screening_box">
+			<div class="conditional_screening_pv">
+				<div class="conditional_screening_all">
+				<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">经验要求</span></div>
+						<ul class="conditional_screening_list" id="Sortexp-Sortexp">
+							{yun:}foreach from=$userdata.user_word item=v{/yun}
+							<li id="uexp{yun:}$v{/yun}" {yun:}if $smarty.get.exp==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_userexp_li('{yun:}$v{/yun}','exp')"><a href="javascript:void(0)">{yun:}$userclass_name[$v]{/yun}</a>
+							</li>
+							{yun:}/foreach{/yun}
+						</ul>
+				</div>
+				
+					<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">简历完整度</span></div>
+						<ul class="conditional_screening_list">
+						{yun:}foreach from=$integrity_name key=k item=v{/yun}
+						<li id="integrity{yun:}$k{/yun}" {yun:}if $smarty.get.integrity==$k{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_integrity_li('{yun:}$k{/yun}','integrity')"><a href="javascript:void(0)">{yun:}$v{/yun}</a></li>
+					   {yun:}/foreach{/yun}
+						</ul>
+					</div>
+					<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">学历要求</span></div>
+						<ul class="conditional_screening_list">
+						{yun:}foreach from=$userdata.user_edu item=v{/yun}
+						<li id="uedu{yun:}$v{/yun}" {yun:}if $smarty.get.edu==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_uedu_li('{yun:}$v{/yun}','edu')"><a href="javascript:void(0)">{yun:}$userclass_name[$v]{/yun}</a></li>
+						{yun:}/foreach{/yun}
+						</ul>
+					</div>
+					<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">到岗时间</span></div>
+						<ul class="conditional_screening_list">
+						{yun:}foreach from=$userdata.user_report item=v{/yun}
+						<li id="report{yun:}$v{/yun}" {yun:}if $smarty.get.report==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_report_li('{yun:}$v{/yun}','report')"><a href="javascript:void(0)">{yun:}$userclass_name[$v]{/yun}</a></li>
+					   {yun:}/foreach{/yun}
+						</ul>
+					</div>
+					<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">更新时间</span></div>
+						<ul class="conditional_screening_list">
+						<li id="uuptime" {yun:}if $smarty.get.uptime==''{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_useruptime_li('','uptime')"><a href="javascript:void(0)">全部</a></li>
+						{yun:}foreach from=$uptime key=key item=v{/yun}
+						<li id="uuptime{yun:}$key{/yun}" {yun:}if $smarty.get.uptime==$key{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_useruptime_li('{yun:}$key{/yun}','uptime')"><a href="javascript:void(0)">{yun:}$v{/yun}</a></li>
+						{yun:}/foreach{/yun}
+						</ul>
+					</div>
+					<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">个人标签</span></div>
+						<ul class="conditional_screening_list">
+						<li id="tag" {yun:}if $smarty.get.tag==''{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_tag_li('','tag')"><a href="javascript:void(0)">全部</a></li>
+						{yun:}foreach from=$userdata.user_tag item=v{/yun}
+						<li id="tag{yun:}$v{/yun}" {yun:}if $smarty.get.tag==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_tag_li('{yun:}$v{/yun}','tag')"><a href="javascript:void(0)">{yun:}$userclass_name[$v]{/yun}</a></li>
+						{yun:}/foreach{/yun}
+						</ul>
+					</div>
+
+					<div class="conditional_screening_cont">
+						<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">工作性质</span></div>
+						<ul class="conditional_screening_list">
+						<li id="rtype" {yun:}if $smarty.get.type==''{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_rtype_li('','rtype')"><a href="javascript:void(0)">全部</a></li>
+						{yun:}foreach from=$userdata.user_type item=v{/yun}
+						<li id="rtype{yun:}$v{/yun}" {yun:}if $smarty.get.type==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_rtype_li('{yun:}$v{/yun}','rtype')"><a href="javascript:void(0)">{yun:}$userclass_name[$v]{/yun}</a></li>
+						{yun:}/foreach{/yun}
+						</ul>
+					</div>
+                    
+				</div>
+				<div class="conditional_screening_operation">
+				<div class="conditional_screening_operation_left"><a href="{yun:}if $smarty.get.a{/yun}{yun:}url m=wap c=$smarty.get.c a=$smarty.get.a{/yun}{yun:}else{/yun}{yun:}url m=wap c=$smarty.get.c{/yun}{yun:}/if{/yun}" class="conditional_screening_operation_cz">重置</a></div>
+				<div class="conditional_screening_operation_right"><a href="javascript:void(0)" onclick="$('#resume').submit();" class="conditional_screening_operation_ok">确定</a></div>
+				</div>
+			</div>
+			{yun:}if $smarty.get.provinceid{/yun}<input type="hidden" name="provinceid" value="{yun:}$smarty.get.provinceid{/yun}"/>{yun:}/if{/yun}
+			{yun:}if $smarty.get.cityid{/yun}<input type="hidden" name="cityid" value="{yun:}$smarty.get.cityid{/yun}"/>{yun:}/if{/yun}
+			{yun:}if $smarty.get.three_cityid{/yun}<input type="hidden" name="cityid" value="{yun:}$smarty.get.three_cityid{/yun}"/>{yun:}/if{/yun}
+			{yun:}if $smarty.get.jobin{/yun}<input type="hidden" name="jobin" value="{yun:}$smarty.get.jobin{/yun}"/>{yun:}/if{/yun}
+			<input type="hidden" name="hy" id="userhy" {yun:}if $smarty.get.hy==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.hy{/yun}" />
+			<input type="hidden" id="useredu" name="edu" {yun:}if $smarty.get.edu==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.edu{/yun}" />
+			<input type="hidden" name="uptime" id="useruptime" {yun:}if $smarty.get.uptime==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.uptime{/yun}" />
+			<input type="hidden" name="report" id="userreport" {yun:}if $smarty.get.report==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.report{/yun}" />
+			<input type="hidden" name="exp" id="userexp" {yun:}if $smarty.get.exp==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.exp{/yun}" />
+			<input type="hidden" name="integrity" id="userintegrity" {yun:}if $smarty.get.integrity==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.integrity{/yun}" />
+
+			<input type="hidden" name="tag" id="usertag" {yun:}if $smarty.get.tag==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.tag{/yun}" />
+			<input type="hidden" name="type" id="userrtype" {yun:}if $smarty.get.type==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.type{/yun}" />
+		</div>
+		
+	</form>
+	<ul class="Gengduos-t" id="Gengduohyt" style="display:block;">
+		{yun:}foreach from=$industry_index item=v{/yun}
+		<li tab_name="gdshy" data="{yun:}$v{/yun}">{yun:}$industry_name[$v]{/yun} </li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduos-t" id="Gengduoedut" style="display:none;">
+		{yun:}foreach from=$userdata.user_edu item=v{/yun}
+		<li tab_name="gdsedu" data="{yun:}$v{/yun}">{yun:}$userclass_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduos-t" id="Gengduoreportt" style="display:none;">
+		{yun:}foreach from=$userdata.user_report item=v{/yun}
+		<li tab_name="gdsreport" data="{yun:}$v{/yun}">{yun:}$userclass_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduos-t" id="Gengduouptimet" style="display:none;">
+		{yun:}foreach from=$uptime key=key item=v{/yun}
+		<li tab_name="gdsuptime" data="{yun:}$key{/yun}">{yun:}$v{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduos-t" id="Gengduotagt" style="display:none;">
+		{yun:}foreach from=$userdata.user_tag item=v{/yun}
+		<li tab_name="gdstag" data="{yun:}$v{/yun}">{yun:}$userclass_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End gengduos -->
+
+<!-- Sort 找工作经验-->
+<div class="Sort-eject Sort-height pubtwo">
+<div  id="Sort-Sort">
+<div class="conditional_screening_box">
+
+</div>
+
+</div>
+</div>
+<!-- End Sort -->
+
+<!-- Gengduoj 找工作更多-->
+<div class="Gengduoj-eject pubtwo">
+	<form action="{yun:}$config_wapdomain{/yun}/index.php" method="get" id="job">
+		<input type="hidden" name="c" value="{yun:}if $smarty.get.c{/yun}{yun:}$smarty.get.c{/yun}{yun:}else{/yun}job{yun:}/if{/yun}" />
+		{yun:}if $smarty.get.a{/yun}<input type="hidden" name="a" value="{yun:}$smarty.get.a{/yun}" />{yun:}/if{/yun}
+		
+        <div class="conditional_screening_box">
+        <div class="conditional_screening_pv">
+        <div class="conditional_screening_all">
+		<div class="conditional_screening_cont">
+			<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">薪资范围</span></div>
+			<ul class="conditional_screening_list">
+			<li {yun:}if $smarty.get.minsalary==''&&$smarty.get.maxsalary==''{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job">全部</a></li>
+			<li {yun:}if $smarty.get.maxsalary=='2000'{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job&minsalary=0&maxsalary=2000">2000以下</a></li>
+			<li {yun:}if $smarty.get.minsalary=='2000'&&$smarty.get.maxsalary=='4000'{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job&minsalary=2000&maxsalary=4000">2000-4000</a></li>
+			<li {yun:}if $smarty.get.minsalary=='4000'&&$smarty.get.maxsalary=='6000'{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job&minsalary=4000&maxsalary=6000">4000-6000</a></li>
+			<li {yun:}if $smarty.get.minsalary=='6000'&&$smarty.get.maxsalary=='8000'{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job&minsalary=6000&maxsalary=8000">6000-8000</a></li>
+			<li {yun:}if $smarty.get.minsalary=='8000'&&$smarty.get.maxsalary=='10000'{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job&minsalary=8000&maxsalary=10000">8000-10000</a></li>
+			<li {yun:}if $smarty.get.minsalary=='10000'{/yun}class="conditional_screening_salary_cur"{yun:}/if{/yun}><a href="{yun:}$config_wapdomain{/yun}/index.php?c=job&minsalary=10000">10000以上</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div class="" style="padding-left:15px;padding-top:15px;">
+			<div class="clear"></div>
+			<div class="conditional_screening_salary_text">
+				<input type="text" name="minsalary" id="minjob" value="{yun:}$smarty.get.minsalary{/yun}" class="">
+			</div>
+			<div class="conditional_screening_salary_z">—</div>
+			<div class="conditional_screening_salary_text">
+				<input type="text" name="maxsalary" id="maxjob" value="{yun:}$smarty.get.maxsalary{/yun}" class="">
+			</div>
+			<div class="clear"></div>
+		</div>
+
+        <div class="conditional_screening_cont">
+			<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">学历要求</span></div>
+			<ul class="conditional_screening_list">
+			{yun:}foreach from=$comdata.job_edu item=v{/yun}
+			<li id="edu{yun:}$v{/yun}" {yun:}if $smarty.get.edu==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_edu_li('{yun:}$v{/yun}','edu')"><a href="javascript:void(0)">{yun:}$comclass_name[$v]{/yun}</a></li>
+			{yun:}/foreach{/yun}
+			</ul>
+         </div>
+	    <div class="conditional_screening_cont">
+			<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">经验要求</span></div>
+			<ul class="conditional_screening_list">
+			{yun:}foreach from=$comdata.job_exp item=v{/yun}
+			<li id="exp{yun:}$v{/yun}" {yun:}if $smarty.get.exp==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_exp_li('{yun:}$v{/yun}','exp')"><a href="javascript:void(0)">{yun:}$comclass_name[$v]{/yun}</a></li>
+			{yun:}/foreach{/yun}
+			</ul>
+         </div>
+		<div class="conditional_screening_cont">
+			<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">性别要求</span></div>
+			<ul class="conditional_screening_list">
+			{yun:}foreach from=$com_sex key=key item=v{/yun}
+			<li id="sex{yun:}$key{/yun}" {yun:}if $smarty.get.sex==$key{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_sex_li('{yun:}$key{/yun}','sex')"><a href="javascript:void(0)">{yun:}$v{/yun}</a></li>
+		   {yun:}/foreach{/yun}
+			</ul>
+        </div>
+        
+        <div class="conditional_screening_cont">
+        <div class="conditional_screening_tit"><span class="conditional_screening_tit_n">更新时间</span></div>
+			<ul class="conditional_screening_list">
+			<li id="uptime" {yun:}if $smarty.get.uptime==''{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_uptime_li('','uptime')"><a href="javascript:void(0)">全部</a></li>
+			{yun:}foreach from=$uptime key=key item=v{/yun}
+			<li id="uptime{yun:}$key{/yun}" {yun:}if $smarty.get.uptime==$key{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_uptime_li('{yun:}$key{/yun}','uptime')"><a href="javascript:void(0)">{yun:}$v{/yun}</a></li>
+			{yun:}/foreach{/yun}
+			</ul>
+        </div>
+      
+        <div class="conditional_screening_cont">
+			<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">公司性质</span></div>
+			<ul class="conditional_screening_list">
+			<li  id="pr" {yun:}if $smarty.get.pr==''{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_pr_li('','pr')"><a href="javascript:void(0)">全部</a></li>
+			{yun:}foreach from=$comdata.job_pr item=v{/yun}
+			<li id="pr{yun:}$v{/yun}" {yun:}if $smarty.get.pr==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_pr_li('{yun:}$v{/yun}','pr')"><a href="javascript:void(0)">{yun:}$comclass_name[$v]{/yun}</a></li>
+			{yun:}/foreach{/yun}
+			</ul>
+        </div>
+        <div class="conditional_screening_cont">
+			<div class="conditional_screening_tit"><span class="conditional_screening_tit_n">公司规模</span></div>
+			<ul class="conditional_screening_list">
+			<li id="mun" {yun:}if $smarty.get.mun==''{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_mun_li('','mun')"><a href="javascript:void(0)">全部</a></li>
+			{yun:}foreach from=$comdata.job_mun item=v{/yun}
+			<li id="mun{yun:}$v{/yun}" {yun:}if $smarty.get.mun==$v{/yun}class="conditional_screening_cur"{yun:}/if{/yun} onclick="check_mun_li('{yun:}$v{/yun}','mun')"><a href="javascript:void(0)">{yun:}$comclass_name[$v]{/yun}</a></li>
+			{yun:}/foreach{/yun}
+			</ul>
+        </div> 
+        </div>
+         <div class="conditional_screening_operation">
+          <div class="conditional_screening_operation_left"><a href="{yun:}if $smarty.get.a{/yun}{yun:}url m=wap c=$smarty.get.c a=$smarty.get.a{/yun}{yun:}else{/yun}{yun:}url m=wap c=$smarty.get.c{/yun}{yun:}/if{/yun}" class="conditional_screening_operation_cz">重置</a></div>
+          <div class="conditional_screening_operation_right"><a href="javascript:void(0)" onclick="$('#job').submit();" class="conditional_screening_operation_ok">确定</a></div></div>
+        </div>
+        {yun:}if $smarty.get.provinceid{/yun}<input type="hidden" name="provinceid" value="{yun:}$smarty.get.provinceid{/yun}"/>{yun:}/if{/yun}
+        {yun:}if $smarty.get.cityid{/yun}<input type="hidden" name="cityid" value="{yun:}$smarty.get.cityid{/yun}"/>{yun:}/if{/yun}
+        {yun:}if $smarty.get.three_cityid{/yun}<input type="hidden" name="cityid" value="{yun:}$smarty.get.three_cityid{/yun}"/>{yun:}/if{/yun}
+        {yun:}if $smarty.get.jobin{/yun}<input type="hidden" name="jobin" value="{yun:}$smarty.get.jobin{/yun}"/>{yun:}/if{/yun}
+      
+        {yun:}if $smarty.get.hy{/yun}<input type="hidden" name="hy" id="gdjhyi" value="{yun:}$smarty.get.hy{/yun}" />{yun:}/if{/yun}
+        <input type="hidden" id="comexp" name="exp" {yun:}if $smarty.get.exp==""{/yun}disabled="disabled"{yun:}/if{/yun}value="{yun:}$smarty.get.exp{/yun}"/>
+        <input type="hidden" name="pr" id="compr" {yun:}if $smarty.get.pr==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.pr{/yun}" />
+        <input type="hidden" name="mun" id="commun" {yun:}if $smarty.get.mun==""{/yun}disabled="disabled"{yun:}/if{/yun}  value="{yun:}$smarty.get.mun{/yun}" />
+        <input  type="hidden" id="comedu" name="edu" {yun:}if $smarty.get.edu==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.edu{/yun}" />
+        <input type="hidden" name="uptime" id="comuptime" {yun:}if $smarty.get.uptime==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.uptime{/yun}" />
+        <input type="hidden" name="sex" id="comsex" {yun:}if $smarty.get.sex==""{/yun}disabled="disabled"{yun:}/if{/yun} value="{yun:}$smarty.get.sex{/yun}" />
+		</div>
+       
+	</form>
+	<ul class="Gengduoj-t" id="Gengduohy" style="display:block;">
+		{yun:}foreach from=$industry_index item=v{/yun}
+		<li tab_name="gdjhy" data="{yun:}$v{/yun}">{yun:}$industry_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduoj-t" id="Gengduopr" style="display:none;">
+		{yun:}foreach from=$comdata.job_pr item=v{/yun}
+		<li tab_name="gdjpr" data="{yun:}$v{/yun}">{yun:}$comclass_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduoj-t" id="Gengduonum" style="display:none;">
+		{yun:}foreach from=$comdata.job_mun item=v{/yun}
+		<li tab_name="gdjnum" data="{yun:}$v{/yun}">{yun:}$comclass_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduoj-t" id="Gengduoedu" style="display:none;">
+		{yun:}foreach from=$comdata.job_edu item=v{/yun}
+		<li tab_name="gdjedu" data="{yun:}$v{/yun}">{yun:}$comclass_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="Gengduoj-t" id="Gengduouptime" style="display:none;">
+		{yun:}foreach from=$uptime key=key item=v{/yun}
+		<li tab_name="gdjuptime" data="{yun:}$key{/yun}">{yun:}$v{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Gengduoj -->
+
+<!-- Sorthy 行业弹出框-->
+<div class="Sorthy-eject Sorthy-height pubtwo">
+	<ul class="Sorthy-Sorthy" id="Sorthy-Sorthy">
+		{yun:}foreach from=$industry_index item=v{/yun}
+		<li>
+			{yun:}if $smarty.get.c=="company"{/yun}
+			<a href="{yun:}searchurl m=wap c=company hy=$v untype='hy'{/yun}">{yun:}$industry_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="post"{/yun}
+			<a href="{yun:}searchurl m=wap c=post hy=$v untype='hy'{/yun}">{yun:}$industry_name[$v]{/yun}</a>
+			{yun:}/if{/yun}
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Sorthy -->
+
+<!-- Sortpr 企业性质弹出框-->
+<div class="Sortpr-eject Sortpr-height pubtwo">
+	<ul class="Sortpr-Sortpr" id="Sortpr-Sortpr">
+		{yun:}foreach from=$comdata.job_pr item=v{/yun}
+		<li>
+			{yun:}if $smarty.get.c=="company"{/yun}
+			<a href="{yun:}searchurl m=wap c=company pr=$v untype='pr'{/yun}">{yun:}$comclass_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="post"{/yun}
+			<a href="{yun:}searchurl m=wap c=post pr=$v untype='pr'{/yun}">{yun:}$comclass_name[$v]{/yun}</a>
+			{yun:}/if{/yun}
+
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Sortpr -->
+
+<!-- Sortmun 企业规模弹出框-->
+<div class="Sortmun-eject Sortmun-height pubtwo">
+	<ul class="Sortmun-Sortmun" id="Sortmun-Sortmun">
+		{yun:}foreach from=$comdata.job_mun item=v{/yun}
+		<li>
+			{yun:}if $smarty.get.c=="company"{/yun}
+			<a href="{yun:}searchurl m=wap c=company mun=$v untype='mun'{/yun}">{yun:}$comclass_name[$v]{/yun}</a>
+			{yun:}else if $smarty.get.c=="post"{/yun}
+			<a href="{yun:}searchurl m=wap c=post mun=$v untype='mun'{/yun}">{yun:}$comclass_name[$v]{/yun}</a>
+			{yun:}/if{/yun}
+
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Sortmun -->
+
+<!-- Sorttype 兼职类型弹出框-->
+<div class="Sorttype-eject Sorttype-height pubtwo">
+	<ul class="Sorttype-Sorttype" id="Sorttype-Sorttype">
+		{yun:}foreach from=$partdata.part_type item=v{/yun}
+		<li>
+			<a href="{yun:}searchurl m=wap c=part type=$v untype='type'{/yun}">{yun:}$partclass_name[$v]{/yun}</a>
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Sorttype -->
+<!-- Sortcycle 结算周期弹出框-->
+<div class="Sortcycle-eject Sortcycle-height pubtwo">
+	<ul class="Sortcycle-Sortcycle" id="Sortcycle-Sortcycle">
+		{yun:}foreach from=$partdata.part_billing_cycle item=v{/yun}
+		<li>
+			<a href="{yun:}searchurl m=wap c=part cycle=$v untype='cycle'{/yun}">{yun:}$partclass_name[$v]{/yun}</a>
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>
+<!-- End Sortcycle -->
+
+<!-- wap商城商品类别 -->
+<div class="redeem-eject pubtwo">
+	<ul class="redeem-w" id="nid">
+		{yun:}foreach from=$redeem_index item=v{/yun}
+		<li class="qredeemw{yun:}$v{/yun}" onclick="redeemw('{yun:}$v{/yun}','{yun:}$redeem_name[$v]{/yun}','nid')">{yun:}$redeem_name[$v]{/yun}</li>
+		{yun:}/foreach{/yun}
+	</ul>
+	<ul class="redeem-t" id="tnid">
+	</ul>
+
+</div>
+<!-- End redeem -->
+<div class="Sortadtime-eject Sortadtime-height pubtwo">
+	<ul class="Sortadtime-Sortadtime" id="Sortadtime-Sortadtime">
+		{yun:}foreach from=$adtime item=v key=key{/yun}
+		<li>
+			{yun:}if $smarty.get.c=='once'{/yun}
+			<a href="{yun:}searchurl m=wap c=once add_time=$key untype='add_time'{/yun}">{yun:}$v{/yun}</a>
+			{yun:}else if $smarty.get.c=='tiny'{/yun}
+			<a href="{yun:}searchurl m=wap c=tiny add_time=$key untype='add_time'{/yun}">{yun:}$v{/yun}</a>
+			{yun:}/if{/yun}
+		</li>
+		{yun:}/foreach{/yun}
+	</ul>
+</div>

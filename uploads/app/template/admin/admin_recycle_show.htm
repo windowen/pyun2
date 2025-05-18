@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /> 
+<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<title>后台管理</title>
+</head>
+<body class="body_ifm">
+<div class="infoboxp">
+
+<div class="main_tag" >
+<div class="tag_box"> 
+	<table width="100%" class="table_form" style="background:#fff; font-size:14px;">
+		<tr>
+			<th colspan="2" class="admin_bold_box">
+				<div class="admin_bold">回收站数据详情</div>
+			</th>
+		</tr>
+    {yun:}foreach item=v key=key from=$rows{/yun}
+		<tr class="admin_table_trbg">
+			<th width="200">字段名：{yun:}$key{/yun}：</th>
+			<td>数据：{yun:}$v{/yun}</td>
+         </tr>
+	{yun:}/foreach{/yun}
+	</table>
+</div></div></div>
+</body>
+</html>

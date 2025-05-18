@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+<meta name="description" content="{yun:}$description{/yun}"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<!--evaluate模块内的css-->
+<link rel="stylesheet" type="text/css" href="{yun:}$style{/yun}/style/evaluate.css?v={yun:}$config.cachecode{/yun}"/>
+</head>
+<body>
+<!--头部导航-->
+{yun:}include file="$tplstyle/header.htm"{/yun}
+<div class="clear"></div>
+<!--content内容部分-->
+<div class="cp_content">
+<div class="wrap">
+    <div class="current_Location  png">您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a>  >  <span>测评</span>
+</div>
+<div class="clear"></div>
+<div class="evaluate_left">
+<div class="">{yun:}ad cid=89 id=360{/yun}</div>
+
+<div class="evaluate_left_tit"><i class="evaluate_left_tit_icon"></i><span class="evaluate_left_tit_s">最受欢迎的职业测评</span></div>
+	{yun:}if $rows{/yun}
+{yun:}foreach from=$rows item=item key=key{/yun}
+
+<div class="evaluate_left_list">
+<div class="evaluate_left_list_pic"><a href="{yun:}url m=evaluate c=exampaper titleid='`$item.id`' gid='`$item.keyid`'{/yun}" target="_blank" title="{yun:}$item.name{/yun}"> 
+<img src="{yun:}$item.pic_n{/yun}" width="220" height="140" alt="{yun:}$item.name{/yun}"/></a></div>
+<div class="evaluate_left_list_r">
+<div class="evaluate_left_list_h1"><a href="{yun:}url m=evaluate c=exampaper titleid='`$item.id`' gid='`$item.keyid`'{/yun}" target="_blank" title="{yun:}$item.name{/yun}">{yun:}$item.name{/yun}</a></div>
+<div class="evaluate_left_list_p">{yun:}$item.description{/yun}</div>
+<div class="evaluate_left_list_info">{yun:}$item.visits{/yun}人访问过</div>
+</div>
+<a href="{yun:}url m=evaluate c=exampaper titleid='`$item.id`' gid='`$item.keyid`'{/yun}"  target="_blank" class="evaluate_left_list_bth">开始测试</a>
+</div>
+
+				{yun:}/foreach{/yun}
+                
+             <div class="evaluate_left_list_more">
+				<a class="" href="{yun:}url m=evaluate c=morelist{/yun}">查看更多测评 ></a>
+			</div>
+			{yun:}/if{/yun}   
+
+
+
+</div>
+<div class="evaluate_right">
+<div class="evaluate_right_banner">
+{yun:}adlist classid=90 limit=5 item=adlist_90{/yun}
+{yun:}$adlist_90.html{/yun}
+{yun:}/adlist{/yun}
+
+
+</div>
+
+
+
+<div class="evaluate_right_box"><div class="evaluate_right_box_h1"><i class="evaluate_right_box_h1_n"></i><span class="evaluate_right_box_h1_s">热门测评</span></div>
+<div class="evaluate_right_hot">
+      <ul>
+              {yun:}foreach from=$evaluateRecommend item=item key=key{/yun}
+              <li><a href="{yun:}url m=evaluate c=exampaper titleid='`$item.id`' gid='`$item.keyid`'{/yun}" target="_blank">{yun:}$item.name{/yun}</a> <span class="evaluate_right_hot_yl">{yun:}$item.visits{/yun} 次</span></li>
+              {yun:}/foreach{/yun}
+            </ul>
+
+</div>
+</div>
+
+<div class="evaluate_right_box mt20"><div class="evaluate_right_box_h1"><i class="evaluate_right_box_h1_n"></i><span class="evaluate_right_box_h1_s">他们也参加了测评</span></div>
+<div class="evaluate_right_user">
+  <ul>
+            {yun:}foreach from=$examinee item=list key=key{/yun}
+            <li><a href="{yun:}url m=ask c=friend a=myquestion uid=$list.uid{/yun}" target="_blank"><img src="{yun:}$list.pic{/yun}" width="48"  height="48" /></a>
+            <div class="evaluate_right_user_name">{yun:}$list.name|mb_substr:0:4:"utf-8"{/yun}</div></li>
+            {yun:}/foreach{/yun}
+            </ul>
+
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="clear"></div>
+</div> 
+<!--尾部导航-->
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script> 
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script> 
+<script type="text/javascript" src="{yun:}$style{/yun}/js/evaluate.js?v={yun:}$config.cachecode{/yun}"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png,.cp_top_arr');
+</script>
+<![endif]--> 
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun}

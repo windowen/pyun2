@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+<meta name="description" content="{yun:}$description{/yun}"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="{yun:}$style{/yun}/special/css/css.css?v={yun:}$config.cachecode{/yun}"/>
+</head>
+<body class="newhot_body">
+{yun:}include file="$tplstyle/header.htm"{/yun}
+<div class="clear"></div>
+<!--header头部-->
+  <div class="special_banner" style="width:100%;height:550px;background:#0a78d1 url({yun:}$info.background{/yun}) no-repeat center top"></div>
+  <div class="w1200">
+  <div class="newhot_box">
+  <div class="newhot_box_top">
+  <div class="newhot_box_topbg"></div>
+  <i class="newhot_box_top_icon"></i>
+  <div class="newhot_box_topwz">
+  <div class="newhot_box_topwz_name">名企之约开启你的高薪之旅</div>
+  <div class="newhot_box_topwz_name_e">Famous Business Contracts Start Your High-Pay Journey</div>
+  </div>
+  </div>
+  <ul class="newhot_joblist">
+  {yun:}specialcom id='auto.id' namelen=10 jobnamelen=6 item=clist{/yun}
+	{yun:}if $clist.jobs{/yun}
+  <li>
+  <div class="newhot_job_comlogo"><a href="{yun:}$clist.comurl{/yun}" target="_blank" ><img src="{yun:}$clist.logo{/yun}" width="100" height="100"></a></div>
+  <div class="newhot_job_comname">{yun:}$clist.name_n{/yun}</div>
+  <div class="newhot_job_cominfo">{yun:}$clist.hyname{/yun}<span class="newhot_job_cominfo_line">|</span>{yun:}$clist.cityid{/yun} </div>
+  <div class="newhot_jobbox">
+  {yun:}foreach from=$clist.jobs item=jlist{/yun}
+		<div class="newhot_job"><a href="{yun:}$jlist.joburl{/yun}" target="_blank" class="newhot_job_a">{yun:}$jlist.name_n{/yun}</a><span class="newhot_job_xz">{yun:}$jlist.job_salary{/yun}</span></div>
+	{yun:}/foreach{/yun}
+  </div>
+    <div class="newhot_job_more"><a href="{yun:}$clist.comurl{/yun}" target="_blank" class="newhot_job_more_bth">查看更多</a>  </div>
+  </li>
+ 
+	{yun:}/if{/yun}
+    {yun:}/specialcom{/yun}
+  
+  </ul>
+
+<div class="clear"></div>
+  <div class="newhot_jsbox">  <div class="newhot_jsbox_p"> {yun:}$info.intro{/yun}</div></div>
+ <div class="newhot_jsbox_my_box">    {yun:}if !$isapply{/yun}
+		
+			<div class="newhot_jsbox_my">我是企业，我要参加报名</div>
+			{yun:}if $uid{/yun}
+      {yun:}if $usertype=='2'{/yun}
+<input type='button' value="我要报名" onclick="{yun:}if empty($spid){/yun}comapply('{yun:}$info.id{/yun}','{yun:}$info.integral{/yun}','{yun:}url m=special c=apply{/yun}'){yun:}else{/yun}layer.msg('很抱歉，当前账号无法报名，请联系主体账号报名！',2, 8){yun:}/if{/yun}" class="special_one_bm_bth" />
+      {yun:}else{/yun}
+           {yun:}if $config.sy_user_change==1{/yun}
+                 <input type='button' value="我要报名" onclick="layer.msg('请先申请企业用户才能报名！',2, 8)" class="special_one_bm_bth" />
+           {yun:}else{/yun} 
+                <input type='button' value="我要报名" onclick="layer.msg('只有企业用户才能报名！',2, 8)" class="special_one_bm_bth" />
+           {yun:}/if{/yun}
+      {yun:}/if{/yun}
+      {yun:}else{/yun}
+      <input type='button' value="我要报名" onclick="showlogin('2')" class="special_one_bm_bth" />
+      {yun:}/if{/yun}
+       
+	{yun:}else{/yun}
+	
+			{yun:}if $applysuccess.status=="0"{/yun}
+			<div class="newhot_jsbox_my_bth" style="background:#ccc">报名审核中</div>
+			{yun:}elseif $applysuccess.status=="1"{/yun}
+			<div class="newhot_jsbox_my_bth" style="background:#ccc">已报名</div>
+			{yun:}else{/yun}
+			<div class="newhot_jsbox_my_bth" style="background:#ccc">请联系管理员</div>
+			{yun:}/if{/yun}
+      
+	{yun:}/if{/yun}
+
+ </div>
+
+  </div>
+  </div>
+  </div> 
+   </div>
+
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png');
+</script>
+<![endif]-->
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/special.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script language="javascript">
+var pricename='{yun:}$config.integral_pricename{/yun}'; 
+</script>
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun} 

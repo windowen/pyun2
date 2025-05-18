@@ -1,0 +1,45 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun} 
+
+{yun:}if empty($spid){/yun}
+<div class="yun_m_service">
+	<div class="">我的{yun:}$config.integral_pricename{/yun}</div>
+	<div class="yun_m_service_money">{yun:}$statis.integral{/yun}</div>
+	
+	<div class="yun_m_service_money_cz">
+		<a href="index.php?c=pay" class="yun_m_service_money_cz_a yun_m_service_money_cz_a_c">充值</a>
+		<a href="index.php?c=paylog" class="yun_m_service_money_cz_a">明细</a>
+	</div>
+</div>
+
+{yun:}/if{/yun}
+<div class="yun_m_service_we">
+	<div class="yun_m_service_we_hi">尊敬的企业用户：</div>
+	
+	<div class="">您当前是：<span class="yun_m_service_we_jb">{yun:}$statis.rating_name{/yun}</span><br>服务时间：
+        	{yun:}if $statis.vip_etime > $todayStart{/yun}
+        		{yun:}$statis.vip_stime|date_format:'%Y-%m-%d'{/yun} - {yun:}$statis.vip_etime|date_format:'%Y-%m-%d'{/yun}
+        	{yun:}else if $statis.vip_etime==0{/yun}
+        		永久
+        	{yun:}else{/yun}
+        		{yun:}$statis.vip_stime|date_format:'%Y-%m-%d'{/yun} - <span class="set_meal_tip_name_hy">{yun:}$statis.vip_etime|date_format:'%Y-%m-%d'{/yun}</span>
+        	{yun:}/if{/yun}</div>
+	
+	{yun:}if empty($spid){/yun}
+	<a class="yun_m_service_we_kt" href="index.php?c={yun:}if $config.com_vip_type==2||$config.com_vip_type==0{/yun}rating{yun:}else{/yun}time{yun:}/if{/yun}">开通服务</a>
+	{yun:}/if{/yun}
+</div>
+
+<ul class="yun_m_service_nav mt15">
+ 
+	<li><a href="index.php?c=com"><i class="yun_m_service_nav_icon yun_m_service_nav_icon_my"></i>我的服务<span class="yunset_list_tip"></span></a></li>
+    	<li><a href="index.php?c=paylog"><i class="yun_m_service_nav_icon yun_m_service_nav_icon_dd"></i>订单管理</a></li>
+	{yun:}if empty($spid){/yun}
+	<li><a href="index.php?c=integral&type=1"><i class="yun_m_service_nav_icon yun_m_service_nav_icon_jf"></i>{yun:}$config.integral_pricename{/yun}管理<span class="yunset_list_tip">做任务赚{yun:}$config.integral_pricename{/yun}</span></a></li>
+	{yun:}/if{/yun}
+	
+</ul>
+
+
+
+
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

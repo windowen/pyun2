@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<title>微海报</title>
+	<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/hb/reset.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+	<script>
+		window.onerror=function(){return true;}
+	</script>
+	{yun:}if $smarty.get.uu{/yun}
+	<script type="text/javascript">
+		var userAgent = navigator.userAgent;
+		if (userAgent.indexOf('AlipayClient') > -1) {
+			// 支付宝小程序的 JS-SDK 防止 404 需要动态加载，如果不需要兼容支付宝小程序，则无需引用此 JS 文件。
+			document.writeln('<script src="https://appx/web-view.min.js"' + '>' + '<' + '/' + 'script>');
+		} else if (/miniProgram/i.test(userAgent) || /MicroMessenger/i.test(userAgent)) {
+			// 微信小程序 JS-SDK 如果不需要兼容微信小程序，则无需引用此 JS 文件。
+			document.write('<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.4.0.js"><\/script>');
+		} else if (/swan/i.test(userAgent)) {
+			// 百度小程序 JS-SDK 如果不需要兼容百度小程序，则无需引用此 JS 文件。
+			document.write('<script type="text/javascript" src="https://b.bdstatic.com/searchbox/icms/searchbox/js/swan-2.0.18.js"><\/script>');
+		}
+	</script>
+	<!-- uni 的 SDK -->
+	<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.2.js"></script>
+	{yun:}/if{/yun}
+ </head>
+
+<body>
+
+	<div class="hb_jobbox noSHow" id="backurl">
+	<div class="hb10_joblist">
+ 	<div class="hb10_comname">{yun:}$comname{/yun}</div>  
+    	<div class="" id='hb_joblist'>
+			
+			{yun:}foreach item=v from=$jobs key=key{/yun} 
+			
+				{yun:}if $key < 4{/yun}
+				<div class="hb_10_job">
+					<div class="hb_10jobname"> {yun:}$v.name{/yun}</div>
+					<div class="hb_10gwzz">
+						<span class="hb_10_xz">{yun:}$v.job_salary{/yun}</span>
+						<span class="hb_10_city">{yun:}$city_name[$v.cityid]{/yun}</span>
+						<span class="hb_10_jy">{yun:}if $comclass_name[$v.exp]{/yun}{yun:}$comclass_name[$v.exp]{/yun}{yun:}else{/yun}不限{yun:}/if{/yun}</span>
+					</div>	</div>
+				{yun:}/if{/yun}
+				
+			{yun:}/foreach{/yun}
+			
+		</div>
+			</div>
+			
+    	<div class="hb_web10name"><div class="hb_web10sb">长按识别二维码查看职位信息</div>
+		来自{yun:}$config.sy_webname{/yun}
+		</div>
+ 
+ 		<div class="hb_10ewm">{yun:}if $smarty.session.auid{/yun}
+				<img src="{yun:}url m=ajax c=pubqrcode toc=company toa=show toid=$smarty.get.id{/yun}" width="130" height="130" />
+				{yun:}else{/yun}
+				<img src="{yun:}url m=wap c=ajax a=pubqrcode toc=company toa=show toid=$smarty.get.id{/yun}" width="130" height="130" />
+				{yun:}/if{/yun}</div>
+      	
+        	
+	</div>
+	
+	<div class="hb_generate noSHow" id="hb_a">
+		<a href='javascript:void(0);' onclick="getHbJob({yun:}$smarty.get.id{/yun});" class='hb_generate_bth'>选择职位生成海报</a>
+	</div>
+
+	<div id="hbtip" class="hb_show_tip" style="display: none"></div>
+ 	<!-- 职位弹出样式 -->
+	<div class="hb_jobchosebox noShow" style='display:none;' id='jobList'>
+		<div class="hb_jobchosebox_h1">
+			请选择需要在海报上展示的职位<span class="hb_jobchosebox_close" onclick='closeJob();'></span>
+		</div>
+		
+		<div class="hb_jobchoselist_b">
+			{yun:}foreach item=v from=$jobs key=key{/yun}
+				<div class="hb_jobchoselist">
+					<span class="hb_jobchose_input" id='jobid_{yun:}$v.id{/yun}'  onclick="ck('{yun:}$v.id{/yun}');">
+						<input type="checkbox" id='job{yun:}$v.id{/yun}' name='jobname[]' value='{yun:}$v.id{/yun}' style='display:none;'/>
+					</span>
+					{yun:}$v.name{/yun}
+				</div>
+			{yun:}/foreach{/yun}
+		</div>
+		
+		<div class="hb_jobchosebox_bth">
+ 			<a href='javascript:void(0);' onclick="checkJob('jobname[]');" class="hb_jobchosebox_bth_a"> 生成海报</a>
+		</div>
+	</div>
+
+	<div style="display:none; background:#000; opacity:0.6;width:100%;height:100%; position:fixed;left:0px;top:0px; z-index:1000000" id='bg' class="noShow"></div>
+    
+	<div style="display: none;" id="imgDiv">
+		<img id="showImg" width="100%" height="100%"/>
+	</div>
+		
+	<script type="text/javascript" src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.1.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script type="text/javascript" src="{yun:}$config.sy_weburl{/yun}/js/canvas/html2canvas.js?v={yun:}$config.cachecode{/yun}"></script>
+ 	<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+ 	<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	{yun:}if $imgbase{/yun}
+	<script>
+	 var wapurl = "{yun:}url m=wap{/yun}";
+	$("#backurl").css({
+		"background": "url("+wapurl+"/index.php?c=company&a=getHbBase&hb={yun:}$smarty.get.hb{/yun}) no-repeat"
+	
+	});
+	</script>
+	{yun:}/if{/yun}
+	<script>
+		var wapurl 	=	'{yun:}url m=wap{/yun}';
+		var uniReady = false;
+		document.addEventListener('UniAppJSBridgeReady', function() {
+			var uu = '{yun:}$smarty.get.uu{/yun}',
+				token = '{yun:}$smarty.get.token{/yun}';
+			if(uu.trim() !='' && token.trim() !=''){
+				uniReady = true;
+			}
+		});
+		
+
+		/* 选择职位样式改变 */
+		function ck(id){
+			var isCss     =	$('#jobid_'+id).hasClass('hb_jobchose_input_cur');
+			if(isCss){
+				$('#jobid_'+id).removeClass('hb_jobchose_input_cur');
+				document.getElementById('job'+id).checked = false;
+			}else{
+				$('#jobid_'+id).addClass('hb_jobchose_input_cur');
+				document.getElementById('job'+id).checked = true;
+			}
+ 		}
+		
+		/* 职位选择弹出框 */
+		function getHbJob(){
+			$("#bg").css('display','block');
+			$("#jobList").css('display','block');
+		}
+		
+		function closeJob(){
+			
+			$("#bg").css('display','none');
+			$("#jobList").css('display','none');
+		}
+		
+		/* 职位选择检测 */
+		function checkJob(name){
+			
+			var chk_value 	= 	[];
+	        var i 			= 	0;
+	        
+	        $('input[name="' + name + '"]:checked').each(function() {
+	            chk_value.push($(this).val());
+	            i++;
+	        });
+	        
+ 			if(chk_value.length == 0) {
+ 				$('#hbtip').html('至少选择一份职位数据！');
+ 				$("#hbtip").fadeIn('slow',function(){
+ 					setTimeout(function(){
+ 						$("#hbtip").fadeOut('slow');
+ 					},2000);
+ 				});
+ 				return false;
+	        } else if(chk_value.length > 4) {
+	        	$('#hbtip').html('最多选择四份职位数据！');
+ 				$("#hbtip").fadeIn('slow',function(){
+ 					setTimeout(function(){
+ 						$("#hbtip").fadeOut('slow');
+ 					},2000);
+ 				});
+	        	return false;
+	        } else {
+	        	
+ 	           	$("#jobList").css('display','none');
+				var id		=	'{yun:}$comid{/yun}';
+				$.ajax({
+					type: 'POST',
+					url: wapurl+'/index.php?c=company&a=getHbJob',
+					cache: false,
+					dataType: 'json',
+					data: {
+						comid: id,
+						jobids: chk_value,
+						submit: 1
+					},
+					success: function(res) {
+	 
+						if(res.length>0) {
+							var html	=	'';
+							for(var j=0;j<res.length;j++){
+							html += '<div class="hb_10_job"><div class="hb_10jobname">'+res[j].name+'</div><div class="hb_10gwzz"><span class="hb_10_xz">'+res[j].job_salary+'</span><span class="hb_10_city">'+res[j].job_city_two+'</span><span class="hb_10_jy">'+res[j].job_exp+'</span></div></div>';
+                            }
+
+							$("#hb_joblist").html(html);
+
+							toCanvas();
+						}
+					}
+				});
+ 	        }
+		}
+
+		/**
+		 * 生成海报图
+		 */
+		function toCanvas() {
+			var w = $(".hb_jobbox").width();
+			var h = $(".hb_jobbox").height();
+			var scaleBy = getDpr();
+
+			//要将 canvas 的宽高设置成容器宽高的 2 倍
+			var canvas = document.createElement("canvas");	//创建canvas 对象
+			canvas.width = w * scaleBy;
+			canvas.height = h * scaleBy;
+			canvas.style.width = w + "px";
+			canvas.style.height = h + "px";
+			var context = canvas.getContext("2d");
+			
+			//然后将画布缩放，将图像放大两倍画到画布上
+			context.scale(scaleBy, scaleBy);
+			html2canvas(document.querySelector(".hb_jobbox"), {
+				background: "#fff",
+				allowTaint: true,
+				width: w,
+				height: h,
+				canvas: canvas,
+				scale: scaleBy
+			}).then(canvas => {
+				context.mozImageSmoothingEnabled = false;
+				context.webkitImageSmoothingEnabled = false;
+				context.msImageSmoothingEnabled = false;
+				context.imageSmoothingEnabled = false;
+				var uimage	=	canvas.toDataURL("image/png", 1); // base64数据
+				layer_load('执行中，请稍候');
+				$.ajax({
+					type: 'POST',
+					url: wapurl+'/index.php?c=company&a=upHb',
+					cache: false,
+					dataType: 'json',
+					data: {
+						uimage: uimage,
+						submit: 1
+					},
+					success: function(src) {
+						layer.closeAll();
+						if(uniReady){
+							uni.redirectTo({
+								url: '/pson/pages/haibao/show?id=10&src='+src
+							});
+						}else{
+							document.querySelector("#showImg").src = src;
+							$("#imgDiv").show();
+							$(".noSHow").hide();
+							$("#bg").hide();
+						}
+ 					}
+				});
+			});
+		}
+		
+   	</script>
+
+	<script>
+		 
+		$(document).ready(function() {
+			var out	=	'{yun:}$out{/yun}';
+	       	'{yun:}if $smarty.get.type == img {/yun}'
+				$('#hb_a').hide();
+	       		toCanvas2(out);
+	       	'{yun:}/if{/yun}'
+	 	});
+		/**
+		 * 生成海报图
+		 */
+		function toCanvas2(out) {
+			var w = $(".hb_jobbox").width();
+			var h = $(".hb_jobbox").height();
+			var scaleBy = getDpr();
+
+			//要将 canvas 的宽高设置成容器宽高的 2 倍
+			var canvas = document.createElement("canvas");	//创建canvas 对象
+			canvas.width = w * scaleBy;
+			canvas.height = h * scaleBy;
+			canvas.style.width = w + "px";
+			canvas.style.height = h + "px";
+			var context = canvas.getContext("2d");
+			
+			//然后将画布缩放，将图像放大两倍画到画布上
+			context.scale(scaleBy, scaleBy);
+			//console.log('scale' + getDpr());
+			html2canvas(document.querySelector(".hb_jobbox"), {
+				background: "#fff",
+				allowTaint: true,
+				width: w,
+				height: h,
+				canvas: canvas,
+				scale: scaleBy
+			}).then(canvas => {
+				context.mozImageSmoothingEnabled = false;
+				context.webkitImageSmoothingEnabled = false;
+				context.msImageSmoothingEnabled = false;
+				context.imageSmoothingEnabled = false;
+				var url = canvas.toDataURL("image/png", 1); // base64数据
+
+				document.querySelector("#showImg").src = url;
+				$("#showImg").css('width', '260px');
+				$("#showImg").css('height', '442px');
+				$("#imgDiv").show();
+				$(".noSHow").hide();
+
+				if(parseInt(out) > 0){
+					startDown(out);
+				}
+			});
+		}
+
+		function startDown(out){
+			var img = document.getElementById('showImg'); // 获取要下载的图片
+			var url = img.src;                            // 获取图片地址
+			var a = document.createElement('a');          // 创建一个a节点插入的document
+			var event = new MouseEvent('click')           // 模拟鼠标click点击事件
+			a.download = 'whb'+ out;					  // 设置a节点的download属性值
+			a.href = url;                                 // 将图片的src赋值给a节点的href
+			a.dispatchEvent(event);
+			window.close();
+		}
+	</script>
+
+	<script>
+		/**
+		 * 根据 window.devicePixelRatio 获取像素比
+		 */
+		function getDpr() {
+			if (window.devicePixelRatio && window.devicePixelRatio > 1) {
+				return window.devicePixelRatio;
+			}
+			return 1;
+		}
+   	</script>
+	
+</body>
+</html>

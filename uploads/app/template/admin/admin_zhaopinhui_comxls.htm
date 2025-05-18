@@ -1,0 +1,59 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>PHP output Excel Example</title>
+</head>
+
+<table width="100%" border="1">
+	<tr>
+		<th colspan="10">公司信息</th>
+ 		{yun:}$jobTr{/yun}
+ 	</tr>
+
+    <tr>
+		<th>展位号座位</th>
+		<th>公司名称</th>
+		<th>地址</th>
+		<th>联系电话</th>
+		<th>联系人</th>
+		<th>联系手机</th>
+		<th>公司简介</th>
+		<th>福利待遇</th>
+		<th>公司规模</th>
+		<th>注册资金</th>
+ 		{yun:}$jobSonTr{/yun}
+    </tr>
+
+    {yun:}foreach item=v from=$list{/yun}
+		<tr>
+			<td>{yun:}$spacearr[$v.space.sid]{/yun}-{yun:}$spacearr[$v.space.cid]{/yun}-{yun:}$spacearr[$v.space.bid]{/yun}</td>
+			<td>{yun:}$v.name{/yun}</td>
+			<td>{yun:}$v.address{/yun}</td>
+			<td>{yun:}$v.linkphone{/yun} </td>
+			<td>{yun:}$v.linkman{/yun}</td>
+			<td>{yun:}$v.linktel{/yun} </td>
+			<td>{yun:}$v.content|mb_substr:0:50:"utf-8"{/yun}</td>
+			<td>{yun:}$v.welfare{/yun}</td>
+			<td>{yun:}$v.mun{/yun}</td>
+			<td>
+				{yun:}if $v.money>0{/yun}
+					{yun:}$v.money{/yun}
+					{yun:}if $v.moneytype==1{/yun}万元
+					{yun:}elseif $v.moneytype==2{/yun}万美元
+					{yun:}/if{/yun}
+				{yun:}/if{/yun}
+			</td>
+			{yun:}foreach item=j from=$v.jobs{/yun}
+				<td>{yun:}$j.name{/yun}</td>
+				<td>{yun:}$j.job_number{/yun}</td>
+				<td>{yun:}$j.job_salary{/yun}</td>
+				<td>{yun:}$j.job_exp{/yun}</td>
+				<td>{yun:}$j.job_edu{/yun}</td>
+				{yun:}if $j.job_city_three{/yun}
+				<td>{yun:}$j.job_city_one{/yun}-{yun:}$j.job_city_two{/yun}-{yun:}$j.job_city_three{/yun}</td>
+				{yun:}else{/yun}
+				<td>{yun:}$j.job_city_one{/yun}-{yun:}$j.job_city_two{/yun}</td>
+				{yun:}/if{/yun}
+			{yun:}/foreach{/yun}
+		</tr>
+    {yun:}/foreach{/yun}
+</table>

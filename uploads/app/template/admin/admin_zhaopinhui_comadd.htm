@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script>var weburl = '{yun:}$config.sy_weburl{/yun}';</script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<style>
+			* {margin: 0 ;padding: 0;}
+body,div{ margin: 0 ;padding: 0;}
+</style>
+		<title>后台管理</title>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.config.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.all.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	</head>
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">管理员根据需求，可以选择场地添加参会企业！</div>
+					</div>
+				</div>
+
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+				<form id="zphform" name="myform" target="supportiframe" action="index.php?m=zhaopinhui&c=comaddsave" method="post"
+				 encType="multipart/form-data" class="layui-form" onsubmit="return checkform()">
+					<table width="100%" class="table_form" style="background:#fff;">
+						<tr class="admin_table_trbg">
+							<th colspan="2" class="admin_bold_box">
+								<div class="admin_bold">添加参会企业</div>
+							</th>
+						</tr>
+						<tr>
+							<th width="120">招聘会标题：</th>
+							<td>
+								<div style="min-height:35px; line-height:35px;">{yun:}$zph.title{/yun}</div>
+							</td>
+						</tr>
+						<th width="120">企业名称：</th>
+						<td>
+							<div class="layui-form-item">
+								<div class="layui-input-block">
+									<div class="layui-input-inline t_w480">
+										<input type="text" id="comname" lay-verify="required" placeholder="请输入企业名称进行搜索" value="" size="60" autocomplete="off" class="layui-input"> 
+									</div>
+									<a href="javascript:void(0)" onclick="zphcomsearch()"
+									style="background:#f60; width:80px;height:37px; line-height:37px;text-align:center;color:#fff;border-radius:3px; display:inline-block;float: left;">搜索</a>
+									
+								</div>
+							</div>
+						</td>
+						</tr>
+						<tr>
+							<th width="120">选择企业：</th>
+							<td>
+								<div class="layui-input-inline t_w200">
+									<select name="comid" id='zphcom' lay-filter="swId">
+										<option value="">请选择</option>
+									</select>
+								</div>
+								<span class="admin_web_tip">输入企业名称搜索后选择企业</span>
+							</td>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th>招聘会展位：</th>
+							<td>
+								<div class="layui-form-item">
+									<div class="layui-input-inline t_w200">
+										<select name="cid" id="cid" lay-filter="cids">
+											<option value="">请选择</option>
+											{yun:}foreach from=$cid key=j item=v{/yun}
+											<option value="{yun:}$v.id{/yun}">{yun:}$v.name{/yun}</option>
+											{yun:}/foreach{/yun}
+										</select>
+									</div>
+									<div class="layui-input-inline t_w200">
+										<select name="bid" id="bid">
+											<option value="">请选择</option>
+										</select>
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+						<tr class="admin_table_trbg">
+							<th></th>
+							<td>
+								<input type="hidden" name="zphid" id="zphid" value="{yun:}$zph.id{/yun}" />
+								<input type="hidden" name="zphsid" id="zphsid" value="{yun:}$zph.sid{/yun}" />
+								<input class="tty_sub" type="submit" value="&nbsp;添 加&nbsp;" />
+								<input class="tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" /></td>
+						</tr>
+					</table>
+					<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+				</form>
+			</div>
+		</div>
+		<style>
+			.layui-form-item {
+				margin-bottom: 0px;
+				clear: both;
+			}
+
+			.layui-form-label {
+				width: 60px;
+				padding: 9px 1px;
+			}
+		</style>
+
+		<script language="javascript">
+			layui.use(['layer', 'form'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					$ = layui.$;
+				form.on('select(cids)', function(data) {
+					val = $('#cid').val();
+					if (val > 0) {
+						var zphid = $("#zphid").val();
+						var pytoken = $("#pytoken").val();
+						var j = loadlayer();
+						$.post("index.php?m=zhaopinhui&c=getspacelist", {
+							cid: val,
+							zphid: zphid,
+							pytoken: pytoken
+						}, function(data) {
+							parent.layer.close(j);
+							if (data == 1) {
+								parent.layer.msg('已没有可用展位！', 2, 8);
+								$("#bid").html('<option value="">请选择</option>');
+							} else {
+								$("#bid").html(data);
+							}
+							form.render();
+						});
+					}
+				});
+			});
+
+			function checkform() {
+				if ($("#zphcom").val() == "") {
+					parent.layer.msg('请选择参会企业！', 2, 8);
+					return false;
+				}
+				if ($("#cid").val() == "") {
+					parent.layer.msg('请选择招聘会区位！', 2, 8);
+					return false;
+				}
+				if ($("#bid").val() == "") {
+					parent.layer.msg('请选择招聘会展位！', 2, 8);
+					return false;
+				}
+				parent.layer.load('请稍候...', 0);
+			}
+
+			function check_zhanwei() {
+				var chk_value = [];
+				$('input[name="zhanwei"]:checked').each(function() {
+					chk_value.push($(this).val());
+				});
+				$("#reserved").val(chk_value);
+				layer.closeAll();
+			}
+
+			function zphcomsearch() {
+				var comname = $("#comname").val();
+				var pytoken = $("#pytoken").val();
+				var i = loadlayer();
+				$.post("index.php?m=zhaopinhui&c=getcomlist", {
+					comname: comname,
+					pytoken: pytoken
+				}, function(data) {
+					parent.layer.close(i);
+					$("#zphcom").html(data);
+					layui.use(['layer', 'form'], function() {
+						var layer = layui.layer,
+							form = layui.form;
+						form.render();
+					});
+				})
+			}
+		</script>
+	</body>
+</html>

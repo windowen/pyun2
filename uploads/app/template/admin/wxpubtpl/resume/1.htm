@@ -1,0 +1,35 @@
+{yun:}foreach item=v from=$lists{/yun}
+<section class="_135editor">
+    <p><br></p>
+    <section style="margin:10px;text-align: center;">
+        <section style="border:1px solid #95b3d7;border-radius:100%; display: inline-block;padding:5px;background:#fefefe;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-o-transform: rotate(0deg);">
+            <section class="135brush" data-brushtype="text" style="width:100px;height:100px;border-radius:100%;background-image: url({yun:}$v.list.photo{/yun}); background-position: 50% 50%; background-size: cover; olor:#fff;font-size:22px;line-height:98px;text-align: center;">
+            </section>
+        </section>
+        <section class="assistant" style="margin-top:-35px;border-top-left-radius:10px;border-top-right-radius:10px;padding:5px 5px 0px;border:1px solid #95b3d7;border-bottom: none;">
+            <section style="border-top-left-radius:10px;border-top-right-radius:10px;padding:5px 5px 0px;height:40px;border:1px dashed #95b3d7;border-bottom: none;"></section>
+        </section>
+        <section class="135brush" data-brushtype="text" style="font-weight:bold;background:#dbe5f1;text-align: center;padding:10px 6px;font-size:18px;letter-spacing:1.5px;color:#333;">
+            {yun:}$v.list.customjob{/yun}
+        </section>
+        <section style="border-bottom-left-radius:10px;border-bottom-right-radius:10px;padding:0px 5px 5px;border:1px solid #95b3d7;border-top: none;">
+            <section style="border-bottom-left-radius:10px;border-bottom-right-radius:10px;padding:0px 5px 5px;border:1px dashed #95b3d7;border-top: none;">
+                <section data-autoskip="1" class="135brush" style="font-size:14px;letter-spacing: 1.5px;padding:1em;text-align: justify;color:#333;">
+{yun:}$v.list.username_n{/yun}{yun:}if $v.list.idcard_status=='1'{/yun}<img src="https://job.molihua.net/app/template/default/images/sf.png" title="身份已认证" class="user_rz_img png fl" /{yun:}/if{/yun}{yun:}if $v.list.rec_resume{/yun}<img width="15" height="15" src="https://job.molihua.net/app/template/default/images/tui.png" title="推荐" class="user_rz_img png fl"/>
+{yun:}/if{/yun}{yun:}if $v.list.age==0{/yun}保密{yun:}else{/yun}{yun:}$v.list.age{/yun}岁{yun:}/if{/yun}{yun:}$v.list.user_exp{/yun}经验{yun:}if $v.list.useredu{/yun}{yun:}$v.list.useredu{/yun}学历{yun:}/if{/yun}
+<p style="">期望地点：<span class="user_tag">{yun:}foreach from=$v.list.expectcity key=key item=v1{/yun}{yun:}if $key< 5{/yun} {yun:}$v1{/yun}&nbsp; {yun:}/if{/yun} {yun:}/foreach{/yun} </span></p>
+{yun:}if $v.list.report{/yun}<p style="">到岗时间：{yun:}$v.list.report{/yun}</p>{yun:}/if{/yun}
+<p style="">期望薪资：{yun:}$v.list.salary{/yun}</p>
+<p style="">工作职能：{yun:}foreach from=$v.list.expectjob key=key item=v2{/yun}{yun:}if $key < 5{/yun}<span class="user_tag">{yun:}$v2{/yun}</span>{yun:}/if{/yun}{yun:}/foreach{/yun}</p>
+{yun:}if $v.list.jobstatus{/yun}<p>求职状态：{yun:}$v.list.jobstatus{/yun} </p>{yun:}/if{/yun}{yun:}if $v.list.tj.worknum>0{/yun}<p style="">工作经历：{yun:}$v.list.tj.workmin{/yun}-{yun:}$v.list.tj.workmax{/yun} 参加过{yun:}$v.list.tj.worknum{/yun}份工作，平均工作时长{yun:}$v.list.tj.workavg{/yun}个月，涉及{yun:}$v.list.tj.worktit{/yun}等岗位</p>{yun:}/if{/yun}{yun:}if $v.list.tj.education{/yun}<p style="">教育经历：{yun:}$v.list.tj.edumin{/yun}-{yun:}$v.list.tj.edumax{/yun} 已完成{yun:}$v.list.tj.education{/yun}段学业</p>{yun:}/if{/yun}
+<p style="text-align:center;" align="center"><img style="width:50%; max-width:180px;" src="{yun:}pubqrcode  toc=resume toa=show toid=$v.list.id totype=$ewmtype{/yun}"><br />扫码或长按二维码识别查看简历</p>
+
+<p style="text-align:center;color:#0070c0;" align="center">求职招聘，就上{yun:}$config.sy_webname{/yun}<br />{yun:}$config.sy_webname{/yun}<br />{yun:}$config.sy_weburl{/yun}</p>
+
+		
+</section>
+            </section>
+        </section>
+    </section>
+</section>
+{yun:}/foreach{/yun}

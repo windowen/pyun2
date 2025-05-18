@@ -1,0 +1,41 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<div class="main_member_cot_box">
+	<div class="wap_member_comp_h1"><span>浏览的职位</span></div>
+	<div class="m_user_infocont">
+
+		{yun:}foreach item=one from=$look{/yun}
+		<div class="m_user_infolist">
+			<div class="m_user_infobox">
+				<div class="m_user_infonamebox">
+					<div class="m_user_infoname">
+						<a href="{yun:}url m=wap c=job a=comapply id=$one.jobid{/yun}" class="">{yun:}$one.job_name{/yun}</a>
+					</div>
+					<span class="m_user_info_xz">{yun:}$one.salary{/yun}</span>
+				</div>
+
+				<div class="m_user_info_p">{yun:}$one.cityname{/yun}<i class="m_user_info_line">|</i> {yun:}$one.exp_n{/yun}经验 <i
+					 class="m_user_info_line">|</i> {yun:}$one.edu_n{/yun}学历
+
+					{yun:}if $one.status == '正在招聘'{/yun}
+					<span class="m_user_jobzt">{yun:}$one.status{/yun}</span>
+					{yun:}else{/yun}
+					<span class="m_user_jobjs">已停止</span>
+					{yun:}/if{/yun}
+				</div>
+				<div class="m_user_info_com">{yun:}$one.com_name{/yun} </div>
+			</div>
+			<div class="m_user_info_cz"><span class="m_user_info_time">{yun:}$one.datetime|date_format:"%Y-%m-%d"{/yun}</span>
+				<a href="javascript:void(0)" onclick="layer_del('确定要删除？', 'index.php?c=lookjobdel&id={yun:}$one.id{/yun}');" class="m_user_info_a">删除</a>
+			</div>
+		</div>
+		{yun:}foreachelse{/yun}
+		<div class="wap_member_no">
+			您还没有浏览过的职位<div><a class="wap_member_no_submit" href="{yun:}url m=wap c=job{/yun}">去搜索相关职位</a></div>
+		</div>
+		{yun:}/foreach{/yun}
+	</div>
+	{yun:}if $look|@count>0{/yun}
+	<div class="pages">{yun:}$pagenav{/yun}</div>
+	{yun:}/if{/yun}
+</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

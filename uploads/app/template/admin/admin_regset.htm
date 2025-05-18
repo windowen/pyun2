@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="../js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+	<body class="body_ifm">
+		<form class="layui-form">
+			<div class="infoboxp">
+				<div class="tty-tishi_top">
+					<div class="admin_new_tip">
+						<a href="javascript:;" class="admin_new_tip_close"></a>
+						<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+						<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+						<div class="admin_new_tip_list_cont">
+							<div class="admin_new_tip_list">该页面展示了网站的注册设置信息，可对注册设置操作。</div>
+						</div>
+					</div>
+					<div class="clear"></div>
+
+					<div class="tag_box">
+						<div>
+							<table width="100%" class="table_form">
+
+								<tr>
+									<th width="160">网站开启注册：</th>
+									<td>
+										<div class="layui-input-block">
+											<input name="reg_user_stop" {yun:}if $config.reg_user_stop=="1" {/yun} checked {yun:}/if{/yun} lay-skin="switch"
+											 lay-text="开启|关闭" type="checkbox" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="160" class="t_fl">注册类型：</th>
+									<td>
+										<div class="layui-input-inline">
+											<input name="reg_moblie" title="手机注册" type="checkbox" lay-skin="primary" {yun:}if $config.reg_moblie=="1" {/yun} checked {yun:}/if{/yun} />
+											<input name="reg_email" title="邮箱注册" type="checkbox" lay-skin="primary"  {yun:}if $config.reg_email=="1" {/yun} checked {yun:}/if{/yun} />
+											<input id="reg_user" name="reg_user" title="用户名注册" type="checkbox" lay-skin="primary" lay-filter="reg_user"  {yun:}if $config.reg_user=="1" {/yun} checked {yun:}/if{/yun}/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="160" class="t_fl">注册设置：</th>
+									<td>
+										<div class="layui-input-inline">
+											<input name="reg_passconfirm" title="密码确认" type="checkbox" lay-skin="primary" {yun:}if $config.reg_passconfirm=="1" {/yun} checked {yun:}/if{/yun}/>
+											<input name="reg_real_name_check" title="实名认证" type="checkbox" lay-skin="primary"  {yun:}if $config.reg_real_name_check=="1" {/yun} checked {yun:}/if{/yun}/>
+										</div>
+									</td>
+								</tr>
+
+								<tr id="namelenDiv" class="admin_table_trbg {yun:}if $config.reg_user!='1' {/yun} none{yun:}/if{/yun}">
+									<th width="160" class="t_fl">用户名长度：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input name="sy_reg_nameminlen" id="sy_reg_nameminlen" autocomplete="off" class="tty_input t_w100" type="text" value="{yun:}$config.sy_reg_nameminlen{/yun}"
+												 size="63" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">—
+												<input name="sy_reg_namemaxlen" id="sy_reg_namemaxlen" autocomplete="off" class="tty_input t_w100" type="text" value="{yun:}$config.sy_reg_namemaxlen{/yun}"
+												 size="63" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">
+											</div>&nbsp;&nbsp;位
+										</div>
+									</td>
+								</tr>
+								<tr id="namecomplexDiv" class="admin_table_trbg {yun:}if $config.reg_user!='1' {/yun} none{yun:}/if{/yun}">
+									<th width="160" class="t_fl">用户名复杂度：</th>
+									<td>
+										<div class="layui-input-block">
+										<div class="layui-input-inline">
+
+										    <input type="checkbox" name="reg_name_num" lay-skin="primary" title="数字" {yun:}if $config.reg_name_num=="1" {/yun} checked {yun:}/if{/yun} >
+											<div class="layui-unselect layui-form-checkbox  layui-form-checked" lay-skin="primary">
+												<span>数字</span>
+												<i class="layui-icon layui-icon-ok"></i>
+											</div>
+											<input type="checkbox" name="reg_name_zm" lay-skin="primary" title="字母" {yun:}if $config.reg_name_zm=="1" {/yun} checked {yun:}/if{/yun}>
+											<div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary">
+												<span>字母</span>
+												<i class="layui-icon layui-icon-ok"></i>
+											</div>
+											<input type="checkbox" name="reg_name_sp" lay-skin="primary" title="其它符号@!#.$-_" {yun:}if $config.reg_name_sp=="1" {/yun} checked {yun:}/if{/yun}>
+											<div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary">
+												<span>其它符号@!#.$-_</span>
+												<i class="layui-icon layui-icon-ok"></i>
+											</div>
+										</div>
+										<span class="admin_web_tip">提示：设置必须包含的项。</span>
+										</div>
+									</td>
+
+								</tr>
+								<tr id="pwcomplexDiv" class="admin_table_trbg">
+									<th width="160" class="t_fl">密码复杂度：</th>
+									<td>
+										<div class="layui-input-block">
+										<div class="layui-input-inline">
+											
+										    <input type="checkbox" name="reg_pw_num" lay-skin="primary" title="数字" {yun:}if $config.reg_pw_num=="1" {/yun} checked {yun:}/if{/yun} >
+											<div class="layui-unselect layui-form-checkbox  layui-form-checked" lay-skin="primary">
+												<span>数字</span>
+												<i class="layui-icon layui-icon-ok"></i>
+											</div>
+											<input type="checkbox" name="reg_pw_zm" lay-skin="primary" title="字母" {yun:}if $config.reg_pw_zm=="1" {/yun} checked {yun:}/if{/yun}>
+											<div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary">
+												<span>字母</span>
+												<i class="layui-icon layui-icon-ok"></i>
+											</div>
+											<input type="checkbox" name="reg_pw_sp" lay-skin="primary" title="其它符号@!#.$-_" {yun:}if $config.reg_pw_sp=="1" {/yun} checked {yun:}/if{/yun}>
+											<div class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin="primary">
+												<span>其它符号@!#.$-_</span>
+												<i class="layui-icon layui-icon-ok"></i>
+											</div>
+										</div>
+										<span class="admin_web_tip">提示：设置必须包含的项。</span>
+										</div>
+									</td>
+
+								</tr>
+
+
+								
+								<tr>
+									<th width="160" class="t_fl">邮件默认后缀：</th>
+									<td>
+										<div class="layui-input-block t_w480">
+											<textarea name="sy_def_email" id="sy_def_email" rows="3" cols="50" class="web_text_textarea">{yun:}$config.sy_def_email{/yun}</textarea>
+										</div>
+										<span class="admin_web_tip">多个用|(竖线)隔开,例：@qq.com|@163.com</span>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="160" class="t_fl">同一IP注册间隔：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline t_w480">
+												<input name="sy_reg_interval" id="sy_reg_interval" autocomplete="off" class="layui-input" type="text" value="{yun:}$config.sy_reg_interval{/yun}"
+												 size="63" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">
+											</div>
+											&nbsp;&nbsp;小时
+										</div>
+										<span class="admin_web_tip">提示：0为不限，其他数字为间隔时间。</span>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="160" class="t_fl">邀请注册限制：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline t_w480">
+												<input name="sy_reg_invite" id="sy_reg_invite" autocomplete="off" class="layui-input" type="text" value="{yun:}$config.sy_reg_invite{/yun}"
+												 size="63" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')">
+											</div>
+											&nbsp;&nbsp;次 
+										</div>
+										<span class="admin_web_tip">提示：每个账户每天邀请注册上限，0为不限，仅限制邮件邀请，防止恶意利用。</span>
+
+									</td>
+								</tr>
+								<tr>
+									<th width="160" class="t_fl">限制注册用户名：</th>
+									<td>
+										<div class="layui-input-block t_w480">
+											<textarea name="sy_regname" id="sy_regname" rows="3" cols="50" class="admin_comdit_textarea web_text_textarea">{yun:}$config.sy_regname{/yun}</textarea>
+										</div>
+										<span class="admin_web_tip">多个请用,(半角逗号)隔开。</span>
+									</td>
+								</tr>
+
+
+								<tr>
+									<th width="160" class="t_fl">限制会员手机号：</th>
+									<td>
+										<div class="layui-input-block">
+											<textarea name="sy_web_mobile" id="sy_web_mobile" rows="3" cols="50" class="admin_comdit_textarea web_text_textarea">{yun:}$config.sy_web_mobile{/yun}</textarea>
+										</div>
+										<span class="admin_web_tip">会员手机号(恶意攻击)用分号隔开,例:13141589203;18261151514</span>
+									</td>
+								</tr>
+
+								<tr>
+									<th>&nbsp;</th>
+									<td align="left">
+										<input class="tty_sub" id="regconfig" type="button" name="mapconfig" value="提交" />&nbsp;&nbsp;
+										<input class="tty_cz" type="reset" value="重置" />
+									</td>
+								</tr>
+							</table>
+							<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+						</div>
+					</div>
+				</div>
+				<script>
+					layui.use(['form'], function() {
+						var form = layui.form,
+							$ = layui.$;
+
+						form.on('checkbox(reg_user)', function(data){
+						  
+							if(data.elem.checked){
+								$('#namelenDiv').fadeIn();
+								$('#namecomplexDiv').fadeIn();
+								
+							}else{
+								$('#namelenDiv').fadeOut();
+								$('#namecomplexDiv').fadeOut();
+							}
+						  
+						});  
+					});
+
+					$(function() {
+						var sy_email_set = '{yun:}$config.sy_email_set{/yun}';
+						$("#regconfig").click(function() {
+							if ($("input[name=reg_moblie]").is(":checked")) {
+								if (!"{yun:}$config.sy_msg_appkey{/yun}" || !"{yun:}$config.sy_msg_appsecret{/yun}"  || "{yun:}$config.sy_msg_isopen{/yun}" != '1') {
+									layer.msg("还没有配置短信，请先配置！", 2, 8, function() {
+										location.reload();
+									});
+									return false;
+								}
+							}
+							if ($("input[name=reg_email]").is(":checked")) {
+								if (sy_email_set != '1') {
+									layer.msg("还没有配置邮箱，请先配置！", 2, 8, function() {
+										location.reload();
+									});
+									return false;
+								}
+							}
+
+							var reg_mobile = $("input[name=reg_moblie]").is(":checked") ? 1 : 0,
+								reg_email = $("input[name=reg_email]").is(":checked") ? 1 : 0,
+								reg_user = $("input[name=reg_user]").is(":checked") ? 1 : 0,
+								reg_user_stop = $("input[name=reg_user_stop]").is(":checked") ? 1 : 0;
+							if (reg_user_stop == 1 && reg_user == 0 && reg_mobile == 0 && reg_email == 0) {
+								layer.msg('开启网站注册时，‘手机注册’、‘email注册’、‘用户名注册’最少应开启一项!', 5, 8);
+								return false;
+							}
+							if(reg_user){
+								var namemaxlen = $("#sy_reg_namemaxlen").val() ? parseInt($("#sy_reg_namemaxlen").val()) : 0;
+								var nameminlen = $("#sy_reg_nameminlen").val() ? parseInt($("#sy_reg_nameminlen").val()) : 0;
+								if(nameminlen==0 || namemaxlen==0){
+									layer.msg('用户名长度需大于0!', 5, 8);return false;
+								}else if(namemaxlen <= nameminlen){
+									layer.msg('用户名长度最大值应大于最小值!', 5, 8);return false;
+								}
+							}
+							loadlayer();
+							$.post("index.php?m=config&c=save", {
+								reg_moblie: $("input[name=reg_moblie]").is(":checked") ? 1 : 0,
+								reg_email: $("input[name=reg_email]").is(":checked") ? 1 : 0,
+								reg_user: $("input[name=reg_user]").is(":checked") ? 1 : 0,
+								reg_passconfirm: $("input[name=reg_passconfirm]").is(":checked") ? 1 : 0,
+								reg_user_stop: $("input[name=reg_user_stop]").is(":checked") ? 1 : 0,
+								reg_real_name_check: $("input[name=reg_real_name_check]").is(":checked") ? 1 : 0,
+
+								reg_name_num: $("input[name=reg_name_num]").is(":checked") ? 1 : 0,
+								reg_name_zm: $("input[name=reg_name_zm]").is(":checked") ? 1 : 0,
+								reg_name_sp: $("input[name=reg_name_sp]").is(":checked") ? 1 : 0,
+								reg_name_han: $("input[name=reg_name_han]").is(":checked") ? 1 : 0,
+								sy_reg_namemaxlen: $("#sy_reg_namemaxlen").val() ? $("#sy_reg_namemaxlen").val() : 0,
+								sy_reg_nameminlen: $("#sy_reg_nameminlen").val() ? $("#sy_reg_nameminlen").val() : 0,
+
+								reg_pw_num: $("input[name=reg_pw_num]").is(":checked") ? 1 : 0,
+								reg_pw_zm: $("input[name=reg_pw_zm]").is(":checked") ? 1 : 0,
+								reg_pw_sp: $("input[name=reg_pw_sp]").is(":checked") ? 1 : 0,
+
+								sy_regname: $("#sy_regname").val(),
+								sy_def_email: $("#sy_def_email").val(),
+								sy_web_mobile: $("#sy_web_mobile").val(),
+								sy_reg_interval: $("#sy_reg_interval").val(),
+								sy_reg_invite: $("#sy_reg_invite").val(),
+								config: $("#regconfig").val(),
+								pytoken: $("#pytoken").val()
+							}, function(data, textStatus) {
+								parent.layer.closeAll('loading');
+								config_msg(data);
+							});
+						});
+
+						
+					});
+				</script>
+			</div>
+		</form>
+	</body>
+</html>

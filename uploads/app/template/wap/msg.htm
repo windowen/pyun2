@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <title>{yun:}$title{/yun}</title>
+        <meta name="keywords" content="{yun:}$keywords{/yun},wap" />
+        <meta name="description" content="{yun:}$description{/yun}" />
+        <meta name="renderer" content="webkit" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/job.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/style.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+    </head>
+
+    <body onLoad="TimeOut('{yun:}$tm{/yun}')">
+
+        
+        <div class="msg_nogood"><i class="msg_nogood_icon"></i>{yun:}$msg{/yun}</div>
+        
+        <div class="msg_nogood_ts"><span id="times">{yun:}$tm{/yun}</span> 秒后自动跳转，如果没有跳转，请点击立即跳转</div>
+          <div class="msg_nogood_cz"> <a href="{yun:}$url{/yun}" class="msg_nogood_cz_bth">立即跳转</a></div>
+     
+ 
+ 
+ <style>.header_bg{ background:#fff}</style>
+ 
+    </body>
+    
+    <script>
+        function TimeOut(i) {
+            if(i > 1) {
+                i = i - 1;
+                $("#times").html(i);
+                setTimeout("TimeOut(" + i + ");", 1000);
+            } else {
+                window.location.href = '{yun:}$url{/yun}';
+            }
+        }
+    </script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

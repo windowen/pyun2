@@ -1,0 +1,28 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+
+
+<div class="aboyt_cont">{yun:}$content.content{/yun}</div>
+<style>
+body{ background:#fff}
+.aboyt_cont{ padding:15px; line-height:25px;}
+</style>
+<script>
+function goBack(){
+	if (navigator.userAgent.indexOf('Firefox') >= 0 ||
+		navigator.userAgent.indexOf('Opera') >= 0 ||
+		navigator.userAgent.indexOf('Safari') >= 0 ||
+		navigator.userAgent.indexOf('Chrome') >= 0 ||
+		navigator.userAgent.indexOf('WebKit') >= 0){
+
+		if(window.history.length > 1){
+			window.history.go( -1 );
+		}else{
+			location.href = wapurl;
+		}
+	}else{ //未知的浏览器
+		window.history.go( -1 );
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun}
+
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<div class="wap_buy_packages none" id='tcmsg'  >
+
+	<ul class="wap_buy_packages_tit" id="rating_select">
+
+		{yun:}if !$vipIsDown && !$noSingle  || $server == autojob{/yun}
+			<li class="wap_buy_packages_nav {yun:}if (empty($rating_1) && empty($rating_2) && empty($add)) || $server == autojob{/yun}wap_buy_packages_nav_cur{yun:}/if{/yun}" data-id='4' data-singleid='{yun:}$server_id{/yun}' data-server='{yun:}$server{/yun}' data-price='{yun:}$single_price{/yun}' {yun:}if $config.com_integral_online==3{/yun}data-integral='{yun:}$statis.integral{/yun}' data-pro='{yun:}$config.integral_proportion{/yun}' {yun:}/if{/yun}>单份购买</li>
+		{yun:}/if{/yun} 
+
+		{yun:}if ($config.com_vip_type == '2' || $config.com_vip_type == '0') && !empty($rating_1) && $server != autojob{/yun} 
+			<li class="wap_buy_packages_nav wap_buy_packages_nav_cur" data-id='1' data-meal='{yun:}$config.member_meal{/yun}'>套餐会员</li>
+		{yun:}/if{/yun} 
+		
+		{yun:}if ($config.com_vip_type == '1' || $config.com_vip_type == '0') && !empty($rating_2) && $server != autojob{/yun}
+			<li class="wap_buy_packages_nav {yun:}if empty($rating_1){/yun}wap_buy_packages_nav_cur{yun:}/if{/yun}" data-id='2' data-meal='{yun:}$config.member_meal{/yun}'>时间会员</li>
+		{yun:}/if{/yun} 
+		
+		{yun:}if !$vipIsDown && $config.com_integral_online != 4 && $statis.rating_type != 2 && !empty($add) && $server != autojob{/yun}
+		<li class="wap_buy_packages_nav {yun:}if empty($rating_1) && empty($rating_2){/yun}wap_buy_packages_nav_cur{yun:}/if{/yun}" data-id='3'>增值包</li>
+		{yun:}/if{/yun} 
+		
+		
+	</ul>
+	{yun:}if ($config.com_vip_type == '2' || $config.com_vip_type == '0') && !empty($rating_1){/yun}
+	<!--套餐会员-->
+	<div class="wap_buy_packagesbox rating_css_div" id='rating_1' style="display:none">
+		<div class="wap_buy_packagescont">
+			<ul id='vip_rating_1'>
+			{yun:}foreach from=$rating_1 item=v key=key{/yun}
+			
+			<li class="wap_buy_packageslist" data-id="{yun:}$v.id{/yun}" data-server="vip" data-price="{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}{yun:}$v.yh_price{/yun}{yun:}else{/yun}{yun:}$v.service_price{/yun}{yun:}/if{/yun}" {yun:}if $config.com_integral_online==3 && $config.member_meal==0{/yun}data-integral='{yun:}$statis.integral{/yun}' data-pro='{yun:}$config.integral_proportion{/yun}' {yun:}/if{/yun} data-meal='{yun:}$config.member_meal{/yun}'>
+				<i class="wap_buy_packagesicon"></i>
+				<div class="wap_buy_packages_jb">{yun:}$v.name{/yun}</div>
+				<div class="wap_buy_packages_time">有效期：{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</div>
+				<div class="wap_buy_packagesjg">
+				
+					{yun:}if $config.com_integral_online==3 && $config.member_meal!=1{/yun}
+					
+						{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+							<span class="wap_buy_packagesyj">原价{yun:}intval($v.service_price * $config.integral_proportion){/yun}</span>
+							<span class="wap_buy_packagesxj">{yun:}intval($v.yh_price * $config.integral_proportion){/yun}</span>
+						{yun:}else{/yun}
+							<span class="wap_buy_packagesxj">{yun:}intval($v.service_price * $config.integral_proportion){/yun}</span>
+						{yun:}/if{/yun}
+						{yun:}$config.integral_pricename{/yun}
+						 
+					{yun:}else{/yun}
+						
+						{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+							<span class="wap_buy_packagesyj">原价{yun:}$v.service_price{/yun}</span>
+							<span class="wap_buy_packagesxj">￥{yun:}$v.yh_price{/yun}</span>
+						{yun:}else{/yun}
+							<span class="wap_buy_packagesxj">￥{yun:}$v.service_price{/yun}</span>
+						{yun:}/if{/yun}
+						
+					{yun:}/if{/yun}
+				</div>
+				
+				<span class="wap_buy_packages_mx">查看</span>
+				
+				<div class="wap_buy_packages_mx_box">
+					
+					<div class="buymeal_resources_list">
+						<div class="buymeal_resources_name">简历资源</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">面试邀请</span><span class="buymeal_resources_detailed_n">{yun:}$v.interview{/yun}</span>份</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">简历下载</span><span class="buymeal_resources_detailed_n">{yun:}$v.resume{/yun}</span>份</div>
+					</div>
+					
+					<div class="buymeal_resources_list">
+						<div class="buymeal_resources_name">职位资源</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位发布</span><span class="buymeal_resources_detailed_n">{yun:}$v.job_num{/yun}</span>份</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位推荐</span><span class="buymeal_resources_detailed_n">{yun:}$v.rec_num{/yun}</span>天</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位刷新</span><span class="buymeal_resources_detailed_n">{yun:}$v.breakjob_num{/yun}</span>份</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位置顶</span><span class="buymeal_resources_detailed_n">{yun:}$v.top_num{/yun}</span>天</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位紧急</span><span class="buymeal_resources_detailed_n">{yun:}$v.urgent_num{/yun}</span>天</div>
+					</div>
+					
+					<div class="buymeal_resources_list">
+						<div class="buymeal_resources_name">其他资源</div>
+						<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">招聘会预定</span><span class="buymeal_resources_detailed_n">{yun:}$v.zph_num{/yun}</span>次</div>
+					</div>
+					{yun:}if $v.explains{/yun}<div class="wap_buy_packages_mx_sm">套餐说明： {yun:}$v.explains{/yun}</div>{yun:}/if{/yun}
+				</div>
+				 
+			</li>
+			{yun:}foreachelse{/yun}
+			<div class="wap_buy_packagescont_increment_tip" style="text-align:center;"> 
+				暂无套餐会员服务，请联系管理员
+			</div>
+			{yun:}/foreach{/yun}
+			</ul>
+		</div>
+	</div>
+	{yun:}/if{/yun}
+	{yun:}if ($config.com_vip_type == '1' || $config.com_vip_type == '0') && !empty($rating_2){/yun}
+	<!--时间会员-->
+	<div class="wap_buy_packagesbox rating_css_div" id='rating_2' style="{yun:}if empty($rating_1) &&!empty($rating_2){/yun}display:block{yun:}else{/yun}display:none{yun:}/if{/yun}">
+		<div class="wap_buy_packagescont">
+			<ul id='vip_rating_2'>
+			{yun:}foreach from=$rating_2 item=v key=key{/yun}
+			<li class="wap_buy_packageslist" data-id="{yun:}$v.id{/yun}" data-server="vip" data-price="{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}yun:}$v.yh_price{/yun}{yun:}else{/yun}{yun:}$v.service_price{/yun}{yun:}/if{/yun}" {yun:}if $config.com_integral_online==3{/yun}data-integral='{yun:}$statis.integral{/yun}' data-pro='{yun:}$config.integral_proportion{/yun}' {yun:}/if{/yun} data-meal='{yun:}$config.member_meal{/yun}'>
+				<i class="wap_buy_packagesicon"></i>
+				<div class="wap_buy_packages_jb">{yun:}$v.name{/yun}</div>
+				<div class="wap_buy_packages_time">有效期：{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</div>
+				<div class="wap_buy_packagesjg">
+					{yun:}if $config.com_integral_online==3 && $config.member_meal!=1{/yun}
+					
+						{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+							<span class="wap_buy_packagesyj">原价{yun:}intval($v.service_price * $config.integral_proportion){/yun}</span>
+							<span class="wap_buy_packagesxj">{yun:}intval($v.yh_price * $config.integral_proportion){/yun}</span>
+						{yun:}else{/yun}
+							<span class="wap_buy_packagesxj">{yun:}intval($v.service_price * $config.integral_proportion){/yun}</span>
+						{yun:}/if{/yun}
+						 {yun:}$config.integral_pricename{/yun}
+					{yun:}else{/yun}
+						
+						{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+							<span class="wap_buy_packagesyj">原价{yun:}$v.service_price{/yun}</span><span class="wap_buy_packagesxj">￥{yun:}$v.yh_price{/yun}</span>
+						{yun:}else{/yun}
+							<span class="wap_buy_packagesxj">￥{yun:}$v.service_price{/yun}</span>
+						{yun:}/if{/yun}
+						
+					{yun:}/if{/yun}
+				</div>
+				
+				<span class="wap_buy_packages_mx">查看</span>
+				
+				<div class="wap_buy_packages_mx_box">
+				
+					<div class="buymeal_resources_list">
+						<div class="buymeal_resources_name">简历资源</div>
+						<div class="buymeal_resources_detailed_xz">有效期内面试邀请 + 简历下载不限次数</div>
+						{yun:}if $v.interview > 0 || $v.resume > 0{/yun}
+							<div class="buymeal_resources_detailed_xz">
+								单日限制：
+								{yun:}if $v.interview>0{/yun}面试邀请 {yun:}$v.interview{/yun} 次；{yun:}/if{/yun} 
+								{yun:}if $v.resume>0{/yun}简历下载 {yun:}$v.resume{/yun} 次 ；{yun:}/if{/yun}
+							</div>
+						{yun:}/if{/yun}
+					</div>
+					
+					<div class="buymeal_resources_list">
+						<div class="buymeal_resources_name">职位资源</div>
+						<div class="buymeal_resources_detailed_xz">有效期内职位发布 + 刷新职位不限次数</div>
+						{yun:}if $v.job_num > 0 || $v.breakjob_num > 0{/yun}
+							<div class="buymeal_resources_detailed_xz">
+								单日限制：
+								{yun:}if $v.job_num>0{/yun}发布职位 {yun:}$v.job_num{/yun} 份；{yun:}/if{/yun} 
+								{yun:}if $v.breakjob_num>0{/yun}刷新职位 {yun:}$v.breakjob_num{/yun} 份 ；{yun:}/if{/yun}
+							</div>
+						{yun:}/if{/yun}
+						
+						<div class="buymeal_resources_detailed_xz">
+							<div class="">赠送紧急招聘： {yun:}$v.urgent_num{/yun}天 </div>
+							<div class="">赠送职位推荐： {yun:}$v.rec_num{/yun}天</div>
+							<div class="">赠送职位置顶： {yun:}$v.top_num{/yun}天</div>
+						</div>
+					</div>
+					
+					<div class="buymeal_resources_list">
+						<div class="buymeal_resources_name">其他资源</div>
+						<div class="buymeal_resources_detailed_xz">有效期内招聘会报名预定不限次数</div>
+						{yun:}if $v.zph_num > 0{/yun}<div class="buymeal_resources_detailed_xz">单日限制：招聘会报名 {yun:}$v.zph_num{/yun}次</div>{yun:}/if{/yun}
+					</div>
+					
+					{yun:}if $v.explains{/yun}<div class="wap_buy_packages_mx_sm">套餐说明：{yun:}$v.explains{/yun}</div>{yun:}/if{/yun}
+				</div>
+			</li>
+			{yun:}foreachelse{/yun}
+			<div class="wap_buy_packagescont_increment_tip" style="text-align:center;"> 
+				暂无时间会员服务，请联系管理员
+			</div>
+			{yun:}/foreach{/yun}
+			</ul>
+		</div>
+	</div>
+	{yun:}/if{/yun}
+	{yun:}if !$vipIsDown && $config.com_integral_online != 4 && $statis.rating_type != 2 && !empty($add) && $server != autojob{/yun}
+	<!--增值包-->
+	<div class="wap_buy_packagesbox rating_css_div" id='rating_3' style="{yun:}if empty($rating_1) && empty($rating_2) && !empty($add){/yun}display:block{yun:}else{/yun}display:none{yun:}/if{/yun}">
+		<div class="wap_buy_packagescont_increment">
+			<ul id='vip_add'>
+			{yun:}foreach from=$add item=v key=key{/yun}	
+				<li class="wap_buy_packagescont_increment_list">
+					<div class="wap_buy_packagescont_increment_name">{yun:}$v.name{/yun} {yun:}if $statis.zk{/yun}<span class="wap_buy_packagescont_increment_subclassicon_zk">{yun:}$statis.zk_n{/yun}折</span>{yun:}/if{/yun}</div>
+					
+					<ul	id='vip_add_info_{yun:}$v.id{/yun}' class='detail_id' style="{yun:}if $key>0{/yun}display:none{yun:}/if{/yun}">
+					{yun:}foreach from=$v.detail item=dv key=dkey{/yun}	
+					<li class="wap_buy_packagescont_increment_subclass" data-server='pack' data-id='{yun:}$dv.id{/yun}' data-price='{yun:}if $statis.zk{/yun}{yun:}$dv.service_price * $statis.zk{/yun}{yun:}else{/yun}{yun:}$dv.service_price{/yun}{yun:}/if{/yun}' {yun:}if $config.com_integral_online==3{/yun}data-integral='{yun:}$statis.integral{/yun}' data-pro='{yun:}$config.integral_proportion{/yun}' {yun:}/if{/yun}>
+						
+						<i class="wap_buy_packagescont_increment_subclassicon"></i>
+						
+						{yun:}if $dv.interview{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">面试邀请<span class="wap_buy_n">{yun:}$dv.interview{/yun}</span>份 </div>{yun:}/if{/yun}
+						{yun:}if $dv.resume{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">简历下载<span class="wap_buy_n">{yun:}$dv.resume{/yun}</span>份</div>{yun:}/if{/yun}
+						{yun:}if $dv.job_num{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">发布职位<span class="wap_buy_n">{yun:}$dv.job_num{/yun}</span>个</div>{yun:}/if{/yun}
+						{yun:}if $dv.breakjob_num{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">刷新职位<span class="wap_buy_n">{yun:}$dv.breakjob_num{/yun}</span>个 </div>{yun:}/if{/yun}
+						{yun:}if $dv.zph_num{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">招聘会报名<span class="wap_buy_n">{yun:}$dv.zph_num{/yun}</span>场</div>{yun:}/if{/yun}
+						{yun:}if $dv.top_num{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">职位置顶<span class="wap_buy_n">{yun:}$dv.top_num{/yun}</span>天</div>{yun:}/if{/yun}
+						{yun:}if $dv.urgent_num{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">职位紧急<span class="wap_buy_n">{yun:}$dv.urgent_num{/yun}</span>天</div>{yun:}/if{/yun}
+						{yun:}if $dv.rec_num{/yun}<div class="wap_buy_packagescont_increment_subclassicon_p">职位推荐<span class="wap_buy_n">{yun:}$dv.rec_num{/yun}</span>天  </div>{yun:}/if{/yun}
+						
+						<div class="wap_buy_packagescont_increment_subclassicon_jg">
+						
+							{yun:}if $config.com_integral_online==3{/yun}
+							
+								{yun:}if $statis.zk{/yun}
+									<span class="wap_buy_packagesyj">原价{yun:}intval($dv.service_price * $config.integral_proportion){/yun}</span>
+									<span class="wap_buy_packagesxj">{yun:}intval($dv.service_price * $config.integral_proportion * $statis.zk){/yun}</span>
+								{yun:}else{/yun}
+									<span class="wap_buy_packagesxj">{yun:}intval($dv.service_price * $config.integral_proportion){/yun}</span>
+								{yun:}/if{/yun}
+								{yun:}$config.integral_pricename{/yun}
+							{yun:}else{/yun}
+							
+								{yun:}if $statis.zk{/yun}
+									<span class="wap_buy_packagesyj">原价{yun:}$dv.service_price{/yun}</span>
+									<span class="wap_buy_packagesxj">￥{yun:}$dv.service_price * $statis.zk{/yun}</span>
+								{yun:}else{/yun}
+									<span class="wap_buy_packagesxj">￥{yun:}$dv.service_price{/yun}</span>
+								{yun:}/if{/yun}
+							{yun:}/if{/yun}
+						</li>
+					{yun:}/foreach{/yun}
+					</ul>
+				</li>
+			{yun:}foreachelse{/yun}
+				<div class="wap_buy_packagescont_increment_tip" style="text-align:center;"> 
+					暂无增值服务，请联系管理员
+				</div>
+			{yun:}/foreach{/yun}
+			</ul>
+			{yun:}if $statis.zk{/yun}
+				<div class="wap_buy_packagescont_increment_tip">付费会员购买增值包尊享折扣价，你当前是{yun:}$statis.rating_name{/yun}尊享 {yun:}$statis.zk_n{/yun}折 优惠！</div>
+			{yun:}/if{/yun}
+		</div>
+	</div>
+	{yun:}/if{/yun}
+	{yun:}if !$vipIsDown && !$noSingle  || $server == autojob{/yun}
+	<!--单份购买-->
+	<div class="wap_buy_packagesbox rating_css_div" id='rating_4' style="{yun:}if (empty($rating_1) && empty($rating_2) && empty($add)) || $server == autojob{/yun}display:block{yun:}else{/yun}display:none{yun:}/if{/yun}">
+		
+		<div class="wap_buy_packagescont_singlebox">
+			
+			<!--置顶 紧急 推荐-->
+			<ul class="wap_buy_packagescont_daybox job_tg" id='job_tg' {yun:}if $config.com_integral_online==3{/yun}data-integral='{yun:}$statis.integral{/yun}' data-pro='{yun:}$config.integral_proportion{/yun}' {yun:}/if{/yun} style="{yun:}if $server == autojob || $server == jobtop || $server == jobrec || $server == joburgent || $server == sxpart || $server == partrec{/yun}display:block{yun:}else{/yun}display:none{yun:}/if{/yun}">
+				<span class="wap_buy_packagescont_dayname">服务时长：</span>
+				<li class="wap_buy_packagescont_day wap_buy_packagescont_day_cur first" data-days='1'>1天</li>
+				<li class="wap_buy_packagescont_day" data-days='3'>3天</li>
+				<li class="wap_buy_packagescont_day" data-days='7'>7天</li>
+				<li class="wap_buy_packagescont_day" data-days='15'>15天</li>
+				<li class="wap_buy_packagescont_day"  data-days='0'>
+					<input type="text" id='xdays' onkeyup="checkDays();" value='' maxlength='3' oninput="myFunction(this)" placeholder="自定义推广天数" class="wap_buy_packagescont_day_zdy">
+				</li>
+				<li>
+					<input type="hidden" name='days' id='days' value='1'/>
+					<input type="hidden" name='tg_price' id='tg_price' value=''/>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+	{yun:}/if{/yun}
+	<div>
+		<input type="hidden" name='server' id='server' value=''/>
+		<input type="hidden" name='server_price' id='server_price' value=''/>
+		<input type="hidden" name='paytype' id='paytype' value=''/>
+		<input type="hidden" name='single_id' id='single_id' value=''/>
+		<input type="hidden" name='bid' id='bid' value='{yun:}$smarty.get.bid{/yun}'/>
+	</div>
+	
+	<!-- 支付 -->
+	{yun:}if $config.com_integral_online==3{/yun}
+ 					
+		<div class="wap_buy_packagescont_single integral_reduce" style="display:none;">
+			<div class="wap_buy_packagescont_single_p">
+				<span id='server_msg'>购买此服务</span>将扣除您<span class="wap_buy_packagescont_single_p_n" id='single_integral'></span>
+				{yun:}$config.integral_pricename{/yun}
+			</div>
+			
+			<div class="integral_buy_div">
+				<div class="wap_buy_packagescont_single_bth"><a href="javascript:void(0);" onclick='integralBuy();' class="wap_buy_packagescont_single_bth_a">确认支付</a></div>
+				<div class="wap_buy_packagescont_single_tip">套餐购买更优惠，升级会员享受专属特权</div>
+			</div>
+			
+			<div class="wap_buy_packagescont_single_cz integral_pay_div" style="display:none;">
+				充值{yun:}$config.integral_pricename{/yun}：
+				<input type="text" value="" id='integral_int' maxlength='6' onkeyup="checkIntegralPay({yun:}$statis.integral{/yun}, {yun:}$config.integral_min_recharge{/yun}, {yun:}$config.integral_proportion{/yun});" oninput="myFunction(this)" placeholder="请输入充值{yun:}$config.integral_pricename{/yun}数量" class="wap_buy_packagescont_single_p_text">
+			</div>
+		</div>
+		
+	{yun:}else{/yun}
+	
+		<!--钱情况-->
+		<div class="wap_buy_packagescont_single integral_reduce" style="display:none;">
+			<div class="wap_buy_packagescont_single_p">{yun:}$single_msg{/yun}需支付<span class="wap_buy_packagescont_single_p_n" id='single_price'>{yun:}$single_price{/yun}</span>元</div>
+		</div>
+		
+	{yun:}/if{/yun}
+
+	
+	
+	{yun:}if $config.com_integral_online==1 && intval($statis.integral) > 0 {/yun}
+	
+	<div class="wap_buy_packages_deduction integral_dk_div">
+		<div class="wap_buy_packages_deduction_name">{yun:}$config.integral_pricename{/yun}抵扣</div>
+		<div class="wap_buy_packages_deduction_jf">您当前拥有 <span class="wap_buy_packages_deduction_jf_n">{yun:}$statis.integral{/yun}</span> {yun:}$config.integral_pricename{/yun}（1元={yun:}$config.integral_proportion{/yun}{yun:}$config.integral_pricename{/yun}）</div>
+		
+		<div class="mui-switch mui-switch-mini" id="integral_switch_single" style="position: absolute;right: 10px;top: 15px;">
+       		<div class="mui-switch-handle"></div>
+      	</div>
+		<div class="wap_buy_packages_deduction_text" id='integral_dk_single_div' style="display:none">
+			抵扣数量：<input type="text" value="" placeholder="请输入抵扣数量" id='integral_dk' name='integral_dk' onkeyup="checkIntegralDK({yun:}$statis.integral{/yun},{yun:}$config.integral_proportion{/yun});" oninput="myFunction(this)" class="yun_purchase_text" />
+		</div>
+	</div>
+	
+	{yun:}/if{/yun}
+	 
+	<div class="wap_buy_packages_payment pay_style_div">
+		 
+		
+		{yun:}if $paytype.alipay{/yun}
+		<div class="wap_buy_packages_fk_fs wap_buy_packages_fk_fs_zfb" onclick="paycheck('alipay');">
+			<i class="alipay wap_buy_packages_fk_xz"></i>支付宝
+		</div>
+		{yun:}/if{/yun} 
+            
+	</div>
+	
+	<div class="wap_buy_packages_fot">
+		<div class="wap_buy_packages_fot_c">
+		
+			{yun:}if $paytype.alipay{/yun}
+				
+				<div class="wap_buy_packages_fot_b order_price_div" >
+					<span class="wap_buy_packages_yf">应付金额：￥<span id='order_price'>0</span></span>
+					<a href="javascript:void(0);" onclick='orderBuy();' class="wap_buy_packages_fot_buy">购买</a>
+				</div>
+				
+				<div class="wap_buy_packages_fot_b order_integral_div" style="display:none;">
+						<span class="wap_buy_packages_yf">支付{yun:}$config.integral_pricename{/yun}：<span id='order_integral'>{yun:}$single_price * $config.integral_proportion{/yun} </span> </span>
+					<a href="javascript:void(0);" onclick='integralBuy();' class="wap_buy_packages_fot_buy">确认支付</a>
+				</div>
+				
+			{yun:}else{/yun}
+
+				<div style="text-align:center;">提示：网站尚未开启支付功能 , 请联系管理员</div>		
+			{yun:}/if{/yun}
+			
+		</div>
+	</div>
+	
+</div>
+
+<script>
+	var integral_min=	'{yun:}$config.integral_min_recharge{/yun}';	 
+	var integral_pro=	'{yun:}$config.integral_proportion{/yun}';
+	$(function(){
+
+		$("ul#rating_select li")[0].click();
+
+		$('#tcmsg').show();
+
+		var meal = '{yun:}$config.member_meal{/yun}';
+		// 可以购买会员时，强制金额消费，把抵扣隐藏
+		"{yun:}if !empty($rating_1) && !empty($rating_2){/yun}"
+		if(meal == '2'){
+			$('.integral_dk_div').hide();
+		}
+		"{yun:}/if{/yun}"
+		
+		"{yun:}if (!$vipIsDown && $config.com_integral_online != 4 && !$noSingle) || $server == autojob{/yun}"
+		"{yun:}if (empty($rating_1) && empty($rating_2) && empty($add)) || $server == autojob{/yun}"
+		// 页面只有单项购买时，点击单项购买选项卡
+		$("ul#rating_select li").each(function(){
+			if($(this).attr('data-id') == 4){
+				$(this).click();
+			}
+		})
+		"{yun:}/if{/yun}"
+		"{yun:}/if{/yun}"
+	});
+</script>
+<!-- 支付 -->
+<script src="{yun:}$wap_style{/yun}/js/rating.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$wap_style{/yun}/js/jsMath.js?v={yun:}$config.cachecode{/yun}"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{yun:}if $remind.info{/yun}
+
+
+<script>
+var wapurl  = '{yun:}$config.sy_weburl{/yun}/wap';
+var url     = '{yun:}$remind.url{/yun}';
+var info    = '{yun:}$remind.info{/yun}';
+var btninfo = '{yun:}$remind.btn{/yun}';
+var userchange='{yun:}$config.sy_user_change{/yun}';
+if(userchange==1){
+	layer.open({
+	  title: [
+		  '温馨提示',
+		  'background-color: #FF4351; color:#fff;'
+		],
+	  border		: 	[10, 0.3, '#000', true],
+	  content: info,
+	  btn: [btninfo,'切换身份'],
+	  shadeClose: false,
+	  yes: function(){
+
+			location.href=url;
+	  },
+	  no:function(){
+		
+		changeutype('noclose');
+	  
+	  }
+	});
+}else{
+	layer.open({
+	  title: [
+		  '温馨提示',
+		  'background-color: #FF4351; color:#fff;'
+		],
+	  border		: 	[10, 0.3, '#000', true],
+	  content: info,
+	  btn: [btninfo],
+	  shadeClose: false,
+	  yes: function(){
+
+			location.href=url;
+	  },
+	  no:function(){
+		
+		changeutype('noclose');
+	  
+	  }
+	});
+}
+</script>
+{yun:}/if{/yun}
+{yun:}include file="$wapstyle/member/public/changeutype.htm"{/yun}

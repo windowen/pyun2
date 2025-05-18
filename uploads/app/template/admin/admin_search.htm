@@ -1,0 +1,278 @@
+{yun:}if $smarty.get.m == admin_resume || $smarty.get.m == admin_company_job{/yun}
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/newclass.public.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/formSelects-v4.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+
+<script src="{yun:}$config.sy_weburl{/yun}/data/plus/job.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/data/plus/jobparent.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+<script src='{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}'></script>
+<script src="{yun:}$config.sy_weburl{/yun}/data/plus/cityparent.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/newclass.public.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/formSelects-v4.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>var weburl = '{yun:}$config.sy_weburl{/yun}'</script>
+
+<style>
+	.xm-select-parent .xm-select{
+		min-height: 32px;padding: 1px 10px;
+	}
+	.news_expect_text_new_nth{height: 30px;}
+	.news_expect_text_newcity_nth{height: 30px;}
+	.xm-select-parent .xm-select .xm-select-input{width: 100px;}
+</style>
+{yun:}/if{/yun}
+<div class="search_select">
+	<div class="search_select_pdd" id="show_search">
+
+		{yun:}if $smarty.get.keyword!=""{/yun}
+			<a class="Search_jobs_c_a" href="{yun:}searchurl m=$smarty.get.m c=$smarty.get.c untype='keyword'{/yun}">关键字：{yun:}$smarty.get.keyword{/yun}</a>
+		{yun:}/if{/yun}
+		
+ 		{yun:}foreach item=rows key=key from=$search_list{/yun}
+       		{yun:}assign var="t" value=$rows.param{/yun}
+            {yun:}if $smarty.get.$t!==false && $smarty.get.$t!=''{/yun}
+            	{yun:}foreach item=rs key=k from=$rows.value{/yun}
+                	{yun:}if $smarty.get.$t == $k{/yun}
+                    	<a class="Search_jobs_c_a" href="{yun:}searchurl m=$smarty.get.m c=$smarty.get.c untype=$t{/yun}">
+                        	{yun:}$rows.name{/yun}：{yun:}$rs{/yun}
+                    	</a>
+                    {yun:}/if{/yun}
+                {yun:}/foreach{/yun}
+            {yun:}/if{/yun} 
+		{yun:}/foreach{/yun}
+		
+		{yun:}if ($smarty.get.m == admin_resume ||$smarty.get.m == admin_company_job) && $smarty.get.job_class{/yun}
+		<a class="Search_jobs_c_a" href="{yun:}searchurl m=$smarty.get.m c=$smarty.get.c untype=job_class{/yun}">工作职能：{yun:}$job_name[$smarty.get.job_class]{/yun}</a>
+		{yun:}/if{/yun} 
+		
+		{yun:}if ($smarty.get.m == admin_resume ||$smarty.get.m == admin_company_job) && $smarty.get.city_class{/yun}
+		<a class="Search_jobs_c_a" href="{yun:}searchurl m=$smarty.get.m c=$smarty.get.c untype=city_class{/yun}">城市地区：{yun:}$city_name[$smarty.get.city_class]{/yun}</a>
+		{yun:}/if{/yun} 
+ 	</div>
+</div>
+
+<div class="clear"></div>
+
+<div class="admin_screenlist_box">
+
+	{yun:}assign var="v" value=0{/yun}
+	
+	
+	{yun:}foreach item=row key=key from=$search_list{/yun}
+	    {yun:}assign var="t" value=$row.param{/yun}
+	    {yun:}assign var="v" value=$v+1{/yun}
+	    
+		{yun:}if !($smarty.get.m == admin_resume && ($t == edu || $t == exp)) && !($smarty.get.m == admin_company_job && ($t == edu || $t == exp)){/yun}
+		
+	    <div class="admin_screenlist">
+	    	<span class="admin_screenlist_name">{yun:}$row.name{/yun}：</span>
+	    	<a href="{yun:}searchurl m=$smarty.get.m c=$smarty.get.c untype=$t{/yun}" {yun:}if $smarty.get.$t!==true && $smarty.get.$t==''{/yun}class="admin_screenlist_cur"{yun:}/if{/yun}>全部</a>
+		   {yun:}foreach item=r key=k from=$row.value{/yun}
+	            <a href="{yun:}searchurl m=$smarty.get.m c=$smarty.get.c adv=$k adt=$t untype=$t{/yun}" {yun:}if $smarty.get.$t!==false && $smarty.get.$t!='' && $smarty.get.$t == $k{/yun} class="admin_screenlist_cur"{yun:}/if{/yun}>{yun:}$r{/yun}</a> 
+	        {yun:}/foreach{/yun}  
+	    </div>
+		{yun:}/if{/yun}
+		
+	{yun:}/foreach{/yun}
+	
+	{yun:}if $smarty.get.m == admin_resume || $smarty.get.m == admin_company_job{/yun}
+	<div class="gjsousuo_qt">
+		<div class="gjsousuo_qt_label">其他条件：</div>
+		<div class="gjsousuo_qt_tj">
+			<div class="gjsousuo_list" style="width: auto;margin-right: 15px;">
+				<div class="admin_td_h" style="width:255px;position:relative">
+					
+					<input id="job_class" type="hidden" value="{yun:}$smarty.get.job_class{/yun}" name="job_class">
+					<select id="jobclass_search" class="expect_text" name="jobclass_search" xm-select-type="jobclass" xm-select="jobclass_search" 
+						xm-select-search=""  xm-select-radio="" xm-select-skin="default"  xm-select-direction="down" style="width: 250px;margin-top: 0;">
+						<option value="">输入搜索职能</option>
+					</select>
+					<div onclick="index_job_new(1,'#workadds_job','#job_class','left:100px;top:100px; position:absolute;','1');" class="news_expect_text_new_nth" title="选择职位类别"></div>
+				</div>
+			</div>
+			
+			<div class="gjsousuo_list" style="width: auto;margin-right: 15px;">
+				<div  style="width:255px;position:relative">
+					<select id="cityclass_search" class="expect_text" name="cityclass_search" xm-select-type="cityclass" xm-select="cityclass_search" xm-select-search=""  xm-select-radio="" xm-select-skin="default"  xm-select-direction="down">
+					<option value="">输入搜索城市</option>
+					</select>
+					<div onclick="index_city_new(1,'#workadds_city','#city_class','left:100px;top:100px; position:absolute;')" class="news_expect_text_newcity_nth" title="选择城市"></div>
+					<input type="hidden" name="city_class" id="city_class" value="{yun:}$smarty.get.city_class{/yun}" />
+				</div>
+			</div>
+
+			{yun:}if $smarty.get.m == admin_resume{/yun}
+				<div class="gjsousuo_list">
+					<input type="button" class="admin_new_select_text gjsousuo_index" value="{yun:}if $smarty.get.edu{/yun}{yun:}$userclass_name[$smarty.get.edu]{/yun}{yun:}else{/yun}学历要求{yun:}/if{/yun}">
+				
+					<div class="admin_Filter_text_box" style='display: none' id="">
+						<ul>
+							{yun:}foreach $userdata.user_edu item=v{/yun}
+							<li><a href="{yun:}searchurl m=admin_resume edu=$v untype=edu{/yun}">{yun:}$userclass_name[$v]{/yun}</a></li>
+							{yun:}/foreach{/yun}
+						</ul>
+					</div>
+				</div>
+				
+				<div class="gjsousuo_list">
+					<input type="button" class="admin_new_select_text gjsousuo_index" value="{yun:}if $smarty.get.exp{/yun}{yun:}$userclass_name[$smarty.get.exp]{/yun}{yun:}else{/yun}工作经验{yun:}/if{/yun}">
+				
+					<div class="admin_Filter_text_box" style='display: none' id="">
+						<ul>
+							{yun:}foreach $userdata.user_word item=v{/yun}
+							<li><a href="{yun:}searchurl m=admin_resume exp=$v untype=exp{/yun}">{yun:}$userclass_name[$v]{/yun}</a></li>
+							{yun:}/foreach{/yun}
+						</ul>
+					</div>
+				</div>
+			{yun:}else if $smarty.get.m == admin_company_job{/yun}
+			
+				<div class="gjsousuo_list">
+					<input type="button" class="admin_new_select_text gjsousuo_index" value="{yun:}if $smarty.get.edu{/yun}{yun:}$comclass_name[$smarty.get.edu]{/yun}{yun:}else{/yun}学历要求{yun:}/if{/yun}">
+				
+					<div class="admin_Filter_text_box" style='display: none' id="">
+						<ul>
+							{yun:}foreach $comdata.job_edu item=v{/yun}
+							<li><a href="{yun:}searchurl m=admin_company_job edu=$v untype=edu{/yun}">{yun:}$comclass_name[$v]{/yun}</a></li>
+							{yun:}/foreach{/yun}
+						</ul>
+					</div>
+				</div>
+				
+				<div class="gjsousuo_list">
+					<input type="button" class="admin_new_select_text gjsousuo_index" value="{yun:}if $smarty.get.exp{/yun}{yun:}$comclass_name[$smarty.get.exp]{/yun}{yun:}else{/yun}工作经验{yun:}/if{/yun}">
+				
+					<div class="admin_Filter_text_box" style='display: none' id="">
+						<ul>
+							{yun:}foreach $comdata.job_exp item=v{/yun}
+							<li><a href="{yun:}searchurl m=admin_company_job exp=$v untype=exp{/yun}">{yun:}$comclass_name[$v]{/yun}</a></li>
+							{yun:}/foreach{/yun}
+						</ul>
+					</div>
+				</div>
+			{yun:}/if{/yun}	
+
+		</div>
+	</div>
+	{yun:}/if{/yun}
+	<div class="admin_screenlist_more"><a href="javascript:;" onclick="searchmore()">收起更多条件</a></div>
+</div>
+
+<script>
+	function searchmore(){
+		var html=$(".admin_screenlist_box").toggle();
+	}
+
+	var sheight = document.getElementById("show_search").offsetHeight;
+
+	if(sheight > 12){
+
+		$("#show_search").show();
+	}else{
+
+		$("#show_search").hide();
+	}
+</script>
+{yun:}if $smarty.get.m == admin_resume || $smarty.get.m == admin_company_job{/yun}
+<script>
+	function searchmore(){
+		var html=$(".admin_screenlist_box").toggle();
+	}
+
+	var sheight = document.getElementById("show_search").offsetHeight;
+
+	if(sheight > 12){
+
+		$("#show_search").show();
+	}else{
+
+		$("#show_search").hide();
+	}
+	$(function(){
+		$('.gjsousuo_list').mouseover(function(){
+			$(this).find(".admin_Filter_text_box").show()
+		})
+		$('.gjsousuo_list').mouseout(function(){
+			$(this).find(".admin_Filter_text_box").hide()
+		})
+		$('.admin_Filter_text_box li a').click(function(){
+			var listhtml = $(this).html()
+			$(this).parent().parent().parent().parent().find(".gjsousuo_index").val(listhtml)
+			$('.admin_Filter_text_box').hide()
+		})
+	})
+	
+	var form = null,
+		formSelects = null;
+
+	layui.use(['layer', 'form'], function() {
+		formSelects = layui.formSelects;
+		form = layui.form;
+
+		formSelects.btns('cityclass_search', []);
+		formSelects.btns('jobclass_search', []);
+		
+		//实时获取选中值
+		formSelects.on('jobclass_search', function(id, vals, val, isAdd, isDisabled){
+			var jobvalue = [];
+			vals.forEach(function(item,index){
+				jobvalue.push(item.value);
+			})
+			$('#job_class').val(jobvalue.join(','));
+		}, true);
+		
+		formSelects.on('cityclass_search', function(id, vals, val, isAdd, isDisabled){
+			var cityvalue = [];
+			vals.forEach(function(item,index){
+				cityvalue.push(item.value);
+			})
+			$('#city_class').val(cityvalue.join(','));
+		}, true);
+		
+		//重设职位类别数据
+		'{yun:}if $expect.job_classid{/yun}'
+		jobSearchReset();
+		'{yun:}/if{/yun}'
+
+		//重设城市类别数据
+		'{yun:}if $expect.city_classid{/yun}'
+		citySearchReset();
+		'{yun:}/if{/yun}'
+
+		formSelects.maxTips('jobclass_search', function(id, vals, val, max){
+			layer.msg('最多只能选择1个！', 2, 8);
+		});
+		formSelects.maxTips('cityclass_search', function(id, vals, val, max){
+			layer.msg('最多只能选择1个！', 2, 8);
+		});
+	});
+
+	function jobSearchReset(){
+
+		var formSelects = layui.formSelects, 
+			jobclassArr= $("#job_class").val()!='' ? $("#job_class").val().split(",") : [],
+			jarr = [];
+
+		for(var i=0;i<jobclassArr.length;i++){
+			jarr.push({"name":jn[jobclassArr[i]],"value":jobclassArr[i],"selected":'selected'});
+		}
+
+		formSelects.data('jobclass_search', 'local', {
+			arr: jarr
+		});
+	}
+
+	function citySearchReset(){
+
+		var formSelects = layui.formSelects, 
+			cityclassArr= $("#city_class").val()!='' ? $("#city_class").val().split(",") : [],
+			carr = [];
+
+		for(var i=0;i<cityclassArr.length;i++){
+			carr.push({"name":cn[cityclassArr[i]],"value":cityclassArr[i],"selected":'selected'});
+		}
+		formSelects.data('cityclass_search', 'local', {
+			arr: carr
+		});
+	}
+</script>
+{yun:}/if{/yun}
+<div class="clear"></div>

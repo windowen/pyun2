@@ -1,0 +1,57 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+<div class="admin_mainbody"> {yun:}include file="$comstyle/left.htm"{/yun}
+   <div class="com_tit"> 
+		<span class="com_tit_span">发送记录</span>
+      </div> <div class=right_box>
+    <div class=admincont_box>
+    
+     
+         
+            
+      <div class="com_body">
+       <div class="clear"></div>
+            
+        <div class=admin_textbox_04>
+          <iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+          <form action="index.php?c=subscribe&act=del" target="supportiframe" method="post" id='myform'>
+  <table class="com_table mt20">
+               {yun:}if !empty($rows){/yun}
+               <tr>
+            
+              <th>编号</th>
+              <th>发送简历名</th>
+              <th>发送时间</th>
+
+            </tr>
+           
+                {yun:}foreach  from=$rows  item=v{/yun}
+                  <tr>
+                  <td >{yun:}$v.id{/yun}</td> 
+                  <td align="center">{yun:}$v.content{/yun}&nbsp;</td> 
+                  <td align="center">{yun:}$v.time|date_format:"%Y-%m-%d %H:%M"{/yun}&nbsp;</td> 
+                 </tr>
+                {yun:}/foreach{/yun}
+                
+                <tr>
+                <td colspan="7" class="table_end">
+                  <div class="diggg">{yun:}$pagenav{/yun}</div>
+                </div> </td>
+          </tr>
+                {yun:}else{/yun}
+                    <tr>
+            <td colspan="7" class="table_end">   <div class="msg_no">
+                   <p>暂无发送记录。</p>
+                  </div>
+             </td>
+          </tr>
+                {yun:}/if{/yun} 
+          </form>
+         </table>
+        </div>
+
+    </div>
+  </div>
+</div> 
+</div> 
+{yun:}include file="$comstyle/footer.htm"{/yun}

@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+	<meta name="description" content="{yun:}$description{/yun}"/>
+
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/yun_job_fairs.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+
+	<title>{yun:}$title{/yun}</title>
+</head>
+
+<body class="body_bg">
+	{yun:}include file="$tplstyle/header.htm"{/yun}
+
+    <div class="clear"></div>
+	
+	{yun:}fairs item=zphs limit=1{/yun} 
+   		<div class="zph_bannner_box">
+   			<div class="zph_bannner">
+   				<div class="zph_bn_ct_new"><div class="zph_bn_ct_new_f"><i class="zph_bn_ct_new_f_c"></i>NEW</div>最新招聘会</div>
+				<div class="zph_bn_ct">
+			     	<div class="zph_bn_ct_kh">招  /  聘  /  更  /  简  /  单  / &nbsp;&nbsp; .&nbsp;&nbsp;  求  /  职  /  更  /  轻  /  松</div>
+		          	<div class="zph_bn_tit"> <a class="" href="{yun:}url m=zph c=show id=$zphs.id{/yun}" title="{yun:}$zphs.title{/yun}">{yun:}$zphs.title{/yun}</a></div>
+		           	<div class="zph_bn_g">已有 <a href="{yun:}url m=zph c=com id=$zphs.id{/yun}">{yun:}$zphs.jobnum{/yun}</a> 个职位，共有 <a href="{yun:}url m=zph c=com id=$zphs.id{/yun}">{yun:}$zphs.comnum{/yun}</a> 家企业参会</div>
+		          	<div class="zph_bn_tm">举办时间：{yun:}$zphs.starttime{/yun} 至 {yun:}$zphs.endtime{/yun}</div>
+		            <div class="zph_bn_tm">举办地址：{yun:}$zphs.address{/yun}</div>
+		          	
+		          	<div class="zph_bn_bt">
+		            	{yun:}if $zphs.stime < 0 && $zphs.etime > 0{/yun}
+		              		
+		              		<!--span class="car_ord_orded">停止预定</span-->
+		              		
+		            	{yun:}else{/yun}
+		                	
+		                	{yun:}if $usertype==2{/yun}
+		                	
+		                		<a class="zph_bn_bt_y" href="{yun:}url m=zph c=reserve id=$zphs.id{/yun}">在线预订</a>
+		                	
+		                	{yun:}else{/yun}
+		                	
+			                    {yun:}if $uid{/yun}
+                              {yun:}if $config.sy_user_change==1{/yun}
+                               <a href="javascript:void(0);" onclick="layer.msg('请先申请企业用户才能在线预订', 2, 8);" class="zph_bn_bt_y">在线预订</a>
+                                {yun:}else{/yun} 
+                                	<a href="javascript:void(0);" onclick="layer.msg('只有企业用户才能在线预订', 2, 8);" class="zph_bn_bt_y">在线预订</a>
+                                {yun:}/if{/yun}			                
+			                    {yun:}else{/yun}
+			                
+			                    	<a href="javascript:void(0);" class="zph_bn_bt_y" onclick="showlogin('2');">在线预订</a>
+			                
+			                    {yun:}/if{/yun}
+			                    
+		                	{yun:}/if{/yun}
+		                	
+		             	{yun:}/if{/yun}
+		               	
+		               	<a class="zph_bn_bt_z" href="{yun:}url m=zph c=show id=$zphs.id{/yun}">查看详情</a>
+		           	</div>
+		     	</div>  
+     		</div>
+		</div>
+   	{yun:}/fairs{/yun} 
+   	
+   	<div class="yun_content">
+  		
+  		<div class="current_Location png "> 您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a> > <a href="{yun:}url m=zph{/yun}">招聘会 </a></div>
+   		
+   		<div class="zph_left">
+   			
+   			<div class="zph_left_tit" style="margin-top:0px;"><span class="zph_left_tit_s"><i class="zph_left_tit_line"></i>招聘会</span></div>
+   		
+   			<div class="zph_left_box">
+   
+      			{yun:}fairs ispage=1 item=zph limit=10{/yun}
+      				<div class="zph_left_list">
+					   	<div class="zph_left_list_pic"><img src="{yun:}$zph.is_themb{/yun}" width="200" height="120" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_zph_icon{/yun}',2);"></div>
+					   	
+					   	<div class="zph_left_box_r">
+					   		
+					   		<h2 class="zph_left_box_name">
+					   		
+					   			<a href="{yun:}url m=zph c=show id='`$zph.id`'{/yun}" class="title{yun:}$zph.id{/yun} {yun:}if $zph.stime <'0' && $zph.etime < '0'{/yun}yun_text_color_stop{yun:}else{/yun}yun_text_color{yun:}/if{/yun}" title="{yun:}$zph.title{/yun}">{yun:}$zph.title{/yun}</a>
+						    
+						        {yun:}if $zph.stime < 0 && $zph.etime < 0{/yun}
+						        	<span class="yun_text_color_stop">【已结束】</span>
+						        {yun:}/if{/yun}
+						        
+					      	</h2>
+					  
+					   		{yun:}if $zph.stime < 0 && $zph.etime > 0{/yun}
+					         	<div class="zph_left_box_sj"> 共有<span class="zph_left_box_sj_n">{yun:}$zph.comnum{/yun}</span>家企业参会，共有<span class="zph_left_box_sj_n">{yun:}$zph.jobnum{/yun}</span>个职位</div>	
+					        {yun:}else{/yun}
+					        	<div class="zph_left_box_sj">已有<span class="zph_left_box_sj_n">{yun:}$zph.comnum{/yun}</span>家企业参会，已有<span class="zph_left_box_sj_n">{yun:}$zph.jobnum{/yun}</span>个职位，火速报名中……</div>
+					        {yun:}/if{/yun} 
+					        
+					   		<div class="zph_left_box_icon zph_left_box_time">举办时间：{yun:}$zph.starttime{/yun}至{yun:}$zph.endtime{/yun} </div>
+					   		<div class="zph_left_box_icon zph_left_box_add">举办地点：{yun:}$zph.address{/yun}  </div>
+					   		
+					   		<div class="zph_left_box_cz">
+					   			{yun:}if $zph.stime < 0 || $zph.etime < 0{/yun}
+					           		<span class="car_ord_orded">停止预定</span>
+					          	{yun:}else{/yun}
+					                
+					                {yun:}if $usertype == 2{/yun}
+					                	<a href="{yun:}url m=zph c=reserve id='`$zph.id`'{/yun}" class="">在线预定</a>
+					                {yun:}else{/yun}
+					                
+					                    {yun:}if $uid{/yun}
+                               {yun:}if $config.sy_user_change==1{/yun}
+                               <a href="javascript:void(0);" onclick="layer.msg('请先申请企业用户才能在线预订', 2, 8);">在线预订</a>
+                                {yun:}else{/yun} 
+                                	<a href="javascript:void(0);" onclick="layer.msg('只有企业用户才能在线预订', 2, 8);">在线预订</a>
+                                {yun:}/if{/yun}
+					                    
+					                    {yun:}else{/yun}
+					                    	<a href="javascript:void(0);" onclick="showlogin('2');">在线预订</a>
+					                    {yun:}/if{/yun}
+					             	{yun:}/if{/yun}
+					         	{yun:}/if{/yun}
+					        	<a href="{yun:}url m=zph c=com id=$zph.id{/yun}" class="zph_left_box_cz_com">参会企业</a>
+					     	</div>
+					     	
+					   	</div>
+					     
+					    {yun:}if $zph.stime < 0 && $zph.etime < 0{/yun}
+					    	<div class="job_fairs_end fairs_Status png" >已举办</div>
+					    {yun:}elseif $zph.stime < 0 && $zph.etime > 0{/yun}
+					    	<div class="job_fairs_In fairs_Status png" >预定中</div>
+					    {yun:}else{/yun}
+					    	<div class="job_fairs_nostart fairs_Status png" >已开始</div>
+					    {yun:}/if{/yun} 
+					</div>
+				{yun:}/fairs{/yun}
+
+				{yun:}if !$total{/yun} 
+					<div class="no_tip">很抱歉，还没有招聘会的相关信息</div>
+				{yun:}else{/yun}
+
+					<div class="clear"></div>
+					<div class="search_pages">
+					  	<div class="pages">{yun:}$pagenav{/yun}</div>
+					</div>
+					
+				{yun:}/if{/yun}
+			</div>
+   		</div>
+    
+    	<div class="zph_right"> 
+    		<div class="zph_right_box"  style="margin-top:0px;">
+    			<div class="zph_right_tit"><span class="">精彩回顾</span></div> 
+				
+				{yun:}fairs item=zphback limit=1  state=3{/yun}	
+					{yun:}if $zphback.etime<'0'{/yun}
+					    <div class="zph_right_hg_box">
+						    <div><img src="{yun:}$zphback.is_themb{/yun}" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_zph_icon{/yun}',2);" width="240" height="160" /></div>
+						    <div class="zph_right_hg_p"><a href="{yun:}url m=zph c=show id='`$zphback.id`'{/yun}" title="{yun:}$zphback.title{/yun}">{yun:}$zphback.title{/yun}</a></div>
+					    </div>
+					{yun:}/if{/yun}
+				{yun:}/fairs{/yun}
+    			
+    			<div class="zph_right_hg_more"><a href="{yun:}url m=zph c=review{/yun}">更多往期回顾>></a></div>
+     		</div> 
+      		
+      		<div class="zph_right_box">
+		      	<div class="zph_right_wx_box">
+		      		<div class="zph_right_wx_img"><img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_qcode{/yun}"  width="130" height="130"></div>
+		       		<div class="zph_right_wx">关注微信公众号</div>
+		    		<div class="zph_right_wx">随时随地查看招聘会信息  </div>
+		     	</div>  
+			</div>
+     	</div>
+  	</div>
+
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<!--[if IE 6]>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script>
+	DD_belatedPNG.fix('.png,.car_time,.car_the_time,.car_the_add,.car_the_per,.car_state');
+	</script>
+	<![endif]-->
+	
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun} 

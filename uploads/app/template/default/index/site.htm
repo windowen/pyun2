@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+	<meta name="description" content="{yun:}$description{/yun}"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+	<link href="{yun:}$style{/yun}/style/site.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+
+	<title>{yun:}$title{/yun}</title>
+</head>
+
+<body class="body_bg">
+	{yun:}include file="$tplstyle/header.htm"{/yun}
+	<div class="yun_content">
+		<div class="current_Location icon"> 您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a> &gt; <span>全部城市</span> </div>
+	</div>
+	
+	<div class="clear"></div>
+
+	<div class="city_list_nav">
+		<ul class="">
+			{yun:}fz_list fz_list=city_list{/yun}
+			{yun:}if $city_list{/yun}
+			<li class="city_list_nav_cur" id="css_city"><a href="javascript:;" onClick="show_site('site_city')" class="">按城市</strong></a></li>
+			{yun:}/if{/yun}
+
+			{yun:}hy_list hy_list=hy_list{/yun}
+			{yun:}if $hy_list{/yun}
+			<li class="" id="css_hy"><a href="javascript:;" onClick="show_site('site_hy')" class="">按行业</a></li>
+			{yun:}/if{/yun}
+		</ul>
+	</div>
+
+	<div class="clear"></div>
+
+	<div class="site_list_bg">
+		<div class="yun_content">
+			<div id='site_city'>
+				<div class="city_come">
+					{yun:}if $siteinfo.cityname{/yun}
+						点击进入当前所在城市：<span><a href="{yun:}$vurl{/yun}">{yun:}$siteinfo.cityname{/yun}</a></span> 
+						<em class="site_city_tit_all">
+							您也可以点击进入:  <a href="{yun:}$config.sy_indexdomain{/yun}" class="city_come_all">{yun:}$config.sy_indexcity{/yun}</a>
+						</em>
+					{yun:}else{/yun}
+						点击进入:  <a href="{yun:}$config.sy_indexdomain{/yun}" class="city_come_all">{yun:}$config.sy_indexcity{/yun}</a>
+					{yun:}/if{/yun}
+					
+					
+				</div>
+
+				<div class="site_city_tit">按首字母选择</div>
+				{yun:}fz_list fz_list=city_list{/yun}
+				{yun:}foreach key=key item=list from=$city_list{/yun}
+					<div class="city_list">
+						<div class="city_list_n">{yun:}$key{/yun}</div>
+						<div class="city_list_c">
+							{yun:}foreach  item=city from=$list{/yun}
+								<a href="{yun:}$city.url{/yun}">{yun:}$city.name{/yun}</a>
+							{yun:}/foreach{/yun}
+						</div>
+					</div>
+				{yun:}/foreach{/yun}
+			</div>
+			<div id='site_hy' class="none">
+				{yun:}hy_list hy_list=hy_list{/yun}
+				<div class="site_city_hytit ">按行业选择</div>
+				<div class="site_city_hy">
+					<a href="javascript:;" onclick="setsite_hy('0');" class="site_city_hy_cur">所有行业</a>
+					{yun:}foreach key=key item=list from=$hy_list{/yun}
+						<a href="{yun:}$list.url{/yun}">{yun:}$list.webname{/yun}</a>
+					{yun:}/foreach{/yun}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script> 
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png,.index_logoin,.index_logoin_current,.nav_list,.fairs_Status,.fairs_Status,.logoin_qybj,.logoin_grbj,.logoin_Shadow_right,.logoin_Shadow_left,.whitebg,.micro_resume_fast,.nav_list_hover a,#bg,.left_comapply_cont li,.icon2,.nav_list .nav_list_hover em,.Fast_right_icon_l,.Fast_right_icon_r,.index_logoin_after,.logoin_after em,.logoin_after_su2,.logoin_after_su1,.hbg,.pagination li a,.firm_post_list,.Auction_tit,.yun_title,.Recommended_tit,.Com_Search_Results_r ul .All_post_h1_act,.sButtonBlock a.closeButton,.Comment_list_top,.icon,.yun_wap_m_bg,.micro_box');
+</script>
+<![endif]--> 
+<script>
+function setsite(cityid,name){
+	$.post("{yun:}url m=ajax c=SiteCity{/yun}",{cityid:cityid,cityname:name},function(data){ 
+		if(data!=""){
+			window.location.href=data;
+		}
+	});
+}
+function setsite_hy(hyid){
+	$.post("{yun:}url m=ajax c=SiteHy{/yun}",{hyid:hyid},function(data){
+		if(data!=""){
+			window.location.href=data;
+		}
+	});
+}
+function show_site(div_id){
+	if(div_id=='site_city'){
+		$("#site_city").show();
+		$("#site_hy").hide();
+		$("#css_hy").removeClass("city_list_nav_cur");
+		$("#css_city").addClass("city_list_nav_cur");
+	}else{
+		$("#site_hy").show();
+		$("#site_city").hide();
+		$("#css_city").removeClass("city_list_nav_cur");
+		$("#css_hy").addClass("city_list_nav_cur");
+	}
+}
+</script>
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun}

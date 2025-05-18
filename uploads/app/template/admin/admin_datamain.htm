@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<title></title>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+
+</head>
+<body class="body_ifm">
+
+<div class="infoboxp"> 
+<div class="tty-tishi_top">
+<div class="admin_new_tip">
+<a href="javascript:;" class="admin_new_tip_close"></a>
+<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+<div class="admin_new_tip_list_cont">
+<div class="admin_new_tip_list">本程序支持原程序没有经过二次开发，二次开发过的请勿转换。</div>
+<div class="admin_new_tip_list">转换之前请先备份数据库，以免在转换过程中出现问题。</div>
+<div class="admin_new_tip_list">为了不降低搜索引擎排名，请及时做好301跳转及404错误页面，商业版可联系客服处理。</div>
+</div>
+</div>
+<div class="clear"></div>
+  <iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+
+	
+  <form target="supportiframe" action="" method="post" class="layui-form">
+    <table width="100%" class="table_form ">
+      <tr class="admin_table_trbg">
+        <th>选择系统：</th>
+        <td>
+          <div class="layui-input-inline t_w480">
+              <select name="group" id="groupcont_val">
+                <option value="74cms3x">骑士CMS（3.X版本）</option>
+                <option value="74cms4x">骑士CMS（4.X版本）</option>
+              </select>
+            </div>
+          </td>
+      </tr>
+      <tr>
+        <th>数据库服务器：</th>
+        <td>
+            <div class="layui-input-block t_w480">
+              <input type="text"  id="start_id" lay-verify="required" placeholder="0" value="0"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+        </td>
+      </tr>
+      <tr class="admin_table_trbg">
+        <th>数据库用户名：</th>
+        <td>
+            <div class="layui-input-block t_w480">
+              <input type="text"  id="start_id" lay-verify="required" placeholder="0" value="0"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+         </td>
+      </tr>
+      <tr>
+        <th>数据库密码：</th>
+        <td>
+            <div class="layui-input-block t_w480">
+              <input type="text"  id="end_id" lay-verify="required" placeholder="0" value="0"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+        </td>
+      </tr>
+      <tr class="admin_table_trbg">
+        <th>数据库名：</th>
+        <td>
+        <div class="layui-input-block t_w480">
+              <input type="text"  id="limit" lay-verify="required" placeholder="20" value="20"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+         </td>
+      </tr>
+       <tr class="admin_table_trbg">
+        <th>数据表前缀：</th>
+        <td>
+        <div class="layui-input-block t_w480">
+              <input type="text"  id="limit" lay-verify="required" placeholder="20" value="20"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+         </td>
+      </tr>
+        <tr class="admin_table_trbg">
+        <th>数据库编码：</th>
+        <td>
+        <div class="layui-input-block t_w480">
+              <input type="text"  id="limit" lay-verify="required" placeholder="20" value="20"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+         </td>
+      </tr>
+       <tr class="admin_table_trbg">
+        <th>$QS_pwdhash变量：</th>
+        <td>
+        <div class="layui-input-block t_w480">
+              <input type="text"  id="limit" lay-verify="required" placeholder="20" value="20"  size="30"  autocomplete="off" class="layui-input">
+            </div>
+         </td>
+      </tr>
+      <tr>
+		<th></th>
+        <td>
+			<input class="layui-btn tty_sub" type="button" id="archive" value="开始转换"/>
+        </td>
+      </tr>
+      <input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+    </table>
+  </form>
+  </div>
+</div>
+<script language="javascript">
+  layui.use(['layer', 'form','element', 'laydate'], function(){
+    var layer = layui.layer
+    ,form = layui.form
+	,laydate = layui.laydate
+	,element = layui.element
+    ,$ = layui.$;
+	  //日期
+	  laydate.render({
+		elem: '#time',
+		range:'~'
+	  });
+  });//end layui.use()
+ </script>
+<input type="hidden" id="pytoken" value="{yun:}$pytoken{/yun}">
+</body>
+</html>

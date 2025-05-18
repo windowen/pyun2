@@ -1,0 +1,139 @@
+<link href="{yun:}$config.sy_weburl{/yun}/app/template/wap/member/public/style/changeutype.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css"/>
+<!--切换身份-->
+<div class="user_role_box none">
+<div class="user_role_cont">
+<div class="user_role">当前身份：{yun:}if $smarty.cookies.usertype == 1{/yun}求职者{yun:}elseif $smarty.cookies.usertype == 2{/yun}招聘企业{yun:}/if{/yun}</div>
+<div class="user_role_pic"></div>
+
+<div class="user_role_bth {yun:}if $smarty.cookies.usertype == 1{/yun} none {yun:}/if{/yun}"><a href="javascript:;" onclick="changUsertypeFun(1,{yun:}$smarty.cookies.usertype{/yun});" class="user_role_bth_b">个人求职</a></div>
+<div class="user_role_bth {yun:}if $smarty.cookies.usertype == 2{/yun} none {yun:}/if{/yun}"><a href="javascript:;" onclick="changUsertypeFun(2,{yun:}$smarty.cookies.usertype{/yun});" class="user_role_bth_b">招聘企业</a></div>
+
+</div>
+</div>
+<style>
+.layui-m-layer1 .layui-m-layerchild{border-radius:10px;}
+</style>
+
+<script>
+function changeutype(nocloseShade){
+	if(nocloseShade){
+		shadeClose=false;
+	}else{
+		shadeClose=true;
+	}
+	layer.open({
+		type: 1,
+		closeBtn: 1,
+		shadeClose:shadeClose,
+		border: [10, 0.3, '#000', true],
+		content: $(".user_role_box").html()
+	});
+}
+//切换身份
+function changUsertypeFun(usertype,presusertype){
+  if(usertype==presusertype){
+      layermsg('转换会员类型与当前会员类型一致,无须申请转！');
+  }else{
+	  $.post(wapurl+'/index.php?c=ajax&a=applytype',{applyusertype:usertype},function(data){
+	    if(data){
+	      var data=eval('('+data+')');
+		
+	    if(data.errcode==9){
+			layermsg('身份切换成功', 2, function(){
+            window.location.href = 'index.php';
+            window.event.returnValue = false;
+          });
+        }else if(data.errcode==1){
+	        layermsg(data.msg, 2, function(){window.location.href =data.url;return false;});
+	    }else if(data.errcode==2){
+	        layermsg(data.msg, 2);
+	    }else if(data.errcode==6){
+	        if(data.unionid || data.wxid){
+	          $("#wxbingding").css("display","none");             
+	        }else{
+	          $("#wxbingding").css("display","block");    
+	        }
+	        layer.open({
+	          type: 1,
+	          title: '温馨提示',
+	          closeBtn: [0, true],
+	          border: [10, 0.3, '#000', true],
+	          area: ['300px', 'auto'],
+	          content:'<div class="userchange_shuoming"><div class="identity_cgtip"><div id="applydshsm"></div></div><div class="identity_cgwxtip">你可关注微信快速接收审核信息</div><div class="identity_cgwxewm"><img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_qcode{/yun}" width="120" height="120"></div><div class="identity_cgtel">如需快速审核，可拨打热线<div>{yun:}$config.sy_freewebtel{/yun}</div></div></div>',
+	        });
+	        $("#applydshsm").html(data.msg);
+	      }else if(data.errcode==3){
+	        layer.open({
+	          type: 1,
+	          title: '温馨提示',
+	          closeBtn: [0, true],
+	          border: [10, 0.3, '#000', true],
+	          area: ['300px', 'auto'],
+	          content:'<div class="userchange_shuoming"><div class="identity_jtip"><div id="applyyjjsm"></div><div class="qh_bth"><button type="button" onclick="newapply('+usertype+')"  class="qh_bt_sq" >重新申请</button>&nbsp;&nbsp;<button type="button" id="" onclick="quxiao()"  class="com_pop_bth_qx">取消</button></div></div>',
+	        });
+	        $("#applyyjjsm").html(data.msg);
+	      }else if(data.errcode==5){
+		  
+			  layer.open({
+			      type: 1,
+			      title: '申请说明',
+			      closeBtn: [0, true],
+			      border: [10, 0.3, '#000', true],
+			      area: ['300px', 'auto'],
+			      content:'<div class="userchange_shuoming"><input id="applyusertype" name="applyusertype"  value="0" type="hidden"><input name="usertype" id="usertype" value="{yun:}$smarty.cookies.usertype{/yun}" type="hidden"><div class="qh_textarea"><textarea name="applybody" placeholder="请输入您切换身份的原因"  rows="5" cols="100"   class="qh_textarea_text"></textarea></div><div class="qh_bth"><button type="button" onclick="applyuserchange()"  class="qh_bt_sq" >申请</button>&nbsp;&nbsp;<button type="button" id="" onclick="applyqxs()"  class="com_pop_bth_qx">取消</button></div></div>',
+			    });
+			    $("#applyusertype").val(usertype);			
+		  }
+	    }
+	  });
+  }
+}
+function applyuserchange(){
+  var  usertype        =     $("#usertype").val();
+  var  applyusertype   =     $("#applyusertype").val();
+  var  applybody       =    $.trim($("textarea[name='applybody']").val());
+  if(applyusertype==""){
+    layermsg('请选择转换类型！');return false;
+  }else if(usertype==applyusertype){
+    layermsg('转换会员类型与当前会员类型一致,无须申请转换！');return false;
+  }
+  if(applybody==""){
+    layermsg('请填写申请说明!');return false;
+  }
+  $.post(wapurl+'/index.php?c=ajax&a=applytype',{applybody:applybody,applyusertype:applyusertype},function(msg){
+
+	 layer.closeAll();
+    var data=eval('('+msg+')');
+	if(data.errcode == '9'){
+		
+		layermsg('身份切换成功！', 2, function(){window.location.href ='index.php';return false;});
+	}else if(data.msg){
+		
+		layermsg(data.msg, 2);
+	}else{
+		layermsg('身份切换失败！', 2);
+	}
+    
+  })
+}
+
+//重新申请
+function newapply(usertype){
+   layer.open({
+	  type: 1,
+	  title: '申请说明',
+	  closeBtn: [0, true],
+	  border: [10, 0.3, '#000', true],
+	  area: ['300px', 'auto'],
+	  content:'<div class="userchange_shuoming"><input id="applyusertype" name="applyusertype"  value="0" type="hidden"><input name="usertype" id="usertype" value="{yun:}$smarty.cookies.usertype{/yun}" type="hidden"><div class="qh_textarea"><textarea name="applybody" placeholder="请输入您切换身份的原因"  rows="5" cols="100"   class="qh_textarea_text"></textarea></div><div class="qh_bth"><button type="button" onclick="applyuserchange()"  class="qh_bt_sq" >申请</button>&nbsp;&nbsp;<button type="button" id="" onclick="quxiao()"  class="com_pop_bth_qx">取消</button></div></div>',
+	});
+	$("#applyusertype").val(usertype);	
+}
+//取消申请
+function quxiao(){
+
+    layer.closeAll();
+  
+}
+
+</script>

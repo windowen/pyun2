@@ -1,0 +1,80 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<div class="special_banner" style="width:100%;height:200px;background:url({yun:}$info.background{/yun}) no-repeat center; background-size: cover;"></div>
+<div class="special_rules_time">{yun:}$info.ctime|date_format: "%Y年%m月%d日"{/yun} ~{yun:}$info.etime|date_format: "%Y年%m月%d日"{/yun} </div>
+<div class="special_rules_box">
+
+
+<div class="special_rules" >
+<div class="special_rules_c">{yun:}$info.intro{/yun}</div>
+</div>
+</div>
+
+<div class="special_rules_combox">
+
+{yun:}specialcom id='auto.id' namelen=10 jobnamelen=16 item=clist{/yun}
+{yun:}if $clist.jobs{/yun}
+
+<div class="special_rules_comlist">
+<div class="special_rules_cominfo">
+<div class="special_rules_comlogo"><a href="{yun:}url m=wap c=company a=show id=$clist.uid{/yun}">
+<img src="{yun:}$clist.logo{/yun}" width="50" height="50" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_unit_icon{/yun}',2);"/></a></div>
+<div class="special_rules_comname"><a href="{yun:}url m=wap c=company a=show id=$clist.uid{/yun}">{yun:}$clist.name_n{/yun}</a></div>
+<div class="special_rules_comhy">{yun:}$clist.hyname{/yun}</div>
+</div>
+{yun:}foreach from=$clist.jobs key=key item=jlist{/yun} 
+{yun:}if $key<3{/yun}
+<div class="special_rules_comjoblist">
+<div class="special_rules_comjobname"><a href="{yun:}url m=wap c=job a=comapply id=$jlist.id{/yun}" class="">{yun:}$jlist.name_n{/yun}</a></div>
+<div class="special_rules_jobinfo">{yun:}$jlist.exp_n{/yun}/{yun:}$jlist.edu_n{/yun}</div>
+<div class="special_rules_jobxz">{yun:}$jlist.job_salary{/yun}</div>
+<a href="{yun:}url m=wap c=company a=show id='`$jlist.uid`'{/yun}"   class="special_rules_joblook">查看</a>
+</div>
+
+{yun:}/if{/yun}	
+{yun:}/foreach{/yun} 
+
+
+</div>
+{yun:}/if{/yun}
+{yun:}specialcomelse{/yun}
+  <div class="" style="color:#fff; text-align:center">我们期待您的参与~</div> 
+{yun:}/specialcom{/yun}
+
+{yun:}if !$isapply{/yun}
+	
+	<div class="special_seniorpd_box">
+		<div class="special_seniorpd_cont">
+			<div class="special_box_bth_c" style="margin-top:20px;">
+				<input type='button' value="参加报名" onclick="{yun:}if $uid{/yun}{yun:}if $usertype!='2'{/yun}{yun:}if $config.sy_user_change==1{/yun}layermsg('请先申请企业账户'); {yun:}else{/yun}layermsg('只有企业用户才能参加报名');{yun:}/if{/yun}{yun:}elseif empty($spid){/yun}comapply('{yun:}$info.id{/yun}','{yun:}$info.integral{/yun}','{yun:}url m=wap c=special a=apply{/yun}'){yun:}else{/yun}layermsg('很抱歉，当前账号无法报名，请联系主体账号报名！');{yun:}/if{/yun}{yun:}else{/yun}pleaselogin('您还未登录账号，是否登录？','{yun:}url m=wap c=login{/yun}'){yun:}/if{/yun}" class="special_box_bth"/>
+			</div>
+		</div>
+	</div>
+	 
+{yun:}else{/yun}
+<div class="special_seniorpd_box">
+	<div class="special_seniorpd_cont">
+		<div class="special_box_bth_c">
+			{yun:}if $applysuccess.status=="0"{/yun}
+			<div style="width:100%;height:40px; text-align:center; line-height:40px;border:none; background:#f60;background: -webkit-linear-gradient(left,#ff6600,#ff6600);color:#fff; margin:0; padding:0; font-size:16px;border-radius:3px;">报名审核中</div>
+			{yun:}elseif $applysuccess.status=="1"{/yun}
+			<div style="width:100%;height:40px; text-align:center; line-height:40px;border:none; background:#f60;background: -webkit-linear-gradient(left,#ff6600,#ff6600);color:#fff; margin:0; padding:0; font-size:16px;border-radius:3px;" >已报名</div>
+			{yun:}else{/yun}
+			<div style="width:100%;height:40px; text-align:center; line-height:40px;border:none; background:#f60;background: -webkit-linear-gradient(left,#ff6600,#ff6600);color:#fff; margin:0; padding:0; font-size:16px;border-radius:3px;" >请联系管理员</div>
+			{yun:}/if{/yun}
+		</div>
+	</div>
+</div>
+{yun:}/if{/yun}
+
+</div>
+
+
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/special.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<style>
+body{ background:#ecebeb}
+.yun_footer{ display:none;}
+</style>
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

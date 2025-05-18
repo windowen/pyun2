@@ -1,0 +1,88 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<div class="password_box">
+
+	<div class="passport-progress"></div>
+
+	<div class="account">
+	 
+		<div  class="J_listitme_group">
+		 
+			<div class="J_validate_group">
+				<div class="selecttip">新用户名：</div>
+				<div class="account_td1">
+					<input class="input_295_34" name="username" id="username" type="text" placeholder="请输入新的用户名">
+				</div>
+				<div class="selecttip">新密码：</div>
+				<div class="account_td1">
+					<input class="input_295_34" name="password" id="password" type="password" placeholder="请输入新的用户密码">
+				</div>
+				<div class="selecttip">确认新密码：</div>
+				<div class="account_td1">
+					<input class="input_295_34" name="cpassword" id="cpassword" type="password" placeholder="请输入确认新的用户密码">
+				</div>
+				<div class="reset_btnbox">
+					<input type="hidden" name="uid" value="{yun:}$smarty.get.uid{/yun}" />
+					<input type="hidden" name="code" value="{yun:}$smarty.get.code{/yun}" />
+					<input type="submit" value="提交" onclick="claimUser();" class="reset_xia">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script>
+	function claimUser(){
+		var uid			=	$.trim($("input[name=uid]").val());
+		var code		=	$.trim($("input[name=code]").val());
+		var username	=	$.trim($("input[name=username]").val());
+		var password	=	$.trim($("input[name=password]").val());
+		var cpassword	=	$.trim($("input[name=cpassword]").val());
+		if($.trim(username)=="") {
+			layermsg('输入新的用户名！');return false;
+		}else if(username.length<2 || username.length>16){
+			layermsg('用户名长度应为2-16位！');return false;
+		}
+		if(password.length<6 || password.length>20){
+			layermsg('密码长度应为6-20位！');return false;
+		}
+		if(password!=cpassword){
+			layermsg('两次输入密码不一致！');return false;
+		}
+		
+		var formData	=	new FormData();
+		formData.append('uid', uid);
+		formData.append('username', username);
+		formData.append('password', password);
+		formData.append('cpassword', cpassword);
+		formData.append('code', code);
+
+		layer_load('执行中，请稍候...');
+		
+		$.ajax({
+			url: wapurl +"index.php?c=claim&a=save",
+			type: 'post',
+			data: formData,
+			contentType: false,
+			processData: false,
+			dataType: 'json',
+			success: function(res) {
+				layer.closeAll();
+				var res = JSON.stringify(res);
+				var data = JSON.parse(res);
+
+				if(data.errcode==9) {
+					layermsg(data.msg, 2, function() {
+						location.href = wapurl;
+					});
+				} else {
+					layermsg(data.msg, 2);
+					return false;
+				}
+			}
+		})
+	}
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

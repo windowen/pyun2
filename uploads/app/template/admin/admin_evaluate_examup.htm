@@ -1,0 +1,630 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript" type="text/javascript"></script>
+	
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+	 type="text/css" />
+	
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script> var weburl = '{yun:}$config.sy_weburl{/yun}'; </script>
+	<title>后台管理</title>
+</head>
+
+<body class="body_ifm">
+
+	<div class="infoboxp">
+	
+
+		<div class="tty-tishi_top">
+			 
+
+			<div class="tabs_info" style="height: 35px;">
+				<ul>
+					<li {yun:}if !$type{/yun}class="curr"{yun:}/if{/yun}>试卷信息</li>
+					{yun:}if $smarty.get.id{/yun}<li {yun:}if $type{/yun}class="curr"{yun:}/if{/yun}>题目管理</li>{yun:}/if{/yun}
+				</ul>
+			</div>	
+		</div>
+		
+		<div class="tty_table-bom">
+			<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+
+			<form id="cpform" name="myform" target="supportiframe" action="index.php?m=admin_evaluate&c=examupsave" method="post"
+			 encType="multipart/form-data" class="layui-form" {yun:}if $type{/yun}style="display: none;"{yun:}/if{/yun}>
+			
+				<table class="table_form" width="100%">
+
+					<tr>
+						<th colspan="2" class="admin_bold_box">
+							<div class="admin_bold">{yun:}if $smarty.get.id{/yun}修改{yun:}else{/yun}添加{yun:}/if{/yun}测评试卷</div>
+							
+						</th>
+					</tr>  
+
+					<tr>
+						<th width="120">试卷名称：</th>
+						<td>
+							<div class="layui-input-input t_w480">
+								<input type="text" name="examtitle" id="examtitle" lay-verify="required" placeholder="请输入试卷名称" value="{yun:}$info.name{/yun}" autocomplete="off" class="layui-input" style="display:inline;">
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th width="120">试卷类别选择：</th>
+						<td>
+							<div class="layui-input-inline t_w480">
+								<select name="selectgroup" id="selectgroup">
+									<option value="">请选择</option>
+									{yun:}foreach item=v from=$group_all{/yun}
+										{yun:}if $v.id eq $info.keyid{/yun}
+											<option value="{yun:}$v.id{/yun}" selected>{yun:}$v.name{/yun}</option>
+										{yun:}else{/yun}
+											<option value="{yun:}$v.id{/yun}">{yun:}$v.name{/yun}</option>
+										{yun:}/if{/yun}
+									{yun:}/foreach{/yun}
+
+								</select>
+							</div>
+							{yun:}if !$group_all{/yun}<span style="font-size:14px; color:red; display:inline-block; line-height:34px;">请先添加测评类别</span>{yun:}/if{/yun}
+						</td>
+					</tr>
+
+					<tr>
+						<th width="120" class="t_fl">缩略图：</th>
+						<td >
+							
+							<button type="button" class="yun_bth_pic noupload"  lay-data="{imgid: 'imgicon',parentid: 'imgparent'}">上传缩略图</button>
+
+								<input type="hidden" id="laynoupload" value="1" />
+								<div class="clear"></div>
+								<div class="" style=" margin-top:10px;">
+									<img id="imgicon" src="{yun:}if $info.pic_n{/yun}{yun:}$info.pic_n{/yun}{yun:}else{/yun}{yun:}$config.sy_weburl{/yun}/{yun:}$config.sy_cplogo{/yun}{yun:}/if{/yun}" width='150' height='100' />
+								</div>
+					
+							 
+						</td>
+					</tr>
+
+					<tr>
+						<th width="120">试卷排序：</th>
+						<td>
+							<div class="layui-input-block t_w480">
+								<input type="text" name="sort" id="sort" lay-verify="required" placeholder="请输入试卷排序" value="{yun:}$info.sort{/yun}" size="5" autocomplete="off" class="layui-input">
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<th width="120">试卷属性：</th>
+						<td>
+							<div class="layui-input-inline">
+								<input type="checkbox" name="top" lay-skin="primary" title="首页幻灯" value="1" {yun:}if $info.top=='1' {/yun}checked="checked"{yun:}/if{/yun}>
+								<input type="checkbox" name="hot" lay-skin="primary" title="头条" value="1" {yun:}if $info.hot=='1' {/yun}checked="checked"{yun:}/if{/yun}>
+								<input type="checkbox" name="recommend" lay-skin="primary" title="推荐" value="1" {yun:}if $info.recommend=='1' {/yun}checked="checked"{yun:}/if{/yun}>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<th width="120" class="t_fl">描　　述：</th>
+						<td>
+							<div class="layui-input-block t_w480">
+								<textarea name="description" id='description' cols="100" rows="3" placeholder="请输入描述" lay-verify="required" class="layui-textarea" autocomplete="off">{yun:}$info.description{/yun}</textarea>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<th width="120" class="t_fl">评语管理：</th>
+						<td>
+							<div class='' style="">
+								
+								{yun:}if $info.id{/yun}
+								{yun:}foreach from=$info.fromscore item=value key=key{/yun}
+								<div class="ty_cpsj_pygl" style="padding: 20px;">
+									<div class="layui-form-item layui-form-text">
+										<label class="ty_cpsj_pygl_label">成绩</label>
+										<div class="layui-input-block t_w400">
+											<div class="admin_comclass_addjg_box lf" style="width: 140px;">
+												<input type="text" class="layui-input" name="fromscore[]"  size="4" value="{yun:}$info.fromscore[$key]{/yun}" placeholder="请输入成绩" />
+												<span class="admin_comclass_add_dw">分</span> 
+											</div>
+											<span style="float: left;padding: 10px 20px;">到</span>
+											<div class="admin_comclass_addjg_box lf" style="width: 140px;">
+												<input type="text" name="toscore[]" class="layui-input" size="4" value="{yun:}$info.toscore[$key]{/yun}" placeholder="请输入成绩" />
+												<span class="admin_comclass_add_dw">分</span> 
+											</div>
+										</div>
+									</div>
+									<div class="layui-form-item layui-form-text" style="margin-top: 10px;">
+										<label class="ty_cpsj_pygl_label">评语</label>
+										<div class="layui-input-inline" style="width: 370px;">
+										  <textarea placeholder="请输入评语" class="layui-textarea" name="comment[]">{yun:}$info.comment[$key]{/yun}</textarea>
+										</div>
+									</div>
+									<a class="ty_cpsj_pygl_sc" href="javascript:;" onclick="removeComment(this);">删除</a> 
+								</div>
+								{yun:}/foreach{/yun}
+								{yun:}else{/yun}
+								<div class="ty_cpsj_pygl" style="padding: 20px;">
+									<div class="layui-form-item layui-form-text">
+										<label class="ty_cpsj_pygl_label">成绩</label>
+										<div class="layui-input-block t_w400">
+											<div class="admin_comclass_addjg_box lf" style="width: 140px;">
+												<input type="text" class="layui-input" name="fromscore[]"  size="4" value="{yun:}$info.fromscore[$key]{/yun}" placeholder="请输入成绩" />
+												<span class="admin_comclass_add_dw">分</span> 
+											</div>
+											<span style="float: left;padding: 10px 20px;">到</span>
+											<div class="admin_comclass_addjg_box lf" style="width: 140px;">
+												<input type="text" name="toscore[]" class="layui-input" size="4" value="{yun:}$info.toscore[$key]{/yun}" placeholder="请输入成绩" />
+												<span class="admin_comclass_add_dw">分</span> 
+											</div>
+										</div>
+									</div>
+									<div class="layui-form-item layui-form-text" style="margin-top: 10px;">
+										<label class="ty_cpsj_pygl_label">评语</label>
+										<div class="layui-input-inline" style="width: 370px;">
+										  <textarea placeholder="请输入评语" class="layui-textarea" name="comment[]">{yun:}$info.comment[$key]{/yun}</textarea>
+										</div>
+									</div>
+									<a class="ty_cpsj_pygl_sc" href="javascript:;" onclick="removeComment(this);">删除</a> 
+								</div>
+								{yun:}/if{/yun}
+
+								<a class="admin_infoboxp_nav admin_infoboxp_tj" href="javascript:;" onclick="addNewComment();" id="newCommentBtn">添加评语管理</a>
+							</div>
+						</td>
+					</tr>
+					
+					
+					<tr class="admin_table_trbg">
+						<th style="border-bottom:none;">&nbsp;</th>
+						<td align="left" style="border-bottom:none;">
+							
+							<input class="layui-btn tty_sub" type="button" onclick="addCpInfo();" value="{yun:}if $info.id{/yun}修改{yun:}else{/yun}保存{yun:}/if{/yun}" /> 
+
+							<input class="layui-btn tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="examid" size="40" value="{yun:}$info.id{/yun}" />
+				<input type="hidden" name="lasturl" value="" />
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}" />
+			</form>
+
+			<form id="cpform2" class="layui-form"  {yun:}if !$type{/yun}style="display: none;"{yun:}/if{/yun}>
+			
+				<table class="table_form" width="100%">
+					
+					<tr>
+						<th colspan="3" class="admin_bold_box">
+							<div class="admin_bold">试题管理</div>
+						</th>
+					</tr>
+				</table>
+				<div class="lookQu">
+					<div class="admin_statistics"  id="divExamInfo">
+						<span class="tty_sjtj_color">题目统计：</span>
+						<em class="admin_statistics_s">总数：<span class="ajaxall">{yun:}$ask|@count{/yun}道</span></em>
+						<em class="admin_statistics_s">总分：<span class="StatusNum3">{yun:}$fullscore{/yun}分</span></em>
+					
+					</div>
+				{yun:}foreach from=$ask item=value  key=key{/yun}
+				
+				
+						<div id="lookQuestion[{yun:}$value.id{/yun}]" name="lookQuestion[{yun:}$value.id{/yun}]" class="wt_list">
+						问题 {yun:}$key+1{/yun}
+						{yun:}$value.question{/yun}
+						<div class="tm_right">
+						<input class="tm_xg" type="button" value="修改" onClick="editquestion({yun:}$value.id{/yun})"/>
+
+						<input class="tm_xg_sc" type="button" value="删除" onclick="layer_del('确定要删除？', 'index.php?m=admin_evaluate&c=delquestion&qid={yun:}$value.id{/yun}');"/>
+						</div>
+						</div>
+				
+
+				<table class="table_form editQu" width="100%" id="tQuestion[{yun:}$value.id{/yun}]" name="tQuestion[{yun:}$value.id{/yun}]" style="display: none;">	 
+					<tr>
+						<td>
+							<div class="ty_cpsj_pygl questionDiv" >
+								
+								<div class="layui-form-item layui-form-text">
+									<label class="ty_cpsj_pygl_label">问题{yun:}$key+1{/yun}</label>
+									<div class="layui-input-inline" style="width: 370px;">
+										<textarea placeholder="请输入问题" id="textarea{yun:}$value.id{/yun}" name="question[{yun:}$value.id{/yun}]" class="layui-textarea">{yun:}$value.question{/yun}</textarea>
+									</div>
+								</div>
+								
+								<div class="layui-form-item layui-form-text">
+									{yun:}foreach from=$value.option item=v key=k{/yun}
+									<div class="layui-input-block t_w400" style="margin-top: 10px;">
+										<div class="admin_comclass_addjg_box lf" style="width: 170px;">
+											<label class="ty_cpsj_pygl_label">选项</label>
+											<div class="layui-input-inline t_w100">
+												<input type="text" class="layui-input" name="option[{yun:}$value.id{/yun}][]" value="{yun:}$ask[$key].option[$k]{/yun}" size="50" placeholder="请输入选项">
+											</div>
+										</div>
+										<div class="admin_comclass_addjg_box lf" style="width: 170px;">
+											<label class="ty_cpsj_pygl_label">分值</label>
+											<div class="layui-input-inline t_w100">
+												<input type="text" class="layui-input" name="score[{yun:}$value.id{/yun}][]" size="3" value="{yun:}$ask[$key].score[$k]{/yun}" placeholder="请输入分值">
+											</div>
+										</div>
+										<div class="admin_comclass_addjg_a lf" >
+											<a href="javascript:;"onclick="delOption(this,'{yun:}$value.id{/yun}')">删除</a>
+										</div>
+									</div>
+									{yun:}/foreach{/yun}
+									<a href="javascript:;" onclick="createOption('{yun:}$value.id{/yun}')" class="ty_cpsj_adddxx" id="actionTr{yun:}$value.id{/yun}">添加选项</a>
+								</div>
+							</div>
+						</td>
+					</tr>  
+					 <tr class="admin_table_trbg">
+						<td align="left" style="border-bottom:none;">
+							<input class="layui-btn tty_sub" type="button" onclick="saveQuestion({yun:}$value.id{/yun});" value="&nbsp;更 新&nbsp;" />
+							<input class="layui-btn tty_cz" type="button" onclick="abandonSave({yun:}$value.id{/yun})" value="&nbsp;放 弃&nbsp;" />
+						</td>
+					</tr> 
+				</table>
+				{yun:}/foreach{/yun}
+				</div>
+	<a class="  questionAddbtn" href="javascript:;"><div class="tjrtm_bth">+ 添加测评题目</div></a>
+				<div id="divSeparat"></div>
+				
+				<input type="hidden" name="examid" size="40" value="{yun:}$info.id{/yun}" />
+				<input type="hidden" name="lasturl" value="" />
+				<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}" />
+			</form>
+		</div>
+	</div>
+	
+
+
+	<style>
+		.layui-form-item {
+			margin-bottom: 0px;
+			clear: both;
+		}
+		.examinfo {position: fixed; _position:absolute; text-align: center; bottom: 15px; cursor: pointer; right: 40px; border: 1px solid #1178c3;background-color: white; width:84px;}
+		.examinfoD{width:100%;height:28px; line-height:28px; background: #1178c3;color:#fff; font-weight:bold;font-size: 12px; }
+	</style>
+	
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+	
+	<script>
+		layui.use(['layer', 'form', 'element'], function() {
+			var layer = layui.layer,
+				form = layui.form,
+				element = layui.element,
+				$ = layui.$;
+
+		});
+
+		/*设置分值为三位数纯数字*/
+		function setNumber(obj){obj.value=obj.value.replace(/([\D]+)|^([0].+)|([\d]{4,})/igm,"");};
+ 	</script>
+	
+	<script>
+		/*限制 分值 为数字*/
+		$("input[name='fromscore[]']").live("keyup",function(){
+			setNumber(this);
+		});
+		$("input[name='toscore[]']").live("keyup",function(){
+			setNumber(this);	
+		});
+		$("input[name='sort']").live("keyup",function(){ 
+			this.value = this.value.replace(/([\D]+)|^([0].+)/igm,"");
+		});
+		 
+		/*添加新评语*/
+		function addNewComment(){
+			var newCStr	=	'<div class="ty_cpsj_pygl" style="padding: 20px;">'
+						+		'<div class="layui-form-item layui-form-text">'
+						+			'<label class="ty_cpsj_pygl_label">成绩</label>'
+						+			'<div class="layui-input-block t_w400">'
+						+				'<div class="admin_comclass_addjg_box lf" style="width: 140px;">'
+						+					'<input type="text" class="layui-input" name="fromscore[]"  size="4" value="" placeholder="请输入成绩" />'
+						+					'<span class="admin_comclass_add_dw">分</span> '
+						+				'</div>'
+						+				'<span style="float: left;padding: 10px 20px;">到</span>'
+						+				'<div class="admin_comclass_addjg_box lf" style="width: 140px;">'
+						+					'<input type="text" name="toscore[]" class="layui-input" size="4" value="" placeholder="请输入成绩" />'
+						+					'<span class="admin_comclass_add_dw">分</span>' 
+						+				'</div>'
+						+			'</div>'
+						+		'</div>'
+						+		'<div class="layui-form-item layui-form-text" style="margin-top: 10px;">'
+						+			'<label class="ty_cpsj_pygl_label">评语</label>'
+						+			'<div class="layui-input-inline" style="width: 370px;">'
+						+				'<textarea placeholder="请输入评语" class="layui-textarea" name="comment[]"></textarea>'
+						+			'</div>'
+						+		'</div>'
+						+		'<a class="ty_cpsj_pygl_sc" href="javascript:;" onclick="removeComment(this);">删除</a>'
+						+	'</div>';
+
+			$("#newCommentBtn").before(newCStr);
+		}
+		/*移除评语*/
+		function removeComment(Obj){
+			var commentSet=$("input[name='fromscore[]']");
+			if(commentSet.length<2){
+				parent.layer.msg('再删就没有啦！', 2, 8);return false;
+			}else{
+				Obj.parentNode.parentNode.removeChild(Obj.parentNode);
+			}
+		}
+		/*测评基本内容*/
+		function addCpInfo(){
+			
+			var examtitle	=	$.trim($("#examtitle").val());
+			var selectgroup	=	$.trim($("#selectgroup").val());
+			var description	=	$.trim($("#description").val());
+			parent.layer.closeAll();
+			if(examtitle==''){
+				layer.msg('请填写测评名称！',2,8);return false;
+			}
+			if(selectgroup==''){
+				layer.msg('请选择测评分组！',2,8);return false;
+			}
+			
+			var mtype='';
+			$("input[name='fromscore[]']").each(function(){  
+				if($(this).val()==''){
+					mtype=1;
+				}
+			});
+			$("input[name='toscore[]']").each(function(){  
+				if($(this).val()==''){
+					mtype=1; 
+				}
+			});
+			$("textarea[name='comment[]']").each(function(){  
+				if($(this).val()==''){
+					mtype=1; 
+				}
+			});
+			if(mtype!=''){
+				layer.msg('请完善评语管理！',2,8);return false;
+			}
+			$('#cpform').submit();
+		}
+	</script>
+	
+	<script>
+		
+		$(document).ready(function(){
+			
+			/* 添加问题 */
+			$('.questionAddbtn').click(function(){
+				
+				if($("#divSeparat").prev().attr("name")){
+					var tableNameId = Number(($("#divSeparat").prev().attr("name")).match(/\d+/g))+1; 
+				}else{
+					var tableNameId=1;
+				}
+				var quesId = Number($("table[name^='tQuestion']").length)+1;
+				var tpl=
+					'<table class="table_form" width="100%"  name="tQuestion['+tableNameId+']">'
+					+	'<tr>'
+					+		'<td>'
+					+			'<div class="ty_cpsj_pygl questionDiv" >'
+					+				'<div class="layui-form-item layui-form-text">'
+					+					'<label class="ty_cpsj_pygl_label">问题'+quesId+'</label>'
+					+					'<div class="layui-input-inline" style="width: 370px;">'
+					+						'<textarea placeholder="请输入问题" name="question['+tableNameId+']" class="layui-textarea"></textarea>'
+					+					'</div>'
+					+				'</div>'
+								
+					+				'<div class="layui-form-item layui-form-text">'
+					+					'<div class="layui-input-block t_w400" style="margin-top: 10px;">'
+					+						'<div class="admin_comclass_addjg_box lf" style="width: 170px;">'
+					+							'<label class="ty_cpsj_pygl_label">选项</label>'
+					+							'<div class="layui-input-inline t_w100">'
+					+								'<input type="text" class="layui-input" name="option['+tableNameId+'][]" size="50" placeholder="请输入选项">'
+					+							'</div>'
+					+						'</div>'
+					+						'<div class="admin_comclass_addjg_box lf" style="width: 170px;">'
+					+							'<label class="ty_cpsj_pygl_label">分值</label>'
+					+							'<div class="layui-input-inline t_w100">'
+					+								'<input type="text" class="layui-input" name="score['+tableNameId+'][]" size="3" placeholder="请输入分值">'
+					+							'</div>'
+					+						'</div>'
+					+						'<div class="admin_comclass_addjg_a lf" >'
+					+							'<a href="javascript:;"onclick="delOption(this,'+tableNameId+');">删除</a>'
+					+						'</div>'
+					+					'</div>'
+
+					+					'<div class="layui-input-block t_w400" style="margin-top: 10px;">'
+					+						'<div class="admin_comclass_addjg_box lf" style="width: 170px;">'
+					+							'<label class="ty_cpsj_pygl_label">选项</label>'
+					+							'<div class="layui-input-inline t_w100">'
+					+								'<input type="text" class="layui-input" name="option['+tableNameId+'][]" size="50" placeholder="请输入选项">'
+					+							'</div>'
+					+						'</div>'
+					+						'<div class="admin_comclass_addjg_box lf" style="width: 170px;">'
+					+							'<label class="ty_cpsj_pygl_label">分值</label>'
+					+							'<div class="layui-input-inline t_w100">'
+					+								'<input type="text" class="layui-input" name="score['+tableNameId+'][]" size="3" placeholder="请输入分值">'
+					+							'</div>'
+					+						'</div>'
+					+						'<div class="admin_comclass_addjg_a lf" >'
+					+							'<a href="javascript:;"onclick="delOption(this,'+tableNameId+');">删除</a>'
+					+						'</div>'
+					+					'</div>'
+					+					'<a href="javascript:;" onclick="createOption('+tableNameId+')" class="ty_cpsj_adddxx" id="actionTr'+tableNameId+'">添加选项</a>'
+					+				'</div>'
+					+			'</div>'
+					+		'</td>'
+					+	'</tr>' 
+					+	'<tr class="admin_table_trbg">'
+					+		'<td align="left" style="border-bottom:none;">'
+					+			'<input class="layui-btn tty_sub" type="button" onclick="saveNewQuestion('+tableNameId+');" value="&nbsp;保 存&nbsp;" />'
+					+			'<input class="layui-btn tty_cz" type="button" onclick="delQuestion('+tableNameId+')" value="&nbsp;删 除&nbsp;" />'
+					+		'</td>'
+					+	'</tr> '
+					+'</table>';
+					 
+					 $("#divSeparat").before(tpl);		
+					 $(".questionAddbtn").hide();
+
+			});
+
+		});
+		
+		/* 删除问题 */
+		function delQuestion(tableNameId){
+			$("table[name='tQuestion["+tableNameId+"]']").remove();
+			$(".questionAddbtn").show();
+		}
+
+		/* 添加选项 */
+		function createOption(tableNameId){
+			var optionArray = $("input[name='option["+tableNameId+"][]']");
+			var optionId = Number(optionArray.length)+1;
+			var oTr	= '<div class="layui-input-block t_w400" style="margin-top: 10px;">'
+					+	'<div class="admin_comclass_addjg_box lf" style="width: 170px;">'
+					+		'<label class="ty_cpsj_pygl_label">选项</label>'
+					+		'<div class="layui-input-inline t_w100">'
+					+			'<input type="text" class="layui-input" name="option['+tableNameId+'][]" size="50" placeholder="请输入选项">'
+					+		'</div>'
+					+	'</div>'
+					+	'<div class="admin_comclass_addjg_box lf" style="width: 170px;">'
+					+		'<label class="ty_cpsj_pygl_label">分值</label>'
+					+		'<div class="layui-input-inline t_w100">'
+					+			'<input type="text" class="layui-input" name="score['+tableNameId+'][]" size="3" placeholder="请输入分值">'
+					+		'</div>'
+					+	'</div>'
+					+	'<div class="admin_comclass_addjg_a lf" >'
+					+		'<a href="javascript:;"onclick="delOption(this,'+tableNameId+');">删除</a>'
+					+	'</div>'
+					+'</div>';
+			$("#actionTr"+tableNameId).before(oTr);
+		}
+
+		/* 删除选项 */
+		function delOption(Obj, tableNameId){
+			var optionArray = $("input[name='option["+tableNameId+"][]']");
+			var scoreArray = $("input[name='score["+tableNameId+"][]']");
+			if(Number(optionArray.length)==Number(scoreArray.length) && Number(optionArray.length) > 1){
+				Obj.parentNode.parentNode.remove();
+			}else{
+				parent.layer.msg('再删就没有啦！',2,8);return false;
+			}
+		}
+
+		/*保存新题*/
+		function saveNewQuestion(tableNameId){
+			var examid		=	$("input[name='examid']").val();
+			var question	=	$.trim($("textarea[name='question["+tableNameId+"]']").val());
+			var option_arr	=	$("input[name='option["+tableNameId+"][]']");
+			var score_arr	=	$("input[name='score["+tableNameId+"][]']");
+			var option		=	new Array();
+			var score		=	new Array();
+			for(var i=0; i<option_arr.length; i++){
+				option[i]	=	option_arr[i].value;
+				score[i]	=	score_arr[i].value;
+			};
+			if(question==''||option==''||score==''){
+				layer.msg("问题、选项、分值都不能为空！！",2,8);return false;
+			}
+
+			var url	=	"index.php?m=admin_evaluate&c=ajaxsave";
+			var sendinfo = {examid:examid, question:question, option:option, score:score, status:"new", pytoken:$("#pytoken").val()};
+			$.post(url,sendinfo,function(data){
+				if(data!=1){
+					config_msg(data);
+				}else{
+					location.href="index.php?m=admin_evaluate&c=examup&id="+examid+"&type=1";
+				}
+			});
+		} 
+		
+		/* 更新问题 */
+		function saveQuestion(id){
+			var examid		=	$("input[name='examid']").val();
+			var questid		=	id;
+			var question	=	$("textarea[name='question["+id+"]']").val();
+			var option_arr	=	$("input[name='option["+id+"][]']");
+			var option		=	new Array();
+			var score_arr	=	$("input[name='score["+id+"][]']");
+			var score		=	new Array();
+
+			for(var i=0; i<option_arr.length; i++){
+				if(option_arr[i].value){
+					option[i] = option_arr[i].value;
+				}
+				if(score_arr[i].value){
+					score[i] = score_arr[i].value;
+				} 
+			}
+			if(question==''||option==''||score==''){
+				layer.msg("问题、选项、分值都不能为空！！",2,8);return false;
+			} 
+
+			var url="index.php?m=admin_evaluate&c=ajaxsave";
+			var sendinfo = {questid:questid, question:question, option:option, score:score, status:"up", pytoken:$("#pytoken").val()};
+			$.post(url,sendinfo,function(data){
+				if(data!=1){
+					config_msg(data);
+				}else{
+					location.href="index.php?m=admin_evaluate&c=examup&id="+examid+"&type=1";
+				}
+			});
+		}
+			
+		/*限制 分值 为数字*/
+		$("input[name^='score']").live("keyup",function(){
+			setNumber(this);
+		});
+
+		/*点击问题，编辑修改*/
+		function editquestion(id){
+			$("table[name='lookQuestion["+id+"]']").hide();
+			$(".editQu").hide();
+			$(".lookQu").show();
+			$("table[name='tQuestion["+id+"]']").show();
+		}
+		/*放弃修改问题*/
+		function abandonSave(id){
+			$("table[name='lookQuestion["+id+"]']").show();
+			$("table[name='tQuestion["+id+"]']").hide();
+		}
+
+		 
+	</script>
+
+	<script>
+		var ah2 = $(".tabs_info li")
+		var ap = $(".tty_table-bom form")
+		
+		for (var i = 0; i < ah2.length; i++) {
+			ah2[i].index = i;
+			
+			ah2[i].onclick = function () {
+				for (var j = 0; j < ap.length; j++) {
+					ap[j].style.display = "none"
+				}
+				ap[this.index].style.display = "block";
+			}
+		}
+		ah2.each(function(){
+			
+			$(this).click(function(){
+				ah2.removeClass("curr")
+				$(this).addClass("curr")
+			})
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+			<div class="admin_new_search_box">
+				<form action="index.php" name="myform" method="get">
+					<input name="m" value="special" type="hidden" />
+					<div class="admin_new_search_name">搜索专题：</div>
+					<input class="admin_Filter_search" placeholder="输入你要搜索的关键字" type="text" name="keyword" size="25" style=" float:left">
+					<input class="admin_Filter_bth" type="submit" name="news_search" value="检索" />
+				</form>
+				<a href="index.php?m=special&c=add" class="admin_new_cz_tj" style=" margin-left:10px;">+ 添加专题</a>
+				{yun:}include file="admin/admin_search.htm"{/yun}
+			</div>
+			<div class="clear"></div>
+			</div>
+
+			<div class="tty_table-bom">
+			<div class="table-list">
+				<div class="admin_table_border">
+					<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+					<form action="index.php" name="myform" method="get" id='myform' target="supportiframe">
+						<input name="m" value="special" type="hidden" />
+						<input name="c" value="del" type="hidden" />
+						<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+						<table width="100%">
+							<thead>
+								<tr class="admin_table_top">
+									<th style="width:20px;"><label for="chkall"><input type="checkbox" id='chkAll' onclick='CheckAll(this.form)' /></label></th>
+									<th>编号</th>
+									<th align="left">专题名称</th>
+									<th align="left">企业数量</th>
+									<th align="left">模板</th>
+									<th>状态</th>
+
+									<th width="100"> {yun:}if $smarty.get.t=="sort" && $smarty.get.order=="asc"{/yun} <a href="{yun:}searchurl order=desc t=sort m=special untype='order,t'{/yun}">排序(大在前)<img
+                       src="images/sanj.jpg" /></a> {yun:}else{/yun} <a href="{yun:}searchurl order=asc t=sort m=special untype='order,t'{/yun}">排序(大在前)<img
+                       src="images/sanj2.jpg" /></a> {yun:}/if{/yun} </th>
+									<th>待审核企业数/企业总数</th>
+									<th width="180">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+
+								{yun:}foreach item=v key=key from=$rows{/yun}
+								<tr align="center" {yun:}if ($key+1)%2=='0' {/yun}class="admin_com_td_bg"{yun:}/if{/yun} id="list{yun:}$v.id{/yun}">
+									<td><input type="checkbox" value="{yun:}$v.id{/yun}" name='del[]' onclick='unselectall()' rel="del_chk" /></td>
+
+									<td><span>{yun:}$v.id{/yun}</span></td>
+									<td align="left">{yun:}$v.title{/yun}</td>
+									<td align="left">{yun:}$v.limit{/yun}</td>
+									<td align="left">{yun:}$v.tpl{/yun}</td>
+									<td>
+										<div class="admin_new_t_j" id="rec_display{yun:}$v.id{/yun}">
+											{yun:}if $v.display=="1"{/yun}
+											<a href="javascript:void(0);" onClick="rec_display('index.php?m=special&c=recommend','{yun:}$v.id{/yun}','0','rec_display');">
+												<img src="../config/ajax_img/doneico.gif"></a>
+											{yun:}else{/yun}
+											<a href="javascript:void(0);" onClick="rec_display('index.php?m=special&c=recommend','{yun:}$v.id{/yun}','1','rec_display');">
+												<img src="../config/ajax_img/errorico.gif"></a>
+											{yun:}/if{/yun}
+										</div>
+									</td>
+
+									<td class="ud"><input class="layui-input" style="width:50px;" type="text" name="sort" id="sort" value="{yun:}$v.sort{/yun}" onblur="setOrder({yun:}$v.id{/yun},this.value)"></td>
+									<td>
+										<font color="red">{yun:}if $v.booking{/yun}{yun:}$v.booking{/yun}{yun:}else{/yun}0{yun:}/if{/yun}</font>/{yun:}if
+										$v.comnum{/yun}{yun:}$v.comnum{/yun}{yun:}else{/yun}0{yun:}/if{/yun}
+									</td>
+									<td>
+										<a href="index.php?m=special&c=com&id={yun:}$v.id{/yun}" class="admin_new_c_bth admin_new_c_bth_yl">查看</a>
+										<a href="index.php?m=special&c=add&id={yun:}$v.id{/yun}" class="admin_new_c_bth ">编辑</a>
+										<a href="javascript:void(0)" onClick="layer_del('确定要删除？', 'index.php?m=special&c=del&id={yun:}$v.id{/yun}');"
+										 class="admin_new_c_bth admin_new_c_bth_sc"> 删除</a></td>
+
+								</tr>
+								{yun:}/foreach{/yun}
+								<tr>
+									<td align="center"><input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /></td>
+									<td>
+										<label for="chkAll2">全选</label>&nbsp;
+										<input class="admin_button" type="button" name="delsub" value="删除所选" onclick="return really('del[]')" /></td>
+								</tr>
+								{yun:}if $total > $config.sy_listnum {/yun}
+								<tr>
+									{yun:}if $pagenum==1{/yun}
+									<td colspan="3"> 从 1 到 {yun:}$config.sy_listnum {/yun} ，总共 {yun:}$total{/yun} 条</td>
+									{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun} <td colspan="3"> 从 {yun:}($pagenum-1) *
+										$config.sy_listnum + 1{/yun} 到 {yun:}$pagenum * $config.sy_listnum{/yun} ，总共 {yun:}$total{/yun} 条</td>
+										{yun:}else if $pagenum == $pages{/yun}
+										<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$total{/yun} ，总共
+											{yun:}$total{/yun} 条</td>
+										{yun:}/if{/yun}
+										<td colspan="5" class="digg">{yun:}$pagenav{/yun}</td>
+								</tr>
+								{yun:}/if{/yun}
+							</tbody>
+
+						</table>
+					</form>
+				</div>
+			</div>
+			</div>
+			<script>
+				function rec_display(url, id, rec, type) {
+					var pytoken = $("#pytoken").val();
+					$.get(url + "&id=" + id + "&rec=" + rec + "&type=" + type + "&pytoken=" + pytoken, function(data) {
+						if (data == 1) {
+							if (rec == "1") {
+								$("#" + type + id).html("<a href=\"javascript:void(0);\" onClick=\"rec_display('" + url + "','" + id +
+									"','0','" + type + "');\"><img src=\"../config/ajax_img/doneico.gif\"></a>");
+							} else {
+								$("#" + type + id).html("<a href=\"javascript:void(0);\" onClick=\"rec_display('" + url + "','" + id +
+									"','1','" + type + "');\"><img src=\"../config/ajax_img/errorico.gif\"></a>");
+							}
+						}
+					});
+				}
+
+
+				//排序设置
+				function setOrder(id,sort){
+					var pytoken=$("#pytoken").val();
+
+					$.post("index.php?m=special&c=setOrder",{id:id,sort:sort,pytoken:pytoken},function(data){
+
+
+					});
+
+
+				}
+
+			</script>
+	</body>
+</html>

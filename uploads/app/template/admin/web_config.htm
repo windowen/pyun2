@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">页面设置功能：实现“伪静态设置、前台列表最大展示数量、外部链接”等进行设置！伪静态可以增强网站收录友好度！运营者大部分都是开启的！</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+
+				<div class="tag_box">
+					<div>
+						<form method="post" class="layui-form">
+							<table width="100%" class="table_form">
+
+								<tr class="admin_table_trbg">
+									<th width="270">伪静态设置：</th>
+									<td>
+										<div class="layui-input-inline fl">
+											<input type="checkbox" name="sy_seo_rewrite" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+											 $config.sy_seo_rewrite=="1" {/yun} checked {yun:}/if{/yun} />
+										</div>
+										<span class="admin_web_tip fl ml30">修改伪静态之前要先根据服务器添加伪静态规则</span>
+									</td>
+								</tr>
+
+								<tr>
+									<th width="270">头部浮动导航：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_header_fix" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+												 $config.sy_header_fix=="1" {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="270">首页底部浮动提示条：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_footer_fix" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+												 $config.sy_footer_fix=="1" {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="270">友情链接申请：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_linksq" lay-skin="switch" lay-text="开启|关闭" {yun:}if $config.sy_linksq=="1"
+												 {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270">切换身份类型：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_user_change" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+												 $config.sy_user_change=="1" {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270">切换身份免审核：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_change_noshen" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+												 $config.sy_change_noshen=="1" {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								
+								<tr class="admin_table_trbg">
+									<th width="270">手机端自动跳转到wap：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_wap_jump" lay-skin="switch" lay-text="开启|关闭" {yun:}if $config.sy_wap_jump=="1"
+												 {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270">PC端允许访问WAP端：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_pc_jump_wap" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+												 $config.sy_pc_jump_wap=="1" {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270">h5分享：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_h5_share" lay-skin="switch" lay-text="开启|关闭" {yun:}if $config.sy_h5_share=="1"
+												 {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270">招聘海报：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input type="checkbox" name="sy_haibao_isopen" lay-skin="switch" lay-text="开启|关闭" {yun:}if $config.sy_haibao_isopen=="1"
+												 {/yun} checked {yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270">新闻显示形式：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline fl">
+												<input name="sy_news_rewrite" value="1" title="动态" {yun:}if $config.sy_news_rewrite=="1" {/yun} checked
+												 {yun:}/if{/yun} type="radio" />
+												<input name="sy_news_rewrite" value="2" title="静态" {yun:}if $config.sy_news_rewrite=="2" {/yun} checked
+												 {yun:}/if{/yun} type="radio" />
+											</div>
+											<span class="admin_web_tip fl ml30">修改为静态，访问时显示静态页内容，提升效率</span>
+										</div>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270">数据分享二维码形式：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline fl">
+												<input name="sy_ewm_type" value="wap" title="默认" {yun:}if $config.sy_ewm_type=="wap" {/yun} checked
+												 {yun:}/if{/yun} type="radio" />
+												<input name="sy_ewm_type" value="weixin" title="公众号" {yun:}if $config.sy_ewm_type=="weixin" {/yun} checked
+												 {yun:}/if{/yun} type="radio" />
+											</div>
+											<span class="admin_web_tip fl ml30">海报、职位、简历、企业，默认：扫码打开WAP链接 公众号：关注公众号提供数据链接（30天有效期）</span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="270">找人才页面默认显示类别：
+									</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline fl">
+												<input name="sy_default_userclass" value="1" title="是" {yun:}if $config.sy_default_userclass=="1" {/yun}
+												 checked {yun:}/if{/yun} type="radio" />
+												<input name="sy_default_userclass" value="2" title="否" {yun:}if $config.sy_default_userclass=="2" {/yun}
+												 checked {yun:}/if{/yun} type="radio" />
+											</div>
+											<span class="admin_web_tip fl ml30">
+												若选择"否"，则直接显示简历列表
+											</span>
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270">找工作页面默认显示类别：
+									</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline fl">
+												<input name="sy_default_comclass" value="1" title="是" {yun:}if $config.sy_default_comclass=="1" {/yun}
+												 checked {yun:}/if{/yun} type="radio" />
+												<input name="sy_default_comclass" value="2" title="否" {yun:}if $config.sy_default_comclass=="2" {/yun}
+												 checked {yun:}/if{/yun} type="radio" />
+											</div>
+											<span class="admin_web_tip fl ml30">
+												若选择"否"，则直接显示职位列表
+											</span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="270" class="t_fr">薪资单位：
+									</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<select name="resume_salarytype" id="resume_salarytype">
+													<option value="1" {yun:}if $config.resume_salarytype==1{/yun} selected{yun:}/if{/yun}>元</option>
+													<option value="2" {yun:}if $config.resume_salarytype==2{/yun} selected{yun:}/if{/yun}>千元</option>
+													<option value="3" {yun:}if $config.resume_salarytype==3{/yun} selected{yun:}/if{/yun}>K</option>
+													<option value="4" {yun:}if $config.resume_salarytype==4{/yun} selected{yun:}/if{/yun}>k</option>
+												</select> 
+											</div> 
+										</div>
+										<span class="admin_web_tip">提示：薪资单位，该设置可以改变薪资显示单位</span>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270" class="t_fr">前台列表最大展示数量：</th>
+									<td>
+										<div class="layui-input-block t_w480">
+											<input name="sy_indexpage" id="sy_indexpage" lay-verify="required|number" placeholder="请输入" autocomplete="off"
+											 class="layui-input" type="text" value="{yun:}$config.sy_indexpage{/yun}" size="30" maxlength="255" />
+										</div>
+										<span class="admin_web_tip">
+											提示：0为不限
+										</span>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270">个人用户访问简历权限：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline fl">
+												<input type="checkbox" name="sy_user_visit_resume" lay-skin="switch" lay-text="开启|关闭" {yun:}if
+												 $config.sy_user_visit_resume=="1" {/yun} checked {yun:}/if{/yun} />
+											</div>
+											<span class="admin_web_tip fl ml30">
+												提示：若选择"关闭"，个人用户将无法直接访问简历信息
+											</span>
+										</div>
+									</td>
+								</tr>
+								
+								<tr>
+									<th width="270" class="t_fr">登录时长：</th>
+									<td>
+									<div class="layui-input-block">
+											<div class="layui-input-inline t_w480">
+												<input name="sy_logintime" id="sy_logintime" placeholder="请输入" autocomplete="off" class="layui-input"
+												 type="text" value="{yun:}$config.sy_logintime{/yun}" size="30" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+											</div>&nbsp;&nbsp;天
+										</div>
+										<span class="admin_web_tip">
+											提示：登录状态保持天数，默认1天
+										</span>
+									</td>
+								</tr>
+								
+								<tr>
+									<th width="270" class="t_fr">未登录用户可访问简历数量：</th>
+									<td>
+										<div class="layui-input-block t_w480">
+											<input name="sy_resume_visitors" id="sy_resume_visitors" placeholder="请输入" autocomplete="off" class="layui-input"
+											 type="text" value="{yun:}$config.sy_resume_visitors{/yun}" size="30" maxlength="255" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+										</div>
+										<span class="admin_web_tip">
+											提示：0为不限
+										</span>
+									</td>
+								</tr>
+
+								<tr>
+									<th width="270" class="t_fr">同一IP点击广告记录间隔：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline t_w480">
+												<input name="sy_adclick" id="sy_adclick" placeholder="请输入" autocomplete="off" class="tty_input" type="text"
+												 value="{yun:}$config.sy_adclick{/yun}" size="30" maxlength="255" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+											</div>&nbsp;&nbsp;小时
+										</div>
+										<span class="admin_web_tip">提示：0为不限，其他数字为期限内只记录一次</span>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270" class="t_fr">每天推荐职位/简历最大次数：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline t_w480">
+												<input name="sy_recommend_day_num" id="sy_recommend_day_num" placeholder="请输入" autocomplete="off" class="layui-input"
+												 type="text" value="{yun:}$config.sy_recommend_day_num{/yun}" size="30" maxlength="255" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+											</div>&nbsp;&nbsp;次
+										</div>
+										<span class="admin_web_tip">
+											提示：0为不限
+										</span>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270" class="t_fr">推荐职位/简历最小时间间隔(单位：秒)：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline t_w480">
+												<input name="sy_recommend_interval" id="sy_recommend_interval" placeholder="请输入" autocomplete="off" class="layui-input"
+												 type="text" value="{yun:}$config.sy_recommend_interval{/yun}" size="30" maxlength="255" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+											</div>&nbsp;&nbsp;秒
+										</div>
+										<span class="admin_web_tip">
+											提示：0为不限
+										</span>
+									</td>
+								</tr>
+
+
+
+								<tr>
+									<th width="270">
+										<font>百度自动推送功能</font>：
+									</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input name="sy_zhanzhang_baidu" value="1" title="是" {yun:}if $config.sy_zhanzhang_baidu=="1" {/yun}
+												 checked {yun:}/if{/yun} type="radio" />
+												<input name="sy_zhanzhang_baidu" value="2" title="否" {yun:}if $config.sy_zhanzhang_baidu=="2" {/yun}
+												 checked {yun:}/if{/yun} type="radio" />
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="270">新闻内链（职位关键字）：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input name="sy_outlinks" value="1" title="是" {yun:}if $config.sy_outlinks=="1" {/yun} checked {yun:}/if{/yun}
+												 type="radio" />
+												<input name="sy_outlinks" value="2" title="否" {yun:}if $config.sy_outlinks=="2" {/yun} checked {yun:}/if{/yun}
+												 type="radio" />
+											</div>
+											<span class="admin_web_tip">
+												提示：该设置可以改变新闻内容信息，涉及网站职位关键字内容添加链接
+											</span>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<th width="270" class="t_fr">特别申明：</th>
+									<td>
+										<div class="layui-input-block">
+											<textarea type="radio" name="sy_shenming" id="sy_shenming" class="web_text_textarea">{yun:}$config.sy_shenming{/yun} </textarea>
+										</div>
+										<span class="admin_web_tip">如：用人单位不得以任何名义收取求职者任何形式的费用</span>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270" class="t_fr">职位简历点击器：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline">
+												<input class="layui-input" type="text" value="1" size="10" disabled="disabled" style="width: 80px; background: #f5f7fb;"/>
+											</div>&nbsp;&nbsp;-<div class="layui-input-inline">
+												<input class="layui-input" style='margin-left: 10px;width: 80px;' type="text" name="sy_job_hits" id="sy_job_hits" value="{yun:}$config.sy_job_hits{/yun}" size="10"/>
+											</div>
+										</div>
+										<span class="admin_web_tip">提示：最小为1，最大为100，每次在1-X范围随机增加</span>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+									<th width="270" class="t_fr">列表页区域默认设置：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline" style="width: 238px;">
+												<select name="sy_web_city_one" id="sy_web_city_one" lay-filter="citys">
+													<option value="">请选择</option>
+													{yun:}foreach from=$cache.city_index key=j item=v{/yun}
+													<option value="{yun:}$v{/yun}" {yun:}if $config.sy_web_city_one==$v{/yun} selected{yun:}/if{/yun}>{yun:}$cache.city_name[$v]{/yun}
+												</option> {yun:}/foreach{/yun}
+												</select> 
+											</div> 
+											<div class="layui-input-inline" style="width: 238px;">
+												<select name="sy_web_city_two" id="sy_web_city_two" lay-filter="citys">
+													<option value="">请选择</option>
+													{yun:}foreach from=$cache.city_type[$config.sy_web_city_one] key=j item=v{/yun}
+													<option value="{yun:}$v{/yun}" {yun:}if $config.sy_web_city_two==$v{/yun}selected{yun:}/if{/yun}>{yun:}$cache.city_name[$v]{/yun}
+													</option> {yun:}/foreach{/yun} 
+												</select> 
+											</div> 
+										</div> 
+										<span class="admin_web_tip">如：前台职位、简历、企业列表区域默认查询设置</span>
+									</td>
+								</tr>
+
+								<th>&nbsp;</th>
+								<td align="left">
+									<input class="tty_sub" id="config" lay-submit="" lay-filter="demo1" type="button" name="config" value="提交" />&nbsp;&nbsp;
+									<input class="tty_cz" type="reset" value="重置" /></td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+		<script language=javascript src='{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}'></script>
+
+		<script type="text/javascript">
+			var weburl = "{yun:}$config.sy_weburl{/yun}";
+			var form, url = weburl + "/index.php?m=ajax&c=get_city_option";
+			layui.use(['layer', 'form'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					$ = layui.$;
+
+				form.on('select(citys)', function(data) {
+					var html = "<option value=''>请选择</option>";
+					if (data.value) {
+						$.each(ct[data.value], function(k, v) {
+							html += "<option value='" + v + "'>" + cn[v] + "</option>";
+						});
+					}
+					if (data.elem.name == 'sy_web_city_one') {
+
+						$("#sy_web_city_two").html(html);
+					}
+					form.render('select');
+				});
+
+			});
+
+			$(function() {
+				$(".tips_class").hover(function() {
+					var msg_id = $(this).attr('id');
+					var msg = $('#' + msg_id + ' + font').html();
+					if ($.trim(msg) != '') {
+						layer.tips(msg, this, {
+							guide: 1,
+							style: ['background-color:#5EA7DC; color:#fff;top:-7px', '#5EA7DC']
+						});
+						$(".xubox_layer").addClass("xubox_tips_border");
+					}
+				}, function() {
+					var msg_id = $(this).attr('id');
+					var msg = $('#' + msg_id + ' + font').html();
+					if ($.trim(msg) != '') {
+						layer.closeAll('tips');
+					}
+				});
+
+				$("#config").click(function() {
+					loadlayer();
+					$.post("index.php?m=web_config&c=save", {
+						config: $("#config").val(),
+						sy_seo_rewrite: $("input[name=sy_seo_rewrite]").is(":checked") ? 1 : 0,
+						sy_header_fix: $("input[name=sy_header_fix]").is(":checked") ? 1 : 0,
+						sy_footer_fix: $("input[name=sy_footer_fix]").is(":checked") ? 1 : 0,
+						sy_news_rewrite: $("input[name=sy_news_rewrite]:checked").val(),
+						sy_linksq: $("input[name=sy_linksq]").is(":checked") ? 1 : 0,
+						sy_wap_jump: $("input[name=sy_wap_jump]").is(":checked") ? 1 : 0,
+						sy_user_change: $("input[name=sy_user_change]").is(":checked") ? 1 : 0,
+						sy_change_noshen : $("input[name=sy_change_noshen]").is(":checked") ? 1 : 0,
+						sy_pc_jump_wap: $("input[name=sy_pc_jump_wap]").is(":checked") ? 1 : 0,
+						sy_default_comclass: $("input[name=sy_default_comclass]:checked").val(),
+						sy_zhanzhang_baidu: $("input[name=sy_zhanzhang_baidu]:checked").val(),
+						sy_default_userclass: $("input[name=sy_default_userclass]:checked").val(),
+						sy_ewm_type: $("input[name=sy_ewm_type]:checked").val(),
+						sy_job_hits: $("input[name=sy_job_hits]").val(),
+						sy_indexpage: $("#sy_indexpage").val(),
+						sy_resume_visitors: $("#sy_resume_visitors").val(),
+						sy_logintime: $("#sy_logintime").val()?$("#sy_logintime").val():1,
+						sy_user_visit_resume: $("input[name=sy_user_visit_resume]").is(":checked") ? 1 : 0,
+						sy_h5_share: $("input[name=sy_h5_share]").is(":checked") ? 1 : 0,
+						sy_haibao_isopen: $("input[name=sy_haibao_isopen]").is(":checked") ? 1 : 0,
+						sy_adclick: $("#sy_adclick").val(),
+						sy_outlinks: $("input[name=sy_outlinks]:checked").val(),
+						sy_shenming: $("#sy_shenming").val(),
+						sy_autoref: $("#sy_autoref").val(),
+						sy_autorefrand: $("input[name=sy_autorefrand]:checked").val(),
+						sy_recommend_day_num: $("#sy_recommend_day_num").val(),
+						sy_recommend_interval: $("#sy_recommend_interval").val(),
+						sy_web_city_one: $("#sy_web_city_one").find("option:selected").val(),
+						sy_web_city_two: $("#sy_web_city_two").find("option:selected").val(),
+						resume_salarytype: $("#resume_salarytype").find("option:selected").val(),
+						pytoken: $("#pytoken").val()
+					}, function(data, textStatus) {
+						parent.layer.closeAll('loading');
+						config_msg(data);
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

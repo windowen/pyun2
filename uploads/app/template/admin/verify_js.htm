@@ -1,0 +1,12 @@
+{yun:}if $config.code_kind == 3{/yun}
+<script src="{yun:}$config.sy_weburl{/yun}/js/geetest/gt.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/geetest/pc.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+{yun:}elseif $config.code_kind == 4{/yun}
+<script src="https://cdn.dingxiang-inc.com/ctu-group/captcha-ui/index.js"></script>
+<script>var dxappid = "{yun:}$config.sy_dxappid{/yun}";</script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/dingxiang/pc.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+{yun:}elseif $config.code_kind == 5{/yun}
+<script src="https://v.vaptcha.com/v3.js"></script>
+<script>var vaptchaid = "{yun:}$config.sy_vaptcha_vid{/yun}";</script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/vaptcha/pc.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+{yun:}/if{/yun}

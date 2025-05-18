@@ -1,0 +1,21 @@
+{yun:}foreach item=v from=$lists{/yun}
+<section class="_135editor" data-tools="{yun:}$config.sy_webname{/yun}" data-id="{yun:}$lists.uid{/yun}">
+    <section style="margin:10px;">
+        <section style="margin: 0px; padding: 5px 15px; color: #a0a0a2; line-height: 25px; font-weight: bold; text-align:center; border-radius: 5px 5px 0px 0px; border: 0px; background-color: #548dd4;">
+            <span class="135brush" data-brushtype="text" style="font-size: 16px; letter-spacing:2px;line-height: 1.5em;color:#ffffff">{yun:}$v.name{/yun}</span>
+        </section>
+        <section style="margin: 0px; padding: 10px; border-radius: 0px 0px 5px 5px; border: 2px solid #548dd4; line-height: 25px;">
+            <p>{yun:}if $v.rec=='1' && $v.hottime > time(){/yun}<strong style="padding:0.2rem 0.4rem; background-color:#b6e4fd; border-radius:0.2rem; margin:5px 0; ">推荐企业</strong>{yun:}/if{/yun}
+{yun:}if $v.ratlogo!="0" && $v.ratlogo{/yun}<img src="{yun:}$v.ratlogo{/yun}" alt="{yun:}$v.ratname{/yun}" alt="{yun:}$v.ratname{/yun}" />{yun:}/if{/yun}
+{yun:}if $v.yyzz_status=='1'{/yun}<strong style="padding:0.2rem 0.4rem; background-color:#b6e4fd; border-radius:0.2rem; margin:5px 0; ">营业执照已认证</strong>{yun:}/if{/yun}</p>
+{yun:}if $v.com.welfare{/yun}<p style="margin:0.5rem 0;"><span style="padding:0.1rem 0.5rem; background-color:#eee; border-radius:0.5rem;">{yun:}$v.com.welfare{/yun}</span></p>{yun:}/if{/yun}
+ <section style="margin:5px auto;"><p style="text-align:center; margin:20px auto; "><strong style="padding: 0.4rem; background-color:#b6e4fd; border-radius:0.2rem; font-weight: bold;">【招聘职位】</strong>{yun:}foreach item=v1 key=k1 from=$v.row{/yun}</p>
+<p style="margin-bottom:10px;"><strong style="display:inline-table; background-color:#feecaf; padding:0.2rem 0.4rem; border-radius:0.2rem;">{yun:}$k1+1{/yun}、{yun:}$v1.name{/yun}</strong><br>&bull; 薪资：{yun:}$v1.job_salary{/yun}{yun:}if $v1.job_salary!='面议'{/yun}(元/月){yun:}/if{/yun}
+<br>&bull; 要求：{yun:}$v1.job_exp{/yun}经验 | {yun:}$v1.job_edu{/yun}学历</p>{yun:}/foreach{/yun}{yun:}if $v.address{/yun}<p style="">&#x25b6;地址：{yun:}$v.address{/yun}</p>{yun:}/if{/yun}</section>
+<p style="text-align:center;" align="center"><img style="width:50%; max-width:180px;" src="{yun:}pubqrcode  toc=company toa=show toid=$v.uid totype=$ewmtype{/yun}"><br />扫码或长按二维码识别联系企业</p>
+<p style="text-align:center;color:#0070c0;" align="center">求职招聘，就上{yun:}$config.sy_webname{/yun}<br />{yun:}$config.sy_webname{/yun}<br />{yun:}$config.sy_weburl{/yun}</p>
+		
+ </section></section></section>{yun:}/foreach{/yun}
+{yun:}if empty($lists){/yun}
+<span>暂无信息</span>
+{yun:}/if{/yun}

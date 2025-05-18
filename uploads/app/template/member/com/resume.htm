@@ -1,0 +1,390 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+	<div class="admin_mainbody">
+		{yun:}include file="$comstyle/left.htm"{/yun}
+		<link rel="stylesheet" href="{yun:}$style{/yun}/style/class.public.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/data/plus/job.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/data/plus/jobparent.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/data/plus/cityparent.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/class.public.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		<link rel="stylesheet" href="{yun:}$style{/yun}/style/newclass.public.css?v={yun:}$config.cachecode{/yun}" type="text/css">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/newclass.public.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script> 
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/formSelects-v4.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/formSelects-v4.js?v={yun:}$config.cachecode{/yun}"></script>
+		<div class="com_tit"> <span class="com_tit_span">搜人才</span> </div>
+         <div class="right_box">
+			<div class="admincont_box">
+            <div class="com_resume_homebox">
+            <div class="clear"></div>
+
+            <form action='index.php' method="get" id="form" class="layui-form">
+				
+				<input name='c' value='resume' type='hidden'>
+				
+				<div class="com_resume_homesearch">
+					<div class="com_resume_homesearch_job">
+						<input type="hidden" name="jobin" id="job_post" value="{yun:}$smarty.get.jobin{/yun}" />
+						<select id="jobclass_search" name="jobclass_search" xm-select-type="jobclass" xm-select="jobclass_search" xm-select-search="" xm-select-radio="" xm-select-skin="default"  xm-select-direction="down">
+						<option value="">输入搜索职能</option>
+						</select>
+						{yun:}if $jionly!='1'{/yun}
+						<div onclick="index_job_new(1,'#workadds_job','#job_post','left:100px;top:100px; position:absolute;','1','form');" class="news_expect_text_new_nth" title="选择职位类别"></div>
+						{yun:}/if{/yun}
+					</div>
+					
+					<div class="com_resume_homesearch_city">
+						<input type="hidden" name="cityin" id="cityid" value="{yun:}$smarty.get.cityin{/yun}" />
+						
+						<select id="cityclass_search" name="cityclass_search" xm-select-type="cityclass" xm-select="cityclass_search" xm-select-search="" xm-select-radio="" xm-select-skin="default"  xm-select-direction="down">
+			            <option value="">输入搜索城市</option>
+			            </select>
+			            {yun:}if $cionly!='1'{/yun}
+			            <div onclick="index_city_new(1,'#city','#cityid')" class="news_expect_text_new_nth" title="选择城市"></div>
+			            {yun:}/if{/yun}
+					</div>
+					
+					<div class="com_resume_homesearch_select">
+						<select name="exp" lay-filter="resume_submit">
+							<option value="">工作年限</option>
+							{yun:}foreach from=$userdata.user_word key=j item=v{/yun}
+							<option value="{yun:}$v{/yun}" {yun:}if $smarty.get.exp==$v{/yun} selected{yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}</option>
+							{yun:}/foreach{/yun}
+						</select>
+					</div>
+
+					<div class="com_resume_homesearch_select">
+						<select name="edu" lay-filter="resume_submit">
+							<option value="">学历要求</option>
+							{yun:}foreach from=$userdata.user_edu key=j item=v{/yun}
+							<option value="{yun:}$v{/yun}" {yun:}if $smarty.get.edu==$v{/yun} selected{yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}</option>
+							{yun:}/foreach{/yun}
+						</select>
+					</div>
+					 
+					<div class="ps_xz_box" id="salary_sel" onmouseout='closeSalaryOption();' onmouseover='openSalaryOption();'>
+						<span class="ps_xz_box_name">
+						    {yun:}if $smarty.get.minsalary!="" || $smarty.get.maxsalary!=""{/yun}
+						    	{yun:}if $smarty.get.minsalary!="" && $smarty.get.maxsalary==""{/yun}
+						    		{yun:}$smarty.get.minsalary{/yun}以上
+						    	{yun:}elseif $smarty.get.minsalary=="" && $smarty.get.maxsalary!=""{/yun}
+						    		{yun:}$smarty.get.maxsalary{/yun}以下
+						    	{yun:}else{/yun}
+						    		{yun:}$smarty.get.minsalary{/yun} - {yun:}$smarty.get.maxsalary{/yun}
+						    	{yun:}/if{/yun}
+						    {yun:}else{/yun}
+						    	选择月薪范围
+						    {yun:}/if{/yun}
+						</span>
+
+						<div class="resume_xz salary_option" style="display:none;z-index:1;">
+							<a href="javascript:void(0)" onClick="setSalary('','2000')" class="resume_xzfw">2000以下</a>
+							<a href="javascript:void(0)" onClick="setSalary('2000','4000')" class="resume_xzfw">2000-4000</a>
+							<a href="javascript:void(0)" onClick="setSalary('4000','6000')" class="resume_xzfw">4000-6000</a>
+							<a href="javascript:void(0)" onClick="setSalary('6000','8000')" class="resume_xzfw">6000-8000</a>
+							<a href="javascript:void(0)" onClick="setSalary('8000','10000')" class="resume_xzfw">8000-10000</a>
+							<a href="javascript:void(0)" onClick="setSalary('10000','')" class="resume_xzfw">10000以上</a>
+							<input type="text" id="min" name="minsalary" size="6" value="{yun:}if $smarty.get.minsalary{/yun}{yun:}$smarty.get.minsalary{/yun}{yun:}/if{/yun}" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" class="resume_xz_text" />
+							<span class="resume_xz_line">-</span>
+							<input type="text" id="max" name="maxsalary" size="6" value="{yun:}if $smarty.get.maxsalary{/yun}{yun:}$smarty.get.maxsalary{/yun}{yun:}/if{/yun}" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" class="resume_xz_text" />
+							<input type="submit" value="确定" class="resume_xz_bth">
+						</div>
+					</div>
+
+					<div class="com_resume_homesearch_select">
+						<select name="uptime" lay-filter="resume_submit">
+							<option value="">更新时间</option>
+							{yun:}foreach from=$uptime key=j item=v{/yun}
+							<option value="{yun:}$j{/yun}" {yun:}if $smarty.get.uptime==$j{/yun} selected{yun:}/if{/yun}>{yun:}$v{/yun}</option>
+							{yun:}/foreach{/yun}
+						</select>
+					</div>
+
+					<div class="com_resume_homesearch_bot">
+						<div class="com_resume_homesearch_xb">
+							<select name="sex" lay-filter="resume_submit">
+								<option value="">性别</option>
+								{yun:}foreach from=$user_sex key=j item=v{/yun}
+								<option value="{yun:}$j{/yun}" {yun:}if $smarty.get.sex==$j{/yun} selected{yun:}/if{/yun}>{yun:}$v{/yun}</option>
+								{yun:}/foreach{/yun}
+							</select>
+						</div>
+						 
+						<div class="com_resume_homesearch_xb"><input type="checkbox" lay-skin="primary" lay-filter='resume_submit' title="有头像" name="pic" value="1" {yun:}if $smarty.get.pic{/yun}checked{yun:}/if{/yun}></div>
+
+						<div class="com_resume_homesearch_xb"><input type="checkbox" lay-skin="primary" lay-filter='resume_submit' title="已认证" name="idcard" value="1" {yun:}if $smarty.get.idcard{/yun}checked{yun:}/if{/yun}></div>
+
+						<div class="com_resume_homesearch_xb"><input type="checkbox" lay-skin="primary" lay-filter='resume_submit' title="有作品" name="work" value="1" {yun:}if $smarty.get.work{/yun}checked{yun:}/if{/yun}></div>
+
+						<div class="com_resume_homesearch_stj"><input type="text" placeholder="在当前条件下筛选" class="com_resume_homesearch_stj_text" value="{yun:}$smarty.get.keyword{/yun}" name="keyword">
+
+						<input type="submit" value="搜索" class="com_resume_homesearch_stj_bth"></div>
+
+						<div class="com_resume_homesearch_qk"><a href="index.php?c=resume" class="com_resume_homesearch_qk_a">清空所选条件</a></div>
+					</div>	
+				</div>
+            </form>
+
+			<div class="clear"></div>
+			<!--简历列表-->
+			<div class="com_resume_listbox">
+				<div class="com_resume_listbox_tit">
+					<div class="com_resume_t">人才列表</div>
+					<div class="com_resume_listbox_titlook">查看方式 
+						<a href="{yun:}searchurl m=member c=resume untype='rtype'{/yun}" class="com_resume_listbox_titlook_zs {yun:}if $smarty.get.rtype!='1'{/yun}com_resume_listbox_titlook_cur{yun:}/if{/yun}"><i class="com_resume_listbox_titlook_zslb"></i></a> 
+						<a href="{yun:}searchurl m=member c=resume rtype=1 untype='rtype'{/yun}" class="com_resume_listbox_titlook_zs {yun:}if $smarty.get.rtype=='1'{/yun}com_resume_listbox_titlook_cur{yun:}/if{/yun}"><i class="com_resume_listbox_titlook_zsxx"></i></a>
+					</div>
+				</div>
+
+				{yun:}if $smarty.get.rtype!='1'{/yun}
+				<!--  图文展示-->
+				<div class="com_resume_show">
+					
+					
+
+					<table class="com_resume_showtable">
+					{yun:}if $config.com_status_search==1 && $comInfo.r_status!=1{/yun}
+					
+						<tr>
+							<td colspan="7" class="table_end">
+								<div class="msg_no">
+									<p>亲爱的用户，待审核企业账户无法挑选简历。</p>
+ 								</div>
+							</td>
+						</tr>
+					{yun:}else{/yun}
+
+					{yun:}userlist limit=20 minsalary='auto.minsalary' maxsalary='auto.maxsalary' noid=1 idcard='auto.idcard' edu='auto.edu' order='auto.order' work='auto.work' exp='auto.exp' sex='auto.sex' keyword='auto.keyword' hy='auto.hy' jobin='auto.jobin' cityin='auto.cityin' adtime='auto.adtime' pic='auto.pic' typeids='auto.typeids' type='auto.type' job1='auto.job1' job1_son='auto.job1_son' job_post='auto.job_post' uptime='auto.uptime' post_len=14 city_len=14 ispage=1 item=user key=key name=userlist1 islt=3{/yun}
+					<tr>
+						<td>
+						<div class="com_resume_showcont">
+						<div class="com_resume_showpic"><a href="{yun:}url m=resume c=show id=$user.id{/yun}"><img src="{yun:}$user.photo{/yun}" width="60" height="60"></a></div>
+						<div class="com_resume_userinfo"><span class="com_resume_username"><a href="{yun:}url m=resume c=show id=$user.id{/yun}">{yun:}$user.username_n{/yun}</a>{yun:}if $user.moblie_status=='1'{/yun}<i class="com_user_sjrz" title="手机已认证"></i>{yun:}/if{/yun}{yun:}if $user.show_n=='1'{/yun}<i class="com_user_zp" title="有作品"></i>{yun:}/if{/yun}</span> {yun:}$user.sex{/yun}<span class="com_resume_userline">|</span>{yun:}if $user.age==0{/yun}保密{yun:}else{/yun}{yun:}$user.age{/yun}岁{yun:}/if{/yun}<span class="com_resume_userline">|</span>{yun:}$user.exp_n{/yun}经验<span class="com_resume_userline">|</span>{yun:}$user.edu_n{/yun}学历</div>
+						<div class="com_resume_userinfo_city"><span class="com_resume_userinfo_add">期望地点： {yun:}if $user.expectcity{/yun}{yun:}foreach from=$user.expectcity item=v key=key{/yun} {yun:}if $key lt 5{/yun}{yun:}$v{/yun}{yun:}/if{/yun} {yun:}/foreach{/yun} {yun:}/if{/yun}</span>期望薪资：{yun:}$user.salary_n{/yun}</div>
+						<div class="com_resume_userinfo_yx">求职意向：{yun:}if $user.expectjob{/yun} {yun:}foreach from=$user.expectjob item=v key=key{/yun} {yun:}if $key lt 5{/yun} <span class="com_resume_userinfo_yx_n">{yun:}$v{/yun}</span>{yun:}/if{/yun} {yun:}/foreach{/yun} {yun:}/if{/yun}</div>
+						<div class="com_resume_userinfo_tag">{yun:}foreach from=$user.tag key=key item=v{/yun}{yun:}if $key lt 5{/yun}<span class="com_resume_userinfo_bq">{yun:}$v{/yun}</span>{yun:}/if{/yun}{yun:}/foreach{/yun}</div>
+						</div>
+						</td>
+						<td align="center">
+						<div class="com_resume_userinfo_wantjob">Ta想要找<span class="com_resume_userinfo_want">{yun:}$user.name{/yun}</span>的工作 </div>
+						</td>
+						<td>
+						<div class="com_resume_userinfo_xz">
+						<div class="com_resume_userinfo_time">{yun:}$user.time{/yun}更新</div>
+						<a href="{yun:}url m=resume c=show id=$user.id{/yun}" class="com_resume_userinfo_xz_bth">下载简历</a></div>
+						</td>
+					</tr>
+					{yun:}userlistelse{/yun}
+					<tr>
+						<td colspan="10" class="table_end">
+							<div class="msg_no">
+								<p>亲爱的用户，目前没有你想要的人才简历。</p>
+								<a href="index.php?c=resume" class="com_msg_no_bth com_submit">减少搜索条件试试</a>
+							</div>
+						</td>
+					</tr>
+					{yun:}/userlist{/yun}
+					
+					{yun:}/if{/yun}
+					</table>
+				</div>
+				<!--  图文展示 end-->
+				{yun:}else{/yun}
+				<!--  列表展示-->
+                <div class="com_resume_show">
+					<table class="com_resume_show_listtable">
+					<tr style="background:#f8f8f8">
+					  <td>期望职位</td>
+					  <td>姓名</td>
+					  <td>性别</td>
+					  <td>年龄</td>
+					  <td>学历</td>
+					  <td>工作经验</td>
+					  <td>期望薪资</td>
+					  <td>求职地区</td>
+					  <td>更新时间</td>
+					  <td>操作</td>
+					</tr>
+
+					{yun:}if $config.com_status_search==1 && $comInfo.r_status!=1{/yun}
+						<tr>
+							<td colspan="10" class="table_end">
+								<div class="msg_no">
+									<p>亲爱的用户，您当前身份非已审核状态，无法挑选简历。</p>
+ 								</div>
+							</td>
+						</tr>
+					{yun:}else{/yun}
+
+					{yun:}userlist limit=20 minsalary='auto.minsalary' maxsalary='auto.maxsalary'  noid=1 idcard='auto.idcard' edu='auto.edu' order='auto.order' work='auto.work' exp='auto.exp' sex='auto.sex' keyword='auto.keyword' hy='auto.hy' jobin='auto.jobin' cityin='auto.cityin' adtime='auto.adtime' pic='auto.pic' typeids='auto.typeids' type='auto.type' job1='auto.job1' job1_son='auto.job1_son' job_post='auto.job_post' uptime='auto.uptime' post_len=14 city_len=14 ispage=1 item=user2 key=key name=userlist1 islt=3{/yun}
+					<tr>
+					  <td><a href="{yun:}url m=resume c=show id=$user2.id{/yun}" class="com_resume_showjobname">{yun:}$user2.name{/yun}{yun:}if $user2.moblie_status=='1'{/yun}<i class="com_user_sjrz" title="手机已认证"></i>{yun:}/if{/yun}{yun:}if $user2.show_n=='1'{/yun}<i class="com_user_zp" title="有作品"></i>{yun:}/if{/yun}</a></td>
+					  <td><a href="{yun:}url m=resume c=show id=$user2.id{/yun}" class="">{yun:}$user2.username_n{/yun}</a></td>
+					  <td>{yun:}$user2.sex{/yun}</td>
+					  <td>{yun:}if $user2.age==0{/yun}保密{yun:}else{/yun}{yun:}$user2.age{/yun}岁{yun:}/if{/yun}</td>
+					  <td>{yun:}$user2.edu_n{/yun}</td>
+					  <td>{yun:}$user2.exp_n{/yun}</td>
+					  <td>{yun:}$user2.salary_n{/yun}</td>
+					  <td>{yun:}if $user2.expectcity{/yun}{yun:}foreach from=$user2.expectcity item=v key=key{/yun} {yun:}if $key lt 5{/yun}{yun:}$v{/yun}{yun:}/if{/yun} {yun:}/foreach{/yun} {yun:}/if{/yun}</td>
+					  <td>{yun:}$user2.time{/yun}</td>
+					  <td><a href="{yun:}url m=resume c=show id=$user2.id{/yun}" class="com_resume_showuserxz">下载</a></td>
+					</tr>
+					{yun:}userlistelse{/yun}
+					<tr>
+						<td colspan="10" class="table_end">
+							<div class="msg_no">
+								<p>亲爱的用户，目前没有你想要的人才简历。</p>
+								<a href="index.php?c=resume" class="com_msg_no_bth com_submit">减少搜索条件试试</a>
+							</div>
+						</td>
+					</tr>
+
+					{yun:}/userlist{/yun}
+					
+						
+					{yun:}/if{/yun}
+					</table>
+                </div>
+				<!--  列表展示 -->
+				{yun:}/if{/yun}
+				<!--简历列表 end-->  
+				
+				
+				{yun:}if $total == 0{/yun}
+
+				{yun:}/if{/yun}
+
+				<div style="width:100%; float:left;padding:15px 0">
+					<div class="diggg">{yun:}$pagenav{/yun}</div>
+                </div>
+				<div class="clear"></div>
+            </div>
+            </div>
+		</div>
+        	
+	</div>
+</div>
+</div>
+<script>
+	
+	$(document).ready(function() {
+		$("#form").submit(function(e) {
+			var min = $("#min").val();
+			var max = $("#max").val();
+			if(min && max && parseInt(max) < parseInt(min)) {
+				$("#min").val(max);
+				$("#max").val(min);
+			}
+		});
+		 
+	});
+	
+	function openSalaryOption(){
+		$(".salary_option").show();
+	}
+	
+	function closeSalaryOption(){
+		$(".salary_option").hide();
+	}
+	
+	function setSalary(min, max) {
+		$("#min").val(min);
+		$("#max").val(max);
+	}
+	 
+</script>
+
+<script type="text/javascript">
+	if(!('placeholder' in document.createElement('input'))) {
+
+		$('input[placeholder],textarea[placeholder]').each(function() {
+			var that = $(this),
+				text = that.attr('placeholder');
+			if(that.val() === "") {
+				that.val(text).addClass('placeholder');
+			}
+			that.focus(function() {
+				if(that.val() === text) {
+					that.val("").removeClass('placeholder');
+				}
+			})
+			.blur(function() {
+				if(that.val() === "") {
+					that.val(text).addClass('placeholder');
+				}
+			})
+			.closest('form').submit(function() {
+				if(that.val() === text) {
+					that.val('');
+				}
+			});
+		});
+	}
+</script>
+<script>
+	layui.use(['form'], function() {
+		var form = layui.form,
+			formSelects = layui.formSelects,
+			$ = layui.$;
+		
+		form.on('select(resume_submit)', function(data){
+			$('#form').submit();
+ 		})
+		
+		form.on('checkbox(resume_submit)', function (data) {
+
+ 			$('#form').submit();
+		});
+		formSelects.btns('jobclass_search', []);
+	    formSelects.btns('cityclass_search', []);
+
+	    formSelects.on('jobclass_search', function(id, vals, val, isAdd, isDisabled){
+			var jobvalue = [];
+            vals.forEach(function(item,index){
+            	jobvalue.push(item.value);
+            })
+            $('#job_post').val(jobvalue.join(','));
+            $('#form').submit();
+        }, true);
+	    formSelects.on('cityclass_search', function(id, vals, val, isAdd, isDisabled){
+	      var cityvalue = [];
+	        vals.forEach(function(item,index){
+	          cityvalue.push(item.value);
+	        })
+	        $('#cityid').val(cityvalue.join(','));
+	        $('#form').submit();
+	    }, true);
+	    citySearchReset();
+	    jobSearchReset();
+
+	});
+	function jobSearchReset(){
+
+		var formSelects = layui.formSelects, 
+			jobclassArr= $("#job_post").val()!='' ? $("#job_post").val().split(",") : [],
+	        jarr = [];
+
+	    for(var i=0;i<jobclassArr.length;i++){
+	    	jarr.push({"name":jn[jobclassArr[i]],"value":jobclassArr[i],"selected":'selected'});
+	    }
+	    formSelects.data('jobclass_search', 'local', {
+	        arr: jarr
+	    });
+	}
+  function citySearchReset(){
+
+    var formSelects = layui.formSelects, 
+        cityclassArr= $("#cityid").val()!='' ? $("#cityid").val().split(",") : [],
+        carr = [];
+
+	for(var i=0;i<cityclassArr.length;i++){
+		carr.push({"name":cn[cityclassArr[i]],"value":cityclassArr[i],"selected":'selected'});
+	}
+	formSelects.data('cityclass_search', 'local', {
+	  arr: carr
+	});
+  }
+</script>
+{yun:}include file="$tplstyle/public_search/index_search.htm"{/yun}
+{yun:}include file="$comstyle/yqms.htm"{/yun}
+{yun:}include file="$comstyle/footer.htm"{/yun}

@@ -1,0 +1,152 @@
+
+body{background: #f1f2f4;}
+
+.sproom{background: #2b2e32;width: 1200px;height: 720px;margin:10px auto;}
+.sproom_box{padding: 7px;overflow: hidden;}
+.sproom_left{width: 900px;float: left;}
+.sproom_right{width: 278px;float: right;}
+
+.sproom_l_hd{height: 64px;background: #383f48;position: relative;}
+.sproom_l_md{height: 570px;background: #3f4959;position: relative;}
+.sproom_l_bm{height: 74px;background: #383f48;}
+
+/* 视频面试窗口-左部分 */
+.sproom_l_hd_box{padding: 8px 400px 8px 68px;position: relative;line-height: 22px;overflow: hidden;}
+.sproom_l_hd .head_portrait{height: 45px;width: 45px;border-radius: 50%;background: #ccc;position: absolute;left: 10px;top: 8px;}
+.sproom_l_hd .name{color: #fff;font-size: 16px;}
+.sproom_l_hd .info div{float: left;color: #9faabc;font-size: 12px;margin-right: 20px;}
+.sproom_l_hd .hd_look_resume{position: absolute;right: 10px;top: 16px;height: 30px;line-height: 30px;color: #c3d0e3;border: 1px solid #6a778a;border-radius: 4px;cursor: pointer;padding: 0 30px 0 15px;font-size: 12px;background: url(../images/sproom_up.png) no-repeat 92px 13px;}
+.sproom_l_hd .hd_look_resume i{}
+.sproom_l_hd_paidui{position: absolute;color: #fff;top: 20px;right: 160px;color: #c3d0e3;}
+.sproom_l_hd_pdnub{color: #ffb432;padding: 0 10px 0 0;}
+.sproom_l_md .cxyq_a{width: 130px;height: 40px;font-size: 16px; display: block;background: #2196F3;border-radius: 4px;margin: -20px 0 0 -65px;color: #fff;line-height: 40px;text-align: center;position: absolute;left: 50%;top: 50%;}
+.sproom_l_md .cxyq_a:hover{text-decoration: none;}
+
+.sproom_l_md_ddai{color: #ffb432;position: absolute;top: 15%;left: 35%;font-size: 20px;font-weight: bold;}
+.sp_show_p {font-size: 16px;margin: 0 0 25px 0;}
+
+.sproom_l_md_tips{color: #fff;position: absolute;top: 30%;left: 30%;}
+.sp_show_tips{}
+.sp_show_tips li{padding-left: 36px;position: relative;line-height: 22px;margin: 10px 0;font-size: 14px;}
+.sp_show_tips li i{width: 24px;height: 24px;display: block;position: absolute;left: 0;top: 0;}
+.sp_show_tips .tips_i1{background: url(../images/spview_show_i1.png) no-repeat;}
+.sp_show_tips .tips_i2{background: url(../images/spview_show_i2.png) no-repeat;}
+.sp_show_tips .tips_i3{background: url(../images/spview_show_i3.png) no-repeat;}
+.sp_show_tips .tips_i4{background: url(../images/spview_show_i4.png) no-repeat;}
+.sp_show_tips .tips_i5{background: url(../images/spview_show_i5.png) no-repeat;}
+
+
+.sproom_l_bm_box{overflow: hidden;width: 165px; margin: auto;padding-top: 12px;}
+.sproom_l_bm a{color: #92a1b8;float: left;margin-right: 45px;text-align: center;font-size: 12px;}
+.sproom_l_bm a:last-child{margin-right: 0;}
+.sproom_l_bm .bm_i1{width: 60px;height: 34px; background: url(../images/sproom_btn1.png) no-repeat;background-size: 100%;margin-bottom: 5px;}
+.sproom_l_bm .bm_i2{width: 60px;height: 34px; background: url(../images/sproom_btn2.png) no-repeat;background-size: 100%;margin-bottom: 5px;}
+
+	
+
+/* 视频面试窗口-右部分 */
+.sproom_r_hd{height: 143px;background: #3c424b;padding: 42px 8px 10px 8px;position: relative;}
+.sproom_r_hd .info{position: absolute;top: 4px;color: #fff;line-height: 30px;}
+.sproom_r_hd .head_portrait{width: 30px;height: 30px;float: left;display: block;border-radius: 50%;background: #eee;margin-right: 10px;}
+.sproom_r_hd .video{height: 142px;background: #31373e;position: relative;}
+.sproom_r_hd_cshm{color: #fff;width: 120px;height: 34px;display: block;line-height: 34px;position: absolute;top: 50%;left: 50%;text-align: center;background: #03a9f4;border-radius: 4px;margin-left: -60px;margin-top: -17px;text-decoration: none;}
+.sproom_r_hd_cshm:hover{color: #fff;text-decoration: none;}
+
+.mymsjob{color: #8394aa;margin: 10px 0;font-size: 12px;}
+.sproom_r_md{background: #454e5c;overflow: hidden;}
+.sproom_r_md_box{height: 80px; overflow: auto;padding: 15px 8px;width: 280px;}
+.sproom_r_md_box .jobname{color: #dde4ee;position: relative;font-size: 14px;}
+.sproom_r_md_box .money{color: #ffb432;position: absolute;right: 0;}
+.sproom_r_md_box .jobyaoqiu{color: #9db0cc;margin: 15px 0;font-size: 12px;}
+.sproom_r_md_box .jobfuli{}
+.sproom_r_md_box .jobfuli span{display: inline-block; color: #2db7f5;border: 1px solid #2db7f5;border-radius: 15px;padding: 2px 10px;margin-right: 5px;font-size: 12px;margin-bottom: 8px;}
+
+
+.sproom_r_bm_box{background: #3c424b;height: 337px;overflow-y: auto;padding: 15px 0;}
+.sproom_r_bm_box .titlename{ color: #dde4ee;padding-left: 20px;position: relative;}
+.sproom_r_bm_box .titlename i{position: absolute;top: 3px;left: 10px;height: 14px;width: 2px;background: #2d8cf0;}
+.sproom_r_bm_box .con{color: #9db0cc; padding: 14px 8px;font-size: 13px;}
+.sproom_r_bm_box .con li{padding: 5px 0;line-height: 20px;}
+.sproom_r_bm_box::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 6px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 1px;
+}
+.sproom_r_bm_box::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 10px;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: #7a8493;
+}
+.sproom_r_bm_box::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	background: #3c424b;
+}
+
+
+
+/* 查看简历信息 */
+.resume_details{width: 260px;max-height: 400px;background: #fff;padding: 15px;border-radius: 6px;position: absolute;overflow-y: auto;right: 10px;top: 55px;z-index: 1000;}
+.resume_details .color_666{color: #666;}
+.resume_de_tit{color: #333;border-left: 2px solid #2d8cf0;font-size: 14px;line-height: 14px;padding-left: 5px;font-weight: bold;}
+.resume_de_info{padding: 10px 0;color: #999;line-height: 24px;padding: 10px 0 10px 5px;}
+.resume_de_info .resume_name{font-size: 16px;color: #333;}
+.resume_de_info .resume_bq{font-size: 14px;margin-top: 5px;}
+.resume_de_info label{color: #999;}
+.xian{width: 1px;height: 10px;margin: 0 5px;background: #9faabc;display: inline-block;}
+
+.resume_details::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 6px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 1px;
+}
+.resume_details::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 10px;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: #7a8493;
+}
+.resume_details::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	background: #3c424b;
+}
+
+.video-box{width: 100%;height: 100%;}
+.col-div{flex-direction: column;}
+
+#bg {width:100%;height:100%;background:#000;filter:Alpha(opacity=60); opacity:0.7; bottom: 0;display: none;left: 0;position:fixed;_position: absolute;right: 0;top: 0;z-index: 100001;}
+.sprequest_waitbox{width:260px;  color:#fff; text-align:center;}
+.sprequest_waitiocn {width: 100%;height: 70px;background: url(../images/msj_icon2.png) no-repeat center top;}
+.sprequest_wait{font-size:16px;padding:10px 0}
+.sprequest_wait_time{COLOR:#9db1cd;}
+.sprequest_wait_time span{color:#2cb6f4;padding:0px 5px}
+.user_com{ background: #3c424b; padding: 0px 10px 10px 10px;color:#fff;}
+.user_com_tit{font-size:15px; font-weight:bold; padding:5px 0 10px 15px; position:relative}
+.user_com_c{width:260px;height:430px; overflow:auto; line-height:25px;}
+.user_com_titline{width:3px;height:15px; background:#03a9f4; display:inline-block; position:absolute;left:0px;top:10px;}
+.user_com_name{font-weight:bold;font-size:16px;}
+.user_com_line{font-size:12px;padding:0px 10px;}
+.user_com_c::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 6px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 1px;
+}
+.user_com_c::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 10px;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: #7a8493;
+}
+.user_com_c::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	background: #3c424b;
+}

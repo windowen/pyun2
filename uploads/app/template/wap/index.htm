@@ -1,0 +1,407 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun},wap" />
+<meta name="description" content="{yun:}$description{/yun}" />
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+<link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.min.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/job.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/style.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/yun_wap_member.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<style>
+   * { touch-action: none; }
+   .header_bg { background:#fff}
+   .foot_nav_chiose_t{ line-height:48px; font-size:18px; text-align:left;color:#333; position:relative; padding-left:40px;}
+.foot_nav_chiose_t:after{
+    content: ' ';
+    width: 12px;
+    height: 12px;
+    border: #333 solid;
+    -webkit-transform: rotate(-135deg);
+    border-width: 1px 1px 0 0;
+    display: inline-block; position:absolute;left:15px;top:15px;
+}
+</style>
+</head>
+<body>
+<div id="listhtml">
+	<div id="app" class="mui-views">
+		<div class="mui-view">
+			<div class="mui-navbar"></div>
+			<div class="mui-pages"></div>
+		</div>
+	</div>
+</div>
+<!--单页面开始-->
+<div id="main" class="mui-page">
+	
+<div class="mui-navbar-inner mui-bar mui-bar-nav">
+	<header class="header_h">
+    <div class="header_fixed">
+		<div class="header_bg" >
+			
+			<div class="index_headerlogo" style="padding-top:10px; padding-left:15px;">
+				<img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wap_logo{/yun}">
+			</div>
+			
+			{yun:}if !$username && $smarty.get.c==''{/yun}
+			<div class="header_new_login">
+				<a href="{yun:}url m=wap c=login{/yun}"  class="header_new_login_a">登录</a>
+				<span class="header_new_login_line">|</span>
+				<a  href="{yun:}url m=wap c=register{/yun}" >注册</a>
+			</div>
+			 {yun:}else{/yun}
+			<div class="header_new_login">  
+				<a href="{yun:}url m=wap{/yun}member" id="memberclick" class="header_new_login_a">用户中心</a>
+			</div>
+			{yun:}/if{/yun}
+		</div>
+    </div>
+	
+</header>
+</div>
+	<!--页面主内容区开始-->
+	<div class="mui-page-content">
+		<div class="mui-scroll-wrapper">
+			<div class="mui-scroll">
+	<div class="clear"></div>
+<!--隐藏简历提示-->	
+{yun:}if $uid && $expect.status=='2'{/yun}
+<div id="privacyCtrl" class="hide_tip"><i class="hide_tip_gb"></i>您已对外隐藏简历，HR不能搜索到你的简历哦~<a href="javascript:void(0);" onclick="privacy();" class="hide_tip_qx">取消隐藏</a></div>
+{yun:}/if{/yun}
+
+<div class="clear"></div>
+<div class="index_newedition_search_box">
+	<div class="index_newedition_searchbg">
+		<div class="index_newedition_search_c searchnew">
+			
+			{yun:}if $config.sy_web_site=='1'{/yun}
+			<a href="{yun:}url m=wap c=site{/yun}" class="index_newedition_search_city">{yun:}if $config.cityname{/yun}{yun:}$config.cityname{/yun}{yun:}else{/yun}{yun:}$config.sy_indexcity{/yun}{yun:}/if{/yun}</a>
+			{yun:}/if{/yun} 
+		
+			<span class="index_newedition_search_p">大家都在搜：
+				<div class="index_newedition_searchlist searchsxl">
+					<ul class="searchlist">
+						{yun:}key limit=28 recom=1 type=3 item=keylist{/yun}
+						<li>{yun:}$keylist.key_name{/yun}</li>
+						{yun:}/key{/yun}
+						
+					</ul>
+				</div>
+			</span>
+		</div>
+	</div>
+</div>
+
+<div class="clear"></div>
+				
+<div class="slidebanner">
+	<div class="swiper_banner" >
+        <div class="swiper-container" id="imgswiper" style="height:140px">
+            <div class="swiper-wrapper">
+                {yun:}adlist classid=50 item="lunbo" key=key{/yun}
+                <div class="swiper-slide">
+                    <a href="{yun:}$lunbo.src{/yun}">
+                        <img src="{yun:}$lunbo.pic{/yun}" width='100%' height="140" style="    border-radius: 6px;" />
+                    </a>
+                </div>
+                {yun:}/adlist{/yun}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="index_newedition_navbox">
+	<div class="index_newedition_nav">
+        <div class="swiper-container" id="navswiper">
+            <div class="swiper-wrapper">
+			
+				<div class="swiper-slide" >
+					{yun:}foreach from=$navlist key=key item=v{/yun}
+					{yun:}if $key>0 && $key%5 == 0{/yun}
+				</div>
+				<div class="swiper-slide" >
+					{yun:}/if{/yun}
+					<dl class="index_navlist">
+						<a href="{yun:}$v.url_n{/yun}">
+							<dt class="index_nav_icon"><image src="{yun:}$v.pic_n{/yun}" ></image></dt>
+							<dd>{yun:}$v.name{/yun}</dd>
+						</a>
+					</dl>
+					{yun:}/foreach{/yun}
+				</div>
+            </div>
+            <!-- 如果需要分页器 -->
+			<div class="swiper-pagination navbox_fyq"></div>	
+					 
+        </div>
+    </div>
+</div>
+
+<div class="clear"></div>
+         <!-- 简历优化提示 -->
+{yun:}if $resume_yhnum>0{/yun}
+<div id="resume_yh" class="optimize_tip_box none">
+	<div class="optimize_tip">
+		<i class="optimize_tipicon"></i>
+		<i class="optimize_tipgbicon" onclick="resume_yhhide();"></i>
+		<div class="optimize_name">您的简历有{yun:}$resume_yhnum{/yun}个优化项</div>
+		<div class="optimize_p">处理后可大幅提升求职成功率</div>
+		<a class="optimize_tip_bth" href="{yun:}url m=wap{/yun}member/index.php?c=resume&eid={yun:}$expect.id{/yun}">去处理</a>
+	</div>
+</div>
+{yun:}/if{/yun}
+<div class="clear"></div>
+<div class="index_newedition_othernav">
+	<ul>
+		<li class="">
+			<a href="{yun:}url m=wap c='once'{/yun}" class="index_newedition_othernav_dp">
+				<div class="index_newedition_othernav_tit">店铺招聘</div>
+				<div class="index_newedition_othernav_p">店面招工大集合</div>
+			</a>
+		</li>
+		<li class="">
+			<a href="{yun:}url m=wap c='tiny'{/yun}" class="index_newedition_othernav_pg">
+				<div class="index_newedition_othernav_tit">普工专区</div>
+				<div class="index_newedition_othernav_p">为工厂淘人才</div>
+			</a>
+		</li>
+		<li class="">
+			<a href="{yun:}url m=wap c='map'{/yun}" class="index_newedition_othernav_fj">
+				<div class="index_newedition_othernav_tit">附近职位</div>
+				<div class="index_newedition_othernav_p">就近上班更方便</div>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="clear"></div>
+
+<div class="index_newedition_box ">
+	<div class="index_newedition_notice sxl">
+		<div class="index_newedition_notice_tit">
+			
+		</div>
+		<ul class="sxlist">
+			{yun:}announcement limit=10 item=alist t_len=40{/yun}
+			<li>
+				<div class="index_newedition_notice_name"><a href="{yun:}url m=wap c=announcement id=$alist.id{/yun}">{yun:}$alist.title_n{/yun}</a></div>
+			</li>
+			{yun:}/announcement{/yun} 
+		</ul>
+		<a href="{yun:}url m=wap c=announcement{/yun}" style="position: absolute;right: 6px;top: 8px;">
+			<span class="index_newedition_notice_tit_more">更多</span>
+		</a>
+		
+	</div>
+</div>
+
+<div class="clear"></div>
+
+ 
+<div class="clear"></div>
+
+<div class="index_newedition_jobpd">
+<div class="index_newedition_job">
+	
+<div class="index_newedition_job_tit">推荐职位</div>
+
+<!--列表 --> 
+{yun:}joblist limit=15 item=new_list{/yun}
+<div class="index_newedition_job_list">
+	<a href="{yun:}url m=wap c=job a=comapply id=$new_list.id{/yun}" title="{yun:}$new_list.name{/yun}">
+		<div class="yun_newedition_jobcont">
+			<div class="index_newedition_jobname">{yun:}$new_list.name{/yun}</div>
+			<div class="yun_newedition_jobinfo">
+				<div class="yun_newedition_jobinfo_c">{yun:}$new_list.job_city_one{/yun}-{yun:}$new_list.job_city_two{/yun}{yun:}if $new_list.job_exp{/yun}
+					<i class="yun_newedition_jobline"></i>{yun:}$new_list.job_exp{/yun}经验{yun:}/if{/yun}{yun:}if $new_list.job_edu{/yun}
+					<i class="yun_newedition_jobline"></i>{yun:}$new_list.job_edu{/yun}学历{yun:}/if{/yun}
+				</div>
+			</div>
+			<span class="index_newedition_jobxz">{yun:}$new_list.job_salary{/yun}</span>
+
+			<div class="yun_index_jobemergency_tg">
+			{yun:}if $new_list.urgent=='1'{/yun}<span class="yun_index_jobemergency">急聘</span>{yun:}/if{/yun}
+			{yun:}if $new_list.rec=='1'{/yun}<span class="yun_index_hot">推荐</span>{yun:}/if{/yun}
+			</div>
+
+
+			{yun:}if $new_list.welfare{/yun}
+			<div class="yun_newedition_jobflbox">
+				{yun:}foreach from=$new_list.welfare item=waflist{/yun}
+				<span class="yun_newedition_jobfl">{yun:}$waflist{/yun}</span>
+				{yun:}/foreach{/yun}
+			</div>
+			{yun:}/if{/yun}
+
+		</div> 
+		
+		{yun:}if $new_list.urgent!='1' && $new_list.rec!='1'{/yun}
+		 <span class="yun_newedition_jobtime">
+			{yun:}if $new_list.time=='今天' || $new_list.time=='昨天'||$new_list.redtime=='1'{/yun}
+			{yun:}$new_list.time{/yun}
+			{yun:}else{/yun}
+			{yun:}$new_list.time{/yun}
+			{yun:}/if{/yun}
+		</span>
+		{yun:}/if{/yun}			
+										  
+		<div class="yun_newedition_jobcomname">
+			<img src="{yun:}if $new_list.logo{/yun}{yun:}$new_list.logo{/yun}{yun:}else{/yun}{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_unit_icon{/yun}{yun:}/if{/yun}"
+							 onerror="if($(this).attr('load')!='1'){$(this).attr('load',1);this.src='{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_unit_icon{/yun}';}">
+			{yun:}$new_list.com_name|strip_tags|mb_substr:0:20:"utf-8"{/yun}
+		</div>
+	</a>
+</div> 
+{yun:}/joblist{/yun} 
+<!--列表  end-->
+<div class="yun_newedition_jobmore"><a href="{yun:}url m=wap c=job{/yun}">查看更多</a></div>
+</div>
+</div>
+
+		<div class="yun_newedition_footer">
+			<div class="">
+				<a href="{yun:}url m=wap c=contact{/yun}">联系我们</a>
+				<span class="yun_newedition_footer_line">|</span>
+				{yun:}if $config.sy_app_open == 1{/yun}
+				<a href="{yun:}url m=wap c=appdown{/yun}">下载APP</a>
+				<span class="yun_newedition_footer_line">|</span>
+				{yun:}/if{/yun}
+				<a href="{yun:}url m=wap c='advice'{/yun}">意见反馈</a>
+				<span class="yun_newedition_footer_line">|</span>
+				<a href="{yun:}url m=wap c=about{/yun}">关于我们</a>
+			</div>
+		</div>
+    </div>  
+	</div>
+</div>
+</div>
+		
+			</div>
+		</div>
+	</div>
+</div>
+{yun:}include file="$wapstyle/search.htm"{/yun}			
+
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link rel="stylesheet" href="{yun:}$wap_style{/yun}/js/swiper/swiper.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<script src="{yun:}$wap_style{/yun}/js/swiper/swiper.min.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.view.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script type="text/javascript">
+	mui.init();
+	var viewApi = mui('#app').view({
+		defaultPage: '#main'
+	});
+	
+	var view = viewApi.view;
+	(function($) {
+		
+		
+
+		//初始化单页的区域滚动
+		mui('.mui-scroll-wrapper').scroll({
+			scrollY: true, //是否竖向滚动
+			scrollX: false, //是否横向滚动
+			startX: 0, //初始化时滚动至x
+			startY: 0, //初始化时滚动至y
+			indicators: false, //是否显示滚动条
+			deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+			// bounce: true //是否启用回弹
+		});
+		//处理view的后退与webview后退
+		var oldBack = $.back;
+		$.back = function() {
+			if(viewApi.canBack()) { //如果view可以后退，则执行view的后退
+				viewApi.back();
+			} else { //执行webview后退
+				oldBack();
+			}
+		};
+		// 首页安卓手机禁用物理返回键
+		if(mui.os.android){
+			history.pushState(null, null, location.href);
+			window.addEventListener('popstate', function(event) {
+				history.pushState(null, null, location.href);
+			});
+		}
+	})(mui);
+    $(function() {
+    	if(document.getElementById('main')){
+			document.getElementById('main').addEventListener('touchmove', function (e) { e.preventDefault();}, {passive: false});
+		}
+        var myimgswiper = new Swiper('#imgswiper', {
+            direction: 'horizontal',
+            autoplay: true,
+            loop: true
+        });
+        var mySwiper = new Swiper('#navswiper', {
+            direction: 'horizontal',
+            pagination: {
+                el: '.swiper-pagination',
+            }
+			
+        });
+
+
+
+        //优化简历显示与隐藏
+        var time = parseInt(new Date().getTime()/1000);
+
+        var resume_yhhide = window.localStorage.getItem('resume_yhhide');
+        
+        if(time-resume_yhhide<86400){
+
+        	$("#resume_yh").hide();
+		}else{
+			window.localStorage.removeItem('resume_yhhide');
+			$("#resume_yh").show();
+		}
+
+    });
+    marquee("2000", ".sxl .sxlist");
+    $(".indexmq_box").each(function(i, arr) {
+        arr.addEventListener('tap', function() {
+            mui.openWindow({
+                url: arr.dataset.href
+            });
+        }, false)
+    }, false);
+  marquee("2000", ".searchsxl .searchlist");
+   
+
+    $(function() {
+        var myimgswiper = new Swiper('#imgswiper_x', {
+            direction: 'horizontal',
+            autoplay: true,
+            loop: true
+        });
+    });
+    function resume_yhhide(){
+
+    	$("#resume_yh").hide();
+
+    	window.localStorage.setItem('resume_yhhide',parseInt(new Date().getTime()/1000));
+
+    }
+    function privacy(){
+    	$.get(wapurl + "member/index.php?c=up&status=1", function(data) {
+            if(data==1){
+            	$('#privacyCtrl').hide();
+            }
+            
+        });
+    }
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

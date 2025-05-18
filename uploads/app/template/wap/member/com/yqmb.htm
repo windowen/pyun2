@@ -1,0 +1,90 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun}
+<section class="wap_member">
+    {yun:}foreach item=v from=$rows{/yun}
+        <div class="com_member_hr">
+            <div class="com_member_hr_name">
+                <a href="javascript:void(0);" class="wap_member_com_name  com_member_hr_cblue">{yun:}$v.name{/yun}</a>
+            </div>
+            <div class="com_member_user_box">
+                <div class="com_member_hr_tj">
+                    <div class="com_member_hr_p1">
+                        <span class="member_c9">联系人：</span> {yun:}$v.linkman{/yun} &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+                <div class="com_member_hr_tj">
+                    <div class="com_member_hr_p1">
+                        <span class="member_c9">联系方式：</span> {yun:}$v.linktel{/yun} &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+                <div class="com_member_hr_tj">
+                    <div class="com_member_hr_p1">
+                        <span class="member_c9">面试地址：</span> {yun:}$v.address{/yun} &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+                <div class="com_member_hr_tj">
+                    <div class="com_member_hr_p1">
+                        <span class="member_c9">面试时间：</span> {yun:}$v.intertime{/yun} &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+                <div class="com_member_hr_tj">
+                    <div class="com_member_hr_p1">
+                        <span class="member_c9">面试备注：</span> {yun:}$v.content{/yun} &nbsp;&nbsp;&nbsp;
+
+                    </div>
+                </div>
+                
+            </div>
+            <div class="com_member_hr_cz">
+                
+                <a href="javascript:;" class="yun_member_hr_bth bindChildA" data-id="{yun:}$v.id{/yun}">删除</a>
+                <a href="index.php?c=yqmbedit&yid={yun:}$v.id{/yun}" class="yun_member_hr_bth">修改</a>
+                
+            </div>
+        </div>
+    {yun:}foreachelse{/yun}
+        <div class="wap_member_no">目前您还没有创建邀请面试模板<div>
+    {yun:}/foreach{/yun}
+</section>
+<div class="pages">{yun:}$pagenav{/yun}</div>
+
+<script type="text/javascript">
+   
+    //删除
+    $('.bindChildA').on('click', function () {
+    	
+        var thisChildId = parseInt($(this).attr('data-id'));
+        if (isNaN(thisChildId) || thisChildId < 1) {
+            layermsg('模板数据错误！');
+            return false;
+        }
+         
+		layer.open({
+			content: '确认删除模板？',
+			btn: ['确认', '取消'],
+			shadeClose: false,
+			yes: function(){
+				layer.closeAll();
+                layer_load('执行中，请稍候...');
+                $.post("index.php?c=delYqmb", { id: thisChildId }, function (data) {
+                    layer.closeAll();
+                    var res = eval('(' + data + ')');
+                    if (res.errcode == 9) {
+                        layermsg(res.msg, 2, function () { location.reload(); });
+                    } else {
+                        layermsg(res.msg);
+                    }
+                    return false;
+                });
+			} 
+		}); 
+    });
+
+    
+
+</script>
+
+{yun:}include file="$wapstyle/footer.htm"{/yun}

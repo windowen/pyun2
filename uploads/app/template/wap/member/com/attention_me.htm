@@ -1,0 +1,63 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun}
+
+<section class="wap_member">
+    <div class="wap_member_comp_h1"><span>关注我的人才</span></div>
+
+    {yun:}if !empty($rows){/yun} 
+	
+	{yun:}foreach from=$rows item=v{/yun}
+
+    <div class="com_member_hr">
+
+        <div class="com_member_hr_name">
+            <a href="{yun:}url m=wap c=resume a=show id=$v.eid{/yun}" class="wap_member_com_name  com_member_hr_cblue">{yun:}$v.username{/yun}</a>
+        	<a href="{yun:}url m=wap c=resume a=show id=$v.eid{/yun}" class="wap_member_com_lokr">查看简历</a> 
+        </div>
+
+        <div class="com_member_user_box">
+            <div class="com_member_hr_tj">
+                <div class="com_member_hr_p1">
+                    <span class="member_c9">年龄：</span> {yun:}$v.age{/yun}
+                    <span class="member_c9">经验：</span>{yun:}$v.exp{/yun}
+                    <span class="member_c9">学历：</span>{yun:}$v.edu{/yun}
+
+                    <div class="com_member_hr_p1"><span class="member_c9">意向职位：</span><em style="color:#C00">{yun:}$v.jobname{/yun}</em></div>
+
+                </div>
+            </div>
+
+            <div class="com_member_hr_p1">
+                <span class="member_c9">关注日期：{yun:}$v.time|date_format:"%Y-%m-%d"{/yun} </span>
+            </div>
+ 
+		</div>
+		<div class="com_member_hr_cz">
+			{yun:}if $v.is_browse!=4{/yun} 
+				{yun:}if $v.userid_msg!=1{/yun}
+				<a href="javascript:void(0);" uid="{yun:}$v.uid{/yun}" username="{yun:}$v.name{/yun}" class="yun_member_hr_bth sq_resume"> 邀请面试</a>
+				{yun:}else{/yun}
+					{yun:}if $v.is_browse==5{/yun}
+					<span class="yun_member_hr_bth yun_member_hr_bth_yq">无法联系</span> {yun:}else{/yun}
+					<span class="yun_member_hr_bth yun_member_hr_bth_yq">已邀请</span> {yun:}/if{/yun} 
+				{yun:}/if{/yun} 
+			{yun:}else{/yun}
+				<span class="yun_member_hr_bth yun_member_hr_bth_yq">已拒绝</span> 
+			{yun:}/if{/yun}
+		</div>
+    </div>
+    {yun:}/foreach{/yun} 
+	
+	{yun:}else{/yun}
+
+		<div class="wap_member_no">
+			没有关注记录。
+			<div>
+				<a class="wap_member_no_submit" href="{yun:}url m=wap c=resume{/yun}">去搜索人才</a>
+			</div>
+		</div>
+
+    {yun:}/if{/yun}
+
+</section>
+<div class="pages"> {yun:}$pagenav{/yun}</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

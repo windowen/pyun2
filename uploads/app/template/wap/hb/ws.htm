@@ -1,0 +1,62 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<link rel="stylesheet" href="{yun:}$wap_style{/yun}/hb/reset.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<!--公用顶部导航栏start-->
+<section class="mb10">
+	<div class="flex pdl12 pdr12 pdt10 pdb10 bgwhite">
+		<div class="flex flex-horizontally-center flex-vertical-center"><img src="{yun:}$wap_style{/yun}/hb/images/download.png" width="50" height="47"></div>
+		<div class="flex-1 ml10">
+			<p class="f14 ui-nowrap-flex">招聘海报已生成</p>
+            <h3 class="mt5 f16 c333 ui-nowrap-flex">长按下方海报保存图片到手机</h3>
+        </div>
+    </div>
+	
+    <div id="hbdiv" class="mt10 none">        
+		<img id="hbimg" src="" width="100%">
+    </div>
+
+</section>	
+
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+
+<script>
+	$(function() {
+		var id='{yun:}$smarty.get.id{/yun}';
+		var hb='{yun:}$smarty.get.hb{/yun}';
+		var jobids='{yun:}$smarty.get.jobids{/yun}';
+		
+		if(id!='' && hb!=''){
+		
+			var layerIndex=layer.open({
+				type: 2,
+				time: 10,
+				content: '加载中'
+			});
+			
+			$.post('index.php?c=company&a=getImg&id='+id+'&hb='+hb+'&jobids='+jobids, {
+				name: '{yun:}$row.name{/yun}'
+			}, function(data) {
+				
+				layer.close(layerIndex);
+				
+				if(data) {
+					var result = eval('(' + data + ')');
+					if(result.error==0){
+						$("#hbdiv").show();
+						$("#hbimg").attr('src',result.src);
+					}else{
+						layermsg(result.errmsg,2,function(){
+							history.back();
+						});
+					}
+				}
+			});
+		}else{
+			layermsg('参数错误',2,function(){
+				history.back();
+			});
+		}
+    })
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

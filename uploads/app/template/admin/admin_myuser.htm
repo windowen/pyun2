@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="./images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="./images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="./images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+
+		<script type="text/javascript">
+			function getcode() {
+				var setval;
+				var pytoken = '{yun:}$pytoken{/yun}';
+				$.post('index.php?m=index&c=wxbind', {
+					pytoken: pytoken
+				}, function(data) {
+					status_div('扫描二维码', '320', '260');
+					if (data == 0) {
+						$('#wx_login_qrcode').html('二维码获取失败..');
+					} else {
+						$('#wx_login_qrcode').html('<img src="' + data + '" width="140" height="140">');
+						setval = setInterval("wxorderstatus()", 2000);
+					}
+				});
+			}
+
+			function wxorderstatus() {
+				var pytoken = '{yun:}$pytoken{/yun}';
+				$.post('index.php?m=index&c=getwxbindstatus', {
+					pytoken: pytoken
+				}, function(data) {
+
+					if (data == 1) {
+						$('#status_div').hide();
+						layer.msg('绑定成功', 2, 9, function() {
+							window.location.reload();
+							return;
+						});
+					}
+
+				});
+			}
+
+			function delwxid() {
+				var pytoken = '{yun:}$pytoken{/yun}';
+				$.post('index.php?m=index&c=delAdminWxBind', {
+					pytoken: pytoken
+				}, function(data) {
+
+					if (data == 1) {
+						layer.msg('解绑成功', 2, 9, function() {
+							window.location.reload();
+							return;
+						});
+					}
+
+				});
+			}
+		</script>
+		<title></title>
+	</head>
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				
+				<div class="tabs_info">
+					<ul>
+						<li {yun:}if $pass_div !='1'{/yun}class="curr"{yun:}/if{/yun}>基本信息</li>
+						<li {yun:}if $pass_div =='1'{/yun}class="curr"{yun:}/if{/yun}>修改密码</li>
+					</ul>
+				</div>
+				
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						
+						<div class="admin_new_tip_list">我的帐号主要显示网站当前的管理员帐号信息，如用户名、姓名和管理员姓名参数！</div>
+
+						<div class="admin_new_tip_list">当前管理员还可以修改自己的密码操作,修改成功以后，需重新登录。</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+
+				<div class="con_form">
+
+					<form action="" class="layui-form" {yun:}if $pass_div =='1'{/yun}style="display: none;"{yun:}/if{/yun}>
+						<table width="100%" class="table_form ">
+							<tr>
+								<th width="150">用户名：</th>
+								<td>
+									<div class="admin_td_h">{yun:}$adminuser.username{/yun}</div>
+								</td>
+							</tr>
+							<tr class="admin_table_trbg">
+								<th>真实姓名：</th>
+								<td>
+									<div class="admin_td_h">{yun:}$adminuser.name{/yun}</div>
+								</td>
+							</tr>
+							<tr>
+								<th>权限：</th>
+								<td>
+									<div class="admin_td_h">{yun:}$user_group.group_name{/yun}</div>
+								</td>
+							</tr>
+							<tr class="admin_table_trbg">
+								<th>微信绑定：</th>
+								<td>
+									<div class="admin_td_h">
+										{yun:}if $adminuser.wxid==''{/yun}
+											<a href="javascript:void(0)" onclick="getcode();"class="admin_logout_bth">绑定</a>
+										{yun:}else{/yun}
+											<a href="javascript:void(0)" onclick="delwxid()" class="admin_logout_bth">解除绑定</a>
+										{yun:}/if{/yun}
+									</div>
+								</td>
+							</tr>
+							<tr class="admin_table_trbg">
+								<th>上一次登录时间：</th>
+								<td>
+									<div class="admin_td_h">{yun:}$adminuser.lasttime|date_format:'%Y-%m-%d %H:%M:%S'{/yun}</div>
+								</td>
+							</tr>
+						
+							<div id="status_div" style="display:none; width: 320px; ">
+								<div id="wx_login_qrcode" class="admin_census">正在获取二维码...</div>
+								<div class="admin_census_bd">请使用微信扫描二维码绑定</div>
+							</div>
+						
+						</table>
+					</form>
+
+					<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+					<form action="index.php?m=admin_user&c=savePass" class="layui-form" target="supportiframe" method="post" id="myform" {yun:}if $pass_div !='1'{/yun}style="display: none;"{yun:}/if{/yun}>
+						<table width="100%" class="table_form table_form_thr" style="background:#fff;">
+							<tr>
+								<th width="140">原始密码：</th>
+								<td width="100%">
+									<div class="layui-input-inline t_w480">
+										<input type="password" value="" name="oldpass" class="layui-input" placeholder="请输入原始密码">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th width="140">新密码：</th>
+								<td width="100%">
+									<div class="layui-input-inline t_w480">
+										<input type="password" value="" name="password" class="layui-input" placeholder="请输入新密码">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th width="140">确认密码：</th>
+								<td width="100%">
+									<div class="layui-input-inline t_w480">
+										<input type="password" value="" name="okpassword" class="layui-input" placeholder="确认密码">
+									</div>
+								</td>
+							</tr>
+								
+							<tr>
+								<th></th>
+								<td colspan="3">
+									<input class="tty_sub" type="submit" name="useradd" value="&nbsp;修 改&nbsp;" />
+									<input class="tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+					</form>
+				</div>
+			</div>
+		</div>
+		<script>
+			
+			var ah2 = $(".tabs_info li")
+			var ap = $(".con_form form")
+			
+			for (var i = 0; i < ah2.length; i++) {
+			    ah2[i].index = i;
+				
+			    ah2[i].onclick = function () {
+			        for (var j = 0; j < ap.length; j++) {
+			            ap[j].style.display = "none"
+			        }
+			        ap[this.index].style.display = "block";
+			    }
+			}
+			ah2.each(function(){
+				
+				$(this).click(function(){
+					ah2.removeClass("curr")
+					$(this).addClass("curr")
+				})
+			})
+			
+		</script>
+	</body>
+</html>

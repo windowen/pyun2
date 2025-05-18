@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+<meta name="description" content="{yun:}$description{/yun}"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/part.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>  
+</head>
+<body  class="body_bg">
+{yun:}include file="$tplstyle/header.htm"{/yun}
+<div class="clear"></div >
+<div class="wapper">
+  <div class="current_Location icon">当前位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a>><a href="{yun:}url m=part{/yun}">兼职</a>><em>{yun:}$job.name{/yun}</em></div>
+  <div class="clear"></div >
+  <div class="yun_part_left">
+   <div class="partjob_tip">提示：刷信誉、淘宝刷钻、YY网络兼职、加YY联系的职位都是骗子！收取费用或押金都可能有欺诈嫌疑，请警惕！</div>
+   <div class="yun_part_show_jobbox">
+  <div class="yun_part_show_jobname"><h1>{yun:}$job.name{/yun}</h1></div>
+  <div class="yun_part_show_jobxz"><span class="yun_part_show_jobxz_n">{yun:}$job.salary{/yun}</span>{yun:}$job.salary_type_n{/yun}</div>
+  <div class="yun_part_show_jobxx">	{yun:}$job.cityname{/yun} <span class="yun_part_show_jobxx_yl">{yun:}$job.lastupdate|date_format:"%Y-%m-%d"{/yun} 更新</span> <span class="yun_part_show_jobxx_yl">{yun:}$job.hits{/yun} 次浏览</span> </div>
+          <div class="wx_share_fx">
+        <div class="wx_share_fx_img"><img src="{yun:}url m=ajax c=pubqrcode toc=part toa=show toid=$job.id{/yun}" width="110" height="110"/></div>
+        <div class="wx_share_fx_p">分享到朋友圈</div>
+      </div>   
+       {yun:}if $job.edate<time() && $job.edate!=0{/yun}
+         <div class="part_exceed"><img src="{yun:}$style{/yun}/images/stamp_gq.png" title="已过期" width="140" height="120"> </div>
+         {yun:}/if{/yun}
+        
+  <div class="yun_part_show_jobinfo">
+   <div class="yun_part_show_jobinfo_p">
+   <span class="yun_part_show_jobinfo_p_s">工作类型：</span>
+   <span class="con_require_con">{yun:}$job.type_n{/yun}</span></div>
+      <div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">招聘人数：</span><span class="con_require_con">{yun:}$job.number{/yun} 人</span></div>
+        {yun:}if $job.sex{/yun}<div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">性别要求：</span></span><span class="con_require_con">{yun:}$job.sex_n{/yun}</span></div>{yun:}/if{/yun}
+     <div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">结算周期：</span><span class="con_require_con">{yun:}$job.billing_cycle_n{/yun}</span></div>
+      <div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">有效期至：</span><span class="con_require_con">{yun:}if $job.edate{/yun}{yun:}$job.edate|date_format:'%Y-%m-%d'{/yun}{yun:}else{/yun}长期招聘{yun:}/if{/yun} </span></div>
+          <div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">联&nbsp;系&nbsp; 人：</span>{yun:}$job.linkman{/yun}</div>
+          <div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">联系电话：  {yun:}if is_array($apply){/yun}{yun:}$job.linktel{/yun}{yun:}else{/yun}<span class="">{yun:}$job.linktel_n{/yun}<font color="#0099FF">【报名后显示联系方式】</font></span>{yun:}/if{/yun}</div>
+      <div class="yun_part_show_jobinfo_p"><span class="yun_part_show_jobinfo_p_s">工作地址：</span><span class="con_require_con">{yun:}$job.address{/yun}</span></div>
+      <div class="con_map fl" id="company_baidu_map">
+            <div id="maps_container" style="width:300px;height:200px;"></div>
+      </div>
+      </div>
+      <div class="partjob_cz">
+ {yun:}if is_array($apply){/yun}
+          <a class="partjob_ybmbth" href="javascript:void(0);">已报名</a>
+          {yun:}else{/yun} 
+              {yun:}if $usertype==1{/yun}
+              <a class="partjob_bmbth" href="javascript:PartApply('{yun:}$job.id{/yun}');">申请报名</a>
+              {yun:}else{/yun}
+                {yun:}if $uid{/yun}
+                {yun:}if $config.sy_user_change==1{/yun}
+                <a class="partjob_bmbth" onclick="layer.msg('请先申请个人用户才能申请报名', 2, 8);" href="javascript:;">申请报名</a>
+                {yun:}else{/yun} 
+                 <a class="partjob_bmbth" onclick="layer.msg('只有个人用户才能申请报名', 2, 8);" href="javascript:;">申请报名</a>
+                {yun:}/if{/yun}
+               
+                {yun:}else{/yun}  
+                <a class="partjob_bmbth" onclick="showlogin('1');" href="javascript:;">申请报名</a>
+                {yun:}/if{/yun}
+              {yun:}/if{/yun}
+         {yun:}/if{/yun}
+                   <div class="con_apply_share fl">
+          {yun:}if is_array($collect){/yun}
+          <a href="javascript:void(0);"><img src="{yun:}$style{/yun}/images/shou.png" width="15" height="15"> 已收藏</a>
+          {yun:}else{/yun}  
+              {yun:}if $usertype==1{/yun}
+              <a href="javascript:PartCollect('{yun:}$job.id{/yun}','{yun:}$job.uid{/yun}');"><img src="{yun:}$style{/yun}/images/shou.png" width="15" height="15"><span id="Collect"> 收藏</span></a>
+              {yun:}else{/yun}
+                {yun:}if $uid{/yun}
+                {yun:}if $config.sy_user_change==1{/yun}
+                <a onclick="layer.msg('请先申请个人用户才能收藏', 2, 8);" href="javascript:;"><img src="{yun:}$style{/yun}/images/shou.png" width="15" height="15"> 收藏</a>
+                {yun:}else{/yun} 
+                <a onclick="layer.msg('只有个人用户才能收藏', 2, 8);" href="javascript:;"><img src="{yun:}$style{/yun}/images/shou.png" width="15" height="15"> 收藏</a>
+                {yun:}/if{/yun}
+                
+                {yun:}else{/yun}  
+                <a onclick="showlogin('1');" href="javascript:;"><img src="{yun:}$style{/yun}/images/shou.png" width="15" height="15"> 收藏</a>
+                {yun:}/if{/yun}
+              {yun:}/if{/yun}
+          {yun:}/if{/yun}
+         </div>
+  </div>
+  </div>
+    <div class="yun_part_show_jobbox mt20">
+<div class="yun_part_show_tit">职位详情</div>
+<div class="partjob_content_tit">工作时间</div>
+<div class="partjob_content_time"> <table class="det-tab" width="560" border="0" cellspacing="1" cellpadding="0" style="border-collapse: separate;border-spacing: 1px;">
+                    <tbody>
+					<tr>
+                        <th height="28" align="center" valign="middle" class="fre-tab01">TIME</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab02">周一</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab03">周二</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab04">周三</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab05">周四</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab06">周五</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab07">周六</th>
+                        <th height="28" align="center" valign="middle" class="fre-tab08">周日</th>
+                    </tr>
+                    <tr>
+                        <td height="28" align="center" valign="middle" class="fre-tab09">上午</td>
+						{yun:}foreach from=$part_morning item=v{/yun}
+                        <td height="28" align="center" valign="middle" {yun:}if in_array($v,$job.worktime_n){/yun}class="cut"{yun:}/if{/yun}><i></i></td>
+						{yun:}/foreach{/yun}
+					</tr>
+					<tr>
+                        <td height="28" align="center" valign="middle" class="fre-tab10">下午</td>
+                        {yun:}foreach from=$part_noon item=v{/yun}
+                        <td height="28" align="center" valign="middle" {yun:}if in_array($v,$job.worktime_n){/yun}class="cut"{yun:}/if{/yun}><i></i></td>
+						{yun:}/foreach{/yun}
+					</tr>
+					<tr>
+                        <td height="28" align="center" valign="middle" class="fre-tab11">晚上</td>
+                        {yun:}foreach from=$part_afternoon item=v{/yun}
+                        <td height="28" align="center" valign="middle" {yun:}if in_array($v,$job.worktime_n){/yun}class="cut"{yun:}/if{/yun}><i></i></td>
+						{yun:}/foreach{/yun}
+					</tr>
+					</tbody>
+			</table>
+            </div>
+
+   <div class="partjob_content_tit">职位描述</div>
+             <div class="partjob_content_p"> {yun:}$job.content{/yun}</div>
+             
+</div> 
+ <div class="yun_part_show_jobbox mt20">
+<div class="yun_part_show_tit">你可能感兴趣的兼职</div>
+
+      <div class="yun_part_show_xq_list">
+      <div class="yun_part_show_xq_list_box">
+        <ul>
+        {yun:}partlist item=partlist  namelen=10 type='@job.type' noid=$job.id limit=10{/yun}
+     <li>
+            <div class="yun_part_tjbox_jobname"><a href="{yun:}$partlist.job_url{/yun}" class="" title="{yun:}$partlist.name_n{/yun}">{yun:}$partlist.name_n{/yun}</a> </div>
+            <div class="yun_part_qxbox_jobinfo"><span class="yun_part_tjbox_jobinfo_xz"> <em class="yun_part_tjbox_jobxz_n">{yun:}$partlist.salary{/yun}</em>{yun:}$partlist.job_salary_type{/yun}</span><em class=""> {yun:}$partlist.job_city_two{/yun}-{yun:}$partlist.job_city_three{/yun}</em> <span class="yun_part_tjbox_jobtime">{yun:}$partlist.lastupdate|date_format:"%Y-%m-%d"{/yun} 更新</span> </div>
+            <div class="yun_part_tjbox_comname">{yun:}$partlist.com_name{/yun}</div>
+          </li>
+		{yun:}partlistelse{/yun}
+			<li><div class="yun_part_tjbox_no">暂无相关推荐！</div></li>
+		{yun:}/partlist{/yun} </ul>
+        </div>
+           </div>  
+</div>
+   </div> 
+    <div class="job_right fr">
+     <div class="yun_partshow_com">
+      <div class="yun_part_tjbox_h1"><i class="yun_part_tjbox_h1_n"></i><span class="yun_part_tjbox_h1_s">兼职发布者</span></div>
+      <div class="clear"></div>
+        <div class="yun_partshow_comlogo"> <img src="{yun:}$ComInfo.logo{/yun}" width="100" height="100"  alt="{yun:}$ComInfo.name{/yun}" /> </div>
+      <div class="yun_partshow_comname"><a href="{yun:}url m=company c=show id=$ComInfo.uid{/yun}" target="_blank" title="{yun:}$ComInfo.name{/yun}">{yun:}$ComInfo.name|mb_substr:0:13:'utf-8'{/yun}</a></div>
+       {yun:}if $ComInfo.yyzz_status=='1'{/yun}<span class="yun_partshow_comrz">  <img src="{yun:}$style{/yun}/images/disc_icon10.png" title="营业执照已审核" class="png" /> 营业执照已认证</span>{yun:}/if{/yun}
+ <ul class="yun_partshow_cominfo">
+{yun:}if $ComInfo.hy_n{/yun}<li><span class="yun_partshow_cominfo_s">行业</span> {yun:}$ComInfo.hy_n{/yun}</li>{yun:}/if{/yun}
+{yun:}if $ComInfo.pr_n{/yun}<li><span class="yun_partshow_cominfo_s">性质</span> {yun:}$ComInfo.pr_n{/yun}</li>{yun:}/if{/yun}
+ {yun:}if $ComInfo.job_city_one{/yun}<li><span class="yun_partshow_cominfo_s">地区</span>  {yun:}$ComInfo.job_city_one{/yun}</li>{yun:}/if{/yun}
+</ul>
+     </div>
+
+        <div class="yun_part_tjbox">
+      <div class="yun_part_tjbox_h1"><i class="yun_part_tjbox_h1_n"></i><span class="yun_part_tjbox_h1_s">优选兼职</span></div>
+      <div class="yun_part_tjbox_list">
+        <ul>
+          {yun:}partlist item=partlist namelen=10 rec=1 limit=10{/yun}
+          <li>
+            <div class="yun_part_tjbox_jobname"><a href="{yun:}$partlist.job_url{/yun}" title="{yun:}$partlist.name_n{/yun}">{yun:}$partlist.name_n{/yun}</a></div>
+            <div class="yun_part_tjbox_jobxz"><em class="yun_part_tjbox_jobxz_n">{yun:}$partlist.salary{/yun}</em>{yun:}$partlist.job_salary_type{/yun}</div>
+            <div class="yun_part_tjbox_jobinfo"> <em class="">{yun:}$partlist.job_city_one{/yun}-{yun:}$partlist.job_city_two{/yun}</em> <span class="yun_part_tjbox_jobtime">{yun:}$partlist.lastupdate|date_format:"%Y-%m-%d"{/yun}更新</span> </div>
+          </li>
+          {yun:}/partlist{/yun}
+        </ul>
+      </div>
+    </div>
+    
+    </div>
+  </div>
+</div> 
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/part.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png');
+</script>
+<![endif]--> 
+<script type="text/javascript" src="{yun:}$config.mapurl{/yun}" charset="utf-8"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/map.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script>
+$(function(){
+   getmapnoshowcont_diffDomains('maps_container', "{yun:}$job.x{/yun}", "{yun:}$job.y{/yun}", "map_x", "map_y",'company_baidu_map');
+});
+</script>
+<!--------shareJS--------->
+<script>
+	window._bd_share_config = {
+		common : {
+			bdText : '{yun:}$title{/yun}',
+			bdDesc : '{yun:}$description{/yun}',	
+			bdUrl : '{yun:}url m=part c=show id=$job.id{/yun}',
+			bdPic : '{yun:}$config.sy_weburl{/yun}/{yun:}$config.sy_logo{/yun}'
+		},
+		share : [{
+			"tag" : "share_1",
+			"bdSize" : 24,
+			"bdCustomStyle":'{yun:}$style{/yun}/style/share.css'
+		}]
+	}
+	$(function(){
+	with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src=weburl+'/js/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+	});
+</script>
+<!--------shareJS END--------->
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun} 

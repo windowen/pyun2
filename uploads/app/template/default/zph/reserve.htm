@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+	<meta name="description" content="{yun:}$description{/yun}"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/yun_job_fairs.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+	<link href="{yun:}$style{/yun}/style/tips.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<title>{yun:}$title{/yun}</title>
+</head>
+
+<style> .img_auto img{max-width:100%;} </style>
+
+<body class="body_bg">
+
+	{yun:}include file="$tplstyle/header.htm"{/yun}
+
+	<div class="yun_content">
+
+		<div class="current_Location">
+			您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a> > 
+			<a href="{yun:}url m=zph{/yun}">招聘会</a> > 在线预订
+		</div>
+  
+		<div class="zph_show" style="margin-top:0px;">
+		
+			<div class="zph_show_box_tit">
+				<span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>预订招聘会</span>
+			</div> 
+			
+			<div class="zph_show_yd_pic"><img src="{yun:}$Info.is_themb_n{/yun}" width="300" height="220"> </div>
+			
+			<div class="zph_show_yd_r">
+				<h1 class="zph_show_r_name">{yun:}$Info.title{/yun}</h1>
+				
+				<div class="zph_left_box_icon zph_left_box_zb">主 办 方：</span>{yun:}$Info.organizers{/yun}</div>
+				<div class="zph_left_box_icon zph_left_box_time">举办时间：</span>{yun:}$Info.starttime{/yun}至{yun:}$Info.endtime{/yun}</div>
+				<div class="zph_left_box_icon zph_left_box_add">举办会场：</span>{yun:}$Info.address{/yun}</div>
+				<div class="zph_left_box_icon zph_left_box_xl">交通路线：</span>{yun:}$Info.traffic{/yun}   </div>
+				<div class=" zph_left_box_tel">
+					<span class="zph_left_box_tel_name">联系<br>电话</span>{yun:}$Info.phone{/yun} 
+					<span class="zph_left_box_tel_n">( {yun:}$Info.user{/yun} )</span>  
+				</div>
+			</div>
+			{yun:}if $Info.stime < '0' && $Info.etime > '0'{/yun}
+				<div class="job_fairs_In fairs_Status png" >预订中</div>
+			{yun:}elseif $Info.etime < '0'{/yun}	
+				<div class="job_fairs_end fairs_Status png" >已举办</div>
+			{yun:}else{/yun}
+				<div class="job_fairs_nostart fairs_Status png" >已开始</div>
+			{yun:}/if{/yun} 
+		</div> 
+
+		<!--招聘会展位图-->
+
+		{yun:}if $space.pic{/yun} 
+			<div class="zph_show_box">	
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>招聘会展位图</span></div>
+				<div class="zph_show_box_zw"> <img src="{yun:}$space.pic_n{/yun}"  class="png" /> </div>
+			</div>
+		{yun:}/if{/yun}
+		
+		<div class="zph_show_box">
+			<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>招聘会展位在线预订</span></div>
+			<div class="job_fairs_main  fl" >
+				<div class="fairs_title fl">	
+					<div class="fairs_title_h fl">招聘会展位预订</div>
+					<div class="fairs_title_list fl">
+						<dl class="fairs_title_items fl">
+							<dt><img src="{yun:}$style{/yun}/images/fairs_no.png" /></dt>
+							<dd>不可预订</dd>
+						</dl>
+						<dl class="fairs_title_items fl">
+							<dt><img src="{yun:}$style{/yun}/images/fairs_have.png"/></dt>
+							<dd>已被预订</dd>
+						</dl>
+						<dl class="fairs_title_items fl">
+							<dt><img src="{yun:}$style{/yun}/images/fairs_can.png"/></dt>
+							<dd>可以预订</dd>
+						</dl>
+						<dl class="fairs_title_items fl">
+							<dt><img src="{yun:}$style{/yun}/images/fairs_start.png"/></dt>
+							<dd>审核中</dd>
+						</dl>
+					</div>
+				</div>
+				
+				{yun:}foreach item=v from=$spacelist{/yun}
+					<div class="fairs_display_con fl">
+						<div class="fairs_display_left fl"> {yun:}$v.name{/yun}</div>
+						<div class="fairs_display_right fl">
+							<div class="fairs_display_list fl">
+								{yun:}foreach item=val key=key from=$v.list{/yun}
+									<div class="fairs_disp_a fairs_disp_position" aid="{yun:}$val.id{/yun}">	
+										{yun:}if $val.comstatus==2 || $val.comstatus==3{/yun}
+											<dl class="fairs_disp_items  fairs_disp_items_bg fl">
+												<dt><img src="{yun:}$style{/yun}/images/fairs_no.png"/></dt>	
+												<dd>{yun:}$val.name{/yun}</dd>
+												<dd class="fairs_disp_items_kyd">不可预订</dd>
+											</dl>
+										{yun:}elseif $val.comstatus==0 ||  $val.comstatus==1{/yun}
+											<dl class="fairs_disp_items  fairs_disp_items_bg fl">
+												{yun:}if $val.comstatus==0{/yun}
+													<dt><img src="{yun:}$style{/yun}/images/fairs_start.png"/></dt><dd class="fairs_disp_items_bkyd">审核中</dd>
+												{yun:}else{/yun}	
+													<dt><img src="{yun:}$style{/yun}/images/fairs_have.png"/></dt><dd class="fairs_disp_items_bkyd">不可预订</dd>
+												{yun:}/if{/yun}
+												<dd>{yun:}$val.name{/yun}</dd>
+												
+											</dl>
+											
+											<div class="order_two none" id="showstatus{yun:}$val.id{/yun}"> 
+												<h4><a href="{yun:}url m=company c=show id=$val.uid{/yun}" target="_blank"> {yun:}$val.comname|mb_substr:0:14:'utf-8'{/yun} </a>已预订</h4>
+											</div> 
+											
+										{yun:}elseif $val.comstatus=="-1"{/yun}
+											<dl class="fairs_disp_items fl" onclick="clickzph('{yun:}$val.id{/yun}','{yun:}$Info.id{/yun}');">
+												<dt><img src="{yun:}$style{/yun}/images/fairs_can.png"/></dt>
+												<dd>{yun:}$val.name{/yun} </dd>
+												<dd class="fairs_disp_items_kyd">可预订</dd>
+											</dl>
+											<div class="order_two none" id="showstatus{yun:}$val.id{/yun}">
+												<h4>展位状态可预订</h4>
+												<div class="vip_zph_n_box">
+ 													<input id="price" value="{yun:}$val.price{/yun}" type="hidden"/>
+													<div class="vip_zph_n"> 展位号：{yun:}$val.name{/yun}</div>
+													<div class="vip_zph_money">展位价格：{yun:}$val.price_n{/yun}{yun:}$val.unit{/yun}</div>
+													<div class="vip_zph_yd"><a href="javascript:void(0);" onclick="clickzph('{yun:}$val.id{/yun}','{yun:}$Info.id{/yun}');">立即预订</a></div>
+												</div>
+											</div>
+										{yun:}/if{/yun}
+									</div>
+								{yun:}/foreach{/yun}
+							</div> 
+						</div>
+					</div>
+				{yun:}/foreach{/yun}
+				
+				<div class="clear"></div>
+				
+				<div id="TB_window" style='display:none;'>
+					<form class="layui-form">
+						<div id="error_zph" class="error_zph"></div>
+						<div id="TB_ajaxContent" class="">
+							<input id="zid" value="{yun:}$Info.id{/yun}" type="hidden" />
+							<div class="yd_zph_tck">
+								<div class="yd_zph_tck_h1">尊敬的用户您好！</div>
+								<div class="yd_zph_tck_jobtit">请选择参与招聘会的职位：</div>
+								<div class="layui-input-inline">
+									<input name="checkall" value="checkall"  lay-filter="allChoose"  id="checkall" type="checkbox" lay-skin="primary" title="全选" class="check_all"/>
+								</div>
+								<div class="zph_tck_jobpost_box">
+									<div id="joblist" class="zph_tck_jobpost">
+										
+									</div>
+								</div>
+								<div class="zph_tck_jobpost_bth">
+									<input type='button' value="提交" onclick="submitzph()" class="zph_tck_jobpost_bth_b "/>
+									<input id="zphid" type="hidden"/>
+									<input id="bid"  type="hidden"/>
+								</div>     
+							</div> 
+						</div>
+					</form>
+				</div>
+				 
+				<!--使用说明-->
+				<div class="fairs_explain fl">
+					<p>展位说明：{yun:}$space.content_n{/yun}</p>
+				</div>
+			</div>
+		</div>
+  
+		{yun:}if $Info.body{/yun}
+			<div class="zph_show_box">
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>招聘会介绍</span></div>
+				<div class="zph_show_box_p img_auto"> {yun:}$Info.body{/yun} </div>
+			</div>
+		{yun:}/if{/yun}
+		{yun:}if $Info.media{/yun}
+			<div class="zph_show_box">
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>媒体宣传</span></div>
+				<div class="zph_show_box_p img_auto"> {yun:}$Info.media{/yun} </div>
+			</div>
+		{yun:}/if{/yun}
+		{yun:}if $Info.packages{/yun}
+			<div class="zph_show_box">
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>超值服务套餐</span></div>
+				<div class="zph_show_box_p img_auto"> {yun:}$Info.packages{/yun} </div>
+			</div>
+		{yun:}/if{/yun}
+		{yun:}if $Info.booth{/yun}
+			<div class="zph_show_box">
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>展位设置方案</span></div>
+				<div class="zph_show_box_p img_auto"> {yun:}$Info.booth{/yun} </div>
+			</div>
+		{yun:}/if{/yun}
+		{yun:}if $Info.participate{/yun}
+			<div class="zph_show_box">
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>参与办法</span></div>
+				<div class="zph_show_box_p img_auto"> {yun:}$Info.participate{/yun} </div>
+			</div>
+		{yun:}/if{/yun}
+		{yun:}if $Image_info{/yun}
+			<div class="zph_show_box">
+				<div class="zph_show_box_tit"><span class="zph_show_box_tit_s"><i class="zph_show_box_tit_line"></i>展会图片</span></div>
+				<div class="fairs_introduction_cc" >
+					<ul class="fairs_introduction_img" id="rolling_img1">
+						{yun:}foreach item=zph from=$Image_info{/yun}
+							<li> <a href="javascript:void(0);"> <img src="{yun:}$config.sy_ossurl{/yun}{yun:}$zph.pic{/yun}" lay-src="{yun:}$config.sy_ossurl{/yun}{yun:}$zph.pic{/yun}" width="215" height="153" /> </a> </li>
+						{yun:}/foreach{/yun}
+					</ul>
+				</div>
+			</div>
+		{yun:}/if{/yun} 
+	</div>
+</div>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/zph.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/pay.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/ScrollPic.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script> 
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png');
+</script>
+<![endif]-->
+<script language="javascript" type="text/javascript">
+
+layui.use(['layer','form'], function() {
+	var layer = layui.layer,
+		
+		$ = layui.$;
+	var form = layui.form;
+	
+	form.on('checkbox(allChoose)', function (data) {
+        var child = $(".job_select input[type='checkbox']");
+        child.each(function (index, item) {
+            item.checked = data.elem.checked;
+        });
+        form.render('checkbox');
+    });
+	
+});
+function clickzph(id,zid){ 
+	
+	layer.load('执行中，请稍候...',0);
+	
+	$.post(weburl+"/index.php?m=ajax&c=ajaxComjob",{zph:1,id:zid},function(data){
+		
+		layer.closeAll();
+		
+		var data	=	eval('('+data+')');
+		
+		if(data.status == 1){
+			
+			$("#TB_window").show();
+			
+			$("#joblist").html();
+			
+			$("#joblist").html(data.html);
+			
+			$("#zphid").val(zid);
+			
+			$("#bid").val(id);
+
+			layui.use(['form'], function() {
+				var $ = layui.$;
+				var form = layui.form;
+				
+				form.render();
+				form.on('checkbox(oneChoose)', function (data) {
+					if(!data.elem.checked && $("#checkall").prop("checked")){
+						$("#checkall").prop("checked", false);
+						form.render("checkbox");
+					}
+			    });
+				
+			});
+			
+
+			var msglayer = layer.open({
+				type: 1,
+				title: '预定招聘会',
+				closeBtn: 1,
+				border: [10, 0.3, '#000', true],
+				area: ['340px', 'auto'],
+				content: $("#TB_window"),
+				cancel: function(){
+					window.location.reload();
+				}
+			});
+			
+		}else{
+			
+			layer.msg(data.msg,2,8);
+		}
+	}) 
+}
+<!--//--><![CDATA[//><!--
+var li_num=$("#rolling_img1 li").length;
+if(li_num>4){
+	var scrollPic_02 = new ScrollPic();
+	scrollPic_02.scrollContId   = "rolling_img1"; 
+	scrollPic_02.arrLeftId      = "LeftArr";
+	scrollPic_02.arrRightId     = "RightArr"; 
+	scrollPic_02.frameWidth     = 1200;
+	scrollPic_02.pageWidth      = 242;
+	scrollPic_02.speed          = 10;
+	scrollPic_02.space          = 10;
+	scrollPic_02.autoPlay       = true;
+	scrollPic_02.autoPlayTime   = 2;
+	scrollPic_02.initialize();
+}
+
+//--><!]]> 
+$(function(){
+	setTimeout(function(){
+		layer.photos({
+			photos: '#rolling_img1',
+			anim: 5
+		});
+	},1000);
+})
+
+</script>
+{yun:}include file="$tplstyle/public_search/public_tips.htm"{/yun}
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun} 
+{yun:}include file="$tplstyle/footer.htm"{/yun}

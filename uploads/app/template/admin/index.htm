@@ -1,0 +1,640 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" class="off">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>{yun:}$config.sy_webname{/yun} - 后台管理中心</title>
+        <link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+        <link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+        <link href="images/admin_new.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+        <script language="javascript" type="text/javascript" src="../js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <link rel="stylesheet" href="../js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}">
+        <script src="../js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="../js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+        <!--[if IE 6]>
+		<script src="./js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script>
+		  DD_belatedPNG.fix('.png,.header .logo,.header .nav li a,.header .nav li.on,.left_menu h3 span.on,.admin_adv_search_bth,admin_infoboxp_tj');
+		</script>
+		<![endif]-->
+        <script type="text/javascript">
+            var pc_hash = 'l9Yqpa'
+
+            function check_web(id) {
+                $("html").removeClass("on");
+                var timestamp = Math.round(new Date().getTime() / 1000);
+                var pytoken = $("#pytoken").val();
+                $.get("index.php?c=topmenu&id=" + id, function(data) {
+                    document.getElementById("current_pos").innerHTML = data;
+                })
+            }
+        </script>
+    </head>
+
+    <body scroll="no">
+        <div class="admin_new_heder">
+            <div class="admin_new_logo"><img src="images/admin_new_logo.png?v={yun:}$config.cachecode{/yun}"></div>
+
+            <ul class="admin_new_heder_nav" id="top_menu">
+                <li id="_M1000" class="on top_menu">
+                    <a href="javascript:_M(1000,'{yun:}$indexurl{/yun}')" onclick="check_web('1000');" hidefocus="true" style="outline:none;">首页</a>
+                </li>
+                {yun:}foreach item=v from=$navigation{/yun}
+                <li id="_M{yun:}$v.id{/yun}" class="top_menu">
+                    <a class="{yun:}$v.classname{/yun}" href="javascript:_M('{yun:}$v.id{/yun}')" hidefocus="true" style="outline:none;">{yun:}$v.name{/yun}</a>
+                </li>
+                {yun:}/foreach{/yun}
+            </ul>
+
+            <div class="admin_new_header_admin_box">
+                <div class="admin_new_header_admin" onmouseenter="headerShow('show','admin_new_header_cz_box')" onmouseleave="headerShow('hide','admin_new_header_cz_box')">
+
+                    <div class="admin_new_header_admintx"><img src="images/mr.png" width="30" height="30" /></div>
+                    <div class="">{yun:}$nav_user.name{/yun}</div>
+                    <div class="">{yun:}$nav_user.group_name{/yun} </div>
+                    <i class="arrow"></i>
+                    <div class="admin_new_header_cz_box" style="display:none">
+                        <div class="admin_new_header_cz_box_t">
+                        	<span class="admin_new_header_cz_box_t_s">最近登录</span>
+                        	{yun:}if in_array('560',$power){/yun}
+                            <a href="javascript:_MP(47,'index.php?m=admin_user&c=pass');" class="admin_new_header_cz_xg">修改密码</a>
+                            {yun:}/if{/yun}
+                        </div>
+                        <div class="admin_new_header_cz_date">{yun:}$admin_lasttime|date_format:"%Y-%m-%d %H:%M:%S"{/yun} </div>
+                        {yun:}if in_array('16',$power) || in_array('33',$power) || in_array('41',$power) || in_array('55',$power){/yun}
+                        <div class="admin_new_header_cz_box_t"><span class="admin_new_header_cz_box_t_s">常用操作</span></div>
+                        <div class="admin_new_header_cd">
+                            <a href="javascript:_MP(16,'index.php?m=admin_company');">公司管理</a>
+                            <a href="javascript:_MP(33,'index.php?m=admin_resume');">简历管理</a>
+                            <a href="javascript:_MP(41,'index.php?m=admin_hotjob');">名企管理</a>
+                            <a href="javascript:_MP(55,'index.php?m=admin_news&c=news')">添加新闻</a>
+                        </div>
+                        {yun:}/if{/yun}
+                    </div>
+                </div>
+                <div class="admin_new_header_cz">
+                
+                    <div class="admin_new_header_msg" onmouseenter="headerShow('show','admin_new_msg_box')" onmouseleave="headerShow('hide','admin_new_msg_box')">
+                        <a class="admin_new_header_msg_icon" style="height:53px" title="查看消息"></a>
+                        <em class="admin_new_header_msg_new" style="display:none;"></em>
+                        <div class="admin_new_msg_box" style="display:none" >
+                            <div class="admin_new_msg_h1">待审核提示</div>
+                            <ul class="admin_new_msg_list">
+                				<li class="c_xx1">
+									<a href="javascript:_MP(40,'index.php?m=admin_company_job&state=4');">待审核职位<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx1">0</em> )</span></a>
+								</li>
+								<li class="c_xx2">
+									<a href="javascript:_MP(16,'index.php?m=admin_company&status=4')">待审核企业<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx2">0</em> )</span></a>
+								</li>
+								<li class="c_xx3">
+									<a href="javascript:_MP(47,'index.php?m=comcert&status=3')">待审核企业认证<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx3">0</em> )</span></a>
+								</li>
+								<li class="c_xx4">
+									<a href="javascript:_MP(48,'index.php?m=admin_once&status=3');">待审核店铺招聘<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx4">0</em> )</span></a>
+								</li>
+								<li class="c_xx5">
+									<a href="javascript:_MP(44,'index.php?m=productnews&status=3');">待审核企业产品<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx5">0</em> )</span></a>
+								</li>
+								<li class="c_xx6">
+									<a href="javascript:_MP(45,'index.php?m=productnews&c=comnews&status=3');">待审核企业新闻<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx6">0</em> )</span></a>
+								</li>
+								<li class="c_xx7">
+									<a href="javascript:_MP(33,'index.php?m=admin_resume&status=4')">待审核简历<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx7">0</em> )</span></a>
+								</li>
+								<li class="c_xx8">
+									<a href="javascript:_MP(184,'index.php?m=admin_appeal');">会员申诉<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx8">0</em> )</span></a>
+								</li>
+								
+								<li class="c_xx11">
+									<a href="javascript:_MP(34,'index.php?m=usercert&status=2')">待审核个人认证<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx11">0</em> )</span></a>
+								</li>
+								<li class="c_xx12">
+									<a href="javascript:_MP(194,'index.php?m=link&state=2');">待审核友情链接<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx12">0</em> )</span></a>
+								</li>
+								<li class="c_xx13"><a href="javascript:_MP(42,'index.php?m=admin_partjob&state=4');">待审核兼职<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx13">0</em> )</span></a></li>
+								<li class="c_xx14"><a href="javascript:_MP(345,'index.php?m=admin_company_pic&status=1');">待审核企业LOGO<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx14">0</em> )</span></a></li>
+								<li class="c_xx15"><a href="javascript:_MP(17,'index.php?m=user_member&status=4');">待审核个人会员<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx15">0</em> )</span></a></li>
+ 								<li class="c_xx17"><a href="javascript:_MP(346,'index.php?m=admin_user_pic&status=1');">待审核个人头像<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx17">0</em> )</span></a></li>
+						 
+
+								<li class="c_xx27"><a href="javascript:_MP(36,'index.php?m=admin_tiny&status=2');">待审核普工简历<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx27">0</em> )</span></a></li>
+								<li class="c_xx30"><a href="javascript:_MP(63,'index.php?m=zhaopinhui&c=com&status=3');">待审核参会企业<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx30">0</em> )</span></a></li>
+								<li class="c_xx31"><a href="javascript:_MP(66,'index.php?m=admin_question&status=0');">待审核问答<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx31">0</em> )</span></a></li>
+								<li class="c_xx32"><a href="javascript:_MP(77,'index.php?m=reward_list&status=-1');">待审核商品兑换<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx32">0</em> )</span></a></li>
+								<li class="c_xx33"><a href="javascript:_MP(162,'index.php?m=company_order&order_state=1');">待处理充值订单<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx33">0</em> )</span></a></li>
+								<li class="c_xx35"><a href="javascript:_MP(49,'index.php?m=special');">待审核企业专题<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx35">0</em> )</span></a></li>
+								<li class="c_xx36"><a href="javascript:_MP(178,'index.php?m=report');">待处理举报职位<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx36">0</em> )</span></a></li>
+								<li class="c_xx37"><a href="javascript:_MP(178,'index.php?m=report&ut=2');">待处理举报简历<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx37">0</em> )</span></a></li>
+								<li class="c_xx38"><a href="javascript:_MP(180,'index.php?m=report&type=1');">待处理举报问答<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx38">0</em> )</span></a></li>
+								<li class="c_xx39"><a href="javascript:_MP(181,'index.php?m=report&type=2');">待处理投诉顾问<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx39">0</em> )</span></a></li>
+								
+								
+								 
+								<li class="c_xx48"><a href="javascript:_MP(345,'index.php?m=admin_company_pic&c=show&status=1');">待审核企业环境<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx48">0</em> )</span></a></li>
+								<li class="c_xx49"><a href="javascript:_MP(345,'index.php?m=admin_company_pic&c=banner&status=1');">待审核企业横幅<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx49">0</em> )</span></a></li>
+								<li class="c_xx50"><a href="javascript:_MP(346,'index.php?m=admin_user_pic&c=show&status=1');">待审核作品案例<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx50">0</em> )</span></a></li>
+                				<li class="c_xx51"><a href="javascript:_MP(601,'index.php?m=admin_userchange&status=3');">待审核身份转换会员<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx51">0</em> )</span></a></li>
+								<li class="c_xx52"><a href="javascript:_MP(65,'index.php?m=admin_message&status=1');">待处理意见反馈<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx52">0</em> )</span></a></li>
+								<li class="c_xx53"><a href="javascript:_MP(65,'index.php?m=admin_member_logout&status=1');">待处理注销账号<span class="admin_new_msg_list_n">( <em class="admin_new_msg_list_n_cur" id="xx53">0</em> )</span></a></li>
+							</ul>
+                        </div>
+                    </div>
+                    
+
+                    <div class="admin_new_header_home">
+                        <a class="admin_new_header_home_icon" title="新窗口打开人才网首页" href="{yun:}$config.sy_weburl{/yun}" target="_blank" id="site_homepage"></a>
+                    </div>
+                    {yun:}if in_array('161',$power){/yun}
+                    <div class="admin_new_header_map">
+                        <a class="admin_new_header_map_icon" href="javascript:void(0)" onclick="adminmap()" title="后台地图"></a>
+                    </div>
+                    {yun:}/if{/yun}
+                    <div class="admin_new_header_hc">
+                        <a class="admin_new_header_hc_icon" title="清除缓存" href="javascript:void(0)" target="right" onclick="layer_del('','index.php?m=index&c=del_cache');"></a>
+                    </div>
+                    <div class="admin_new_header_close">
+                        <a class="admin_new_header_close_icon" href="javascript:void(0)" onclick="layer_logout('index.php?m=index&c=logout');" title="安全退出管理中心"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="clear"></div>
+        
+        <input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}" />
+
+        <div id="content" style="width:auto;">
+            <div class="col-left left_menu">
+                <div class="navLeftTab">
+                    <ul class="navLeftTab_list" id="leftid_1000">
+                        <li class="navLeftTab_cur" aid=1000>
+                            <a href="javascript:M_left('1000');"><i class="navLeftTab_list_icon navLeftTab_list_icon_sj" onclick="shortcut_menu()"></i><span class="navLeftTab_list_name">快捷</span></a>
+                        </li>
+                    </ul>
+
+                    {yun:}foreach item=v from=$navigation{/yun}
+                    <ul class="navLeftTab_list" style="display:none;" id="leftid_{yun:}$v.id{/yun}">
+                        {yun:}foreach item=val from=$one_menu[$v.id] key=key{/yun}
+                        <li aid="{yun:}$val.id{/yun}" id="leftstyle_{yun:}$val.id{/yun}">
+                            <a href="javascript:M_left('{yun:}$val.id{/yun}');"><i class="navLeftTab_list_icon {yun:}$val.classname{/yun}"></i><span class="navLeftTab_list_name">{yun:}$val.name{/yun}</span></a>
+                        </li>
+                        {yun:}/foreach{/yun}
+                    </ul>
+                    {yun:}/foreach{/yun}
+                </div>
+                <div id="leftMain"> </div>
+                <a href="javascript:;" id="openClose" style="outline-style:none;outline-color:invert;outline-width:medium;height:539px;" hidefocus="hidefocus" class="open" title="展开与关闭"><span class="hidden"> </span></a>
+            </div>
+            <div class="col-1 lf cat-menu" id="display_center_id" style="display:none" height="100%">
+                <div class="content"> 
+                
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="crumbs-admin-top">
+                    <div class="crumbs">
+                        <span id="current_pos">管理首页</span> </div>
+                </div>
+                <div>
+                    <div style="position:relative; overflow:hidden">
+                        <iframe name="right" id="rightMain" src="{yun:}$indexurl{/yun}" frameborder="false" scrolling="auto" style="border:none;" width="100%" height="470" allowtransparency="true"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul class="tab-web-panel hidden" style="position: absolute; z-index: 999; background-image: initial; background-attachment: initial; background-origin: initial; background-clip: initial; background-color: rgb(255, 255, 255); left: 680px; top: 82px; display: none; background-position: initial initial; background-repeat: initial initial; ">
+            <li style="margin:0">
+                <a href="javascript:site_select(1, '默认站点', '#', '1')">默认站点</a>
+            </li>
+        </ul>
+        <div style="display:none;">
+            <div id="DIV_M1000">
+                <ul id='keyid_1000' class="left_mune_ul">
+                    {yun:}foreach item=v from=$menu{/yun}
+                    <li id="_MP{yun:}$v.id{/yun}" class="sub_menu" name='{yun:}$v.keyid{/yun}' data_id='{yun:}$v.id{/yun}' data_url='{yun:}$v.url{/yun}'>
+                        <a href="javascript:_MP({yun:}$v.id{/yun},'{yun:}$v.url{/yun}');" onclick="check_web({yun:}$v.id{/yun});" hidefocus="true" style="outline:none;">{yun:}$v.name{/yun}</a>
+                    </li>
+                    {yun:}/foreach{/yun}
+                </ul>
+            </div>
+
+            {yun:}foreach item=v from=$navigation{/yun}
+            <div id="DIV_M{yun:}$v.id{/yun}">
+                {yun:}foreach item=val from=$one_menu[$v.id] key=key{/yun}
+                <ul id="keyid_{yun:}$val.id{/yun}" class="left_mune_ul" style="display:none;">
+                    {yun:}foreach item=value from=$two_menu[$val.id] key=key{/yun}
+                    <li id="_MP{yun:}$value.id{/yun}" class="sub_menu" data_id='{yun:}$value.id{/yun}' data_url='{yun:}$value.url{/yun}'>
+                        <a href="javascript:_MP({yun:}$value.id{/yun},'{yun:}$value.url{/yun}');" onclick="check_web({yun:}$value.id{/yun});" hidefocus="true" style="outline:none;">{yun:}$value.name{/yun}</a>
+                    </li>
+                    {yun:}/foreach{/yun}
+                </ul>
+                {yun:}/foreach{/yun}
+            </div>
+            {yun:}/foreach{/yun}
+        </div>
+        <div id="shortcut_menu" style="display:none; width:710px;top:0px ">
+            <div style="height:450px; overflow:auto;overflow-x:hidden;_width:710px">
+                <div class="common-form">
+                    {yun:}foreach item=v from=$navigation{/yun}
+                    <table width="100%" bgcolor="#dfdfdf">
+                        <tr>
+                            <td height="30" style="padding-left:10px"><strong>{yun:}$v.name{/yun}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {yun:}foreach item=val from=$one_menu[$v.id]{/yun}
+                                <table width="100%" bgcolor="#f7f7f7">
+                                    <tr>
+                                        <td height="30" style="padding-left:40px;"><strong>{yun:}$val.name{/yun}</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#fdfeff" height="30" style="padding-left:70px;"> {yun:}foreach item=value from=$two_menu[$val.id]{/yun}
+                                            <div style="float:left; width:100px; height:30px; line-height:30px; "><input name='shortcut_menu[]' value='{yun:}$value.id{/yun}' type='checkbox' {yun:}if $value.menu=='2' {/yun}checked{yun:}/if{/yun}>{yun:}$value.name{/yun}</div>
+                                            {yun:}/foreach{/yun} </td>
+                                    </tr>
+                                    {yun:}/foreach{/yun}
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    {yun:}/foreach{/yun}
+                    <div style="text-align:center"><input class="layui-btn layui-btn-normal" type="button" value="提交" onclick="check_menu();"/></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(".admin_index_city_list").hover(function() {
+                    $(".admin_index_city_list").show();
+                }, function() {
+                    $(".admin_index_city_list").hide();
+                });
+                getMsgnum();
+            })
+			function getMsgnum(){
+				$.get("index.php?c=msgNum", function(data) {
+                    var datas = eval('(' + data + ')');
+					if(datas.msgNum > 99) {
+						datas.msgNum = '99+';
+						$('.admin_new_header_msg_new').width(28);
+					}
+					if(datas.msgNum) {
+						$('.admin_new_header_msg_new').html(datas.msgNum);
+						$('.admin_new_header_msg_new').show();
+					}else{
+						$('.admin_new_header_msg_new').html(0);
+						$('.admin_new_header_msg_new').hide();
+					}
+					if(datas.company_job) {
+						$('.c_xx1').show();
+						$('#xx1').html(datas.company_job);
+					}else{
+						$('.c_xx1').hide();
+					}
+					if(datas.company) {
+						$('.c_xx2').show();
+						$('#xx2').html(datas.company);
+					}else{
+						$('.c_xx2').hide();
+					}
+					if(datas.company_cert) {
+						$('.c_xx3').show();
+						$('#xx3').html(datas.company_cert);
+					}else{
+						$('.c_xx3').hide();
+					}
+					if(datas.once_job) {
+						$('.c_xx4').show();
+						$('#xx4').html(datas.once_job);
+					}else{
+						$('.c_xx4').hide();
+					}
+					if(datas.company_product) {
+						$('.c_xx5').show();
+						$('#xx5').html(datas.company_product);
+					}else{
+						$('.c_xx5').hide();
+					}
+					if(datas.company_news) {
+						$('.c_xx6').show();
+						$('#xx6').html(datas.company_news);
+					}else{
+						$('.c_xx6').hide();
+					}
+					if(datas.resume_expect) {
+						$('.c_xx7').show();
+						$('#xx7').html(datas.resume_expect);
+					}else{
+						$('.c_xx7').hide();
+					}
+					if(datas.appealnum) {
+						$('.c_xx8').show();
+						$('#xx8').html(datas.appealnum);
+					}else{
+						$('.c_xx8').hide();
+					}
+					if(datas.usercertNum) {
+						$('.c_xx11').show();
+						$('#xx11').html(datas.usercertNum);
+					}else{
+						$('.c_xx11').hide();
+					}
+					if(datas.linkNum) {
+						$('.c_xx12').show();
+						$('#xx12').html(datas.linkNum);
+					}else{
+						$('.c_xx12').hide();
+					}
+					
+					if(datas.partjob) {
+						$('.c_xx13').show();
+						$('#xx13').html(datas.partjob);
+					}else{
+						$('.c_xx13').hide();
+					}
+					
+					if(datas.comlogo) {
+						$('.c_xx14').show();
+						$('#xx14').html(datas.comlogo);
+					}else{
+						$('.c_xx14').hide();
+					}
+					if(datas.userNum) {
+						$('.c_xx15').show();
+						$('#xx15').html(datas.userNum);
+					}else{
+						$('.c_xx15').hide();
+					}
+					if(datas.userpic) {
+						$('.c_xx17').show();
+						$('#xx17').html(datas.userpic);
+					}else{
+						$('.c_xx17').hide();
+					}
+					if(datas.tiny) {
+						$('.c_xx27').show();
+						$('#xx27').html(datas.tiny);
+					}else{
+						$('.c_xx27').hide();
+					}
+					if(datas.schooljob) {
+						$('.c_xx28').show();
+						$('#xx28').html(datas.schooljob);
+					}else{
+						$('.c_xx28').hide();
+					}
+					if(datas.schoolxjh) {
+						$('.c_xx29').show();
+						$('#xx29').html(datas.schoolxjh);
+					}else{
+						$('.c_xx29').hide();
+					}
+					if(datas.zphcom) {
+						$('.c_xx30').show();
+						$('#xx30').html(datas.zphcom);
+					}else{
+						$('.c_xx30').hide();
+					}
+					if(datas.ask) {
+						$('.c_xx31').show();
+						$('#xx31').html(datas.ask);
+					}else{
+						$('.c_xx31').hide();
+					}
+					if(datas.redeem) {
+						$('.c_xx32').show();
+						$('#xx32').html(datas.redeem);
+					}else{
+						$('.c_xx32').hide();
+					}
+					if(datas.order) {
+						$('.c_xx33').show();
+						$('#xx33').html(datas.order);
+					}else{
+						$('.c_xx33').hide();
+					}
+					if(datas.specialcom) {
+						$('.c_xx35').show();
+						$('#xx35').html(datas.specialcom);
+					}else{
+						$('.c_xx35').hide();
+					}
+					if(datas.reportjob) {
+						$('.c_xx36').show();
+						$('#xx36').html(datas.reportjob);
+					}else{
+						$('.c_xx36').hide();
+					}
+					if(datas.reportresume) {
+						$('.c_xx37').show();
+						$('#xx37').html(datas.reportresume);
+					}else{
+						$('.c_xx37').hide();
+					}
+					if(datas.reportask) {
+						$('.c_xx38').show();
+						$('#xx38').html(datas.reportask);
+					}else{
+						$('.c_xx38').hide();
+					}
+					if(datas.reportgw) {
+						$('.c_xx39').show();
+						$('#xx39').html(datas.reportgw);
+					}else{
+						$('.c_xx39').hide();
+					}
+					if(datas.comshow) {
+						$('.c_xx48').show();
+						$('#xx48').html(datas.comshow);
+					}else{
+						$('.c_xx48').hide();
+					}
+					if(datas.combanner) {
+						$('.c_xx49').show();
+						$('#xx49').html(datas.combanner);
+					}else{
+						$('.c_xx49').hide();
+					}
+					if(datas.usershow) {
+						$('.c_xx50').show();
+						$('#xx50').html(datas.usershow);
+					}else{
+						$('.c_xx50').hide();
+					}
+					if(datas.userchangenum) {
+						$('.c_xx51').show();
+						$('#xx51').html(datas.userchangenum);
+					}else{
+						$('.c_xx51').hide();
+					}
+					if(datas.handlenum) {
+						$('.c_xx52').show();
+						$('#xx52').html(datas.handlenum);
+					}else{
+						$('.c_xx52').hide();
+					}
+					if(datas.logout) {
+						$('.c_xx53').show();
+						$('#xx53').html(datas.logout);
+					}else{
+						$('.c_xx53').hide();
+					}
+                })
+			}
+            function check_menu() {
+                var chk_value = [];
+                var pytoken = $("#pytoken").val();
+                $('input[name="shortcut_menu[]"]:checked').each(function() {
+                    chk_value.push($(this).val());
+                });
+                if(chk_value.length == 0) {
+                    parent.layer.msg('请至少选择一个！', 2, 8);
+                    return false;
+                } else {
+					loadlayer();
+                    $.post("index.php?c=shortcut_menu", {
+                        chk_value: chk_value,
+                        pytoken: pytoken
+                    }, function(msg) {
+						parent.layer.closeAll('loading');
+                        parent.layer.msg('设置成功！', 2, 9, function() {
+                            location = location;
+                        });
+                        return false;
+                    });
+                }
+            }
+
+            function shortcut_menu() {
+                $.layer({
+                    type: 1,
+                    title: '快捷菜单管理',
+                    closeBtn: [0, true],
+                    border: [10, 0.3, '#000', true],
+                    shade: [0.5, '#000'],
+                    area: ['710px', '510px'],
+                    page: {
+                        dom: '#shortcut_menu'
+                    }
+                });
+            }
+            //左侧菜单
+            //clientHeight-0; 空白值 iframe自适应高度
+            $('#DIV_M1000').clone().appendTo('#leftMain');
+
+            function windowW() {
+                if($(window).width() < 980) {
+                    $('.header').css('width', 980 + 'px');
+                    $('#content').css('width', 980 + 'px');
+                    $('body').attr('scroll', '');
+                    $('body').css('overflow', '');
+                }
+            }
+            windowW();
+            $(window).resize(function() {
+                if($(window).width() < 980) {
+                    windowW();
+                } else {
+                    $('.header').css('width', 'auto');
+                    $('#content').css('width', 'auto');
+                    $('body').attr('scroll', 'no');
+                    $('body').css('overflow', 'hidden');
+                }
+            });
+            window.onresize = function() {
+                var heights = document.documentElement.clientHeight - 135;
+                document.getElementById('rightMain').height = heights + 30;
+                var openClose = $("#rightMain").height() + 39;
+                $('#center_frame').height(openClose + 9);
+                $("#openClose").height(openClose + 30);
+            }
+            window.onresize();
+            //左侧开关
+            $("#openClose").click(function() {
+                if($(this).data('clicknum') == 1) {
+                    $("html").removeClass("on");
+                    $(".left_menu").removeClass("left_menu_on");
+                    $(this).removeClass("close");
+                    $(this).data('clicknum', 0);
+                } else {
+                    $(".left_menu").addClass("left_menu_on");
+                    $(this).addClass("close");
+                    $("html").addClass("on");
+                    $(this).data('clicknum', 1);
+                }
+                return false;
+            });
+
+            function _M(menuid, targetUrl) {
+                $('.top_menu').removeClass("on");
+                $('#_M' + menuid).addClass("on");
+                $("#menuid").val(menuid);
+                $("#bigid").val(menuid);
+                var menu = "#DIV_M" + menuid;
+                $('#leftMain').html("");
+                $(menu).clone().appendTo($("#leftMain"));
+                $(".left_menu").removeClass("left_menu_on"); //显示左侧菜单，当点击顶部时，展开左侧
+                $("#openClose").removeClass("close");
+                $("#openClose").data('clicknum', 0);
+                $('#keyid_' + menuid).find("li:lt(1)").addClass("on fb blue");
+                $("#rightMain").attr('src', targetUrl);
+
+                //后加
+                $(".navLeftTab_list").hide();
+                $("#leftid_" + menuid).show();
+                $("#leftid_" + menuid).find("li:lt(1)").addClass("navLeftTab_cur");
+                var aid = $("#leftid_" + menuid).find("li:lt(1)").attr("aid");
+                M_left(aid);
+            }
+
+            function M_left(id) {
+                $(".left_mune_ul").hide();
+                $("#keyid_" + id).show();
+                $(".navLeftTab_list>li").attr("class", '');
+				$('.sub_menu').removeClass("on fb blue");
+                $("#leftstyle_" + id).addClass("navLeftTab_cur");
+                $('.sub_menu').removeClass("on fb blue");
+                $("#keyid_" + id).find("li:lt(1)").addClass("sub_menu on fb blue");
+                var url = $("#keyid_" + id).find("li:lt(1)").attr("data_url");
+                var data_id = $("#keyid_" + id).find("li:lt(1)").attr("data_id");
+                if(id != '1000') {
+                    check_web(data_id);
+                } else {
+                    url = '{yun:}$indexurl{/yun}';
+                }
+                $("#rightMain").attr('src', url);
+            }
+
+            function _MP(menuid, targetUrl) {
+                $("#menuid").val(menuid);
+                $("#paneladd").html('<a class="panel-add" href="javascript:add_panel();"><em>添加</em></a>');
+                $("#rightMain").attr('src', targetUrl);
+                $('.sub_menu').removeClass("on fb blue");
+                $('#_MP' + menuid).addClass("on fb blue");
+                $("#current_pos").data('clicknum', 1);
+            }
+
+            function for_menu(id) {
+                $("#keyid_" + id).slideToggle();
+                $("#span_" + id).toggleClass("on");
+                return false;
+            }
+            $(function() {
+                $.get('{yun:}$config.sy_weburl{/yun}/index.php?m=cron');
+            });
+
+            function headerShow(type, cla) {
+                if(type == 'show') {
+                    $('.' + cla).show();
+					if(cla == 'admin_new_msg_box'){
+						getMsgnum();
+					}
+                } else {
+                    $('.' + cla).hide();
+                }
+            }
+        </script>
+    </body>
+
+</html>

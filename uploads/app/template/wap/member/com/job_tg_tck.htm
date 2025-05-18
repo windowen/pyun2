@@ -1,0 +1,238 @@
+<!--推广弹出框-->
+<div style="width:100%;height:100%; background:rgba(51,51,51,0.5); position:fixed;left:0px;top:0px;z-index:1000000;display:none" id="jobserver">
+    <div style="width:100%; position:absolute;left:0px;top:40px;">
+        <div style=" padding:20px;">
+            <div class="job_extension_tck" style="display:block">
+
+                <div class="job_extension_tck_tit">职位推广<span onclick="$('#jobserver').hide();" style="float:right">关闭</span></div>
+
+                <ul class="serverul">
+					{yun:}if $smarty.get.c == 'part'{/yun}
+					<!--兼职推荐-->
+					<li onclick="ckserver('5');" class="server5" data-type="5">
+                        <a href="javascript:void(0)"><i class="job_extension_tck_icon "></i>职位推荐</a>
+                    </li>
+					{yun:}else{/yun}
+					<li onclick="ckserver('2');" class="server2" data-type="2">
+                        <a href="javascript:void(0)"><i class="job_extension_tck_icon"></i>职位置顶</a>
+                    </li>
+					<li onclick="ckserver('3');" class="server3" data-type="3">
+                        <a href="javascript:void(0)"><i class="job_extension_tck_icon "></i>职位推荐</a>
+                    </li>
+                    <li onclick="ckserver('4');" class="server4" data-type="4">
+                        <a href="javascript:void(0)"><i class="job_extension_tck_icon "></i>紧急招聘</a>
+                    </li>
+                    <li onclick="ckserver('1');" class="server1 job_extension_tck_yse" data-type="1">
+                        <a href="javascript:void(0)"><i class="job_extension_tck_icon "></i>自动刷新</a>
+                    </li>
+					{yun:}/if{/yun}
+                </ul>
+				<input id="is_job_tg" value='1' type="hidden" />
+                <input id="jobid" value='{yun:}$job.id{/yun}' type="hidden" />
+
+                <div class="job_extension_tck_bth">
+                    <a href="javascript:void(0)" onclick="forserver()" class="job_extension_tck_sub">确定</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--天数选择-->
+<div style="width:100%;height:100%; background:rgba(51,51,51,0.5); position:fixed;left:0px;top:0px;z-index:1000000; display:none;" id='promote_div'>
+	<div style="width:100%; position:absolute;left:0px;top:40px;">
+    	<div style=" padding:20px;">
+        	<div class="job_extension_tck">
+           		<div class="job_extension_tck_tit"><em id='promote_title'>职位推广</em><span onclick="$('#promote_div').hide();location.reload();" style="float:right">关闭</span></div>
+  				<div class="job_day_box">
+					
+					<div class="job_day_box_hi">尊敬的用户您好！</div>
+					 
+					<div class="job_day_box_yl" id='promote_tc'>您的职位置顶套餐剩余 <span class="job_day_box_yl_n">0</span> 天</div>
+					
+					<div class="job_day_box_set">
+						设置推广天数 
+						<input type="text" value="" class="" id='promote_day' name='promote_day' maxlength='3' onkeyup="checkPromoteDay();" oninput="myFunction(this)"> 天
+					</div>
+					
+					<input type="hidden" name="promote_jobid" id="promote_jobid" value="" />
+					<input type="hidden" name="promote_type" id="promote_type" value="" />
+					
+					<div class="job_day_box_bth">
+						<input type="submit" value="确定"  onClick="setJobPromote();" class="job_day_box_bth_b">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	.job_day_box{padding:20px;color:#666}
+	.job_day_box_hi{font-size:16px;}
+	.job_day_box_yl{padding:10px 0;}
+	.job_day_box_yl_n{color:#f00}
+	.job_day_box_set input{width:90px;height:35px; line-height:35px; padding:0; margin:0 10px;}
+	.job_day_box_bth{padding-top:20px;}
+	.job_day_box_bth .job_day_box_bth_b{width:100%;height:38px; line-height:38px; margin:o; padding:0}
+</style>
+<!--天数选择 end-->
+<script>
+    mui('.mui-scroll-wrapper').scroll();
+
+    function showserver(id) {
+        $('#jobid').val(id);
+        $('#jobserver').show();
+    }
+
+    function ckserver(type) {
+        $(".serverul li").removeClass("job_extension_tck_yse");
+        $(".server" + type).addClass("job_extension_tck_yse");
+    }
+
+    function forserver(server) {
+		
+		if(!server){
+			$('#is_job_tg').val('2')
+			server	=	$(".serverul").find(".job_extension_tck_yse").attr('data-type');
+		}else{
+			$('#is_job_tg').val('1')
+		}
+        var jobid	=	$("#jobid").val();
+
+        if(server == '1'){
+        
+            window.location.href = "index.php?c=server&id=" + jobid + "&server=autojob";
+
+        } else if(server == '2' || server == '3' || server == '4' || server == '5'){
+
+            $.post("index.php?c=promotion",{server:server},function(data){
+				
+				var data = eval('(' + data + ')');
+
+                if(data.status == 1){	//	套参数充足
+ 				
+                	var	num	=	data.num;
+                	
+                	$('#promote_jobid').val(jobid);	// 推广职位ID
+                	
+                	if(server == 2){
+
+        				$("#promote_title").html('职位置顶');
+        				$('#promote_tc').html('您的职位置顶套餐剩余：<span class="job_day_box_yl_n promote_tc">'+num+'</span>天');
+        				$('#promote_type').val('top');
+        			}else if(server == 3){
+        				
+        				$("#promote_title").html('职位推荐');
+        				$('#promote_tc').html('您的职位推荐套餐剩余：<span class="job_day_box_yl_n promote_tc">'+num+'</span>天');
+        				$('#promote_type').val('rec');
+        			}else if(server == 4){
+        				
+        				$("#promote_title").html('职位紧急招聘');
+        				$('#promote_tc').html('您的职位紧急招聘套餐剩余：<span class="job_day_box_yl_n promote_tc">'+num+'</span>天');
+        				$('#promote_type').val('urgent');
+        			}else if(server == 5){
+        				
+        				$("#promote_title").html('职位推荐');
+        				$('#promote_tc').html('您的职位推荐套餐剩余：<span class="job_day_box_yl_n promote_tc">'+num+'</span>天');
+        				$('#promote_type').val('recpart');
+        			}
+                	
+                	$("#jobserver").hide();
+                	$("#promote_div").show();
+                
+                }else if(data.status == 2){
+                    
+					if(data.single == 2) {
+                    	var msg = 	data.msg;
+                    }else if(data.online == 3) {
+                    	var msg = 	"您的等级特权已用完，继续操作将消费" + data.jifen + integral_pricename+"，是否继续？";
+                    }else{
+                        var msg = 	"您的等级特权已用完，继续操作将消费" + data.price + "元，是否继续？";
+                    }
+					
+					if(server == '2'){ 
+						server	=	'jobtop';
+					} else if(server == '3'){
+						server 	=	'jobrec';
+					} else if(server == '4'){
+						server  = 	'joburgent'
+					} else if(server == '5'){
+						server  = 	'partrec'
+					}
+					
+					layer.open({
+						title 	: [ '温馨提示', 'background-color: #FF4351; color:#fff;' ],
+                        content	: msg,
+                        btn	: ['继续', '取消'],
+                        shadeClose	: false,
+                        yes	: function() {
+                             window.location.href = "index.php?c=server&server=" + server + "&id=" + jobid;
+                        }
+                    });
+                  
+                }else{
+				
+					layermsg(data.msg, 2);
+					return false;
+				}
+            });
+        } 
+    }
+    
+    function myFunction(_this) {
+    	_this.value = _this.value.replace(/[^0-9]/g, '');
+    }
+    
+    function checkPromoteDay(){
+    	
+    	var promote_tc	=	$('.promote_tc').html();
+    	var promote_day	=	$('#promote_day').val();
+    	
+    	if(parseInt(promote_tc) < parseInt(promote_day)){
+    		$('#promote_day').val(parseInt(promote_tc));
+    	}
+    }
+    
+    /* 职位推广设置 */
+    function setJobPromote() {
+    	
+    	var jobid		=	$("#promote_jobid").val();
+    	var days		= 	$("#promote_day").val();
+    	var type		= 	$("#promote_type").val();
+    	
+    	if (days == '') {
+    		
+    		layermsg('请填写职位推广天数！');
+    		return false;
+    	}
+    	
+    	layer_load('执行中，请稍候！');
+    	
+    	$.post('index.php?c=setJobPromote', {jobid : jobid, type : type, days : days}, function(data) {
+    		
+    		layer.closeAll();
+    		
+    		var data 	= 	eval('(' + data + ')');
+    		var errcode = 	data.errcode;
+    		
+    		var msg  	= 	data.msg;
+    		
+    		if(errcode == 7){
+    			
+    			layermsg(msg);
+    			return false;
+    		}else{
+    			
+    			layermsg(msg);
+				var is_job_tg = $('#is_job_tg').val();
+				if(is_job_tg == '1'){
+					location.href = wapurl + "member/?c=job";
+				}else{
+					location.reload();
+				}
+    		}
+    	});
+    }
+</script>

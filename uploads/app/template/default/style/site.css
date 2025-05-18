@@ -1,0 +1,23 @@
+@charset "utf-8";
+/* CSS Document */
+.site_list_bg{width:100%; background:#fff;}
+.city_come{padding:30px 0 38px;color:#333;}
+.city_come span{line-height:30px;display:inline-block;background:#ff2b43;background:-webkit-linear-gradient(90deg,#ff2b43,#ff4c2b);background:linear-gradient(90deg,#ff2b43,#ff4c2b);padding:0 22px;border-radius:20px;margin-left:12px;cursor:pointer;}
+.city_come span a{color:#fff;}
+.city_list{border-top: 1px dashed #efefef; padding-left:50px; position:relative; padding-top:20px; padding-bottom:20px; min-height:50px;}
+.city_list_n{width:46px;background:#ffd96c;color:#000;text-align:center;padding:0;font-size:20px;line-height:46px; position:absolute;left:0px;top:20px;}
+.city_list_c  a { padding: 0 13px; display:inline-block; margin-top:10px;}
+.city_list_nav{width:100%; text-align:center; padding-top:10px; padding-bottom:50px;}
+.city_list_nav ul li{ display:inline-block;    width: 214px;height: 40px; line-height:40px;border: 1px solid #ff552e;background-color: #fff;    border-radius: 2px;    font-size: 20px;    text-align: center;vertical-align: top; font-weight:bold;color: #ff552e; cursor:pointer; margin-left:5px; margin-right:5px;}
+.city_list_nav ul li a{color:#ff552e; display:block}
+.city_list_nav ul li a:hover{ text-decoration:none;}
+.city_list_nav ul .city_list_nav_cur{color:#fff;background-color: #ff552e; }
+.city_list_nav ul .city_list_nav_cur a{color:#fff}
+.site_city_tit {line-height: 16px;color: #555;font-size: 16px;font-weight: 600; padding-bottom:30px;}
+.site_city_tit_all{ font-size:14px; font-weight:normal; margin-left:100px;}
+.city_come_all{line-height:30px;display:inline-block;background:#fff;padding:0 22px;border-radius:20px;margin-left:12px;cursor:pointer;border:1px solid #eee}
+.site_city_hy{ min-height:500px;}
+.site_city_hy a{ display:inline-block; padding:0px 30px;height:50px; line-height:50px; margin-top:10px;border:1px solid #eee; margin-right:30px;border-radius:3px;}
+.site_city_hy a:hover{background:#ffd96c;color:#000;}
+.site_city_hy .site_city_hy_cur{background:#ffd96c;color:#000;border:1px solid #ffd96c}
+.site_city_hytit{line-height: 16px;color: #555;font-size: 16px;font-weight: 600; padding-bottom:30px; padding-top:30px;}

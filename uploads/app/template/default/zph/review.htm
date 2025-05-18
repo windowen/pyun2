@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+<meta name="description" content="{yun:}$description{/yun}"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/yun_job_fairs.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+</head>
+<body class="body_bg">
+{yun:}include file="$tplstyle/header.htm"{/yun}
+<div class="yun_content">
+  <div class="current_Location png"> 您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a> > <a href="{yun:}url m=zph{/yun}">招聘会</a> > 往期回顾 </div>  
+  <div class="zph_left_box">
+  {yun:}fairs item=zphs sort=desc limit=10 ispage=1 state=3{/yun}
+  {yun:}if $zphs.etime<'0'{/yun}
+  <div class="zph_left_list">
+  <div class="fairs_Status job_fairs_end"></div>
+   <div class="zph_left_list_pic"><img src="{yun:}$zphs.is_themb{/yun}" width="200" height="120" alt="{yun:}$zphs.title{/yun}"></div>
+   <div class="zph_left_box_r" style="width:840px;">
+   <h2 class="zph_left_box_name"><a href="{yun:}url m=zph c=show id='`$zphs.id`'{/yun}" title="{yun:}$zphs.title{/yun}"> {yun:}$zphs.title{/yun}</a>
+	              </h2>  
+  
+           	 <div class="zph_left_box_sj">已有<span class="zph_left_box_sj_n">{yun:}$zphs.comnum{/yun}</span>家企业参会，<span class="zph_left_box_sj_n">{yun:}$zphs.jobnum{/yun}</span>个参会职位</div>
+         
+        
+   <div class="zph_left_box_icon zph_left_box_time">举办时间：{yun:}$zphs.starttime{/yun}至{yun:}$zphs.endtime{/yun}</div>
+   <div class="zph_left_box_icon zph_left_box_add">举办地点：{yun:}$zphs.address{/yun}    </div>
+   <div class="zph_left_box_cz">
+                       
+                        <a href="{yun:}url m=zph c=com id=$zphs.id{/yun}" class="zph_show_cz">参会企业</a>
+            <a href="{yun:}url m=zph c=show id=$zphs.id{/yun}"  class="zph_left_box_cz_com">查看详情</a>
+                     
+     </div>
+      </div>
+    
+  </div>
+
+  {yun:}/if{/yun}
+  {yun:}/fairs{/yun}
+
+{yun:}if !$total{/yun} 
+<div style="padding:100px 0px; text-align:center">
+        <div class=""><img src="{yun:}$style{/yun}/images/search-no.gif"/></div>
+        <div style="padding-top:40px; text-align:center"> 很抱歉，没有往期招聘会
+	 </div>
+</div>
+{yun:}else{/yun}</div>
+<div class="clear"></div>
+<div class="search_pages">
+  <div class="pages">{yun:}$pagenav{/yun}</div>
+</div>
+{yun:}/if{/yun}
+  </div>
+</div>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png,.car_time,.car_the_time,.car_the_add,.car_the_per,.car_state');
+</script>
+<![endif]-->
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun}

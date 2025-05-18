@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>{yun:}$title{/yun}</title>
+	<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+	<meta name="description" content="{yun:}$description{/yun}"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/yun_job_fairs.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+</head>
+
+<body class="body_bg">
+	{yun:}include file="$tplstyle/header.htm"{/yun}
+	<div class="yun_content">
+  		<div class="current_Location"> 您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a> > <a href="{yun:}url m=zph{/yun}">招聘会</a> > 参会企业清单 </div>
+  		<div class="zph_show" style="margin-top:0px; padding-top:15px;">
+    		<div class="zph_show_yd_pic"><a href="{yun:}url m=zph c=show id='`$row.id`'{/yun}" title="{yun:}$row.title{/yun}"><img width="300" height="220" src="{yun:}$row.is_themb_n{/yun}" alt="{yun:}$row.title{/yun}"/></a> </div>
+      		<div class="zph_show_yd_r">
+   				<h1 class="zph_show_r_name"><a href="{yun:}url m=zph c=show id='`$row.id`'{/yun}">{yun:}$row.title{/yun}</a></h1>
+              	<div class="zph_left_box_icon zph_left_box_zb">主  办  方：</span>{yun:}$row.organizers{/yun} </div>
+             	<div class="zph_left_box_icon zph_left_box_time">举办时间：</span>{yun:}$row.starttime{/yun}至{yun:}$row.endtime{/yun} </div>
+          		<div class="zph_left_box_icon zph_left_box_add">举办会场：</span>{yun:}$row.address{/yun} </div>
+            	<div class="zph_left_box_icon zph_left_box_xl">交通路线：</span>{yun:}$row.traffic{/yun} </div>
+			   	<div class=" zph_left_box_tel"><span class="zph_left_box_tel_name">联系<br>电话</span>{yun:}$row.phone{/yun} <span class="zph_left_box_tel_n">( {yun:}$row.user{/yun} )</span></div>
+   			</div>
+    	</div>
+  		<div class="zph_left">
+  			<div class="zph_left_tit"><span class="zph_left_tit_s"><i class="zph_left_tit_line"></i>参会企业名单</span></div>
+  			<div class="zph_left_box">
+      			<div class="clear"></div>
+       			{yun:}foreach item=zph from=$rows key=key{/yun}
+          				<div class="zph_show_chcom">
+    						<div class="zph_show_chcom_pic"><img src="{yun:}$zph.logo{/yun}" width="92"></div>
+						    <div class="zph_show_chcom_r">
+						    	<div class="zph_show_chcomname">
+                                <a href="{yun:}url m=company c=show id='`$zph.uid`'{/yun}" target="_blank" class="yun_zph_com_name" title="{yun:}$zph.comname{/yun}">{yun:}$zph.comname{/yun}</a>  
+                                </div>
+						    	<div class="zph_show_chcom_zw">展位号：<span class="zph_show_chcom_zw_n">{yun:}$zph.sidname{/yun} - {yun:}$zph.cidname{/yun} - {yun:}$zph.bidname{/yun}</span></div>
+						    	{yun:}if $zph.job{/yun}
+							    	<div class="zph_show_chcom_job">
+							    		招聘职位： 
+							    		{yun:}foreach from=$zph.job item=jlist{/yun}
+	                    					<a href="{yun:}url m=job c=comapply id=$jlist.id{/yun}" target="_blank" class="zph_job_list" title="{yun:}$jlist.name{/yun}">{yun:}$jlist.name{/yun}</a>
+	                    				{yun:}/foreach{/yun}
+	                    			</div>
+                    			{yun:}/if{/yun}
+    						</div>
+    						
+    						{yun:}if count($zph.job)>1{/yun}
+								<a href="javascript:void(0)" onclick="zphjob('{yun:}$zph.uid{/yun}')" class="zph_show_td">{yun:}if $row.stime < 0{/yun}提前{yun:}/if{/yun}投简历 </a>
+							{yun:}else if count($zph.job) == 1{/yun}
+								<a href="{yun:}url m=job c=comapply id=$zph.job[0].id{/yun}" class="zph_show_td" target="_blank">{yun:}if $row.stime < 0{/yun}提前{yun:}/if{/yun}投简历 </a>
+							{yun:}/if{/yun}
+							
+                        	<div id="zphjob{yun:}$zph.uid{/yun}" style="display:none">
+                        		<div class="zph_job_td_box">
+                        			{yun:}if $zph.job{/yun}
+ 										{yun:}foreach from=$zph.job item=jlist{/yun}
+											<div class="zph_job_td">
+											<a href="{yun:}url m=job c=comapply id=$jlist.id{/yun}" target="_blank" class="" title="{yun:}$jlist.name{/yun}">{yun:}$jlist.name{/yun}</a>
+											<a href="{yun:}url m=job c=comapply id=$jlist.id{/yun}" target="_blank" class="zph_job_td_bth">投递</a> </div>
+										{yun:}/foreach{/yun}
+									{yun:}/if{/yun}
+								</div>
+							</div>
+     					</div>
+					 
+					
+        		{yun:}foreachelse{/yun}
+        			<div class="job_fairs_no">暂无企业报名！</div>
+        		{yun:}/foreach{/yun}
+        		
+        		<div class="clear"></div>
+        		<div class="pages" style="height:40px;"> {yun:}$pagenav{/yun} </div>
+       		</div>
+      	</div> 
+      	
+    	<div class="zph_right"> 
+      		<div class="zph_right_box">
+      			<div class="zph_right_wx_box">
+      				<div class="zph_right_wx_img"><img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_qcode{/yun}"  width="130" height="130" /></div>
+       				<div class="zph_right_wx">关注微信公众号</div>
+    				<div class="zph_right_wx">随时随地查看招聘会信息  </div>
+     			</div>  
+     		</div>
+     	</div>
+ 	</div>
+ 
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script> 
+	<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	
+	<!--[if IE 6]>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script>
+	DD_belatedPNG.fix('.png');
+	</script>
+	<![endif]--> 
+	
+<script>
+	$(function () {
+		$('.yun_zph_com_l').delegate('.yun_zph_com_post', 'mouseover', function () {
+			$(this).find('.yun_zph_com_post_more').css('z-index', 10000000);
+			$(this).find('.yun_zph_com_post_more').css('left', parseInt($(this).find('.yun_zph_com_post_more').css('left')) + 100 + 'px');
+			$(this).find('.yun_zph_com_post_more').css('height', 'auto');
+			$(this).find('.yun_zph_com_post_more').css('position', 'absolute');
+			$(this).find('.yun_zph_com_post_more').css('background-color', '#fff');
+		});
+		$('.yun_zph_com_l').delegate('.yun_zph_com_post', 'mouseout', function () {
+			$(this).find('.yun_zph_com_post_more').css('z-index', 1);
+			$(this).find('.yun_zph_com_post_more').css('left', '');
+			$(this).find('.yun_zph_com_post_more').css('height', '23px');
+			$(this).find('.yun_zph_com_post_more').css('position', '');
+			//$(this).find('.yun_zph_com_post_more').css('background-color', '');
+		});
+	});
+	function zphjob(id){
+		layer.open({
+			type: 1,
+			title: '选择想要投递简历的职位',
+			offset: ['200px', ''],
+			closeBtn: 1,
+			border: [10, 0.3, '#000', true],
+			area: ['400px', 'auto'],
+			content: $("#zphjob"+id)
+		});
+	}
+</script>
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun}

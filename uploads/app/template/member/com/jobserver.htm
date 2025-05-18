@@ -1,0 +1,26 @@
+<div id="promote_div" style="display: none;">
+	
+	<div class="set_tips">
+		<div class="set_tips_hello">尊敬的用户您好：</div>
+		
+		<div class="set_tips_p" id="peomote_etime_div" style="display: none">
+			目前置顶职位的到期时间为：<span id="promote_etime"></span>
+		</div>
+		
+		<div class="set_tips_p" id='promote_tc'>
+			您的套餐内置顶职位余量为：<span class="set_tips_n">{yun:}$statis.top_num{/yun}</span>天
+		</div>
+		
+		<div class="set_tips_textbox">
+			设置推广天数 
+			<input type="text" value="" class="set_tips_text" id="promote_day" name="promote_day" maxlength='3' onkeyup="checkPromoteDay();" oninput="myFunction(this)"> 天
+		</div>
+		
+		<input type="hidden" name="promote_jobid" id="promote_jobid" value="" />
+		<input type="hidden" name="promote_type" id="promote_type" value="" />
+		<div class="set_tips_bthbox">
+			<input type='button' value='确定'  onClick="setJobPromote();" class='set_tips_bth'>
+		</div>
+	</div>
+</div>
+

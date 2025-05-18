@@ -1,0 +1,42 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun} 
+<div class="main_member_cot_box">
+<div class="m_tipsbox">
+<div class="m_tips_tit"><i class="m_tips_titicon"></i>安全提示</div>
+<div class="m_tips">招聘企业无权收取任何费用,求职中请加强自我保护,避免上当受骗</div>
+</div>
+<section>
+<div class="m_ms_combox">
+{yun:}foreach item=v from=$rows{/yun}
+<div class="m_ms_comlist">
+<div class="m_ms_com">
+
+
+<a href="index.php?c=invitecont&id={yun:}$v.id{/yun}" >
+
+
+<div class="wap_member_in_msg_comlogo">
+	<img src="{yun:}$v.logo{/yun}" ></div>
+
+<span class="wap_member_msg_name">{yun:}$v.fname{/yun}{yun:}if $v.is_browse=="1"{/yun} <i class="m_ms_new">NEW</i>{yun:}/if{/yun}</span>
+<div class="m_ms_job">面试职位 <span class="m_ms_jobname">{yun:}$v.jobname{/yun}</span></div>
+
+</div>
+<div class="m_user_info_cz"><span class="m_user_info_time">{yun:}$v.datetime|date_format:"%Y-%m-%d %H:%M"{/yun}</span>
+				<span class="m_user_info_a">查看邀请函</span>
+			</div>
+</a>
+
+</div>
+{yun:}foreachelse{/yun}
+<div class="wap_member_no">
+  <div class="wap_member_no_p1">
+  目前您暂未收到面试通知<div><a class="wap_member_no_submit" href="{yun:}url m=wap c=job{/yun}">搜索职位</a></div>
+  </div>
+</div>
+{yun:}/foreach{/yun}
+</section>
+<div class="pages"> {yun:}$pagenav{/yun}</div>
+</div>
+</div></div>
+</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

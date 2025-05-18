@@ -1,0 +1,40 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<div class="main_member_cot_box">
+
+    <div class="m_user_infocont">
+  {yun:}foreach item=v from=$rows{/yun}
+
+  <div class="m_user_infolist">
+    <div class="m_user_infobox">
+	<div class="m_user_infonamebox">
+    <div class="m_user_infoname">
+    		<a href="{yun:}url m=wap c=job a=comapply id=$v.job_id{/yun}" class="  ">{yun:}$v.job_name|mb_substr:0:16:'utf-8'{/yun}</a>
+    	   </div>
+			<span class="m_user_info_xz">{yun:}$v.salary{/yun}</span>
+</div>
+
+   <div class="m_user_info_p">{yun:}$v.job_exp{/yun}经验 <i class="m_user_info_line">|</i> {yun:}$v.job_edu{/yun}学历
+
+    {yun:}if $v.statename == '招聘中' {/yun}
+      <span class="m_user_jobzt">招聘中</span>
+    {yun:}else{/yun}
+      <span class="m_user_jobjs">已停止</span>
+    {yun:}/if{/yun}
+   </div>
+    <div class="m_user_info_com">{yun:}$v.com_name{/yun}  </div>
+	</div>
+    <div class="m_user_info_cz"><span class="m_user_info_time">{yun:}$v.datetime|date_format:"%Y-%m-%d"{/yun}</span>
+	<a  href="javascript:void(0)" onclick="layer_del('是否取消收藏该数据？','index.php?c=jobCollectDel&del={yun:}$v.id{/yun}')"class="m_user_info_a">取消收藏</a>  </div>
+  </div>
+
+  {yun:}foreachelse{/yun}
+  <div class="wap_member_no">
+    <div class="wap_member_no_p1">
+	<div>没有收藏过职位</div>
+	<div><a class="wap_member_no_search" href="{yun:}url m=wap c=job{/yun}">搜索职位</a></div>
+	</div>
+  </div>
+  {yun:}/foreach{/yun} </div>
+<div class="pages"> {yun:}$pagenav{/yun}</div>
+</div>
+ {yun:}include file="$wapstyle/footer.htm"{/yun}

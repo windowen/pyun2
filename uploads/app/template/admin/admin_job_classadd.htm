@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				<div class="admin_new_search_box">
+					<a href=" javascript:history.back(-1);" class="admin_new_cz_tj" style="margin-left:0px;"> 类别列表</a>
+				</div>
+
+			</div>
+
+			<div class="tty_table-bom">
+				<div class="admin_table_border">
+					<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+					<form name="myform" action="index.php?m=admin_job&c=save" method="post" onSubmit="return save();" target="supportiframe"
+					 class="layui-form">
+						<table width="100%" class="table_form" style="background:#fff;">
+							<tr>
+								<th colspan="2" class="admin_bold_box">
+									<div class="admin_bold">添加类别</div>
+								</th>
+							</tr>
+
+							<tr>
+								<th width="120">类别名称：</th>
+								<td><input class="layui-input t_w480" type="text" id="position" name="position" size="40" value="{yun:}$info.name{/yun}" /></td>
+							</tr>
+							<tr>
+								<th width="120">英文名称/拼音：</th>
+								<td><input class="layui-input t_w480" type="text" id="e_name" name="e_name" size="40" value="{yun:}$info.e_name{/yun}" /></td>
+							</tr>
+							{yun:}if $type=="two"{/yun}
+							<tr class="admin_table_trbg">
+								<th>一级分类：</th>
+								<td>
+									<div class="layui-input-inline t_w480">
+										<select name="nid" lay-filter="nid">
+											<option value="">请选择</option>
+											{yun:}foreach item=one from=$position{/yun}
+											<option value="{yun:}$one.id{/yun}" {yun:}if $info.keyid==$one.id{/yun} selected {yun:}/if{/yun}>{yun:}$one.name{/yun}
+											</option>
+											{yun:}/foreach{/yun}
+										</select>
+									</div>
+								</td>
+							</tr>
+							{yun:}else{/yun}
+							<tr class="admin_table_trbg">
+								<th>一级分类：</th>
+								<td>
+									<div class="layui-input-inline t_w480">
+										<select name="nid" lay-filter="nid">
+											<option value="">请选择</option>
+											{yun:}foreach item=one from=$position{/yun}
+											<option value="{yun:}$one.id{/yun}" {yun:}if $job.keyid==$one.id{/yun} selected {yun:}/if{/yun}>{yun:}$one.name{/yun}
+											</option>
+											{yun:}/foreach{/yun}
+										</select>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>二级分类：</th>
+								<td>
+									<div class="layui-input-inline t_w480">
+										<select name="keyid" lay-filter="keyid" id="keyid_select">
+											<option value="">请选择</option>
+											{yun:}foreach item=two from=$class2{/yun}
+											<option value="{yun:}$two.id{/yun}" {yun:}if $info.keyid==$two.id{/yun} selected {yun:}/if{/yun}>{yun:}$two.name{/yun}
+											</option>
+											{yun:}/foreach{/yun}
+										</select>
+									</div>
+								</td>
+							</tr>
+							{yun:}/if{/yun}
+							<tr class="admin_table_trbg" id="content">
+								<th class="t_fr">职位样本描述： </th>
+								<td><textarea id="intro" name="content" style="width:480px; height:150px;">{yun:}$info.content{/yun}</textarea></td>
+							</tr>
+							<tr>
+								<th class="t_fr">排序：</th>
+								<td>
+									<input class="layui-input t_w480" type="text" name="sort" value="{yun:}$info.sort{/yun}" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" />
+									<span class="admin_web_tip">越小越在前</span>
+								</td>
+							</tr>
+							<tr class="admin_table_trbg">
+								<th></th>
+								<td> {yun:}if $info.id{/yun}
+									<input type="hidden" name="id" value="{yun:}$info.id{/yun}" />
+									<input class="tty_sub" type="submit" name="submit" value="&nbsp;更 新&nbsp;" />
+									{yun:}else{/yun}
+									<input class="tty_sub" type="submit" name="submit" value="&nbsp;添 加&nbsp;" />
+									{yun:}/if{/yun}
+									<input class="tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" /></td>
+							</tr>
+						</table>
+						<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			layui.use(['form'], function() {
+				var form = layui.form,
+					$ = layui.$;
+
+				form.on('select(nid)', function(data) {
+					var pytoken = $("#pytoken").val();
+					$.post("index.php?m=admin_job&c=get_class", {
+						nid: data.value,
+						pytoken: pytoken
+					}, function(data) {
+						var data = eval('(' + data + ')');
+						var html = '';
+						if (data && data.length > 0) {
+							html += '<option value="">请选择</option>';
+							for (var i = 0; i < data.length; i++) {
+
+								html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+							}
+						} else {
+							html += '<option value="">该分类下暂无子类！</option>';
+						}
+						$("#keyid_select").html(html);
+						form.render();
+					})
+				});
+			})
+
+			function save() {
+				var position = $("#position").val();
+				if ($.trim(position) == '') {
+					parent.layer.msg('类别名称不能为空！', 2, 8);
+					return false;
+				}
+			}
+		</script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.config.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.all.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script language="javascript">
+			var editor = UE.getEditor('intro', {
+				toolbars: [
+					['Source', '|', 'Undo', 'Redo', 'Bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'fontfamily',
+						'fontsize', 'forecolor', 'backcolor', 'removeformat', 'autotypeset', 'pasteplain', '|', 'insertorderedlist',
+						'insertunorderedlist', 'selectall', 'cleardoc', '|', 'simpleupload', '|', 'link', 'unlink', 'indent', '|',
+						'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify'
+					]
+				],
+				wordCount: false,
+				elementPathEnabled: false,
+				initialFrameHeight: 200
+			});
+		</script>
+
+	</body>
+</html>

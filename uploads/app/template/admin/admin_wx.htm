@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script>
+			var weburl = '{yun:}$config.sy_weburl{/yun}';
+		</script>
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<title>后台管理</title>
+	</head>
+
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">公众号为认证服务号，到微信公众号平台设置服务器IP白名单</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+				<form name="myform" target="supportiframe" action="index.php?m=wx&c=save" method="post" enctype="multipart/form-data" class="layui-form list_border">
+					
+					<div class="layui-form-item">
+						<div class="list_border_tit">微信公众号设置</div>
+					</div>
+					
+					<div class="layui-form-item">
+						<label class="layui-form-label">公众号：</label>
+						<div class="layui-input-inline t_w480">
+							<input class="layui-input" type="text" name="wx_name" id="wx_name" size="30" value="{yun:}$config.wx_name{/yun}" maxlength="255">
+						</div>
+						<span class="admin_web_tip">在微信公众平台获取</span>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">URL：</label>
+						<div class="layui-input-inline t_w480">
+							<input class="layui-input" type="text" disabled="disabled" style="background: #f5f7fb;" value="{yun:}$config.sy_weburl{/yun}/weixin/index.php">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">Token：</label>
+						<div class="layui-input-inline t_w480">
+							<input class="layui-input" type="text" name="wx_token" id="wx_token" size="30" value="{yun:}$config.wx_token{/yun}" maxlength="255">
+						</div>
+						<span class="admin_web_tip">自定义填写，需和微信公众平台一致</span>
+					</div>
+					<div class="layui-form-item pdleft180">
+						<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}" />
+						<input class="layui-btn tty_sub" id="wxconfig" type="submit" name="msgconfig" value="提交" />&nbsp;&nbsp;
+						<input class="layui-btn tty_cz" type="reset" value="重置" />
+					</div>
+
+				</form>
+
+				<form name="myform" target="supportiframe" action="index.php?m=wx&c=save" method="post" enctype="multipart/form-data" class="list_border">
+					
+					<div class="layui-form-item">
+						<div class="list_border_tit">开发者凭据</div>
+					</div>
+					<div class="layui-form-item">						<label class="layui-form-label">公众号：</label>						<div class="layui-input-inline t_w480">
+							<input class="layui-input" type="text" name="wx_appid" id="wx_appid" value="{yun:}$config.wx_appid{/yun}" size="30" maxlength="255" />						</div>						<span class="admin_web_tip">如：1002478xx</span>					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">AppSecret：</label>
+						<div class="layui-input-inline t_w480">
+							<input class="layui-input" type="text" name="wx_appsecret" id="wx_appsecret" value="{yun:}$config.wx_appsecret{/yun}" size="30" maxlength="255" />
+						</div>
+						<span class="admin_web_tip">如：4dd1c30d472676914f2fbfbnjt33</span>
+					</div>
+					<div class="layui-form-item pdleft180">
+						<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}" />
+						<input class="layui-btn tty_sub" id="wxconfig" type="submit" name="msgconfig" value="提交" />&nbsp;&nbsp;
+						<input class="layui-btn tty_cz" type="reset" value="重置" />
+					</div>
+					
+				</form>
+
+				<form name="myform" target="supportiframe" action="index.php?m=wx&c=save" method="post" enctype="multipart/form-data" class="layui-form list_border">
+					<div class="layui-form-item">
+						<div class="list_border_tit">体验设置</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">关注欢迎语：</label>
+						<div class="layui-input-inline t_w480">
+							<textarea name="wx_welcom" rows="10" cols='40' maxlength="255" class="wx_search_textarea web_text_textarea">{yun:}$config.wx_welcom{/yun}</textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">搜索提示：</label>
+						<div class="layui-input-inline t_w480">
+							<textarea name="wx_search" rows="10" cols='40' maxlength="255" class="wx_search_textarea web_text_textarea">{yun:}$config.wx_search{/yun}</textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">公众号二维码：</label>
+						<div class="layui-input-inline t_w480">
+							<div class="admin_uppicbox">
+								<input type="hidden" id="layupload_type" value="2" class="admin_uppic_bth2" />
+								<div class="admin_uppicimg">
+									<img width="140" height="140" id="imgqcode" src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_qcode{/yun}"
+									{yun:}if !$config.sy_wx_qcode{/yun}class="none"{yun:}/if{/yun}> 
+								</div>
+								<span {yun:}if !$config.sy_wx_qcode{/yun}class="none"{yun:}/if{/yun}>
+									<button type="button" class="adminupbtn adminupload" lay-data="{name: 'sy_wx_qcode',imgid: 'imgqcode',path:'logo'}">重新上传</button>
+								</span>
+							</div> 
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">微信封面：</label>
+						<div class="layui-input-inline t_w480">
+							<div class="admin_uppicbox" style="width: 300px;height: 160px;">
+								<div class="admin_uppicimg">
+									<img width="300" height="160" id="imglogo" src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_logo{/yun}"
+									{yun:}if !$config.sy_wx_logo{/yun}class="none"{yun:}/if{/yun}> 
+								</div>
+								<span {yun:}if !$config.sy_wx_logo{/yun}class="none"{yun:}/if{/yun}>
+									<button type="button" class="adminupbtn adminupload" lay-data="{name: 'sy_wx_logo',imgid: 'imglogo',path:'logo'}">重新上传封面</button>
+									
+								</span>
+							</div>
+							<div class="admin_uppicts">图片大小900px * 500px</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">微信分享图片：</label>
+						<div class="layui-input-inline t_w480">
+							<div class="admin_uppicbox" style="width:80px;height:80px">
+								<div class="admin_uppicimg">
+									<img width="80" height="80" id="imgshare" src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_sharelogo{/yun}"
+									{yun:}if !$config.sy_wx_sharelogo{/yun}class="none"{yun:}/if{/yun}> 
+								</div>
+								<span {yun:}if !$config.sy_wx_sharelogo{/yun}class="none"{yun:}/if{/yun}>
+									<button type="button" class="adminupbtn adminupload" lay-data="{name: 'sy_wx_sharelogo',imgid: 'imgshare',path:'logo'}">重新上传</button>
+								</span>
+							</div>
+							<div class="admin_uppicts">图片大小300px * 300px</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">微信手机登录：</label>
+						<div class="layui-input-inline t_w480">
+							<div class="layui-input-block">
+								<div class="layui-input-inline fl">
+									<input type="radio" name="wx_rz" checked value='0' id="wx_rz_11" title="否">
+									<input type="radio" {yun:}if $config.wx_rz=='1' {/yun}checked{yun:}/if{/yun} name="wx_rz" value='1' id="wx_rz_12"
+									 title="是">
+								</div>
+								<div class="layui-form-mid layui-word-aux" style="margin-left: 20px;">说明：必须为已认证的服务号</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">微信PC扫码登录：</label>
+						<div class="layui-input-block">
+							<div class="layui-input-inline fl">
+								<input type="radio" name="wx_author" {yun:}if $config.wx_author!='1' {/yun}checked{yun:}/if{/yun} value='0'
+								 id="RadioGroup1_11" title="否">
+								<input type="radio" {yun:}if $config.wx_author=='1' {/yun}checked{yun:}/if{/yun} name="wx_author" value='1'
+								 id="RadioGroup1_12" title="是">
+							</div>
+							<div class="layui-form-mid layui-word-aux" style="margin-left: 20px;">说明：必须为已认证的服务号</div>
+						</div>
+					</div>
+					<div class="layui-form-item pdleft180">
+						<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}" />
+						<input class="tty_sub" id="wxconfig" type="submit" name="msgconfig" value="提交" />&nbsp;&nbsp;
+						<input class="tty_cz" type="reset" value="重置" />
+					</div>
+					
+				</form>
+
+			</div>
+			<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+			<script>
+				layui.use(['layer', 'form'], function() {
+					var layer = layui.layer,
+						form = layui.form,
+						$ = layui.$;
+				});
+			</script>
+	</body>
+</html>

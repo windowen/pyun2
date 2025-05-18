@@ -1,0 +1,295 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+	<div class="admin_mainbody">
+		{yun:}include file="$comstyle/left.htm"{/yun}
+		
+		<div class="com_tit"><span class="com_tit_span"> 面试模板列表</span></div>
+		
+		<div class=right_box>
+		
+			<div class=admincont_box>
+
+				<div class="com_body">
+		
+					<div class="com_new_tip">
+		
+						<span class="com_new_tip_h">温馨小提示</span>邀请面试时可选择对应面试模板 ，现已创建 {yun:}$totalNum{/yun} 个面试模板，最多创建：{yun:}$config.com_yqmb_num{/yun} 个。
+                       
+                    </div>
+
+					<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+
+					<div class="com_m_search">
+						<input class="com_m_tj" type="button" value="+ 创建面试模板" id="createChildId" style="margin-left:0px;" />
+					</div>
+					
+					<table class="com_received_resume  mt20">
+						{yun:}if $rows{/yun}
+						<tr>
+							<th>ID</th>
+							<th>模板名称</th>
+							<th>联系人</th>
+							<th>联系电话</th>
+							<th>面试地址</th>
+							<th>面试时间</th>
+							<th>面试备注</th>
+							<th width="230">操作</th>
+						</tr>
+						{yun:}/if{/yun}
+						
+						{yun:}foreach item=v from=$rows{/yun}
+						<tr>
+							<td align="center">{yun:}$v.id{/yun}</td>
+							<td align="center">{yun:}$v.name{/yun}</td>
+							<td align="center">{yun:}$v.linkman{/yun}</td>
+							<td align="center">{yun:}$v.linktel{/yun}</td>
+							<td align="center">{yun:}$v.address{/yun}</td>
+							<td align="center">{yun:}$v.intertime{/yun}</td>
+							<td align="center">{yun:}$v.content{/yun}</td>
+							<td align="center">
+								<a href="javascript:void(0)" data-id="{yun:}$v.id{/yun}" data-linkman="{yun:}$v.linkman{/yun}" data-linktel="{yun:}$v.linktel{/yun}" data-intertime="{yun:}$v.intertime{/yun}" data-address="{yun:}$v.address{/yun}" data-content="{yun:}$v.content{/yun}" data-name="{yun:}$v.name{/yun}" class="com_bth cblue editChildA">修改</a>
+								
+                            	<a href="javascript:;" class="com_bth cblue bindChildA" data-id="{yun:}$v.id{/yun}">删除</a>
+							</td>
+						</tr>
+						{yun:}foreachelse{/yun}
+						<tr>
+							<td colspan="8" class="table_end">
+								<div class="com_msg_no">
+									<p>目前您还没有创建面试模板</p>
+								</div>
+							</td>
+						</tr>
+						{yun:}/foreach{/yun}
+						<tr>
+							<td colspan="8" class="table_end">
+								<div class="diggg">{yun:}$pagenav{/yun}</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	
+<div id='editchild_box' style="display:none;float:left">
+	<div class="subaccounts_add">
+		<form action="index.php?c=yqmb&act=editSave"  class="layui-form" target="supportiframe" method="post" id="editchildForm" onsubmit="return check_editchildmsg();">
+			<dl>
+				<dt>模板名称：</dt>
+				<dd>
+					<input size='20' type="text" id='name' name="name" value='' class="subaccounts_add_text" autocomplete="off" placeholder="请输入模板名称">
+				</dd>
+			</dl>
+			<dl>
+				<dt>联系人：</dt>
+				<dd>
+					<input size='20' type="text" id='linkman' name="linkman" value='' class="subaccounts_add_text" autocomplete="off" placeholder="请输入联系人">
+				</dd>
+			</dl>
+			<dl>
+				<dt>联系电话：</dt>
+				<dd>
+					<input size='20' type="text" id='linktel' name="linktel" value='' class="subaccounts_add_text" autocomplete="off" placeholder="请输入联系电话">
+				</dd>
+			</dl>
+			<dl>
+				<dt>面试地址：</dt>
+				<dd><input size='34' type="text" id='address' name="address" value='' placeholder="请输入面试地址" class="subaccounts_add_text" autocomplete="off"></dd>
+			</dl>
+			<dl>
+				<dt>面试时间：</dt>
+				<dd id="intertimeHtml"></dd>
+			</dl>
+			<dl>
+				<dt>面试备注：</dt>
+				<dd><textarea id="content" name="content" class="layui-textarea"></textarea></dd>
+			</dl>
+			<dl id="resume_job" style="height:30px;padding-bottom: 20px;">
+				<dd style="margin-left: 130px;">
+					<input type="hidden" name="yid" id="yid" value="0">
+					<input type="submit" name='submit' value='确认' class="submit_btn"> &nbsp;&nbsp;
+					<input type="button" onClick="layer.closeAll();" class="cancel_btn" value='取消'>
+				</dd>
+			</dl>
+			
+		</form>
+	</div>
+</div>
+
+
+ 
+<script>
+	var csflag = {yun:}if $smarty.get.cs == 'yes'{/yun}true{yun:}else{/yun} false{yun:}/if{/yun};
+	var maxnum = '{yun:}$config.com_yqmb_num{/yun}';
+	var totalNum = '{yun:}$totalNum{/yun}';
+	layui.use(['form', 'laydate'], function(){
+	    var form = layui.form,
+			laydate = layui.laydate,
+			$ = layui.$;  
+			
+		
+	});
+	//名称获取焦点
+	$('#usernameId').on('focus', function () {
+		if ($(this).val() == '请输入用户名') {
+			$(this).val('');
+		}
+	});
+
+	//添加模板
+	$('#createChildId').on('click', function () {
+
+		if(totalNum<maxnum){
+			$('#intertimeHtml').html('');
+			$('#yid').val(0);
+			$('#name').val('');
+			$('#linkman').val('');
+			$('#linktel').val('');
+			$('#address').val('');
+			//$('#intertime').val('');
+			$('#intertimeHtml').append('<input readonly type="text" id="intertime" name="intertime" value="" placeholder="请选择面试时间" class="subaccounts_add_text" autocomplete="off">');
+			$('#content').val('');
+			layui.use(['laydate'], function(){
+				var laydate = layui.laydate,
+					$ = layui.$;
+				laydate.render({
+					elem: '#intertime',
+					trigger: 'click',
+					type: 'datetime',
+				});
+			});
+			var layindex = $.layer({
+				type: 1,
+				title: '添加模板',
+				closeBtn: [0, true],
+				border: [10, 0.3, '#000', true],
+				area: ['410px', 'auto'],
+				page: { dom: "#editchild_box" }
+			});
+			$("#layindex").val(layindex);
+		}else{
+			layer.msg('最多只能创建'+maxnum+'个面试模板', 2, 8);
+		}
+		
+	});
+
+	
+
+	//修改模板
+	$('.editChildA').off('click').on('click', function () {
+		var thisChildId = parseInt($(this).attr('data-id'));
+		if (isNaN(thisChildId) || thisChildId < 1) {
+			layer.msg('模板数据错误！', 2, 8);
+			return false;
+		}
+		var name = $(this).attr('data-name');
+		var linkman = $(this).attr('data-linkman');
+		var linktel = $(this).attr('data-linktel');
+		var address = $(this).attr('data-address');
+		var intertime = $(this).attr('data-intertime');
+		var content = $(this).attr('data-content');
+		$('#intertimeHtml').html('');
+		$('#yid').val(thisChildId);
+		$('#name').val(name);
+		$('#linkman').val(linkman);
+		$('#linktel').val(linktel);
+		$('#address').val(address);
+		//$('#intertime').val(intertime);
+		$('#intertimeHtml').append('<input readonly type="text" id="intertime" name="intertime" value="'+intertime+'" placeholder="请选择面试时间" class="subaccounts_add_text" autocomplete="off">');
+		$('#content').val(content);
+		layui.use(['laydate'], function(){
+			var laydate = layui.laydate,
+				$ = layui.$;
+			laydate.render({
+				elem: '#intertime',
+				trigger: 'click',
+				type: 'datetime',
+				value:intertime
+			});
+		});
+		var layindex = $.layer({
+			type: 1,
+			title: '修改模板',
+			closeBtn: [0, true],
+			border: [10, 0.3, '#000', true],
+			area: ['410px', 'auto'],
+			page: { dom: "#editchild_box" }
+		});
+		$("#layindex").val(layindex);
+	});
+
+	//提交判断
+	function check_editchildmsg() {
+		var linkman = $.trim($("#linkman").val());
+		var linktel = $.trim($("#linktel").val());
+		if ($.trim($("#name").val()) == "") {
+			layer.msg('请填写模板名称！', 2, 8);
+			return false;
+		}
+		if (linkman == "") {
+			layer.msg('联系人不能为空！', 2, 8);
+			return false;
+		}
+		
+		if (linktel == "") {
+			layer.msg('联系电话不能为空！', 2, 8);
+			return false;
+		}else if((isjsTell(linktel) != true) && (isjsMobile(linktel) != true) && ($.trim(linktel) != '')){
+			layer.msg('电话格式错误！', 2,8); return false;
+		}
+		if ($.trim($("#address").val()) == "") {
+			layer.msg('面试地址不能为空！', 2, 8);
+			return false;
+		}
+		if ($.trim($("#intertime").val()) == "") {
+			layer.msg('面试时间不能为空！', 2, 8);
+			return false;
+		}
+	}
+
+	//删除模板
+	$('.bindChildA').off('click').on('click', function () {
+		
+		var thisChildId = parseInt($(this).attr('data-id'));
+		
+		if (isNaN(thisChildId) || thisChildId < 1) {
+			layer.msg('模板数据错误！', 2, 8);
+			return false;
+		}
+		 
+		layer.confirm('确认删除面试模板？', function () {
+			
+			var i = loadlayer();
+			
+			$.post("index.php?c=yqmb&act=del", { id: thisChildId}, function (data) {
+			
+				layer.closeAll();
+				
+				var res = eval('(' + data + ')');
+				
+				if (res.errcode == 9) {
+				
+					layer.msg(res.msg, 2, 9, function () { location.reload(); });
+				} else {
+					
+					layer.msg(res.msg, 2, 8);
+				}
+				return false;
+			});
+		});
+	});
+
+	
+
+	//追加点击
+	if (csflag) {
+		$("#createChildId").trigger("click");
+	}
+	
+	
+	
+</script>
+ 
+{yun:}include file="$comstyle/footer.htm"{/yun}

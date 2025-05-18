@@ -1,0 +1,734 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<title>后台管理</title>
+</head>
+
+<body class="body_ifm">
+	
+	{yun:}include file="$adminstyle/member_send_email.htm"{/yun}
+	
+	<div id="info_div" style="display:none;">
+		<div>
+			<form class="layui-form" action="index.php?m=user_member&c=status" target="supportiframe" method="post" onsubmit="return htStatus()">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+					<tr>
+						<th width="80">审核操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="status" id="state0" value="0" title="未审核" type="radio" />
+								<input name="status" id="state1" value="1" title="已审核" type="radio" />
+								<input name="status" id="state3" value="3" title="未通过" type="radio" /> 
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th class="t_fr">审核说明：</th>
+						<td align="left"> <textarea id="statusbody" name="statusbody" class="admin_explain_textarea"></textarea> </td>
+					</tr>
+					<tr>
+						<td colspan='2' align="center">
+							<input type="submit" value='确认' class="admin_examine_bth">
+							<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<input name="uid" value="0" type="hidden">
+			</form>
+		</div>
+	</div>
+
+	<div id="userrenemail" style="display:none; ">
+		<div class="mt10">
+			<form class="layui-form" action="index.php?m=user_member&c=emailstatus" target="supportiframe" method="post">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+						<tr>
+							<th width="80">邮箱：</th>
+								<td align="left">
+									<div class="layui-input-block">
+										<input  type="text" class="layui-input t_w200" id="useremailemail" name="useremailemail" value="">
+									</div>
+								</td>
+							</tr>
+						<tr>
+						<th width="80">认证操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="estatus" id="userestatus0" value="0" title="待认证" type="radio" />
+								<input name="estatus" id="userestatus1" value="1" title="已认证" type="radio" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2' align="center">
+							<input type="submit" onclick="loadlayer();" value='确认'  class="admin_examine_bth">
+							<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<input name="uid"  id="useremailuid" value="0" type="hidden">
+			</form>
+		</div>
+	</div>
+
+	<div id="userrenmoblie" style="display:none;">
+		<div class="mt10">
+			<form class="layui-form" action="index.php?m=user_member&c=mobliestatus" target="supportiframe" method="post">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+					<tr>
+						<th width="80">手机号码：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input type="text" class="layui-input t_w200" id="usermobliemoblie" name="usermobliemoblie" value="">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th width="80">认证操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="mstatus" id="usermstatus0" value="0" title="待认证" type="radio" />
+								<input name="mstatus" id="usermstatus1" value="1" title="已认证" type="radio" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2' align="center">
+							<input type="submit" onclick="loadlayer();" value='确认'  class="admin_examine_bth">
+							<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+						</td>
+					</tr>
+				</table>
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<input name="uid"  id="usermoblieuid" value="0" type="hidden">
+			</form>
+		</div>
+	</div>
+
+	<div id="preview" style="display:none">
+		<div style="overflow:auto;">
+			<form class="layui-form" action="index.php?m=user_member&c=userStatus" target="supportiframe" method="post" onsubmit="return tcdiv();">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+						<tr>
+							<th width="80">身份证号码：</th>
+							<td align="left">
+								<div class="userididcard" id="userididcard"></div>
+							</td>
+						</tr>
+					<tr>
+						<th width="80" class="t_fr">认证图片：</th>
+						<td align="left">
+							<div class="job_box_div" style="float:left;border:1px solid #eee;"></div> 
+							<a target="_blank" href="" id='preview_url' style="line-height:70px; padding-left:10px;">查看原图</a>
+							<a target="_blank"  id='sfzrz' style="line-height:70px; padding-left:10px;">暂无身份证照片</a>
+						</td>
+					</tr>
+					<tr>
+						<th width="80">审核操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="r_status" id="userstatus0" value="0" title="待认证" type="radio" />
+								<input name="r_status" id="userstatus1" value="1" title="已认证" type="radio" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th class="t_fr">审核说明：</th>
+						<td align="left"> <textarea id="usercontent" name="statusbody" class="admin_explain_textarea"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan='2' align="center">
+							<div>
+								<input type="submit" value='确认' class="admin_examine_bth">
+								<input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<input name="uid" id="useriduid" value="0" type="hidden">
+				<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+			</form>
+		</div>
+	</div>
+
+	<div id="batchrezhen" style="display:none;width:360px ">
+		<div style="overflow:auto;width:360px;">
+			<form class="layui-form" action="index.php?m=user_member&c=batchfirm" target="supportiframe" method="post">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+					<tr>
+						<th width="80">认证类型：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="username_email"    title="邮箱"        type="checkbox"   lay-skin="primary"/>
+								<input name="username_moblie"   title="手机"        type="checkbox"   lay-skin="primary"/>
+								<input name="username_idcard"   title="身份认证"     type="checkbox"   lay-skin="primary"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th width="80">认证操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="plstatus" id="batchstatis0" value="0" title="待认证" type="radio" />
+								<input name="plstatus" id="batchstatis1" value="1" title="已认证" type="radio" />
+							</div>
+						</td>
+					</tr>
+ 
+					<tr>
+						<td colspan='2' align="center">
+							<div class="admin_Operating_sub">
+								<input type="submit" onclick="loadlayer();" value='确认' class="admin_examine_bth">
+								<input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<input name="uid" id="btachuid" value="0" type="hidden">
+				<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+			</form>
+		</div>
+	</div>
+
+	<div id="deleS_div" style="display:none; width: 390px; ">
+		<div class="" style=" margin-top:10px; ">
+			<form class="layui-form" action="index.php?m=user_member&c=del" target="supportiframe" method="post" onsubmit="return loadlayer();">
+				
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+					
+					<tr>
+						<td align="center"> 
+							<input type="checkbox" value='1' name="delAccount" title="同步删除账号" lay-skin="primary" />
+						</td>
+					</tr>
+					<tr>
+						<td align="center"> 
+							<span class="admin_web_tip">勾选删除账号所有数据信息</span>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2' align="center">
+							<input type="submit" value='确认' class="admin_examine_bth">
+							<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+						</td>
+					</tr>
+
+				</table>
+
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<input name="del" value="0" type="hidden">
+
+			</form>
+		</div>
+	</div>
+
+	<div class="infoboxp">
+		
+		<div class="tty-tishi_top">
+
+			<div class="tabs_info">
+				<ul>
+					<li {yun:}if !$smarty.get.c{/yun}class="curr" {yun:}/if{/yun}>
+						<a href="index.php?m=user_member">全部个人</a>
+					</li>
+					<li {yun:}if $smarty.get.c{/yun}class="curr" {yun:}/if{/yun}>
+						<a href="index.php?m=user_member&c=writtenOffLog&utype=1">解绑记录</a>
+					</li>
+					<li>
+						<a href="index.php?m=user_member&c=member_log">会员日志</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="clear"></div>
+
+			<div class="admin_new_search_box">
+				<form action="index.php" name="myform" method="get">
+					<input name="m" value="user_member" type="hidden" />
+					<div class="admin_new_search_name">搜索类型：</div>
+					<div class="admin_Filter_text formselect" did='dkeytype'>
+						<input type="button" {yun:}if $smarty.get.keytype=='' ||$smarty.get.keytype=='1' {/yun} value="用户名" {yun:}elseif $smarty.get.keytype=='2' {/yun} value="姓名" {yun:}elseif $smarty.get.keytype=='3' {/yun} value="手机号" {yun:}elseif $smarty.get.keytype=='4' {/yun} value="EMAIL" {yun:}elseif $smarty.get.keytype=='5' {/yun} value="用户ID" {yun:}/if{/yun} class="admin_Filter_but" id="bkeytype">
+
+						<input type="hidden" name="type" id="keytype" {yun:}if $smarty.get.keytype=='' ||$smarty.get.keytype=='1' {/yun} value="1" {yun:}elseif $smarty.get.keytype=='2' {/yun} value="2" {yun:}elseif $smarty.get.keytype=='3' {/yun} value="3" {yun:}elseif $smarty.get.keytype=='4' {/yun} value="4" {yun:}elseif $smarty.get.keytype=='5' {/yun} value="5" {yun:}/if{/yun}/>
+						<div class="admin_Filter_text_box" style="display:none" id="dkeytype">
+							<ul>
+								<li>
+									<a href="javascript:void(0)" onClick="formselect('1','keytype','用户名')">用户名</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" onClick="formselect('2','keytype','姓名')">姓名</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" onClick="formselect('3','keytype','手机号')">手机号</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" onClick="formselect('4','keytype','EMAIL')">EMAIL</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" onClick="formselect('5','keytype','用户ID')">用户ID</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<input type="text" value="" placeholder="请输入你要搜索的关键字" name='keyword' class="admin_new_text">
+					<input type="submit" value="搜索" name='search' class="admin_new_bth">
+					<a href="javascript:void(0)" onclick="$('.admin_screenlist_box').toggle();" class="admin_new_search_gj">高级搜索</a>
+					<a href="index.php?m=user_member&c=add" class="admin_new_cz_tj">+ 添加会员</a>
+				</form>
+				{yun:}include file="admin/admin_search.htm"{/yun}
+			</div>
+			
+			<div class="clear"></div>
+
+		</div>
+		
+		
+		<div class="tty_table-bom">
+		<div class="admin_statistics">
+		数据统计：
+			<em class="admin_statistics_s">总数：<span class="ajaxuserall">0</span></em>
+			<em class="admin_statistics_s">未审核：<span class="userStatusNum1">0</span></em>
+			<em class="admin_statistics_s">未通过：<span class="userStatusNum2">0</span></em>
+			<em class="admin_statistics_s">已锁定：<span class="userStatusNum3">0</span></em>
+			搜索结果：<span>{yun:}$total{/yun}</span>；
+		</div>
+		
+		<div class="clear"></div>
+
+		<div class="table-list">
+			<div class="admin_table_border">
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+				<form action="index.php?m=user_member&c=del" target="supportiframe" name="myform" method="post" id='myform'>
+					<table width="100%">
+						<thead>
+							<tr class="admin_table_top">
+								<th style="width:20px;">
+									<label for="chkall"><input type="checkbox" id='chkAll'  onclick='CheckAll(this.form)'/></label>
+								</th>
+								<th align="left"> 
+									{yun:}if $smarty.get.t=="uid" && $smarty.get.order=="asc"{/yun}
+										<a href="index.php?m=user_member&order=desc&t=uid">用户ID<img src="images/sanj.jpg" /></a>
+									{yun:}else{/yun}
+										<a href="index.php?m=user_member&order=asc&t=uid">用户ID<img src="images/sanj2.jpg" /></a> 
+									{yun:}/if{/yun}
+								</th>
+								<th align="left">姓名/用户名</th>
+								<th align="left">手机号/EMAIL</th>
+								<th align="left">个人认证</th>
+								<th align="left">注册时间</th>
+								<th>最近登录时间</th>
+								<th>简历</th>
+								<th>来源</th>
+								<th>站点</th>
+								<th>审核状态</th>
+								<th >操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{yun:}foreach item=v key=key from=$userrows{/yun}
+							<tr {yun:}if ($key+1)%2=='0' {/yun}class="admin_com_td_bg" {yun:}/if{/yun} id="list{yun:}$v.uid{/yun}">
+								<td width="20"><input type="checkbox" value="{yun:}$v.uid{/yun}" class="check_all" name='del[]' onclick='unselectall()' rel="del_chk" email="{yun:}$v.email{/yun}" moblie="{yun:}$v.telphone{/yun}" style="margin-left:5px;;" /></td>
+
+								<td align="left" class="td1" style="width:60px;">
+									{yun:}$v.uid{/yun}
+								   
+								</td>
+								
+								<td align="left">
+									{yun:}$v.username_n{/yun}
+									<div class="mt5">
+										<a href="javascript:void(0)" onclick="toMember('index.php?m=user_member&c=Imitate&uid={yun:}$v.uid{/yun}','{yun:}$v.usertype{/yun}')" class="admin_cz_sc">{yun:}$v.username{/yun}</a> 
+										{yun:}if $v.status==2{/yun}<img src="../config/ajax_img/suo.png" alt="已锁定" width="15">{yun:}/if{/yun} 
+									</div>
+								</td>
+								<td align="left">
+									<div>
+										{yun:}if $v.telphone{/yun}
+											<span class="admin_new_sj">{yun:}$v.telphone{/yun}</span> 
+										{yun:}/if{/yun}
+									</div>
+									<div>
+										{yun:}if $v.email{/yun}
+											<span class="admin_new_yx">{yun:}$v.email{/yun}</span> 
+											<a onClick="send_email('{yun:}$v.email{/yun}');" style="color:green; cursor:pointer;">发邮件</a>
+										{yun:}/if{/yun}
+									</div>
+								</td>
+
+								<td>
+									{yun:}if $v.email_status_n==1{/yun}
+									<img src="../config/ajax_img/1-1.png" title="邮箱已认证"  data-status="{yun:}$v.email_status_n{/yun}"  data-url="{yun:}$v.uid{/yun}"  data-email="{yun:}$v.email{/yun}"  width="20" height="20" class="user_email"> 
+									{yun:}else{/yun}
+									<img src="../config/ajax_img/1-2.png" title="邮箱未认证"  data-status="{yun:}$v.email_status_n{/yun}"  data-url="{yun:}$v.uid{/yun}"  data-email="{yun:}$v.email{/yun}"  width="20" height="20" class="user_email">
+									 {yun:}/if{/yun}
+									  {yun:}if $v.moblie_status==1{/yun}
+									<img src="../config/ajax_img/2-1.png" title="手机已认证" data-status="{yun:}$v.moblie_status{/yun}"  data-url="{yun:}$v.uid{/yun}"  data-moblie="{yun:}$v.telphone{/yun}" width="20" height="20" class="user_moblie"> 
+									{yun:}else{/yun}
+									<img src="../config/ajax_img/2-2.png" title="手机未认证" data-status="{yun:}$v.moblie_status{/yun}"  data-url="{yun:}$v.uid{/yun}"  data-moblie="{yun:}$v.telphone{/yun}" width="20" height="20" class="user_moblie">
+									 {yun:}/if{/yun}
+									 {yun:}if $v.idcard_status==1{/yun}
+									<img src="../config/ajax_img/3-1.png" title="身份已认证" data-status="{yun:}$v.idcard_status{/yun}"  data-uid="{yun:}$v.uid{/yun}"  data-idcard="{yun:}$v.idcard{/yun}"  data-url="{yun:}$v.idcard_pic{/yun}" width="20" height="20" class="user_idcard">
+									 {yun:}else{/yun}
+									<img src="../config/ajax_img/3-2.png" title="身份未认证" data-status="{yun:}$v.idcard_status{/yun}"  data-uid="{yun:}$v.uid{/yun}"  data-idcard="{yun:}$v.idcard{/yun}"  data-url="{yun:}$v.idcard_pic{/yun}" width="20" height="20" class="user_idcard">
+									 {yun:}/if{/yun}
+								</td>
+
+								<td class="td" align="left">{yun:}$v.reg_date|date_format:"%Y-%m-%d"{/yun}</td>
+								
+								<td align="center">
+									{yun:}if $v.login_date!=""{/yun}
+										{yun:}$v.login_date|date_format:"%Y-%m-%d"{/yun} 
+									{yun:}else{/yun}
+										<font color="#FF0000">从未登录</font>
+									{yun:}/if{/yun}
+								</td>
+								
+								<td align="center">
+									{yun:}if $v.def_job != '0'{/yun}
+										<div class="mt5">
+											<a href="{yun:}url m=resume c=show id=$v.def_job look=admin{/yun}" class="admin_cz_sc" target="_blank">预览</a>
+										</div>
+									{yun:}else{/yun}
+										<a href="index.php?m=admin_resume&c=addResume&uid={yun:}$v.uid{/yun}" class="admin_cz_sc">添加</a>
+									{yun:}/if{/yun}
+								</td>
+								<td align="center">{yun:}$source[$v.source]{/yun}</td>
+								<td align="center">
+									<div>{yun:}$Dname[$v.did]{/yun}</div>
+									<div class="mt5">
+										<a href="javascript:;" onclick="checksite('{yun:}$v.username{/yun}','{yun:}$v.uid{/yun}','index.php?m=user_member&c=checksitedid');" class="admin_cz_sc">分配</a>
+									</div>
+								</td>
+							 
+
+								<td align="center">
+									{yun:}if $v.r_status=='1'{/yun}
+										<span class="admin_com_Audited">已审核</span>
+									{yun:}elseif $v.r_status=='2'{/yun}
+										<span class="admin_com_Lock">已锁定</span>
+									{yun:}elseif $v.r_status=='3'{/yun}
+										<span class="admin_com_tg">未通过</span>
+									{yun:}else{/yun}
+										<span class="admin_com_noAudited">未审核</span>
+									{yun:}/if{/yun}
+								</td>
+								 
+								<td width="180">
+									<a href="javascript:;" class="admin_new_c_bth admin_new_c_bthsh check" pid="{yun:}$v.uid{/yun}" status="{yun:}$v.r_status{/yun}">审核</a>
+									<a href="index.php?m=user_member&c=member_log&uid={yun:}$v.uid{/yun}" class="admin_new_c_bth admin_new_c_rz">日志</a>
+									<a href="index.php?m=user_member&c=edit&id={yun:}$v.uid{/yun}" class="admin_new_c_bth admin_n_sc mt5">修改</a>
+									<a href="javascript:void(0);" onClick="resetpw('{yun:}$v.username{/yun}','{yun:}$v.uid{/yun}');" class="admin_new_c_bth admin_new_c_mmcz mt5">密码</a>
+
+									<a href="javascript:void(0)" onClick="" class="admin_new_c_bth admin_new_c_bth_sc deleS" pid="{yun:}$v.uid{/yun}" >删除</a>
+
+
+								</td>
+							</tr>
+							{yun:}/foreach{/yun}
+							<tr>
+								<td align="center"><input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /></td>
+								<td colspan="12"><label for="chkAll2">全选</label> &nbsp;
+									
+									<input class="admin_button" type="button" name="delsub" value="删除所选" onclick="return delUser('del[]')" />
+									
+									
+									
+									{yun:}if $email_promiss{/yun}
+										<input class="admin_button" type="button" value="发邮件" onclick="return confirm_email('确定发邮件吗？','email_div')" /> 
+									{yun:}/if{/yun} 
+									
+									{yun:}if $moblie_promiss{/yun}
+										<input class="admin_button" type="button" value="发信息" onclick="return confirm_email('确定发信息吗？','moblie_div')" /> 
+									{yun:}/if{/yun}
+
+									<input class="admin_button" type="button" name="delsub" value="批量审核"  onclick="return statusAll('del[]')"/>
+									<input class="admin_button" type="button" name="delsub" value="批量选择分站" onClick="checksiteall('index.php?m=user_member&c=checksitedid');" />
+ 									<input class="admin_button" type="button" name="delsub" value="批量认证"  onclick="return batch('del[]')"/>
+								</td>
+							</tr>	
+							{yun:}if $total > $config.sy_listnum {/yun}
+								<tr>
+									{yun:}if $pagenum==1{/yun}
+										<td colspan="3"> 从 1 到 {yun:}$config.sy_listnum {/yun} ，总共 {yun:}$total{/yun} 条</td>
+									{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun}
+										<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$pagenum * $config.sy_listnum{/yun} ，总共 {yun:}$total{/yun} 条</td>
+									{yun:}else if $pagenum == $pages{/yun}
+										<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$total{/yun} ，总共 {yun:}$total{/yun} 条</td>
+									{yun:}/if{/yun}
+									<td colspan="10" class="digg">{yun:}$pagenav{/yun}</td>
+								</tr>
+							{yun:}/if{/yun}
+						</tbody>
+					</table>
+					<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+				</form>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		layui.use(['layer', 'form'], function() {
+			var layer = layui.layer,
+				form = layui.form,
+				$ = layui.$;
+		});
+
+		$(document).ready(function(){
+			$.get("index.php?m=user_member&c=userNum", function(data) {
+				var datas = eval('(' + data + ')');
+				if(datas.userAllNum) {
+					$('.ajaxuserall').html(datas.userAllNum);
+				}
+				if(datas.userStatusNum1) {
+					$('.userStatusNum1').html(datas.userStatusNum1);
+				}
+				if(datas.userStatusNum2) {
+					$('.userStatusNum2').html(datas.userStatusNum2);
+				}
+				if(datas.userStatusNum3) {
+					$('.userStatusNum3').html(datas.userStatusNum3);
+				}
+			});
+			
+			$(".check").click(function() {
+				$("input[name=pid]").val($(this).attr("pid"));
+				var uid = $(this).attr("pid");
+				var status = $(this).attr("status");
+				if(status==2){
+				  parent.layer.msg('当前用户为已锁定状态，无法进行审核操作', 2, 8);
+				  return false;
+				}
+				$("#state" + status).attr("checked", true);
+				layui.use(['form'], function() {
+					var form = layui.form;
+					form.render();
+				});
+				$("input[name=uid]").val(uid);
+				$.get("index.php?m=user_member&c=lockinfo&uid=" + uid, function(msg) {
+					$("#statusbody").val($.trim(msg));
+					$.layer({
+						type: 1,
+						title: '个人用户审核',
+						closeBtn: [0, true],
+						border: [10, 0.3, '#000', true],
+						area: ['420px', '240px'],
+						page: {
+							dom: "#info_div"
+						}
+					});
+				});
+			});
+			
+			$(".deleS").click(function() {
+
+				var uid = $(this).attr("pid");
+		   
+				layui.use(['form'], function() {
+					var form = layui.form;
+					form.render();
+				});
+
+				$("input[name=del]").val(uid);
+
+				$.layer({
+					type: 1,
+					title: '删除个人数据',
+					closeBtn: [0, true],
+					border: [10, 0.3, '#000', true],
+					area: ['390px', '240px'],
+					page: {
+						dom: "#deleS_div"
+					}
+				});
+
+			});
+
+		});
+		
+		/* 批量审核 */
+		function statusAll(name) {
+			var chk_value =[];  
+			   
+			$('input[name="'+name+'"]:checked').each(function(){    
+				chk_value.push($(this).val());   
+			});  
+		
+			if(chk_value.length==0){
+				layer.msg("请选择要批量审核的数据！",2,8);return false;
+			}else{
+				$("input[name=uid]").val(chk_value);
+				$("#statusbody").val('');
+				$("input[name='status']").attr('checked', false);
+				$.layer({
+					type : 1,
+					title : '个人用户审核',
+					closeBtn : [ 0, true ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '390px', 'auto' ],
+					page : {
+						dom : "#info_div"
+					}
+				});
+			}
+		}
+		
+		/*邮件认证*/
+		$(".user_email").click(function(data){
+			var status = $(this).attr("data-status");
+			var uid    = $(this).attr("data-url");
+			var email  = $(this).attr("data-email");
+			$('#useremailemail').val(email);
+			 $('#useremailuid').val(uid);
+			$("#userestatus" + status).attr("checked", true);
+			layui.use([ 'form' ], function() {
+				var form = layui.form;
+				form.render();
+			 });
+			$.layer({
+				type : 1,
+				title : '邮箱认证',
+				closeBtn : [ 0, true ],
+				offset : [ '80px', '' ],
+				border : [ 10, 0.3, '#000', true ],
+				area : [ '350px', '220px' ],
+				page : {
+				dom : '#userrenemail'
+				}
+			}); 
+		})
+		
+		/*手机认证*/
+		$(".user_moblie").click(function(data){
+			var status = $(this).attr("data-status");
+			var uid    = $(this).attr("data-url");
+			var moblie  = $(this).attr("data-moblie");
+			$('#usermobliemoblie').val(moblie);
+			$('#usermoblieuid').val(uid);
+			$("#usermstatus" + status).attr("checked", true);
+			 layui.use([ 'form' ], function() {
+				var form = layui.form;
+				form.render();
+			});
+			$.layer({
+				type : 1,
+				title : '手机认证',
+				closeBtn : [ 0, true ],
+				offset : [ '80px', '' ],
+				border : [ 10, 0.3, '#000', true ],
+				area : [ '350px', '220px' ],
+				page : {
+					dom : '#userrenmoblie'
+				}
+			}); 
+		})
+		
+		/*身份认证*/
+		$(".user_idcard").click(function(data){
+			var useridstatus     = $(this).attr("data-status");//状态
+			var useriduid        = $(this).attr("data-uid");//uid
+			var useridcard       = $(this).attr("data-idcard");//身份证号码
+			var useridurl        = $(this).attr("data-url");//身份证图片
+			var pytoken=$('#pytoken').val();
+			$(".job_box_div").html("<img src='"+useridurl+"' style='width:150px;height:80px' />");
+			if(useridurl){
+				$("#preview_url").attr("href",useridurl);
+				$("#preview_url").show();
+				$("#sfzrz").hide();
+			}else{
+				$("#sfzrz").show();
+				$("#preview_url").hide();
+			}
+			
+			$('#useriduid').val(useriduid);
+			if(useridcard){
+				$('#userididcard').html(useridcard);
+			}else{
+				$('#userididcard').html('暂无身份证号码');
+			}
+		   
+			$("#userstatus" + useridstatus).attr("checked", true);
+			layui.use([ 'form' ], function() {
+				var form = layui.form;
+				form.render();
+			});
+			$.post("index.php?m=usercert&c=sbody", {uid: useriduid,pytoken: pytoken}, function(msg) {
+				$("#usercontent").val(msg);
+			});
+			$.layer({
+				type : 1,
+				title : '身份认证',
+				closeBtn : [ 0, true ],
+				offset : [ '80px', '' ],
+				border : [ 10, 0.3, '#000', true ],
+				area : [ '390px', 'auto' ],
+				page : {
+				dom : '#preview'
+				}
+			}); 
+		})
+
+		/*批量认证*/
+		function batch(name){
+			var chk_value =[];  
+		   
+			$('input[name="'+name+'"]:checked').each(function(){    
+				chk_value.push($(this).val());   
+			});  
+		
+			if(chk_value.length==0){
+				layer.msg("请选择要批量认证的数据！",2,8);return false;
+			}else{
+
+				$('#btachuid').val(chk_value);
+				$.layer({
+					type : 1,
+					title : '批量认证',
+					closeBtn : [ 0, true ],
+					offset : [ '80px', '' ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '350px', '235px' ],
+					page : {
+						dom : '#batchrezhen'
+					}
+				}); 
+			}
+		}
+
+		function toMember(url, usertype){
+			if (usertype !='1'){
+				if(usertype == '0'){
+					parent.layer.confirm("该账户当前没有设置身份，以求职者身份模拟进入可能导致部分功能无法正常使用，是否确认进入？", function() {
+						parent.layer.closeAll();
+						window.open(url);
+					});
+				}else{
+					if(usertype == '2'){
+						var u = '招聘者';
+					}
+					parent.layer.confirm("该账户当前身份为"+u+"，以求职者身份模拟进入可能导致部分功能无法正常使用，是否确认进入？", function() {
+						parent.layer.closeAll();
+						window.open(url);
+					});
+				}
+			}else{
+				window.open(url);
+			}
+		}
+	</script>
+	{yun:}include file="$adminstyle/checkdomain.htm"{/yun}
+</body>
+
+</html>

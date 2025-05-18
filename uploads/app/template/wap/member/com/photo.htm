@@ -1,0 +1,130 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun}
+<link rel="stylesheet" type="text/css" href="{yun:}$wap_style{/yun}/js/webapppic/cropper.css?v={yun:}$config.cachecode{/yun}" />
+
+<script src="{yun:}$wap_style{/yun}/js/alloy/transform.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/alloy/alloy-finger.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/alloy-crop.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/compress.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/exif.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script>
+    $(function() {
+
+        function cutImg() {
+            $('#showResult').fadeOut();
+        }
+
+        $('#image').on('change', function() {
+            cutImg();
+        });
+
+        
+       
+        var $inputImage = $('#image'),
+            URL = window.URL || window.webkitURL;
+        if(URL) {
+            $inputImage.change(function() {
+                var files = this.files,
+                    file;
+                previewImage(this,'preview');
+                if(files && files.length) {
+                    file = files[0];
+
+                    if(/^image\/\w+$/.test(file.type)) {
+                        setTimeout(function(){
+
+                            toAlloyCrop($('#preview').val());
+                        },1000);
+                        $inputImage.val('');
+                    } else {
+                        showMessage('请上传图片');
+                    }
+                }
+            });
+        } else {
+            $inputImage.parent().remove();
+        }
+        function toAlloyCrop(pic){
+            var mAlloyCrop;
+            
+            mAlloyCrop = new AlloyCrop({
+                image_src: pic,
+                width: 200,
+                height: 200,
+                output: 1,
+                ok: function(base64, canvas) {
+                    $("#changeAvatar > img").attr("src", base64);
+                    document.getElementById('uimage').value = base64;
+                    $('#showResult').fadeIn();
+                    mAlloyCrop.destroy();
+                },
+                cancel: function() {
+                    $('#showResult').fadeIn();
+                    mAlloyCrop.destroy();
+                },
+                ok_text: '确定',
+                cancel_text: '取消'
+            });
+        }
+    });
+
+    function photo() {
+        var uimage = $("#uimage").val();
+        if(uimage == '') {
+            layermsg('LOGO未改变，无需修改');
+            return false;
+        }else{
+			var regS = new RegExp("\\+", "gi");
+			uimage = uimage.replace(regS, "#");
+			layer_load('执行中，请稍候...');
+			$.ajax({
+				type: 'POST',
+				url: "index.php?c=photo",
+				cache: false,
+				dataType: 'json',
+				data: {
+					uimage: uimage,
+					submit: 1
+				},
+				success: function(res) {
+					layer.closeAll();
+					if(res){
+                        layermsg(res.msg, 2, function() {
+                            window.location.reload();
+                        });
+                        return false;
+                    }
+				}
+			});
+		}
+        
+    }
+</script>
+<section class="resume_mangage">
+    <div class="clear"></div>
+    <div class="verify">
+        <div class="photo_i_box_v">
+            <div class="photo_i_box_v_c">
+                <div id="showResult">
+                    <div id="changeAvatar" class="photo_i_box">
+                        <img src="{yun:}$company.logo{/yun}" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_unit_icon{/yun}',2);" width="120" height="120">
+                    </div>
+                    <div class="clear"></div>
+                    <div class="photo_xz">
+                        <input id="image" type="file" accept="image/*" /> 选择上传logo
+                        
+                    </div>
+                    <div class="yunset_identity_msg"><i class="yunset_identity_msg_icon"></i>选择上传logo点击提交按钮即可上传{yun:}if $company.logo_n{/yun}({yun:}if $company.logo_status=='1'{/yun}<font color="red">审核中</font>{yun:}else if $company.logo_status=='2'{/yun}<font color="red">未通过</font>{yun:}else{/yun}<font color="red">已审核</font>{yun:}/if{/yun}){yun:}/if{/yun}</div>
+                </div>
+                
+                <input type="hidden" value=""  id="preview">
+            </div>
+            <div class="photo_tj">
+                <input type='hidden' name="txt" id="uimage" value="">
+                <input name="submit" type="button" onclick="photo()" value="提交" class="yunset_bth" />
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+<div class="clear"></div>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

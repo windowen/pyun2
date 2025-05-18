@@ -1,0 +1,112 @@
+{yun:}userlist limit=20 minsalary='auto.minsalary' maxsalary='auto.maxsalary' minage='auto.minage' maxage='auto.maxage' noid=1 idcard='auto.idcard' edu='auto.edu' order='auto.order' work='auto.work' exp='auto.exp' tag='auto.tag' sex='auto.sex' keyword='auto.keyword' hy='auto.hy' provinceid='auto.provinceid' report='auto.report' cityid='auto.cityid' three_cityid='auto.three_cityid' pic='auto.pic' typeids='auto.typeids' type='auto.type' job1='auto.job1' job1_son='auto.job1_son' job_post='auto.job_post' uptime='auto.uptime' post_len=14 ispage=1 workexp=1 integrity='auto.integrity' item=user key=key name=userlist1{/yun}
+	<div class="search_job_list {yun:}if $key%2!='0'{/yun}{yun:}/if{/yun}">
+	
+	<div class="resume_newlist"><div class="resume_newlist_jobname"><a href="{yun:}url m=resume c=show id=$user.id{/yun}" target="_blank"  class="resume_newlist_job">{yun:}$user.name{/yun}</a>{yun:}if $user.idcard_status=='1'{/yun}<img src="{yun:}$style{/yun}/images/sf.png" title="身份已认证" class="user_rz_img png fl" />{yun:}/if{/yun} {yun:}if $user.ispic{/yun}<img src="{yun:}$style{/yun}/images/profile.png" title="有形象照" class="user_rz_img png fl" />{yun:}/if{/yun} {yun:}if in_array($user.id,$talentpool){/yun}<span class="lookjob">已收藏</span>{yun:}/if{/yun} {yun:}if in_array($user.uid,$useridmsg){/yun}<span class="lookjob">已邀请</span>{yun:}/if{/yun} {yun:}if $user.rec_resume{/yun}<img  src="{yun:}$style{/yun}/images/jobtj.png" title="站长推荐" class="user_rz_img png fl"/>{yun:}/if{/yun}&nbsp;</div> <div class="resume_newlist_user"><a href="{yun:}url m=resume c=show id=$user.id{/yun}" target="_blank" class="resume_newlist_username">
+				{yun:}if in_array($user.id,$eid){/yun} {yun:}$user.uname{/yun} {yun:}else{/yun} {yun:}$user.username_n{/yun} {yun:}/if{/yun}
+			</a>
+			<span class="user_listinfo">{yun:}if $user.age==0{/yun}保密{yun:}else{/yun}{yun:}$user.age{/yun}岁{yun:}/if{/yun}<i class="user_listinfo_line">|</i>{yun:}$user.exp_n{/yun}经验<i class="user_listinfo_line">|</i>{yun:}$user.edu_n{/yun}学历 &nbsp;</span>{yun:}if $user.newtime==1{/yun}<i class="yunuserlist_newicon" title="新简历">新发布</i>{yun:}/if{/yun} </div>
+	<div class="resume_newlist_city">{yun:}if $user.expectcity{/yun}
+					{yun:}foreach from=$user.expectcity item=v key=key{/yun}
+					{yun:}if $key < 5{/yun}
+						<span class="user_tag">{yun:}$v{/yun}</span>
+					{yun:}/if{/yun}
+					{yun:}/foreach{/yun}
+				{yun:}/if{/yun}</div>
+	  <div class="resume_newlist_date">
+	      {yun:}if $user.redtime==1 || $user.time=='昨天'{/yun}
+					<span style="color:red;">{yun:}$user.time{/yun}</span>
+				{yun:}else{/yun}
+					{yun:}$user.time{/yun}
+				{yun:}/if{/yun}&nbsp;
+				
+				</div>
+	   <a href="javascript:;" pid="{yun:}$user.id{/yun}" class="yunjoblist_new_icon {yun:}if $smarty.get.rtype!='1'{/yun}yunjoblist_new_icon_cur{yun:}/if{/yun}" title="{yun:}if $smarty.get.rtype!='1'{/yun}收起{yun:}else{/yun}展开{yun:}/if{/yun}"></a>
+	</div>
+
+	<div class="resumeshow {yun:}if $smarty.get.rtype=='1'{/yun}none{yun:}/if{/yun}" id="resumeshow{yun:}$user.id{/yun}">
+		<div class="user_photo_left">
+			<a href="{yun:}url m=resume c=show id=$user.id{/yun}" target="_blank">
+				<img src="{yun:}$user.photo{/yun}" width="60" height="60" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_member_icon{/yun}',2);" />
+			</a>
+			<i class="resume_list_xb resume_list_xb {yun:}if $user.sex=='女'{/yun}resume_list_xb_nv{yun:}/if{/yun}"></i>
+		</div>
+
+		<div class="usersearch_job_left_siaber">
+
+
+			<div class="user_listinfo_job">工作职能：
+				{yun:}if $user.expectjob{/yun}
+					{yun:}foreach from=$user.expectjob item=v key=key{/yun}
+						{yun:}if $key < 5{/yun} <span class="user_tag">{yun:}$v{/yun}</span>{yun:}/if{/yun}
+					{yun:}/foreach{/yun}
+				{yun:}/if{/yun}
+			</div>
+
+			<div class="user_listinfo_mytag">
+				{yun:}if $user.tag{/yun}
+					<ul class="user_tag_user">
+						{yun:}foreach from=$user.tag key=key item=v{/yun}
+							{yun:}if $key < 5{/yun}
+								<li class="user_tag_user_a">{yun:}$v{/yun}</li>
+							{yun:}/if{/yun}
+						{yun:}/foreach{/yun}
+					</ul>
+				{yun:}else{/yun}
+					<div class="user_tag_user_p">求职状态：{yun:}$user.user_jobstatus_n{/yun} </div>
+				{yun:}/if{/yun}
+			</div>
+
+		</div>
+
+		<div class="user_want">
+		<!--    填的情况-->
+		{yun:}if $user.work_content || $user.edu_content{/yun}
+
+
+			{yun:}if $user.edu_content{/yun}
+				<div class="user_undergo">{yun:}$user.edu_content{/yun}  </div>
+			{yun:}/if{/yun}
+
+			{yun:}if $user.work_content{/yun}
+				<div class="user_undergo">{yun:}$user.work_content{/yun}  </div>
+			{yun:}/if{/yun}
+
+
+
+		{yun:}else{/yun}
+		<div class="user_undergo">到岗时间：{yun:}$user.report_n{/yun}</div>
+			<div class=" user_undergo">期望薪资：{yun:}$user.salary_n{/yun}</div>
+		{yun:}/if{/yun}
+
+		 <!--    填的情况 end-->
+		</div>
+		<div class="yun_look_right">
+			<span class="yun_look_time">
+
+			</span>
+			<a href="{yun:}url m=resume c=show id=$user.id{/yun}" target="_blank" class="yun_look_bth ">查看</a>
+		</div>
+	</div>
+  
+		{yun:}if in_array($user.id,$lookResumeIds){/yun}<div class="look_user">浏览过</div>{yun:}/if{/yun}
+	</div>
+{yun:}/userlist{/yun}
+<div class="clear"></div>
+{yun:}if $total!=0 || is_array($user2){/yun}
+	<div class="search_pages">
+		<div class="pages">{yun:}$pagenav{/yun}{yun:}$totalshow{/yun}</div>
+	</div>
+{yun:}else{/yun}
+	<div class="seachno">
+		<div class="seachno_left"><img src="{yun:}$style{/yun}/images/search-no.gif" width="144" height="102" /></div>
+		<div class="listno-content">
+			<strong>很抱歉，没有找到满足条件的人才</strong><br>
+			<span> 建议您：<br>1、适当减少已选择的条件<br>2、适当删减或更改搜索关键字<br></span>
+			<span> 热门关键字：<br>
+				{yun:}key limit=10 recom=1 type=5 item=klist{/yun}
+					<a href="{yun:}listurl m=resume type=keyword v=$klist.key_title{/yun}" title="{yun:}$klist.key_title{/yun}">{yun:}$klist.key_name{/yun}</a>
+				{yun:}/key{/yun}
+			</span>
+		</div>
+	</div>
+{yun:}/if{/yun}

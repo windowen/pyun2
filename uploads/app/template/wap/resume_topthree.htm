@@ -1,0 +1,171 @@
+{yun:}userlist limit=5 topdate=1  post_len=14 city_len=14  islt=4   workexp=1 item=zduser{/yun}
+				
+<div class="yun_newedition_resumelist">
+	<a href="{yun:}url m=wap c=resume a=show id=$zduser.id{/yun}">
+		<div class="yun_newedition_resumepic">
+			{yun:}if $zduser.photo!=""{/yun}
+				<img src="{yun:}$zduser.photo{/yun}"> 
+			{yun:}else{/yun}
+				<img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_member_icon{/yun}"> 
+			{yun:}/if{/yun}
+			<span class="{yun:}if $zduser.sex=='女'{/yun}user_tj_xg{yun:}elseif $zduser.sex=='男'{/yun}user_tj_xb{yun:}/if{/yun}"></span>
+		</div>
+		<div class="yun_newedition_resume_wantjob"><span class="yun_newedition_resume_wantjob_n">{yun:}$zduser.name{/yun}</span>
+		</div>
+		<div class="yun_newedition_resume_name">
+			{yun:}if in_array($zduser.id,$eid){/yun}
+				{yun:}$zduser.uname{/yun}
+			{yun:}else{/yun}
+				{yun:}$zduser.username_n{/yun}
+			{yun:}/if{/yun}
+		<span class="user_i_n">{yun:}if $zduser.sex{/yun}{yun:}$zduser.sex{/yun},{yun:}/if{/yun}
+			{yun:}if $zduser.age == 0{/yun}保密{yun:}else{/yun}{yun:}$zduser.age{/yun}岁{yun:}/if{/yun}
+			</span>
+		</div>
+		<div class="yun_newedition_userinfo">
+			{yun:}$zduser.exp_n{/yun}经验<i class="yun_newedition_jobline"></i>{yun:}$zduser.edu_n{/yun}学历
+		</div>
+		{yun:}if $zduser.work_content || $zduser.edu_content{/yun}
+		<div class="user_undergo_box">
+			{yun:}if $zduser.edu_content{/yun}
+				<div class="user_undergo user_undergo_a">{yun:}$zduser.edu_content{/yun}  </div>
+			{yun:}/if{/yun}
+			{yun:}if $zduser.work_content{/yun}
+				<div class="user_undergo user_undergo_b">{yun:}$zduser.work_content{/yun}  </div>
+			{yun:}/if{/yun}
+		</div>
+	{yun:}/if{/yun}
+		
+		{yun:}if !empty($zduser.tag){/yun}
+			<div class="yun_tjresumebox">
+			{yun:}foreach from=$zduser.tag item=tval{/yun}
+			<span class="yun_tjresume">{yun:}$tval{/yun}</span>
+			{yun:}/foreach{/yun}
+			</div>
+		{yun:}/if{/yun}
+		
+		<span class="yun_newedition_resume_zd" style="    right: 30px;
+top: 83px;">置顶</span>
+			{yun:}if in_array($zduser.id, $lookResumeIds){/yun}<div class="yun_ljl" >. 浏览过的简历</div>{yun:}/if{/yun}
+	</a>
+
+
+
+</div>
+{yun:}/userlist{/yun} 
+{yun:}userlist limit=3  noid=1  post_len=14 item=mouser order='topdate' workexp=1 city_len=14 key=key name=userlist3{/yun}
+	<div class="yun_newedition_resumelist">
+		{yun:}if $usertype == 1{/yun}
+
+			<a href="{yun:}url m=wap c=resume a=show id=$mouser.id{/yun}">
+
+			<div class="yun_newedition_resumepic">
+				{yun:}if $mouser.photo!=""{/yun}
+					<img src="{yun:}$mouser.photo{/yun}"> 
+				{yun:}else{/yun}
+					<img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_member_icon{/yun}"> 
+				{yun:}/if{/yun}
+				<span class="{yun:}if $mouser.sex=='女'{/yun}user_tj_xg{yun:}elseif $mouser.sex=='男'{/yun}user_tj_xb{yun:}/if{/yun}"></span>
+			</div>
+			<div class="yun_newedition_resume_wantjob"><span class="yun_newedition_resume_wantjob_n">{yun:}$mouser.name{/yun}</span></div>
+			<div class="yun_newedition_resume_name">
+				{yun:}if in_array($mouser.id,$eid){/yun}
+					{yun:}$mouser.uname{/yun}
+				{yun:}else{/yun}
+					{yun:}$mouser.username_n{/yun}
+				{yun:}/if{/yun}
+				
+				<span class="user_i_n">{yun:}if $mouser.sex{/yun}{yun:}$mouser.sex{/yun}<i class="yun_newedition_jobline"></i>{yun:}/if{/yun}
+				{yun:}if $mouser.age == 0{/yun}保密{yun:}else{/yun}{yun:}$mouser.age{/yun}岁{yun:}/if{/yun}
+				</span>
+				{yun:}if $mouser.rec_resume{/yun}<span class="usertj"> 推荐</span>{yun:}/if{/yun}
+			</div>
+			
+			<div class="yun_newedition_userinfo">
+				{yun:}$mouser.exp_n{/yun}经验
+				<i class="yun_newedition_jobline"></i>{yun:}$mouser.edu_n{/yun}学历
+			</div>
+				
+				{yun:}if !empty($mouser.tag){/yun}
+					<div class="yun_tjresumebox">
+					{yun:}foreach from=$mouser.tag item=tval{/yun}
+					<span class="yun_tjresume">{yun:}$tval{/yun}</span>
+					{yun:}/foreach{/yun}
+					</div>
+				{yun:}/if{/yun}
+			
+			
+			<span class="yun_newedition_resume_time">
+				{yun:}if $mouser.redtime==1 || $mouser.time=='昨天'{/yun}
+					<span>{yun:}$mouser.time{/yun}</span> 
+				{yun:}else{/yun} 
+					{yun:}$mouser.time{/yun} 
+				{yun:}/if{/yun}
+			</span>
+		
+			</a>
+		{yun:}else{/yun} 
+			<a href="{yun:}url m=wap c=resume a=show id=$mouser.id{/yun}">
+				<div class="yun_newedition_resumepic">
+					{yun:}if $mouser.photo!=""{/yun}
+						<img src="{yun:}$mouser.photo{/yun}"> 
+					{yun:}else{/yun}
+						<img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_member_icon{/yun}"> 
+					{yun:}/if{/yun}
+					<span class="{yun:}if $mouser.sex=='女'{/yun}user_tj_xg{yun:}elseif $mouser.sex=='男'{/yun}user_tj_xb{yun:}/if{/yun}"></span>
+				</div>
+<div class="yun_newedition_resume_wantjob"><span class="yun_newedition_resume_wantjob_n">{yun:}$mouser.name{/yun}</span></div>
+				<div class="yun_newedition_resume_name">
+					{yun:}if in_array($mouser.id,$eid){/yun}
+						{yun:}$mouser.uname{/yun}
+					{yun:}else{/yun}
+						{yun:}$mouser.username_n{/yun}
+					{yun:}/if{/yun}
+					<span class="user_i_n">
+					{yun:}if $mouser.sex{/yun}{yun:}$mouser.sex{/yun},{yun:}/if{/yun}
+					{yun:}if $mouser.age == 0{/yun}保密{yun:}else{/yun}{yun:}$mouser.age{/yun}岁{yun:}/if{/yun}
+					</span>
+			{yun:}if $mouser.rec_resume{/yun}
+			
+<span class="usertj"> 推荐</span>{yun:}/if{/yun}
+				</div>
+
+				<div class="yun_newedition_userinfo">
+					
+					{yun:}$mouser.exp_n{/yun}经验
+					<i class="yun_newedition_jobline"></i>{yun:}$mouser.edu_n{/yun}学历
+				</div>
+					{yun:}if $mouser.work_content || $mouser.edu_content{/yun}
+			<div class="user_undergo_box">
+			{yun:}if $mouser.edu_content{/yun}
+				<div class="user_undergo user_undergo_a">{yun:}$mouser.edu_content{/yun}  </div>
+			{yun:}/if{/yun}
+			{yun:}if $mouser.work_content{/yun}
+				<div class="user_undergo user_undergo_b">{yun:}$mouser.work_content{/yun}  </div>
+			{yun:}/if{/yun}
+			</div>
+		{yun:}/if{/yun}
+				
+				{yun:}if !empty($mouser.tag){/yun}
+					<div class="yun_tjresumebox">
+						{yun:}foreach from=$mouser.tag item=tval{/yun}
+						<span class="yun_tjresume">{yun:}$tval{/yun}</span>
+						{yun:}/foreach{/yun}
+						</div>
+					{yun:}/if{/yun}
+				
+				
+				<span class="yun_newedition_resume_time">
+					{yun:}if $mouser.redtime==1 || $mouser.time=='昨天'{/yun}
+						<span>{yun:}$mouser.time{/yun}</span> 
+					{yun:}else{/yun} 
+						{yun:}$mouser.time{/yun} 
+					{yun:}/if{/yun}
+				</span>
+				
+			</a>
+		{yun:}/if{/yun}
+		
+	
+	</div>
+{yun:}/userlist{/yun} 

@@ -1,0 +1,86 @@
+<div class="yun_new_top">
+  <div class="yun_new_cont">
+    <div class="yun_new_left">
+      {yun:}if $config.sy_web_site=='1'{/yun}
+	  <span class="fl">
+      <span class="yun_new_left_city" id="substation_city_id"></span>
+	  <input type="hidden" id="indexdir" value="{yun:}$smarty.get.indexdir{/yun}">
+	  </span>
+      {yun:}/if{/yun}
+电话：{yun:}$config.sy_freewebtel{/yun}
+</div>
+    <div class="yun_new_right" id = "login_head_div">
+      <div class="yun_topNav fr">
+        <a class="yun_navMore" href="javascript:;">网站导航</a>
+        <div class="yun_webMoredown none">
+          <div class="yun_top_nav_box">
+            <ul class="yun_top_nav_box_l">
+				{yun:}navmap key=key item=maplist{/yun}
+				<li><a href="{yun:}$maplist.url{/yun}" {yun:}if $maplist.eject{/yun} target="_blank"{yun:}/if{/yun}>{yun:}$maplist.name{/yun} </a> </li> 
+				{yun:}/navmap{/yun}
+			</ul> 
+			<ul class="yun_top_nav_box_wx">
+			    {yun:}nav item=navlist_app hovclass=nav_list_hover nid=11{/yun}
+				<li> 
+					<a class="move_0{yun:}$navlist_app.sort{/yun}" {yun:}if $navlist_app.eject{/yun} target="_blank"{yun:}/if{/yun} href="{yun:}$config.sy_weburl{/yun}/{yun:}$navlist_app.url{/yun}">{yun:}$navlist_app.name{/yun}</a>
+                </li>
+               {yun:}/nav{/yun}
+            </ul>
+
+          </div>
+        </div>
+      </div>
+
+      <span class="yun_new_right_we">{yun:}$config.sy_webname{/yun}欢迎您！</span>
+	  
+	   
+      <a href="{yun:}url m=index c=wap{/yun}" class="yun_new_right_wap">手机端</a>
+ <span id="login_head_id"></span>
+     
+    </div>
+  </div>
+</div>
+<!--top end-->
+<div class="hp_head hp_head_box">
+  <div class="w1200">
+    <div class="hp_head_ft fl">
+      <div class="phpyun_logo fl"><a href="{yun:}$config.sy_weburl{/yun}"
+          title="{yun:}$config.sy_webname{/yun}最新招聘求职信息"><img
+            src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_logo{/yun}" alt="{yun:}$config.sy_webname{/yun}" /></a>
+      </div>
+
+    </div>
+    <div class="yun_header_nav_box">
+      <ul>
+        {yun:}nav item=navlist hovclass=nav_list_hover nid=1{/yun}
+        <li class="{yun:}$navlist.navclass{/yun}"> 
+			<a href="{yun:}$navlist.url{/yun}" {yun:}if $navlist.eject{/yun} target="_blank" {yun:}/if{/yun} class="png"> {yun:}$navlist.name{/yun} </a>
+			{yun:}if $navlist.model=="new"{/yun}
+			<div class="nav_icon nav_icon_new"> <img src="{yun:}$style{/yun}/images/new.gif"> </div>
+			{yun:}elseif $navlist.model=="hot"{/yun}
+			<div class="nav_icon nav_icon_hot"> <img src="{yun:}$style{/yun}/images/hotn.gif"> </div>
+			{yun:}/if{/yun}
+			<i class="yun_new_headernav_list_line"></i>
+        </li>
+        {yun:}/nav{/yun}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{yun:}if $config.sy_header_fix=='1'{/yun}
+<!--滚动展示内容-->
+<div class="header_fixed yun_bg_color none" id="header_fix">
+  <div class="header_fixed_cont">
+    <ul class="header_fixed_list">
+      {yun:}nav item=nlist hovclass=header_fixed_list_cur nid=1{/yun}
+        <li class="{yun:}$nlist.navclass{/yun}">
+          <a href="{yun:}$nlist.url{/yun}" {yun:}if $nlist.eject{/yun} target="_blank" {yun:}/if{/yun}>{yun:}$nlist.name{/yun} </a> 
+        </li> 
+      {yun:}/nav{/yun} 
+    </ul>
+</div>
+<div class="header_fixed_close"><a href="javascript:;" onclick="$('#header_fix').remove();" rel="nofollow">关闭</a></div>
+</div>
+<!--滚动展示内容 end-->
+{yun:}/if{/yun}

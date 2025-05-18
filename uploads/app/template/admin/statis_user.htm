@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="./images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/statis.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<title>后台管理-图表分析</title>
+	<style>
+		.admin_new_search_time{width: 120px !important;}
+	</style>
+</head>
+
+<body class="body_ifm">
+	<div class="infoboxp">
+		<div class="tty-tishi_top">
+		<div class="tabs_info">
+			<ul>
+				<li><a href="index.php?m=statis" >收支总计</a></li>
+				<li><a href="index.php?m=statis_income">收益渠道</a></li>
+				<li class="curr"><a href="index.php?m=statis_user">消费群体</a></li>
+			</ul>
+		</div>
+
+		<div class="clear"></div>
+
+		<div class="admin_new_search_box">
+		
+		<form class="layui-form">
+			<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+			<div id="time_range">
+				<div class="admin_new_search_name"><label>查询范围：</label></div>
+				
+				<input type="text" class="admin_new_search_time" id="time_begin">
+				<input type="text" class="admin_new_search_time" id="time_end">
+
+				<button class="admin_new_search_timebth" lay-filter="query" onclick="return query();">点击查询</button>
+				<button class="admin_new_search_timebth" onclick="return showDetail(this);">查看详情</button>
+				
+				<div class="layui-input-inline">
+					<input name="radio_time" value="0" title="今天" type="radio" lay-filter="radio_time" {yun:}if $radio_time == '0'{/yun}checked{yun:}/if{/yun} />
+					<input name="radio_time" value="1" title="昨天" type="radio" lay-filter="radio_time" {yun:}if $radio_time == '1'{/yun}checked{yun:}/if{/yun} />
+					<input name="radio_time" value="7" title="7天内" type="radio" lay-filter="radio_time" {yun:}if $radio_time == '7'{/yun}checked{yun:}/if{/yun} />
+					<input name="radio_time" value="30" title="30天内" type="radio" lay-filter="radio_time" {yun:}if $radio_time=="" || $radio_time == '30'{/yun}checked{yun:}/if{/yun} />
+					<input name="radio_time" value="90" title="90天内" type="radio" lay-filter="radio_time" {yun:}if $radio_time == '90'{/yun}checked{yun:}/if{/yun} />
+					<input name="radio_time" value="-1" title="全部" type="radio" lay-filter="radio_time"{yun:}if $radio_time == '-1'{/yun}checked{yun:}/if{/yun} />
+					<input type="hidden" name="isAllTime" id="isAllTime" value="0"/>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="clear"></div>
+  </div>
+	<div class="adminstatis_box">
+		<div class="com_pay_balance">
+			<div class="com_pay_balance_data_q">
+				<i class="com_pay_balance_data_q_icon"></i>
+				<div class="com_pay_balance_data_n"><strong>{yun:}$data[0]['in']{/yun}</strong></div>
+				<div class="com_pay_balance_data_name">收益</div>
+			</div>
+		</div>
+
+		<div class="com_pay_balance">
+			<div class="com_pay_balance_data_q border_blue">
+				<i class="com_pay_balance_data_q_icon"></i>
+				<div class="com_pay_balance_data_n color_blue"><strong>{yun:}$data[0]['out']{/yun}</strong></div>
+				<div class="com_pay_balance_data_name">支出/提现</div>
+			</div>
+		</div>
+
+		<div class="com_pay_balance">
+			<div class="com_pay_balance_data_q border_orange">
+				<i class="com_pay_balance_data_q_icon"></i>
+				<div class="com_pay_balance_data_n color_orange"><strong>{yun:}$data[0]['net_income']{/yun}</strong></div>
+				<div class="com_pay_balance_data_name">净收入</div>
+			</div>
+		</div>  
+	</div> 
+	
+	<div class="clear"></div>
+    
+	<div class="com_pay_balance_qtbox">
+		<a href="index.php?m=statis_user" class="layui-btn layui-btn-small {yun:}if $smarty.get.m == 'statis_user' && $smarty.get.c == ''{/yun}layui-btn-warm{yun:}else{/yun}layui-btn-normal{yun:}/if{/yun}">消费最多企业</a>
+
+		<a href="index.php?m=statis_user&c=user" class="layui-btn layui-btn-small {yun:}if $smarty.get.m == 'statis_user' && $smarty.get.c == 'user'{/yun}layui-btn-warm{yun:}else{/yun}layui-btn-normal{yun:}/if{/yun}">消费最多个人</a>
+		
+
+		<a href="index.php?m=statis_city" class="layui-btn layui-btn-small {yun:}if $smarty.get.m == 'statis_city'{/yun}layui-btn-warm{yun:}else{/yun}layui-btn-normal{yun:}/if{/yun}">消费最多地区</a>
+
+		<a href="index.php?m=statis_hy" class="layui-btn layui-btn-small {yun:}if $smarty.get.m == 'statis_hy'{/yun}layui-btn-warm{yun:}else{/yun}layui-btn-normal{yun:}/if{/yun}">消费最多行业</a>
+    </div>
+
+    <div class="clear"></div>
+  
+	<div class="payments_com_pay_cont">
+		<div class="admin_atatic_list_rightbox">
+			<div class="admin_atatic_chart " id="chart" style="height:370px;  margin-top:20px; margin-bottom:10px;"></div>
+			
+			<div class="admin_atatic_list_right">
+				<h3>{yun:}$user{/yun}消费排行</h3>
+				<ul class="admin_atatic_list_li">
+					{yun:}foreach from=$values item=r key=k{/yun}
+						<li>
+						{yun:}if $k < 3{/yun}
+							<span class="layui-badge">{yun:}$k + 1{/yun}</span>
+						{yun:}else{/yun}
+							<span class="layui-badge layui-bg-green">{yun:}$k + 1{/yun}</span>
+						{yun:}/if{/yun}
+						<span>{yun:}$r['name']{/yun}</span>--<span>{yun:}$r['value']{/yun}</span>
+						</li>
+					{yun:}/foreach{/yun}
+				</ul>
+			</div>
+		</div>
+
+		<div class="statis_list">
+			<table class="" lay-skin="nob" style="display: none;" id="detail" width="100%">
+				<thead>
+					<tr id="detail_thead"class="admin_table_top" style="text-align:left">
+						<th>项目</th>
+						<th>金额（元）</th>
+					</tr> 
+				</thead>
+
+				<tbody id="detail_tbody" >
+					{yun:}foreach from=$values item=r{/yun}
+						<tr>
+							<td>{yun:}$r['name']{/yun}</td>
+							<td>{yun:}$r['value']{/yun}</td>
+						</tr>
+					{yun:}/foreach{/yun}
+					<tr>
+						<td>总计</td>
+						<td>{yun:}$total{/yun}</td>
+					</tr>
+				</tbody>
+			</table>  
+		</div> 
+	</div>
+
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/echarts_plain.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script>
+		function getDateTimeStr(timestamp){
+			var d = new Date(timestamp);    //根据时间戳生成的时间对象
+			var h = d.getHours(),
+				m = d.getMinutes(),
+				s = d.getSeconds(),
+				month = d.getMonth() + 1,
+				day = d.getDate();
+
+			h = h < 10 ? '0' + h : h;
+			m = m < 10 ? '0' + m : m;
+			s = s < 10 ? '0' + s : s;
+
+			month = month < 10 ? '0' + month : month;
+			day = day < 10 ? '0' + day : day;
+
+			return (d.getFullYear()) + "-" + month + "-" + day + " " +  h + ":" + m + ":" + s;
+		}
+
+		function getToday(){
+			var today = new Date();
+			today.setHours(0);
+			today.setMinutes(0);
+			today.setSeconds(0);
+			today.setMilliseconds(0);
+			return today;
+		}
+    
+		layui.use(['form', 'laydate'], function(){
+			var laydate = layui.laydate
+				,form = layui.form
+				,$ = layui.$;
+
+			laydate.render({
+				elem : '#time_begin' //指定元素
+				,type : 'datetime'
+				,value : '{yun:}$defaultTimeBegin{/yun}'
+			});
+
+			laydate.render({
+				elem : '#time_end' //指定元素
+				,type : 'datetime'
+				,value : '{yun:}$defaultTimeEnd{/yun}'
+			});
+
+			form.on('radio(radio_time)', function(data){
+				var gourl = '{yun:}$gourl{/yun}';
+
+				if(data.value == -1){
+					window.location = gourl + '&isAllTime=1&radio_time=' + data.value;;
+				} else {
+					var today = getToday();
+					var diff = 1000 * 60 * 60 * 24 * data.value;
+					var day = new Date(today - diff);
+					window.location = gourl + '&time_begin=' + getDateTimeStr(Date.parse(day)) + '&time_end=' + getDateTimeStr(Date.parse(new Date())) + '&radio_time=' + data.value;
+				}
+			});
+
+			var title = '{yun:}$title{/yun}';
+			var names = [
+				{yun:}foreach from=$names item=v key=k{/yun}
+					{yun:}if $k>0{/yun},{yun:}/if{/yun}
+					'{yun:}$v{/yun}'
+				{yun:}/foreach{/yun}];
+
+			var values = [
+				{yun:}foreach from=$values item=v key=k{/yun}
+					{yun:}if $k>0{/yun},{yun:}/if{/yun}
+					{value : parseFloat('{yun:}$v["value"]{/yun}'),name : '{yun:}$v["name"]{/yun}'}
+				{yun:}/foreach{/yun}];
+
+			var valuesBar = [
+				{yun:}foreach from=$values item=v key=k{/yun}
+					{yun:}if $k>0{/yun},{yun:}/if{/yun}
+					parseFloat('{yun:}$v["value"]{/yun}')
+				{yun:}/foreach{/yun}];
+
+			refreshPieChart(title, names, values, valuesBar);
+		});//end layui.use()
+
+		Array.prototype.sum = function (){
+			return this.reduce(function (partial, value){
+				return partial + value;
+			})
+		};
+
+		function refreshPieChart(title, names, values, valuesBar){
+			var total = '{yun:}$total{/yun}';
+      
+			option = {
+				title : {
+					text: title,
+					subtext: '{yun:}$config.sy_webname{/yun}',
+					x:'center'
+				},
+				tooltip : {
+					trigger: 'item',
+					formatter: "{b} : {c} ({d}%)"
+				},
+				legend: {
+					x : 'center',
+					y : 'bottom',
+					data: names
+				},
+				//grid: [{x: '50%', y: '7%', width: '45%', height: '80%'},],
+
+				//xAxis: [{type: 'value',axisLabel: {show: false},axisTick: {show: false},axisLine: {show: false},splitLine: {show: false}}],
+				
+				//yAxis: [{type: 'category',boundaryGap: true,axisTick: {show: true},axisLabel: {interval: null},data: names,splitLine: {show: false}}],
+
+				series : [
+				{
+					name: '消费最多{yun:}$user{/yun}统计',
+					type: 'pie',
+					radius : '30%',
+					center: ['50%', '35%'],
+					data:values,
+					labelLine:{
+						normal:{
+							show:false
+						}
+					},
+					itemStyle: {
+						normal: {
+							label:{
+								show: true,
+								formatter: '{b}: {c} ({d}%)',
+								textStyle:{fontSize:"10"}
+							}
+						}
+					},
+				}
+				,
+				/**
+				{
+					name: '消费最多{yun:}$user{/yun}统计',
+					type: 'bar',
+					barCategoryGap: '5%',//设置条柱间距
+					barWidth: '15', //设置条柱宽度后，条柱间距设置无效
+					label: {
+						normal: {
+							show: true,
+							position: 'right',
+							formatter : '{c}/' + total
+						}
+					},
+					data: valuesBar,
+					center: ['70%', '40%']
+				}*/
+
+				]
+			};//end option
+
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('chart'));
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		}//end function refreshPieChart
+
+    
+		function query() {
+			var gourl = '{yun:}$gourl{/yun}';
+			window.location = gourl + '&time_begin=' + $("#time_begin").val() + '&time_end=' + $('#time_end').val();
+			return false;
+		}//end function query
+
+		var flag = true;
+		function showDetail(o){
+			if(flag){
+				$("#chart").hide();
+				$("#detail").show();
+				flag = false;
+				$(o).html('查看图表');
+			} else {
+				$("#detail").hide();
+				$("#chart").show();
+				flag = true;
+
+				$(o).html('查看详情');
+			}
+			return false;
+		}
+	</script>
+</body>
+</html>

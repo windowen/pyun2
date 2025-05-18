@@ -1,0 +1,25 @@
+{yun:}foreach item=v from=$lists{/yun}
+ <section>
+      <section style="margin:1em 1em;">
+        <section style="margin-bottom: -42px;margin-left:3px;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-o-transform: rotate(0deg);">
+          <section style="width:58px;height:58px;margin:20px 0px;background-color:#fefefe;border-radius:100%;margin-bottom:-35px;margin-left:-8px;"></section>
+          <section style="margin-bottom:-48px;margin-left:3px; width:56px; height:28px; background-color:#fefefe;border-radius:30px 30px 0 0;border: 2px dashed #0070c0;border-bottom: none;transform: rotate(140deg);-webkit-transform: rotate(140deg);-moz-transform: rotate(140deg);-o-transform: rotate(140deg);"></section>
+          <section class="135brush" data-brushtype="text" style="width:45px;height:45px;background-color:#0070c0;border-radius:100%;font-size: 26px;color: #fff;text-align: center;line-height: 45px;transform: rotate(0deg);-webkit-transform: rotate(0deg);-moz-transform: rotate(0deg);-o-transform: rotate(0deg);"> 聘 </section>
+        </section>
+        <section style="padding:0 0.3em;">
+          <section style="border: 2px dashed #0070c0;border-radius:6px ;padding:0px 1em 1em 1em;">
+            <section class="135brush" data-brushtype="text" style="font-size: 18px;padding:0.7em 0px 20px 2.6em;font-weight: bold;"> <strong style="color:#c00000;">{yun:}$v.name{/yun} </strong> </section>
+<section data-autoskip="1" class="135brush" style="font-size: 14px;text-align: justify;letter-spacing:1.5px;line-height: 1.75em;">
+{yun:}if $v.job_welfare{/yun}<p style="margin-bottom:0.5rem;">{yun:}foreach from=$v.job_welfare item = welv{/yun}<span style="padding:0.1rem 0.5rem; background-color:#eee; border-radius:0.5rem;">{yun:}$welv{/yun}</span>{yun:}/foreach{/yun}</p>{yun:}/if{/yun}<p>月薪： <strong style="color:#c00000;font-size: 16px;">￥{yun:}$v.job_salary{/yun}</strong> </p><p> 企业：{yun:}$v.com_name{/yun}  </p><p>{yun:}if $v.job_number{/yun}招聘{yun:}$v.job_number{/yun}{yun:}/if{/yun}{yun:}if $v.job_age{/yun}{yun:}$v.job_age{/yun}年龄{yun:}/if{/yun}{yun:}if $v.job_exp{/yun}{yun:}$v.job_exp{/yun}经验{yun:}/if{/yun}{yun:}if $v.job_edu{/yun}{yun:}$v.job_edu{/yun}学历{yun:}/if{/yun} </p><p> 地点：{yun:}if $v.job_city_one||$v.job_city_two||$v.job_city_three{/yun}{yun:}$v.job_city_one{/yun}-{yun:}$v.job_city_two{/yun}{yun:}if $v.job_city_three{/yun} -{yun:}$v.job_city_three{/yun} {yun:}/if{/yun}{yun:}/if{/yun} </p>
+
+<p style="text-align:center;" align="center"> <img style="width:50%; max-width:180px;" src="{yun:}pubqrcode  toc=job toa=comapply toid=$v.id totype=$ewmtype{/yun}"><br>扫码或长按二维码识别投递简历 </p>
+
+ <p style="text-align:center;color:#0070c0;" align="center"> 求职招聘，就上{yun:}$config.sy_webname{/yun} <br>{yun:}$config.sy_weburl{/yun}</p>
+</section>
+          </section>
+        </section>
+      </section>
+    </section>
+{yun:}foreachelse{/yun}
+
+{yun:}/foreach{/yun}

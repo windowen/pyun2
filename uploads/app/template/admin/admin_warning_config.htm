@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+
+		<title>后台管理</title>
+
+	</head>
+
+	<body class="body_ifm">
+		<div class="infoboxp">
+
+			<div class="tty-tishi_top">
+
+				<form class="layui-form">
+					<table width="100%" class="table_form">
+
+						<tr>
+							<th colspan="2" class="admin_bold_box">
+								<div class="admin_bold">预警配置</div>
+							</th>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th width="200">每天发布职位限：</th>
+							<td>
+								<span class="early_warning_text"><input class="" type="text" name="warning_addjob" id="warning_addjob" value="{yun:}$config.warning_addjob{/yun}"
+									 size="13" maxlength="5" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" /></span>
+								<span class="early_warning_p">份 , 超限后锁定账号（是/否)</span>
+								<div class="early_warning_cz"><input name="warning_addjob_type" value='1' lay-skin="switch" lay-text="是|否"
+									 {yun:}if $config.warning_addjob_type==1{/yun} checked {yun:}/if{/yun} type="checkbox" /></div>
+							</td>
+						</tr>
+						<tr>
+
+
+							<th>每天下载简历限：</th>
+							<td>
+								<span class="early_warning_text"><input class="" type="text" name="warning_downresume" id="warning_downresume"
+									 value="{yun:}$config.warning_downresume{/yun}" size="13" maxlength="5" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" />
+								</span>
+								<span class="early_warning_p">份 , 超限后锁定账号（是/否)</span>
+								<div class="early_warning_cz"> <input name="warning_downresume_type" value='1' lay-skin="switch" lay-text="是|否"
+									 {yun:}if $config.warning_downresume_type==1{/yun} checked {yun:}/if{/yun} type="checkbox" />
+								</div>
+
+							</td>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th>每天发布简历限：</th>
+							<td>
+
+								<span class="early_warning_text"> <input class="" type="text" name="warning_addresume" id="warning_addresume"
+									 value="{yun:}$config.warning_addresume{/yun}" size="13" maxlength="5" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" />
+								</span>
+								<span class="early_warning_p">份 , 超限后锁定账号（是/否)</span>
+								<div class="early_warning_cz"> <input name="warning_addresume_type" value='1' lay-skin="switch" lay-text="是|否"
+									 {yun:}if $config.warning_addresume_type==1{/yun} checked {yun:}/if{/yun} type="checkbox" />
+								</div>
+
+							</td>
+						</tr>
+
+						<tr class="admin_table_trbg">
+							<th>每日充值金额限：</th>
+							<td>
+
+								<span class="early_warning_text"> <input class="" type="text" name="warning_recharge" id="warning_recharge"
+									 value="{yun:}$config.warning_recharge{/yun}" size="13" maxlength="9" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" />
+								</span>
+								<span class="early_warning_p">元 , 超限后锁定账号（是/否)</span>
+								<div class="early_warning_cz"> <input name="warning_recharge_type" value='1' lay-skin="switch" lay-text="是|否"
+									 {yun:}if $config.warning_recharge_type==1{/yun} checked {yun:}/if{/yun} type="checkbox" />
+
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<th>一小时内发送短信数量预警：</th>
+							<td>
+
+								<span class="early_warning_text"><input class="" type="text" name="sy_hour_msgnum" id="sy_hour_msgnum" value="{yun:}$config.sy_hour_msgnum{/yun}"
+									 size="10" maxlength="5" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" /></span>
+								<span class="early_warning_p">条 , 超限后关闭短信（是/否)</span>
+								<div class="early_warning_cz"> <input name="warning_closemsg_type" value='1' lay-skin="switch" lay-text="是|否"
+									 {yun:}if $config.warning_closemsg_type==1{/yun} checked {yun:}/if{/yun} type="checkbox" />
+
+								</div>
+							</td>
+						</tr>
+
+						<tr class="admin_table_trbg">
+							<th width="200"></th>
+							<td align="left">
+								<input class="tty_sub" id="integral" type="button" name="config" value="提交" />
+								<input class="tty_cz" type="reset" value="重置" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+
+		<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+
+		<script>
+			$(function() {
+				$("#integral").click(function() {
+
+					loadlayer();
+
+					$.post("index.php?m=warning&c=config", {
+
+						config: $("#integral").val(),
+
+						warning_addjob_type: $("input[name=warning_addjob_type]").attr('checked') == 'checked' ? 1 : 2,
+						warning_addjob: $("#warning_addjob").val(),
+
+						warning_downresume_type: $("input[name=warning_downresume_type]").attr('checked') == 'checked' ? 1 : 2,
+						warning_downresume: $("#warning_downresume").val(),
+
+						warning_addresume_type: $("input[name=warning_addresume_type]").attr('checked') == 'checked' ? 1 : 2,
+						warning_addresume: $("#warning_addresume").val(),
+
+						warning_recharge_type: $("input[name=warning_recharge_type]").attr('checked') == 'checked' ? 1 : 2,
+						warning_recharge: $("#warning_recharge").val(),
+
+						warning_closemsg_type: $("input[name=warning_closemsg_type]").attr('checked') == 'checked' ? 1 : 2,
+						sy_hour_msgnum: $("#sy_hour_msgnum").val(),
+
+						pytoken: $("#pytoken").val()
+
+					}, function(data, textStatus) {
+						parent.layer.closeAll('loading');
+						config_msg(data);
+					});
+				});
+			});
+
+			layui.use(['form'], function() {
+				var form = layui.form,
+					$ = layui.$;
+			});
+		</script>
+	</body>
+</html>

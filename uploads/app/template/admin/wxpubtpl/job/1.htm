@@ -1,0 +1,66 @@
+{yun:}foreach item=v from=$lists{/yun}
+<section > 
+<section style="margin:1em 1em;">
+<section data-id="94514"  style="max-width: 100%;box-sizing: border-box !important;overflow-wrap: break-word !important;">
+<section data-width="100%" style="max-width: 100%;width: 677px;box-sizing: border-box !important;overflow-wrap: break-word !important;">
+<section style="padding: 3px;max-width: 100%;box-sizing: border-box;border-width: 2px;border-style: solid;border-color: rgb(24, 163, 162);border-radius: 6px;background: rgb(230, 248, 244);overflow-wrap: break-word !important;">
+<section style="padding: 3px;max-width: 100%;box-sizing: border-box;border-radius: 6px;border-width: 2px;border-style: dashed;border-color: rgb(158, 217, 204);background: rgb(254, 254, 254);overflow-wrap: break-word !important;">
+<section data-autoskip="1" style="padding: 1em;max-width: 100%;box-sizing: border-box;border-radius: 6px;border-width: 2px;border-style: solid;border-color: rgb(158, 217, 204);font-size: 14px;letter-spacing: 1.5px;line-height: 1.75em;overflow-wrap: break-word !important;">
+
+<section  style="font-size: 18px;padding:0.7em 0px 0px 0em;font-weight: bold; text-align:center; position:relative"> <strong style="color:#18a3a2;">{yun:}$v.name{/yun} </strong> 
+</section>
+<section style="width:100%; text-align:center"><span style="width:22px;height:3px; background:#18a3a2; display:inline-block;border-radius:2px;"></span></section>
+<section style="width:100%; text-align:center; padding-bottom:15px; padding-top:20px;">{yun:}$v.com_name{/yun}</section>
+<section style="padding-bottom:5px; font-weight:bold">基本要求</section>
+<section>薪资待遇：<span style="font-size:16px;font-weight:bold;color:#f00">{yun:}$v.job_salary{/yun}</font> </section>
+{yun:}if $v.job_number{/yun}
+<section style="display:inline-block">招聘人数：{yun:}$v.job_number{/yun}</section>
+{yun:}/if{/yun}
+{yun:}if $v.job_age{/yun}
+<section style="width:48%; display:inline-block">年龄：{yun:}$v.job_age{/yun}</section>
+{yun:}/if{/yun}
+{yun:}if $v.job_sex{/yun}
+<section style="width:48%; display:inline-block">性别：{yun:}$v.job_sex{/yun}</section>
+{yun:}/if{/yun}
+{yun:}if $v.job_exp{/yun}
+ <section style="width:48%; display:inline-block">经验：{yun:}$v.job_exp{/yun} </section>
+{yun:}/if{/yun}
+{yun:}if $v.job_edu{/yun}
+ <section style="width:48%; display:inline-block">学历：{yun:}$v.job_edu{/yun} </section>
+{yun:}/if{/yun}
+ <section >地点：{yun:}if $v.job_city_one||$v.job_city_two||$v.job_city_three{/yun}{yun:}$v.job_city_one{/yun}-{yun:}$v.job_city_two{/yun}{yun:}if $v.job_city_three{/yun} -{yun:}$v.job_city_three{/yun} {yun:}/if{/yun}{yun:}/if{/yun} </section>
+{yun:}if $v.job_welfare{/yun}
+<section style="padding-bottom:5px;padding-top:5px; font-weight:bold">职位福利</section>
+<section> 
+{yun:}foreach from=$v.job_welfare item = welv{/yun}
+<span style="padding:0.1rem 0.5rem; background-color:#e6f8f4; border-radius:0.8rem;color:#18a3a2; margin-top:0.5rem;display: inline-block;">{yun:}$welv{/yun}</span> 
+{yun:}/foreach{/yun}
+
+ </section>
+{yun:}/if{/yun}
+
+
+ <!--固定二维码-->
+ {yun:}if $ewmtype != 'xcx'{/yun}
+   <p style="text-align:center;"><img style="width:50%; max-width:180px;" src="{yun:}pubqrcode  toc=job toa=comapply toid=$v.id totype=$ewmtype{/yun}"> <br>扫码或长按二维码投递简历 </p>
+ {yun:}else{/yun}
+	<p style="text-align:center; padding-top:20px;"><a data-miniprogram-type="text" data-miniprogram-appid="{yun:}$wxpaydata.sy_xcxappid{/yun}" data-miniprogram-path="/pages/job/show?id={yun:}$v.id{/yun}" class="weapp_text_link"  style="color: rgb(51, 51, 51);padding: 6px 1.4em;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);cursor: pointer;max-width: 100%;font-size: 14px;display: inline-block;border-radius: 50px;letter-spacing: 1.5px;background: rgba(247, 215, 73, 0.86);box-sizing: border-box !important;overflow-wrap: break-word !important;">查看详情</a></p>
+   
+{yun:}/if{/yun}	
+<p style="text-align:center;color:#18a3a2;" align="center"> 找工作更靠谱 <br>{yun:}$config.sy_webname{/yun} <br>{yun:}$config.sy_weburl{/yun} </p>
+		
+		
+		
+		</section>           
+			
+			 
+</section>
+
+  </section>
+</section>
+</section>
+</section>
+</section>
+{yun:}foreachelse{/yun}
+
+{yun:}/foreach{/yun}

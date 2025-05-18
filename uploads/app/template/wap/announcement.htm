@@ -1,0 +1,35 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<div class="news_in_body">
+    <section class="news_in_cont" id="fontshow">
+        {yun:}announcement limit=10 ispage=1 item=alist t_len=28{/yun}
+        <a href="{yun:}url m=wap c=announcement id=$alist.id{/yun}">
+            <div class="news_in_list">
+                
+                    <div class="news_in_list_box_left">
+                        <h2>{yun:}$alist.title{/yun}</h2>
+                        <div class="news_in_list_w65"  style="width:100%;margin-top:2px;">
+                            <div class="news_in_list_date" >
+                                <span class="news_in_eye_n"><i class="news_in_date"></i>{yun:}$alist.time{/yun}</span></div>
+                        </div> </div>
+                </div>
+        </a>
+        {yun:}/announcement{/yun} 
+		{yun:}if $total <=0{/yun} 
+		<div class="wap_member_no">暂无公告
+			<div>
+				<a class="wap_mb_no_sr" href="{yun:}url m=wap c='announcement'{/yun}">重新搜索</a>
+			</div>
+		</div>
+		 {yun:}else{/yun}
+			{yun:}if $pagenav{/yun} <div class="pages">{yun:}$pagenav{/yun} {yun:}/if{/yun} 
+		{yun:}/if{/yun}
+</div>
+<div class="clear"></div>
+<div>
+</div>
+</section>
+</div>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+
+{yun:}include file="$wapstyle/footer.htm"{/yun}

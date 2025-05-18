@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0;padding:0;}
+ul,li{ list-style:none}
+em{ font-style:normal}
+a{ text-decoration:none}
+.mt20{ margin-top:20px;}
+.yun_prompt_box{width:450px;background:#fff;border-radius:10px; font-size:14px; padding-bottom:40px;}
+
+body .yun_skin{border-radius:10px;}
+
+
+
+.yun_tipsbox{width:820px;height:500px; background:#fff; font-size:14px;}
+.yun_tipsbox_tit{width:100%;height:50px; line-height:50px; position:relative}
+.yun_tipsbox_tit_name{ font-size:18px; display:inline-block; padding-left:30px;}
+.yun_tipsbox_close{width:25px;height:25px; display:inline-block; background:url(../images/yuncloseicon.png) no-repeat center center; position:absolute;right:20px;top:15px;}
+.yun_tipsbox_close:hover{background:#f8f8f8 url(../images/yuncloseicon_h.png) no-repeat center center;}
+.yun_prompt_writingicon{width:100%; padding:10px 0 25px 0; text-align:center}
+.yun_prompt_writingicon_right{ width:48px;height:48px;display:inline-block; background:url(../images/yun_prompt_writingicon_right.png) no-repeat}
+.yun_prompt_writing{width:100%; text-align:center; font-size:18px;}
+.yun_prompt_writing_obtain{width:100%; text-align:center; color:#999; padding-top:8px;}
+.yun_prompt_writing_obtain_n{color:#f70d0d; display:inline-block; padding:0px 10px;}
+.yun_prompt_writing_tip{width:100%; padding:30px 0 0 0; text-align:center; color:#999; }
+.yun_prompt_writing_operation{width:100%; text-align:center; color:#999; padding-top:20px;}
+.yun_prompt_writing_operation .yun_prompt_writing_operation_bth{ display:inline-block; padding:6px 15px; margin-left:8px; margin-right:8px;border:1px solid #ff6a6a;color:#ff6a6a;border-radius:3px;}
+.yun_prompt_writing_operation .yun_prompt_writing_operation_bth:hover{ background:#ff6a6a;color:#fff;}
+.yun_prompt_release{ padding:20px 30px  0 30px}
+.yun_prompt_release_hi{ font-size:16px;}
+.yun_prompt_release_tip{ line-height:28px;color:#999; padding-top:10px; padding-bottom:10px;}
+.yun_prompt_release_tip_p{color:#19b019;  padding:0px 5px;}
+.yun_prompt_release_box{ padding-left:70px; background:url(../images/tsicon.png) no-repeat left top}
+.yun_prompt_release_bth{ padding-top:20px;}
+.yun_prompt_release_bth .yun_prompt_writing_operation_bth{ display:inline-block; padding:8px 15px; border:1px solid #ff6a6a;color:#ff6a6a;border-radius:3px;}
+.yun_prompt_release_bth .yun_prompt_writing_operation_bth:hover{ background:#ff6a6a;color:#fff;}
+.yun_prompt_writingicon_tip{ width:48px;height:48px;display:inline-block; background:url(../images/tst.png) no-repeat}
+
+.yun_prompt_release_ws{ line-height:25px; font-size:14px;color:#333; padding:10px 0px 10px 25px; background: url(../images/tip_s_icon.png) no-repeat 0px center;border-bottom:1px solid #eee; position:relative; font-weight:bold}
+.yun_prompt_release_ws_a{color:#5183ff; display:inline-block; margin-left:10px; position:absolute;right:0px;top:10px; font-weight:normal}

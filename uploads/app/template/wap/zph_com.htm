@@ -1,0 +1,63 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<style>
+	.header_bg  { background:#2D3659}
+</style>
+
+<section>
+<div class="zph_show_body">
+    <div class="zph_show_box" >
+        <div class="zph_bg_name">
+            <h2> 
+            	{yun:}$row.title{/yun}
+				{yun:}if $row.stime<'0'&&$Info.etime>'0'{/yun}
+					<span class="zphshow_zt">已开始</span>
+				{yun:}elseif $row.stime>'0'{/yun}
+					<span class="zphshow_zt zph_zt_yd">预定中</span>
+				{yun:}/if{/yun}
+       		</h2>
+            
+                  </div> 
+          
+     
+      <div class="zphshowinfo"><i class="zphshow_time_icon"></i>{yun:}$row.starttime|date_format:"%Y-%m-%d"{/yun} 至 {yun:}$row.endtime|date_format:"%Y-%m-%d"{/yun}</div>
+       <div class="zphshowinfo"><i class="zphshow_tel_icon"></i>{yun:}$row.phone{/yun} ({yun:}$row.user{/yun})</div>
+          {yun:}if $row.address{/yun}
+         <div class="zphshowinfo"><i class="zphshowadd_icon"></i>{yun:}$row.address{/yun}</div>
+         {yun:}/if{/yun}
+     
+    </div>  </div>
+</section>
+<div class="zph_show_pd">
+<section>
+    {yun:}foreach item=zph from=$rows key=key{/yun}
+    <div class="zph_show_com_list">
+        <div class="zph_show_comname">
+            <div class="zph_show_comname_box">
+                <a href="{yun:}url m=wap c=company a=show id='`$zph.uid`'{/yun}">{yun:}$zph.comname{/yun} </a>
+            </div>
+            <span class="zph_show_comzwh">展位号：{yun:}$zph.sidname{/yun} - {yun:}$zph.cidname{/yun} - {yun:}$zph.bidname{/yun}</span>
+        </div>
+		{yun:}if $zph.job{/yun}
+        <div class="zph_show_com_box">
+            <div class="zph_show_com_job">
+                招聘职位： 
+				<div class="">{yun:}foreach from=$zph.job item=jlist{/yun}
+                <a href="{yun:}url m=wap c=job a=comapply id=$jlist.id{/yun}">{yun:}$jlist.name{/yun}</a>
+                {yun:}/foreach{/yun}</div>
+            </div>
+        </div>
+		{yun:}/if{/yun}
+    </div>
+    {yun:}foreachelse{/yun}
+    <div class="job_fair_msg">
+        <div class="wap_member_no">暂无公司报名！</div>
+    </div>
+    {yun:}/foreach{/yun}
+</section>  
+</div>
+<div class="pages"> {yun:}$pagenav{/yun} </div>
+<script src="{yun:}$wap_style{/yun}/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

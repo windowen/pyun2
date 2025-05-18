@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /> 
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script> 
+	
+	<script> 
+		function checktype(id,type){
+			$.post("index.php?m=admin_domain&c=checkType",{id:id,type:type,pytoken:$('#pytoken').val()},function(data){
+				if(data==1){
+					if(type=="1"){
+ 						html = '<a href="javascript:void(0);" onclick="checktype(\''+id+'\',\'2\');" class="admin_new_tg admin_new_tg_cur"></a>';
+					}else if (type=="2"){
+						html = '<a href="javascript:void(0);" onclick="checktype(\''+id+'\',\'1\');" class="admin_new_tg"></a>';
+					}
+					$("#type"+id).html(html);
+				}
+			});
+		}
+	</script>
+
+	<title>后台管理</title>
+</head>
+<body class="body_ifm">
+	<div class="infoboxp"> 
+	<div class="tty-tishi_top"> 
+		<div class="admin_new_tip">
+			<a href="javascript:;" class="admin_new_tip_close"></a>
+			<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+			<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+			<div class="admin_new_tip_list_cont">
+				<div class="admin_new_tip_list">同一域名不得绑定多个城市，多个域名可以绑定同一城市，但是前台选择城市域名跳转会以最后添加域名为基准，外部访问则不作限制！</div>
+				<div class="admin_new_tip_list"><a href='http://www.phpyun.com/bbs/thread-4218-1-1.html' target="_blank">点击查看教程</a></div>
+			</div>
+		</div>
+	
+	<div class="clear"></div>
+	</div>
+	
+
+<div class="tty_table-bom">
+	<div class="table-list">
+		<div class="admin_table_border">
+			<iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe> 
+			<form action="index.php" target="supportiframe" name="myform" method="get" id='myform'>
+				<input name="m" value="admin_domain" type="hidden"/>
+				<input name="c" value="allDelDomain" type="hidden"/>
+				<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+				<table width="100%">
+					<thead>
+						<tr class="admin_table_top">
+							<th width="60" align="center">
+								<label for="chkall"><input type="checkbox" id='chkAll'  onclick='CheckAll(this.form)'/></label>
+							</th>
+							<th align="left" width="150">标题</th>
+							<th align="left" width="200">域名/目录</th>
+							<th align="left">城市</th>
+							<th align="left" width="200">行业</th>
+							<th align="left">风格目录</th>
+							<th align="left" width="100">是否启用</th>
+							<th align="center" width="150" class="admin_table_th_bg" >操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{yun:}foreach item=one key=key from=$domain{/yun}
+						<tr align="left"{yun:}if ($key+1)%2=='0'{/yun}class="admin_com_td_bg"{yun:}/if{/yun} id="list{yun:}$one.id{/yun}">
+							<td align="center">
+								<input type="checkbox" value="{yun:}$one.id{/yun}"  name='del[]' onclick='unselectall()' rel="del_chk" />
+							</td>
+							<td align="left" class="td1"><span>{yun:}$one.title{/yun}</span></td> 
+							<td  align="left" class="ud">{yun:}if $one.mode==2{/yun}{yun:}$one.indexdir{/yun}{yun:}else{/yun}{yun:}$one.domain{/yun}{yun:}/if{/yun}</td>
+							<td  align="left" class="ud">
+								{yun:}if $one.three_cityid{/yun}{yun:}$city_name[$one.three_cityid]{/yun}
+								{yun:}elseif $one.cityid{/yun}{yun:}$city_name[$one.cityid]{/yun}
+								{yun:}else{/yun}{yun:}$city_name[$one.province]{/yun}{yun:}/if{/yun} 
+							</td>
+							<td  align="left" class="ud">{yun:}$industry_name[$one.hy]{/yun} </td>
+							<td  align="left" class="ud">{yun:}$one.style{/yun} </td>
+							<td class="ud" align="left" id="type{yun:}$one.id{/yun}">
+								 
+								{yun:}if $one.type==1{/yun} 
+ 									<a href="javascript:void(0);" onclick="checktype('{yun:}$one.id{/yun}','2');" class="admin_new_tg admin_new_tg_cur"></a>
+								{yun:}else{/yun} 
+ 									<a href="javascript:void(0);" onclick="checktype('{yun:}$one.id{/yun}','1');" class="admin_new_tg "></a>
+								{yun:}/if{/yun} 
+							</td>
+
+							<td align="center">
+								<a href="index.php?m=admin_domain&c=Modify&siteid={yun:}$one.id{/yun}"class="admin_new_c_bth">修改</a>
+								<a href="javascript:void(0)" onclick="layer_del('确定要删除？','index.php?m=admin_domain&c=DelDomain&delid={yun:}$one.id{/yun}');" class="admin_new_c_bth admin_new_c_bth_sc">删除</a>
+							</td>
+						</tr>
+						{yun:}/foreach{/yun}
+						<tr>
+							<td align="left" colspan="8" style="padding-left:23px;">
+								<input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /><label for="chkAll2">全选</label>&nbsp;
+								<input class="admin_button"  type="button" name="delsub" value="删除所选" onClick="return really('del[]')" />
+							</td>
+						</tr>
+						{yun:}if $total > $config.sy_listnum {/yun}
+							<tr>
+								{yun:}if $pagenum==1{/yun}
+									<td colspan="3"> 从 1 到 {yun:}$config.sy_listnum {/yun} ，总共 {yun:}$total{/yun} 条</td>
+								{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun}
+									<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$pagenum * $config.sy_listnum{/yun} ，总共 {yun:}$total{/yun} 条</td>
+								{yun:}else if $pagenum == $pages{/yun}
+									<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$total{/yun} ，总共 {yun:}$total{/yun} 条</td>
+								{yun:}/if{/yun}
+								<td colspan="5" class="digg">{yun:}$pagenav{/yun}</td>
+							</tr>
+						{yun:}/if{/yun}
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+	</div>
+</body>
+</html>

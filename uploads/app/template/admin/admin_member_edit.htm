@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+
+		<title>后台管理</title>
+		<style>
+			* {margin: 0;padding: 0;}
+			body, div {margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body class="body_ifm">
+		<div class="infoboxp">
+			
+
+			<div class="tty-tishi_top">
+				
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">该页面展示了网站会员信息。</div>
+						<div class="admin_new_tip_list">
+							<span class="admin_new_comsj">
+								{yun:}if is_array($member){/yun}
+								最近登录时间：
+								{yun:}$member.login_date|date_format:'%Y-%m-%d'{/yun}
+								{yun:}/if{/yun}
+							</span>
+							<span class="admin_new_comsj"> {yun:}if is_array($member){/yun}
+								注册时间：
+								{yun:}$member.reg_date|date_format:'%Y-%m-%d'{/yun}
+								{yun:}/if{/yun} </span>
+							<span class="admin_new_comsj"> {yun:}if is_array($member){/yun}
+								注册IP： {yun:}$member.reg_ip{/yun}
+								{yun:}/if{/yun}
+							</span>
+							<span class="admin_new_comsj">
+								{yun:}if is_array($member){/yun}
+								登录IP：{yun:}$member.login_ip{/yun}
+								{yun:}/if{/yun} </span>
+							<span class="admin_new_comsj"> {yun:}if is_array($member){/yun}
+								登录次数：{yun:}$member.login_hits{/yun}
+								{yun:}/if{/yun} </span>
+						</div>
+					</div>
+				</div>
+
+				<div class="tag_box">
+					<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+					<form class="layui-form" name="myform" target="supportiframe" action="index.php?m=admin_member&c=editSave" method="post"
+					 onsubmit="return useredit()" enctype="multipart/form-data">
+					 
+						<table width="100%" class="table_form table_form_thr" style="background:#fff;">
+							<tr>
+								<th>当前身份：</th>
+								<td width="480">
+									<input type="text" value="{yun:}$member.sf{/yun}" id="sf" readonly class="tty_input">
+								</td>
+							</tr>
+							<tr>
+								<th>用户名：</th>
+								<td width="480">
+									<input type="text" value="{yun:}$member.username{/yun}" name="username" id="username" class="tty_input">
+								</td>
+							</tr>
+							<tr>
+								<th>密码：</th>
+								<td width="100%">
+									<input type="text" value="" name="password" class="tty_input">
+									<span class="admin_web_tip">不修改请留空!</span>
+								</td>
+							</tr>
+							<tr>
+								<th>联系手机：</th>
+								<td width="480">
+									<input type="text" value="{yun:}$member.moblie{/yun}" name="moblie" class="tty_input">
+									<font color="gray"></font>
+								</td>
+							</tr>
+							<tr>
+								<th>E-mail：</th>
+								<td width="480">
+									<input type="text" value="{yun:}$member.email{/yun}" name="email" class="tty_input">
+									<font color="gray"></font>
+								</td>
+							</tr>
+							<tr>
+								<th>注册IP：</th>
+								<td width="480">
+									<input type="text" value="{yun:}$member.reg_ip{/yun}" name="reg_ip" id="reg_ip" class="tty_input">
+								</td>
+							</tr>
+							<tr>
+								<th>使用范围：</th>
+								<td width="480">
+									<input type="button" value="{yun:}if $member.did{/yun}{yun:}$Dname[$member.did]{/yun}{yun:}else{/yun}总站{yun:}/if{/yun}"
+									 class="layui-input t_w480" onClick="add_site('{yun:}$member.did{/yun}','{yun:}$Dname[$member.did]{/yun}');" style="text-align: left;">
+									<input type="hidden" id="did" value="{yun:}$member.did{/yun}" name="did">
+								</td>
+							</tr>
+							<tr>
+								<th class="t_fr">状态：</th>
+								<td width="480">
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<div class="admin_examine_right">
+												<input name="status" {yun:}if $member.status=='1' {/yun}checked{yun:}/if{/yun} value="1" title="正常" type="radio" />
+												<input name="status" {yun:}if $member.status=='2' {/yun}checked{yun:}/if{/yun} value="2" title="锁定" type="radio" />
+											</div>
+										</div>
+									</div>
+									<font color="gray"></font>
+								</td>
+							</tr>
+							<tr>
+								<th></th>
+								<td width="480">
+									<input type="hidden" name="uid" id="uid" value="{yun:}$member.uid{/yun}" />
+									<input type="hidden" name="usetype" id="usetype" value="{yun:}$member.usetype{/yun}" />
+									<input type="hidden" name="lasturl" value="{yun:}$lasturl{/yun}">
+									<input class="layui-btn tty_sub" type="submit" name="submit" value="&nbsp;修 改&nbsp;" />
+									<input class="layui-btn tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+					</form>
+				</div>
+			</div>
+		</div>
+		{yun:}include file="$adminstyle/checkdomain.htm"{/yun}
+
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+	</body>
+</html>

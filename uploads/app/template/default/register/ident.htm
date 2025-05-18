@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>{yun:}$title{/yun}</title>
+        <meta name="keywords" content="{yun:}$keywords{/yun}" />
+        <meta name="description" content="{yun:}$description{/yun}" />
+        <link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$style{/yun}/style/login.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <script>
+            var weburl = "{yun:}$config.sy_weburl{/yun}",
+                integral_pricename = '{yun:}$config.integral_pricename{/yun}',
+                pricename = '{yun:}$config.integral_pricename{/yun}',
+                code_web = '{yun:}$config.code_web{/yun}',
+                code_kind = '{yun:}$config.code_kind{/yun}';
+        </script>
+    </head>
+
+    <body>
+        <div class="register_header">
+            <div class="reg_w980">
+                <div class="reg_logo">
+                    <a href="{yun:}$config.sy_weburl{/yun}"><img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_logo{/yun}" class="png"></a>
+                </div>
+                <div class="reg_msg">欢迎注册</div>
+                <a href="{yun:}$config.sy_weburl{/yun}" class="reg_fh yun_text_color fr">返回首页</a>
+            </div>
+        </div>
+         <div class="clear"></div>
+        <!--content  start-->
+            <div class="reg_content">
+        <div class="reg_stepbox">
+        <ul class="reg_stepbox_list">
+        <li class="reg_stepcur"><span class="reg_stepbox_n">1</span><em class="reg_stepbox_name">创建账户</em></li>
+        <li class="reg_stepcur"><span class="reg_stepbox_line"></span></li>
+        <li  class="reg_stepcur"><span class="reg_stepbox_n">2</span><em class="reg_stepbox_name">设置身份信息</em></li>
+        <li  class="reg_stepcur"><span class="reg_stepbox_line"></span></li>
+        <li><span class="reg_stepbox_n"><i class="reg_stepbox_cgicon"></i></span><em class="reg_stepbox_name">注册成功</em></li>
+        </ul>
+        </div>
+        
+            <div class="logoin_cont fl"> 
+              <div class="reg_content_tit">请从下方选择您的角色类型，享受专属功能</div>
+            
+           <ul class="reg_role">
+<li>
+<a href="{yun:}url m=register c=ident usertype=1{/yun}">
+<div class="regok_box_icon"><span class="regok_box_user_icon"><i class="regok_box_user_icon_gr"></i></span></div>
+<div class="regok_box_user">我是求职者</div><div class="regok_box_user_p">免费发布简历，海量职位随意挑</div>
+<div  class="reg_role_bth">进入用户中心<i class="reg_role_bth_line"></i></div></a></li>
+<li>
+<a href="{yun:}url m=register c=ident usertype=2{/yun}">
+<div class="regok_box_icon"><span class="regok_box_user_icon"><i class="regok_box_user_icon_qy"></i></span></div>
+<div class="regok_box_user">我是招聘者</div><div class="regok_box_user_p">发布招聘信息，收取简历投递</div><div  class="reg_role_bth">进入用户中心<i class="reg_role_bth_line"></i></div></a></li>
+
+</ul>
+            
+             </div>
+         <div class="clear"></div>
+        <div class="reg_footer">如果您有任何疑问或在注册过程中遇到任何困难，您都可以通过以下方式与我们联系
+            <div class="">电话： {yun:}$config.sy_freewebtel{/yun} <span class="reg_footer_yz">客服QQ：{yun:}$config.sy_qq{/yun}</span> </div>
+                     </div>
+         </div>
+         
+        
+       
+
+        <style>
+            .icon2 {
+                background-image: none;
+                background-repeat: no-repeat;
+            }
+        </style>
+        <!--content  end-->
+        <div class="clear"></div>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        
+        <!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+  DD_belatedPNG.fix('.png,.#bg');
+</script>
+<![endif]-->
+        <script>
+            {yun:}if $type == 1 {/yun}
+                    $(document).ready(function() {
+                        $(document).keydown(function(e) {
+                            var ev = document.all ? window.event : e;
+                            if(ev.keyCode == 13) {
+                                check_user(1, 'vcode_imgs');
+                            }
+                        });
+                        $("#xieyi1").keyup(function(event) {
+                            var myEvent = event || window.event;
+                            if(myEvent.keyCode == 13) {
+                                check_user(1, 'vcode_imgs');
+                            } else {
+                                return;
+                            };
+                        });
+                    }) 
+					{yun:}else if $type == 2 {/yun}
+                            $(document).ready(function() {
+                                $(document).keydown(function(e) {
+                                    var ev = document.all ? window.event : e;
+                                    if(ev.keyCode == 13) {
+                                        check_user(2, 'vcode_img');
+                                    }
+                                });
+                                $("#xieyi2").keyup(function(event) {
+                                    var myEvent = event || window.event;
+                                    if(myEvent.keyCode == 13) {
+                                        check_user(2, 'vcode_img');
+                                    } else {
+                                        return;
+                                    };
+                                });
+                            }) {yun:}else if $type == 3 {/yun}
+                                $(document).ready(function() {
+                                    $(document).keydown(function(e) {
+                                        var ev = document.all ? window.event : e;
+                                        if(ev.keyCode == 13) {
+                                            check_user(3, 'vcodeimg');
+                                        }
+                                    });
+                                    $("#xieyi3").keyup(function(event) {
+                                        var myEvent = event || window.event;
+                                        if(myEvent.keyCode == 13) {
+                                            check_user(3, 'vcodeimg');
+                                        } else {
+                                            return;
+                                        };
+                                    });
+                                }) {yun:}/if{/yun}
+        </script>
+              <div style="display:none">  {yun:}include file="$tplstyle/footer.htm"{/yun}</div>

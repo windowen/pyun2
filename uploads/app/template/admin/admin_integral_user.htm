@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+	<style type="text/css">
+		.layui-form-switch{
+			margin-top: 0;
+			margin-right: 10px;
+		}
+	</style>
+	<body class="body_ifm">
+		<form class="layui-form">
+			<div class="infoboxp">
+				<div class="tty-tishi_top">
+					<div class="tabs_info">
+						<ul>
+							<li class=""><a href="index.php?m=integral">{yun:}$config.integral_pricename{/yun}设置</a></li>
+							<li class="curr"><a href="index.php?m=integral&c=user">个人{yun:}$config.integral_pricename{/yun}</a></li>
+							<li class=""> <a href="index.php?m=integral&c=com">企业{yun:}$config.integral_pricename{/yun}</a></li>
+							<li class=""> <a href="index.php?m=integral&c=class">{yun:}$config.integral_pricename{/yun}优惠</a></li>
+						</ul>
+					</div>
+
+					<div class="clear"></div>
+					
+					<div class="tag_box">
+						<div>
+							<table width="100%" class="table_form">
+
+								<tr>
+									<th width="220">发布简历：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="text" name="integral_add_resume" id="integral_add_resume" required lay-verify="required" value="{yun:}$config.integral_add_resume{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" class="input-text"/>
+											{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_com_td_bg">
+									<th width="220">上传身份验证：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="text" name="integral_identity" id="integral_identity" required lay-verify="required" value="{yun:}$config.integral_identity{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" class="input-text"/>
+											{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th>&nbsp;</th>
+									<td align="left">
+										<input class="tty_sub" id="integral" type="button" name="config" value="提交" />&nbsp;&nbsp;
+										<input class="tty_cz" type="reset" value="重置" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+			<script>
+				layui.use(['layer', 'form'], function() {
+					var layer = layui.layer,
+						form = layui.form,
+						$ = layui.$;
+				});
+
+				$(function() {
+					$("#integral").click(function() {
+						loadlayer();
+						$.post("index.php?m=admin_userset&c=saveSet", {
+							config: $("#integral").val(),
+							integral_add_resume: $("#integral_add_resume").val(),
+							integral_identity: $("#integral_identity").val(),
+							pytoken: $("#pytoken").val()
+						}, function(data, textStatus) {
+							parent.layer.closeAll('loading');
+							config_msg(data);
+						});
+					});
+				})
+			</script>
+		</form>
+	</body>
+</html>

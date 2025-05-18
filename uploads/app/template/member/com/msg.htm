@@ -1,0 +1,153 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+    <div class="admin_mainbody"> {yun:}include file="$comstyle/left.htm"{/yun}
+        <div class="right_box">
+               <div class="com_tit"><span class="com_tit_span">求职咨询</span></div><div class="admincont_box">
+             
+                <div class="clear"></div>
+                <div class="com_body" >
+                <div class="com_new_tip">
+		
+						<span class="com_new_tip_h">温馨小提示</span>回复请勿输入电话，QQ，邮箱等联系方式
+					</div>
+                    <iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+                    <table class="com_table mt20">
+                       {yun:}if $rows{/yun}
+                        <tr>
+                            <th>咨询人 </th>
+                            <th>企业/职位名称</th>
+                            <th>咨询时间</th>
+                            <th>咨询内容</th>
+                            <th>回复状态 </th>
+                            <th>操作</th>
+                        </tr>
+						{yun:}/if{/yun}
+                     {yun:}foreach from=$rows item=msg{/yun}
+                        <tr>
+                            
+							<td align="center">
+                                {yun:}if $msg.eid{/yun}
+									<a href="{yun:}url m=resume c=show id='`$msg.eid`'{/yun}">{yun:}$msg.username{/yun}</a>
+								{yun:}else{/yun}
+									<div>{yun:}$msg.username{/yun}</div><span class="job_hr_job_cz_line">(暂无简历)</span> 	
+								{yun:}/if{/yun}
+							</td>
+
+                            <td align="center"> 
+                            {yun:}if $msg.job_name{/yun}
+                            
+                                <a href="{yun:}url m=job c=comapply id='`$msg.jobid`'{/yun}" class="cblue">{yun:}$msg.job_name{/yun}</a>  
+                                {yun:}else{/yun}
+                                无
+                                {yun:}/if{/yun}
+                                
+                                </td>
+                            <td align="center">{yun:}$msg.datetime|date_format:'%Y-%m-%d'{/yun}</td>
+                            <td align="center">{yun:}$msg.content|mb_substr:0:20:'utf-8'{/yun}</td>
+                            <td align="center">
+								{yun:}if $msg.reply!=""{/yun}
+                                <a href="javascript:void(0)" onclick="show_reply('{yun:}$msg.reply{/yun}','{yun:}$msg.reply_time|date_format:'%Y-%m-%d %H:%M:%S'{/yun}')" style="color:#999"><span style="font-size:12px;color:#f00; text-decoration:underline; margin-left:5px;">查看我的回复</span></a>
+								{yun:}else{/yun}
+								<span onclick="reply_msg('{yun:}$msg.id{/yun}');" class="com_bth cblue" style="cursor:pointer">回复TA</span> 
+								{yun:}/if{/yun}
+							</td>
+                            <td align="center">
+                                <a href="javascript:void(0)" onclick="layer_del('您确定要删除？', 'index.php?c=msg&act=del&id={yun:}$msg.id{/yun}'); " class=" com_bth cblue">删除</a>
+                            </td>
+                        </tr>
+                        {yun:}foreachelse{/yun}
+                        <tr>
+                            <td colspan="6" class="table_end">
+                                <div class="msg_no">亲 , 暂时还没有求职者向贵公司提出疑问哦~</div>
+                            </td>
+                        </tr>
+                        {yun:}/foreach{/yun}
+                         {yun:}if $rows{/yun}
+                        <tr>
+                            <td colspan="6" class="table_end">
+                                <div class="diggg">{yun:}$pagenav{/yun}</div>
+                            </td>
+                        </tr>
+                           {yun:}/if{/yun} 
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function show_reply(msg,time) {
+        $("#msgs").html(msg);
+        $("#msgrtime").html(time);
+        var layindex = $.layer({
+            type: 1,
+            title: '查看回复',
+            closeBtn: [0, true],
+            border: [10, 0.3, '#000', true],
+            area: ['400px', 'auto'],
+            page: {
+                dom: "#showmsg"
+            }
+        });
+        $("#layindex").val(layindex);
+    }
+
+    function reply_msg(id) {
+        $("#msgid").val(id);
+		loadlayer();
+		$.post('index.php?c=msg&act=getContent',{id : id}, function(data){
+			layer.closeAll('loading');
+			var data = eval('(' + data + ')');
+			$(".user_ask .user_ask_c").html(data.content);
+			var layindex = $.layer({
+			    type: 1,
+			    title: '咨询内容',
+			    closeBtn: [0, true],
+			    border: [10, 0.3, '#000', true],
+			    area: ['440px', 'auto'],
+			    page: {
+			        dom: "#status_div"
+			    }
+			});
+			$("#layindex").val(layindex);
+		})
+    }
+
+    function check_msg() {
+        if($.trim($("#content").val()) == "") {
+            layer.msg('回复内容不能为空！', 2, 8);
+            return false;
+        }
+    }
+</script>
+<div id="showmsg" style="display:none; width: 400px;">
+  
+        <div class="user_hf_cont" >
+        
+            <div class="">回复内容：<span id="msgs" class="user_ask_h"></span>
+            </div>
+             <div class="user_hf_time">回复时间：<span id="msgrtime"></span></div>
+            
+        </div>
+   
+</div>
+<div id="status_div" style="display:none; width: 440px;">
+    <div class="user_ask_cont">
+        <form action="index.php?c=msg&act=save" target="supportiframe" method="post" id="formstatus" onsubmit="return check_msg();">
+            
+                <div class="user_ask">咨询内容：<span class="user_ask_c"></span>  </div>
+                
+                <div class="user_ask_tit">我的回复：</div>
+                <div>
+                    <input type="hidden" id="msgid" name="id" value="" />
+                    <textarea id="content" name="reply" class="user_ask_textarea" placeholder="回复信息，请勿输入电话，QQ，邮箱等联系方式"></textarea>
+                </div>
+                <div class="user_ask_bth">
+                    <input type="submit" name='submit' value='提交' class="user_ask_bth_b"> 
+                </div>
+       
+            <input name="msgid" value="0" id='msgid' type="hidden">
+        </form>
+    </div>
+</div>     
+{yun:}include file="$comstyle/footer.htm"{/yun}

@@ -1,0 +1,93 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+
+<div class="clear"></div>
+<section>
+    <div class="once_search_tit clearfix">
+    <div class="once_search_pd">
+        <ul class="once_search_list ">
+            {yun:}if $config.three_cityid&&$config.sy_web_site=='1'{/yun}
+            <li class="Substation popup" data-pop="Substation">
+                <a href="javascript:void(0);" class="once_search_list_a">
+                    <span class="job_ov">{yun:}$city_name[$config.three_cityid]{/yun}</span>
+                  
+                </a>
+            </li>
+            {yun:}else if $config.cityid&&$config.sy_web_site=='1'{/yun}
+            <li class="Substation popup" data-pop="Substation">
+                <a href="javascript:void(0);" class="searchOptions_list_a">
+                    <span class="job_ov">{yun:}$city_name[$config.cityid]{/yun}</span>
+                </a>
+            </li>
+            {yun:}else{/yun}
+            <li class="grade popup" data-pop="grade">
+                <a href="javascript:void(0);" class="once_search_list_a">
+                    <span class="job_ov">
+							{yun:}if $city_name[$smarty.get.cityid] || $city_name[$smarty.get.provinceid]{/yun}
+								{yun:}$city_name[$smarty.get.cityid]{/yun}{yun:}$city_name[$smarty.get.provinceid]{/yun}
+							{yun:}elseif $city_name[$smarty.get.three_cityid]{/yun}
+								{yun:}$city_name[$smarty.get.three_cityid]{/yun}
+							{yun:}else{/yun}
+								所在区域
+							{yun:}/if{/yun}
+						</span>
+                </a>
+            </li>
+            {yun:}/if{/yun}
+              <li class="Sortadtime popup" data-pop="Sortadtime"><a href="javascript:void(0);"  class="once_search_list_a">   <span class="job_ov">{yun:}if $adtime[$smarty.get.add_time]{/yun}{yun:}$adtime[$smarty.get.add_time]{/yun}{yun:}else{/yun}时间范围{yun:}/if{/yun}</span></a></li>
+            <input type="hidden" id="searchurl" value="{yun:}$searchurl{/yun}" />
+            <input type="hidden" id="waptype" value="1" />
+            
+        </ul>
+		
+    </div>
+   </div>
+</section>
+<div class="clear"></div>
+<section>
+  <div class="warp_content clear">
+    <div class="job_list_content"> {yun:}tiny item=wres  islt=4 ispage=1 limit=20 add_time='auto.add_time' keyword='auto.keyword' provinceid='auto.provinceid' cityid='auto.cityid' three_cityid='auto.three_cityid' {/yun}
+      <div class="tiny_list">
+      
+       <a href="{yun:}url m=wap c=tiny a=show id=$wres.id{/yun}">
+        <div class="tiny_list_content">
+        <div class=""> <h3>求职：{yun:}$wres.job{/yun}</h3></div>
+            
+          <div class="tiny_list_content_p">
+          {yun:}if $wres.username{/yun}<span class="tiny_list_content_username">{yun:}$wres.username{/yun} </span>{yun:}/if{/yun}
+           {yun:}if $wres.sex{/yun}<span class="tiny_list_content_userxb"><i class="yun_newedition_jobline"></i>{yun:}$wres.sex{/yun}</span>{yun:}/if{/yun}
+           <span class="tiny_list_content_userjy"><i class="yun_newedition_jobline"></i>{yun:}$userclass_name[$wres.exp]{/yun}经验</span></div>
+              <div class="tiny_list_content_time">{yun:}if $wres.lastupdate=='今天' || $wres.lastupdate=='昨天'{/yun} <span style="color:red;">{yun:}$wres.lastupdate{/yun}</span> {yun:}else{/yun}
+            {yun:}$wres.lastupdate{/yun}
+            {yun:}/if{/yun}</div>
+  
+       </div> 
+       {yun:}if $wres.production{/yun}
+          <div class="tiny_list_content_js"> <span class="tiny_list_content_js_s">简介：{yun:}$wres.production|mb_substr:0:100:'utf-8'{/yun}</span></div>{yun:}/if{/yun}
+          </a> 
+        </div>
+      {yun:}/tiny{/yun} </div>
+  </div>
+</section>
+{yun:}if $total<=0{/yun}
+  {yun:}if $smarty.get.keyword!="" {/yun}
+  <div class="wap_member_no">没有搜索到普工简历<div><a class="wap_mb_no_sr" href="{yun:}url m=wap c='tiny'{/yun}">重新搜索</a></div></div>
+{yun:}else{/yun}
+<div class="wap_member_no">暂无普工简历<div><a class="wap_mb_no_sr" href="{yun:}url m=wap c='tiny'{/yun}">重新搜索</a></div></div>
+{yun:}/if{/yun}
+  {yun:}else{/yun}
+<div class="pages">{yun:}$pagenav{/yun}</div>
+{yun:}/if{/yun}
+<!--功能条 -->
+<div class="clear"></div>
+        <div class="once_search_list_fb_box_c">
+		       <div class="once_search_list_fb_box">
+{yun:}if $num>0{/yun} <a href="{yun:}url m=wap c=tiny a=add{/yun}" class="once_search_list_fb">发布简历</a> {yun:}else{/yun} <a href="javascript:void(0);" onclick="layermsg('一天内只能发布{yun:}$config.sy_tiny{/yun}次！')"class="once_search_list_fb">发布简历</a> {yun:}/if{/yun}
+</div></div>
+<script src="{yun:}$wap_style{/yun}/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/app/template/wap/js/demo.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/demo.css?v={yun:}$config.cachecode{/yun}" type="text/css">
+{yun:}include file="$wapstyle/publictwo.htm"{/yun}
+<div class="none">{yun:}include file="$wapstyle/footer.htm"{/yun}</div>

@@ -1,0 +1,126 @@
+
+body{background: #f1f2f4;}
+
+.sproom{background: #2b2e32;width: 1200px;height: 720px;margin:10px auto;}
+.sproom_box{padding: 7px;overflow: hidden;}
+.sproom_left{width: 900px;float: left;}
+.sproom_right{width: 278px;float: right;}
+
+.sproom_l_hd{height: 64px;background: #383f48;position: relative;}
+.sproom_l_md{height: 570px;background: #3f4959;position: relative;}
+.sproom_l_bm{height: 74px;background: #383f48;}
+
+/* 视频面试窗口-左部分 */
+.sproom_l_hd_box{padding: 8px 100px 8px 68px;position: relative;line-height: 22px;overflow: hidden;}
+.sproom_l_hd .head_portrait{height: 45px;width: 45px;border-radius: 50%;background: #ccc;position: absolute;left: 10px;top: 8px;}
+.sproom_l_hd .name{color: #fff;font-size: 16px;}
+.sproom_l_hd .name span{background: #ff7300 url(../images/sproom_i3.png) no-repeat 4px 3px;border-radius: 4px;font-size: 12px;padding: 2px 5px 2px 20px;margin-left: 5px;}
+.sproom_l_hd .info div{float: left;color: #9faabc;font-size: 12px;margin-right: 20px;}
+.sproom_l_hd .info i{display: inline-block;height: 12px;float: left;margin-top: 5px;margin-right: 5px;}
+.sproom_l_hd .info_i1{width: 12px;background: url(../images/sproom_i1.png) no-repeat left center;}
+.sproom_l_hd .info_i2{width: 15px;background: url(../images/sproom_i2.png) no-repeat left center;}
+.sproom_l_hd .hd_look_resume{position: absolute;right: 10px;top: 16px;height: 30px;line-height: 30px;color: #c3d0e3;border: 1px solid #6a778a;border-radius: 4px;cursor: pointer;padding: 0 25px 0 15px;font-size: 12px;background: url(../images/sproom_up.png) no-repeat 68px 13px;;}
+ 
+.sproom_l_md .cxyq_a{width: 130px;height: 40px;font-size: 16px; display: block;background: #2196F3;border-radius: 4px;margin: -20px 0 0 -65px;color: #fff;line-height: 40px;text-align: center;position: absolute;left: 50%;top: 50%;}
+.sproom_l_md .cxyq_a:hover{text-decoration: none;}
+
+.sproom_l_bm_box{overflow: hidden;width: 400px; margin: auto;padding-top: 12px;}
+.sproom_l_bm a{color: #92a1b8;float: left;margin-right: 45px;text-align: center;font-size: 12px;}
+.sproom_l_bm a:last-child{margin-right: 0;}
+.sproom_l_bm .bm_i1{width: 60px;height: 34px; background: url(../images/sproom_btn1.png) no-repeat;background-size: 100%;margin-bottom: 5px;}
+.sproom_l_bm .bm_i2{width: 60px;height: 34px; background: url(../images/sproom_btn2.png) no-repeat;background-size: 100%;margin-bottom: 5px;margin-left: 5px;}
+.sproom_l_bm .bm_i3{width: 60px;height: 34px; background: url(../images/sproom_btn3.png) no-repeat;background-size: 100%;margin: 0 auto 5px auto;}
+.sproom_l_bm .bm_i4{width: 60px;height: 34px; background: url(../images/sproom_btn4.png) no-repeat;background-size: 100%;margin-bottom: 5px;margin-left: 5px;}
+
+
+/* 视频面试窗口-右部分 */
+.sproom_r_hd{height: 143px;background: #3c424b;padding: 42px 8px 10px 8px;position: relative;}
+.sproom_r_hd .info{position: absolute;top: 4px;color: #fff;line-height: 30px;}
+.sproom_r_hd .head_portrait{width: 30px;height: 30px;float: left;display: block;border-radius: 50%;background: #eee;margin-right: 10px;}
+.sproom_r_hd .video{height: 142px;background: #31373e;}
+.sproom_r_hd_cshm{color: #fff;width: 120px;height: 34px;display: block;line-height: 34px;position: absolute;top: 50%;left: 50%;text-align: center;background: #03a9f4;border-radius: 4px;margin-left: -60px;margin-top: -17px;}
+.sproom_r_hd_cshm:hover{color: #fff;text-decoration: none;}
+
+.sproom_r_md{height: 50px;background: #454e5c;}
+.sproom_r_md_box{overflow: hidden;}
+.sproom_r_md .list{width: 33.3%;float: left;text-align: center;padding-top: 6px;}
+.sproom_r_md .list span{color: #9db0cc;font-size: 12px;}
+.sproom_r_md .num{color: #dde4ee;font-size: 14px;}
+
+.sproom_r_bm_box{background: #3c424b;height: 370px;overflow-y: auto;border-bottom: 1px solid #515f6e;}
+.sproom_r_bm_box::-webkit-scrollbar {
+	/*滚动条整体样式*/
+	width: 6px;
+	/*高宽分别对应横竖滚动条的尺寸*/
+	height: 1px;
+}
+.sproom_r_bm_box::-webkit-scrollbar-thumb {
+	/*滚动条里面小方块*/
+	border-radius: 10px;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	background: #7a8493;
+}
+.sproom_r_bm_box::-webkit-scrollbar-track {
+	/*滚动条里面轨道*/
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+	background: #3c424b;
+}
+.sproom_r_bm_box .list{padding: 14px 60px 14px 60px;position: relative;}
+.sproom_r_bm_box .look_resume{color: #80beff;font-size: 14px;}
+.sproom_r_bm_box .head_portrait{position: absolute;left: 10px;top: 16px;width: 40px;height: 40px;background: #eee;border-radius: 50%;}
+.sproom_r_bm_box .name{color: #dde4ee;font-size: 16px;}
+.sproom_r_bm_box .job{font-size: 12px;color: #8394aa;margin-top: 5px;width: 140px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.sproom_r_bm_box .state{position: absolute;width: 50px;height: 24px;background: #504e48;color: #ffb432;font-size: 12px;text-align: center;border-radius: 10px;right: 6px;top: 22px;line-height: 24px;padding-left: 20px;}
+.sproom_r_bm_box .state i{width: 14px;height: 14px;position: absolute;left: 8px;top: 5px;display: block;background: url(../images/sproom_i4.png) no-repeat;}
+.sproom_r_bm_box .jump{position: absolute;width: 60px;height: 24px;right: 6px;top: 22px;font-size: 12px;text-align: center;border-radius: 10px;background: #5b6677;color: #cfdff7;line-height: 24px;}
+.sproom_r_bm_box .jump:hover{background: #2d8cf0;color: #fff;}
+
+.sproom_r_bm_bz{height: 91px;background: #383f48;}
+.sproom_r_bm_bz .text_bz{background: none;border: none;width: 255px;height: 40px;padding: 10px 10px 0 10px;color: #fff;}
+.text_bz::-webkit-input-placeholder{
+	color:#7e96b6;
+}
+.text_bz::-moz-placeholder{   /* Mozilla Firefox 19+ */
+	color:#7e96b6;
+}
+.text_bz:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+	color:#7e96b6;
+}
+.text_bz:-ms-input-placeholder{  /* Internet Explorer 10-11 */ 
+	color:#7e96b6;
+}
+.sproom_r_bm_bz .btn_preservation{padding: 2px 15px;background: #495565;color: #cfdff7;float: right;border-radius: 4px;margin: 5px 10px 0 0;}
+
+
+
+/* 查看简历信息 */
+.resume_details{width: 260px;height: 400px;background: #fff;padding: 15px;border-radius: 6px;position: absolute;overflow-y: auto;right: 10px;top: 100px;z-index: 1000;}
+.resume_details .color_666{color: #666;}
+.resume_de_tit{color: #666;border-left: 2px solid #2d8cf0;font-size: 14px;line-height: 14px;padding-left: 5px;}
+.resume_de_info{padding: 10px 0;color: #999;line-height: 24px;padding: 10px 0 10px 5px;}
+.resume_de_info .resume_name{font-size: 16px;color: #333;}
+.resume_de_info label{color: #999;}
+.resume_de_info .xian{width: 1px;height: 10px;margin: 0 5px;background: #e0e0e0;display: inline-block;}
+.resume_de_info .company_name{color: #333;}
+.resume_de_info .jl_time{color: #999;font-size: 12px;float: right;}
+
+.video-box{width: 100%;height: 100%;}
+.col-div{flex-direction: column;}
+
+.msj_notip{width:264px; text-align:center; position:absolute;left:300px;top:150px}
+.msj_notipicon{width:264px;height:131px; background:url(../images/msj_icon.png) no-repeat}
+.msj_notip_p{font-size:18px;color:#fff;padding:10px 0}
+.msj_notip_p2{font-size:14px;color:#a5adc0}
+.sproom_no_pd{width:100%; text-align:center; position:absolute;left:0px;top:150px;color:#fff;}
+.sproom_no_pdicon{width:100%;height:70px; background:url(../images/msj_icon2.png) no-repeat center top}
+.sprequest_waitbox{width:260px;  color:#fff; text-align:center;}
+.sprequest_waitiocn {width: 100%;height: 70px;background: url(../images/msj_icon2.png) no-repeat center top;}
+.sprequest_wait{font-size:16px;padding:10px 0}
+.sprequest_wait_time{COLOR:#9db1cd;}
+.sprequest_wait_time span{color:#2cb6f4;padding:0px 5px}
+.sp_cshm{ padding-top:75px; background:url(../images/spcs.png) no-repeat  center 15px; text-align:center;font-size:12px;color:#9db0cc}
+.sp_cshm_bth{ display:block; background:#4ccaef;color:#fff;width:80px;height:25px; line-height:25px;border-radius:3px; margin:12px auto 0;}
+.sp_cshm_bth:hover{ background:#2ea8cc;color:#fff; text-decoration:none;}
+
+.spzl{ display:inline-block; background:#2ea8cc;color:#fff;border-radius:5px 0px 5px 0px;padding:0px 6px; line-height:15px; margin-top:10px;}

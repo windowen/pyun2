@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+	
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">该页面用来创建简历信息。</div>
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="">
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+				<form class="layui-form" action="index.php?m=admin_resume&c=saveResume" method="post" onSubmit="return addresume()" target="supportiframe">
+					<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+					<div class="tty_table-bom">
+						
+						{yun:}if $row.uid==''{/yun}
+						<div class="admin_add_tit"><span class="admin_add_tit_s"><i class="admin_add_tit_s_icon admin_add_tit_s_icon_zh"></i>账户信息</span></div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name">登录账户</div>
+							<div class="admin_add_list_right">
+								<input type="text" name="username" id="username" class="layui-input t_w480" value="" onblur="check_username();">
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name">密码</div>
+							<div class="admin_add_list_right">
+								<input type="password" name="password" id="password" class="layui-input t_w480" value="">
+							</div>
+						</div>
+
+						<div class="admin_add_list">
+							<div class="admin_add_list_name">确认密码</div>
+							<div class="admin_add_list_right">
+								<input type="password" name="passconfirm" id="passconfirm" class="layui-input t_w480"value="">
+							</div>
+						</div>
+						{yun:}/if{/yun}
+						<div class="admin_add_tit" style="padding-top: 10px;">
+							<span class="admin_add_tit_s"><i class="admin_add_tit_s_icon admin_add_tit_s_icon_info"></i>基本资料</span>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 用户姓名</div>
+							<div class="admin_add_list_right">
+								<input type="text" name="resume_name" id="resume_name" class="layui-input t_w480" value="{yun:}$row.name{/yun}">
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 性 别</div>
+							<div class="admin_add_list_right">
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<div class="layui-input-inline">
+											{yun:}foreach from=$user_sex key=j item=v{/yun}
+											<input id="sex{yun:}$j{/yun}" type="radio" {yun:}if $row.sex==$j{/yun}checked="checked"{yun:}/if{/yun} value="{yun:}$j{/yun}" title="{yun:}$v{/yun}" name="sex">
+											{yun:}/foreach{/yun}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 教育程度</div>
+							<div class="admin_add_list_right">
+									<div class="layui-input-block">
+										<div class="layui-input-inline t_w480">
+											<select name="edu" id="edu" lay-verify="">
+												<option>请选择</option>
+												{yun:}foreach from=$userdata.user_edu item=v{/yun}
+												<option value="{yun:}$v{/yun}" {yun:}if $row.edu==$v{/yun} selected {yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun} </option> 
+												{yun:}/foreach{/yun} 
+											</select>
+										</div> 
+									</div> 
+							</div> 
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 现居住地</div>
+							<div class="admin_add_list_right">
+								<input type="text" name="living" id="living" class="layui-input t_w480" size="30" value="{yun:}$row.living{/yun}">
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 工作经验</div>
+							<div class="admin_add_list_right">
+								<div class="layui-input-block">
+									<div class="layui-input-inline t_w480">
+										<select name="exp" id="exp" lay-verify="">
+											<option>请选择</option>
+											{yun:}foreach from=$userdata.user_word item=v{/yun}
+											<option value="{yun:}$v{/yun}" {yun:}if $row.exp==$v{/yun} selected {yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun} </option> 
+											{yun:}/foreach{/yun} 
+										</select> 
+									</div> 
+								</div> 
+							</div> 
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 出生年月</div>
+							<div class="admin_add_list_right">
+								<input name="birthday" id="birthday" type="text" maxlength="50" value="{yun:}$row.birthday{/yun}" class="layui-input t_w480" />
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 手机</div>
+							<div class="admin_add_list_right">
+								<input type="text" name="moblie" id='telphone' onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" class="layui-input t_w480" value="{yun:}$row.telphone{/yun}">
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name">邮箱</div>
+							<div class="admin_add_list_right">
+								<input type="text" name="email" id="email" class="layui-input t_w480" value="{yun:}$row.email{/yun}">
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_name"><font color="#FF0000">*</font> 自我评价</div>
+							<div class="admin_add_list_right">
+								<textarea id="description" class="layui-textarea t_w480" name="description">{yun:}$row.description{/yun}</textarea>
+							</div>
+						</div>
+						<div class="admin_add_list">
+							<div class="admin_add_list_right">
+								<input id="uid" name='uid' type='hidden' value='{yun:}$row.uid{/yun}'>
+								<input class="tty_sub" type="submit" name="next" value="&nbsp;下一步&nbsp;" />
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript">
+			layui.use(['layer', 'form', 'laydate'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					laydate = layui.laydate,
+					$ = layui.$;
+					laydate.render({
+						elem: '#birthday',
+						max: '2018-12-31',
+						value: '{yun:}if $row.birthday{/yun}{yun:}$row.birthday{/yun}{yun:}else{/yun}1988-08-08{yun:}/if{/yun}'
+					});
+			});
+			var userstyle = "{yun:}$user_style{/yun}";
+			var weburl = "{yun:}$config.sy_weburl{/yun}";
+
+			function addresume() {
+				var uid = $.trim($("#uid").val());
+				var username = $.trim($("#username").val());
+				var password = $.trim($("#password").val());
+				var passconfirm = $.trim($("#passconfirm").val());
+				var resume_name = $.trim($("#resume_name").val());
+				var sex = $.trim($("input[name='sex']:checked").val());
+				var living = $.trim($("#living").val());
+				var birthday = $.trim($("#birthday").val());
+				var telphone = $.trim($("#telphone").val());
+				var email = $.trim($("#email").val());
+				var description = $.trim($("#description").val());
+				var myreg = /^([a-zA-Z0-9\-]+[_|\_|\.]?)*[a-zA-Z0-9\-]+@([a-zA-Z0-9\-]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+				if (uid == '') {
+					if (username == '') {
+						parent.layer.msg("登录账户不能为空！", 2, 8);
+						return false;
+					}
+					if (password.length < 6) {
+						parent.layer.msg("密码长度错误！", 2, 8);
+						return false;
+					}
+					if (password != passconfirm) {
+						parent.layer.msg("两次密码不一致！", 2, 8);
+						return false;
+					}
+				}
+				if (resume_name == '') {
+					parent.layer.msg("用户姓名不能为空！", 2, 8);
+					return false;
+				}
+				if (sex == '') {
+					parent.layer.msg("性别不能为空！", 2, 8);
+					return false;
+				}
+				if (living == '') {
+					parent.layer.msg("现居住地不能为空！", 2, 8);
+					return false;
+				}
+				if (birthday == '') {
+					parent.layer.msg("出生年月不能为空！", 2, 8);
+					return false;
+				}
+				if (telphone == '') {
+					parent.layer.msg("手机号码不能为空！", 2, 8);
+					return false;
+				} else if (!isjsMobile(telphone)) {
+					parent.layer.msg("手机号码格式错误！", 2, 8);
+					return false;
+				}
+				if (email != '' && !myreg.test(email)) {
+					parent.layer.msg("邮箱格式错误！", 2, 8);
+					return false;
+				}
+				if (description == '') {
+					parent.layer.msg("自我评价不能为空！", 2, 8);
+					return false;
+				}
+			}
+		</script>
+	</body>
+</html>

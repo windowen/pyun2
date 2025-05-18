@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+	<meta name="description" content="{yun:}$description{/yun}"/>
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+	<link href="{yun:}$style{/yun}/style/microresume.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<title>{yun:}$title{/yun}</title>
+</head>
+
+<body class="once_bg">
+
+{yun:}include file="$tplstyle/header.htm"{/yun}
+	<div class="yun_content">
+		<div class="current_Location png"> 您当前的位置：
+			<a href="{yun:}$config.sy_weburl{/yun}">首页</a> >
+			<a href="{yun:}url m=once{/yun}">普工专区</a> > 发布简历
+		</div>
+    
+    <form  method="post" id="subform" action="{yun:}url m=tiny c=save{/yun}" onSubmit="return check_resume_tiny()" target="supportiframe" class="layui-form">
+      <div class="once_add_box">
+    <div class="once_title">快速发布求职信息</div>
+      <div class="once_add_cont">
+            <div class="once_title_p"><i class="once_title_p_icon once_title_p_icon_zw"></i>个人信息</div>
+      <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>姓名：</span>
+         <div class="once_add_list_text">	 <input  type="text" value="{yun:}$info.username{/yun}" name="username" id="username" class="once_add_list_input"/>
+        </div></div>
+        
+        <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>性别：</span> 
+         <div class="once_add_list_text" style="position:relative">	 <!--      yun_info_sex_cur 控制他的状态-->
+           <input type="hidden" id="sex" name="sex" value="{yun:}$info.sex{/yun}" />
+          {yun:}foreach from=$user_sex key=j item=v{/yun}
+             <span class="yun_info_sex {yun:}if $info.sex==$j{/yun}yun_info_sex_cur{yun:}/if{/yun}" id="sex{yun:}$j{/yun}" onclick="checksex('{yun:}$j{/yun}')"><i class="usericon_sex usericon_sex{yun:}$j{/yun}"></i>{yun:}$v{/yun}</span> 
+          {yun:}/foreach{/yun}   
+        </div></div>
+        <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>联系手机：</span>
+         <div class="once_add_list_text">	 <input type="text" name="mobile" id="mobile" value="{yun:}$info.mobile{/yun}" class="once_input_simple once_input_simple_w240" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/>
+        </div></div>
+      <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>工作年限：</span>
+       <div class="once_add_list_text">	 <div class="tiny_exp_text" style="border:none;">
+            <select id="expid" name="exp">
+              <option value=''>请选择</option>
+              {yun:}foreach from=$userdata.user_word key=j item=v{/yun}
+              <option value='{yun:}$v{/yun}' {yun:}if $info.exp==$v{/yun}selected{yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}</option>
+              {yun:}/foreach{/yun}
+            </select>
+        </div>
+        </div>
+       
+        </div>
+      <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>工作地区：</span>
+       <div class="layui-input-inline">
+			<select id="provinceid" lay-filter="citys" name="provinceid">
+			<option value=''>请选择</option>
+			{yun:}foreach from=$city_index item=v{/yun}
+			<option value="{yun:}$v{/yun}" {yun:}if $info.provinceid==$v{/yun}selected{yun:}/if{/yun}>{yun:}$city_name[$v]{/yun}</option>
+			{yun:}/foreach{/yun}
+			</select>
+		</div>
+		<div class="layui-input-inline">
+			<select id="cityid" lay-filter="citys" name="cityid">
+			<option value=''>请选择</option>
+			{yun:}foreach from=$city_type[$info.provinceid] item=v{/yun}
+			<option value="{yun:}$v{/yun}" {yun:}if $info.cityid==$v{/yun}selected{yun:}/if{/yun}>{yun:}$city_name[$v]{/yun}</option>
+			{yun:}/foreach{/yun}
+			</select>
+		</div>
+		<div class="layui-input-inline">
+			<select id="three_cityid" name="three_cityid">
+			<option value=''>请选择</option>
+			{yun:}foreach from=$city_type[$info.cityid] item=v{/yun}
+			<option value="{yun:}$v{/yun}" {yun:}if $info.three_cityid==$v{/yun}selected{yun:}/if{/yun}>{yun:}$city_name[$v]{/yun}</option>
+			{yun:}/foreach{/yun}
+			</select>
+		</div>
+       
+        </div>
+       <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>想找工作：</span>
+        <div class="once_add_list_text">	  <input type="text" id="job" name="job" value="{yun:}$info.job{/yun}" class="once_add_list_input "/>
+          <span class="once_fb_list_tip"> 如：服装厂操作工</span> </div>
+          </div>
+     <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>自我介绍：</span> <div class="once_add_list_text">
+          <textarea id="production" name="production" class="once_simplew_textarea"placeholder="请输入你擅长的技能，例如：电机熟练工，能吃苦耐劳">{yun:}$info.production{/yun}</textarea>
+        </div></div>
+               <div class="once_title_p"><i class="once_title_p_icon once_title_p_icon_zh"></i>账户信息</div>
+               
+       <div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>设置密码：</span>
+         <div class="once_add_list_text">	 <input type="password" name="password" id="password" value="" class="once_add_list_input"  onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"/>
+          <em class="once_add_list_text_dw">密码可用于刷新/修改/删除信息！</em> </div></div>
+        {yun:}if strpos($config.code_web,"店铺招聘")!==false{/yun}
+			
+
+			{yun:}if $config.code_kind>2{/yun}
+				<div class="gtdx-captcha">
+					<div id="bind-captcha" data-id='subform' data-type='submit'></div>
+					
+				
+					<input type='hidden' id="verify_token"  name="verify_token" value="">
+					<input type='hidden' id="popup-submit">	
+					<input type='hidden' id="bind-submit">
+				</div>
+			{yun:}else{/yun}
+			
+			<div class="once_add_list"><span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>验证码：</span>
+			 <div class="once_add_list_text">	 <input type="text" id="authcode" name="authcode" class="once_add_list_input " maxlength="6"/>
+			  <a><img id="vcodeimgs" onclick="checkCode('vcodeimgs');" src="{yun:}$config.sy_weburl{/yun}/app/include/authcode.inc.php"/></a> 
+			</div></div>
+		
+			  {yun:}/if{/yun}
+			 
+		 {yun:}else{/yun}
+			<input id="authcode" type="hidden" value="12345" maxlength="6" name="authcode"/>
+        {yun:}/if{/yun}
+		
+     <div class="once_add_list"><span class="once_add_list_name">&nbsp;</span> 
+       <div class="once_add_list_text">	   <input type="hidden" name="id" id="id" value="{yun:}$info.id{/yun}"/>
+          <input class="once_add_list_bth" type="submit" value="发布信息" id="botton" />
+          <input type="hidden" id="cionly" name="cionly" value="{yun:}if empty($city_type){/yun}1{yun:}/if{/yun}">
+       </div></div>
+      </div>
+      </div>
+    </form>
+</div>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/fast.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+{yun:}include file="$tplstyle/verify/verify_js.htm"{/yun}
+<script src='{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}'></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/city.js?v={yun:}$config.cachecode{/yun}"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png');
+</script>
+<![endif]-->
+<script type="text/javascript">
+
+function checksex(id){
+	$(".yun_info_sex").removeClass('yun_info_sex_cur');
+	$("#sex"+id).addClass('yun_info_sex_cur');
+	$("#sex").val(id); 
+}
+layui.use(['form'],function(){});
+</script>
+<iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" class="none"></iframe>
+<div class="clear"></div>
+{yun:}include file="$tplstyle/footer.htm"{/yun}

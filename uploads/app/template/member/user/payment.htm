@@ -1,0 +1,314 @@
+{yun:}include file="$userstyle/header.htm"{/yun}
+<div class="yun_w1200">
+    {yun:}include file="$userstyle/left.htm"{/yun}
+    <div class="yun_m_rightbox fltR mt20 re">
+        <div class="member_right_index_h1 fltL"> <span class="member_right_h1_span fltL">收银台</span> <i class="member_right_h1_icon user_bg"></i></div>
+        <div class="clear"></div>
+
+        <form name="alipayment" class="layui-form" id="payform" action="" method="post" {yun:}if $config.tenpay=='1' ||$config.alipay=='1' {/yun}target="_blank" {yun:}/if{/yun} onsubmit="return payforms();" enctype="multipart/form-data">
+            <div class="clear"></div>
+
+            <div class="payment_boxtable">
+
+                <table class="" cellpadding="1" cellspacing="1" border="0">
+                    <tr>
+                        <th width="200">订单编号</th>
+                        <th>购买商品</th>
+                        <th>备注</th>
+                        <th>金额</th>
+                    </tr>
+                    <tr>
+                        <td>{yun:}$order.order_id{/yun}<input type="hidden" name="dingdan" value="{yun:}$order.order_id{/yun}" /></td>
+                        
+                        <td>
+							{yun:}if $order.type=='14'{/yun}
+								简历置顶
+							{yun:}else{/yun}
+								充值{yun:}$config.integral_pricename{/yun}
+							{yun:}/if{/yun}
+
+                            
+                            <input type="hidden" name="oid" id="oid" value="{yun:}$order.id{/yun}" />
+                            <input type="hidden" name="aliorder" id="aliorder" value="{yun:}$order.order_id{/yun}" />
+                            <input type="hidden" name="alimoney" value="{yun:}$order.order_price{/yun}" />
+                            <input type="hidden" name="pay_type" id="pay_type" value="{yun:}$order.pay_type{/yun}" />
+
+                            <input type="hidden" name="subject" value="{yun:}if $order.type=='14'{/yun}简历置顶{yun:}else{/yun}充值{yun:}$config.integral_pricename{/yun}{yun:}/if{/yun}" /> 
+							{yun:}if $order.type==2{/yun}
+                            <div class="pay_ment">
+                                <em>{yun:}$order.integral{/yun}{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}</em>
+                                <input type="hidden" name="integral" value="{yun:}$order.integral{/yun}" />
+                            </div>
+                            {yun:}/if{/yun}
+                        </td>
+
+						<td> 
+                        	<em>
+								{yun:}if $order.order_remark{/yun}
+									{yun:}$order.order_remark{/yun}
+								{yun:}else if $order.type=='14'{/yun}
+									简历置顶
+								{yun:}else{/yun}
+									充值{yun:}$config.integral_pricename{/yun}
+								{yun:}/if{/yun}
+							</em>
+                            <textarea name="alibody" style="display:none;" rows=2 cols=40 wrap="physical">{yun:}$order.remark{/yun}</textarea>
+                        </td>
+                        <td>￥{yun:}$order.order_price{/yun}</td>
+                    </tr>
+                </table>
+
+                <div class="payment_boxlist_fk">
+                   	 实付款
+                    <span class="payment_boxlist_fk_n">￥
+          				<span id="order_price">{yun:}$order.order_price{/yun}</span>
+                    </span>
+                </div>
+				
+				{yun:}if $config.tenpay=='1'||$config.bank=='1'||$config.alipay=='1'{/yun}
+				
+                <div class="payment_boxlist_zf" id="pay_style">
+					{yun:}if $config.bank=='1'&&is_array($rows)&&$rows{/yun}
+						<span class="payment_boxlist_zf_s" id="otherpay">
+							<i class="payment_boxlist_zf_icon payment_boxlist_zf_icon_qt"></i>其他支付方式
+						</span>
+					{yun:}/if{/yun}
+					
+					{yun:}if $config.tenpay=='1'{/yun}
+						<span class="payment_boxlist_zf_s" id="tenpay">
+							<i class="payment_boxlist_zf_icon payment_boxlist_zf_icon_cft"></i>财付通支付
+						</span>
+					{yun:}/if{/yun}
+					
+					{yun:}if $config.alipay=='1'{/yun}
+						<span class="payment_boxlist_zf_s" id="alipay">
+							<i class="payment_boxlist_zf_icon payment_boxlist_zf_icon_zfb"></i>支付宝支付
+						</span>
+					{yun:}/if{/yun}
+				</div>
+
+
+                <div class="bank_box other_pay" style="display: none;">
+                    <table width="100%" border="0" cellpadding="1" cellspacing="1" class="my_table_msg" style="background:#ddd">
+                        <tr>
+                            <th width="8%" height="30" align="center" bgcolor="#F7FAFF">银行名称</th>
+                            <th width="5%" height="30" align="center" bgcolor="#F7FAFF">开户人</th>
+                            <th width="12%" align="center" bgcolor="#F7FAFF">银行帐户</th>
+                            <th width="14%" align="center" bgcolor="#F7FAFF">开户行</th>
+                        </tr>
+                        {yun:}if is_array($rows){/yun} {yun:}foreach item=blist from=$rows{/yun}
+                        <tr>
+                            <td height="30" align="center" bgcolor="#FFFFFF">{yun:}$blist.bank_name{/yun}</td>
+                            <td height="30" align="center" bgcolor="#FFFFFF">{yun:}$blist.name{/yun}</td>
+                            <td align="center" bgcolor="#FFFFFF">{yun:}$blist.bank_number{/yun}</td>
+                            <td align="center" bgcolor="#FFFFFF">{yun:}$blist.bank_address{/yun}</td>
+                        </tr>
+                        {yun:}/foreach{/yun} {yun:}else{/yun}
+                        <tr>
+                            <td colspan="4" height="26" align="center" bgcolor="#FFFFFF">暂未添加银行</td>
+                        </tr>
+                        {yun:}/if{/yun}
+                    </table>
+
+                    <div class="bank_list_p_box">
+
+                        <div class="bank_list_p">
+                            <span class="bank_list_p_s">汇款银行：</span>
+                            <div class="layui-input-inline">
+								<select name="banks" lay-filter="banks">
+									<option value="">请选择汇款银行</option>
+									{yun:}foreach from=$rows key=j item=v{/yun}
+										<option value="{yun:}$v.bank_name{/yun}+{yun:}$v.bank_number{/yun}" >{yun:}$v.bank_name{/yun}</option>
+									{yun:}/foreach{/yun}
+								</select>
+								<input type="hidden" name="bank_name" id="bank_name" value="">	
+							</div>
+                        </div>
+                        <div class="bank_list_p">
+                            <span class="bank_list_p_s">汇入账号：</span>
+                            <input type="text" id="bank_number" name="bank_number" class="bank_list_text" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" value="{yun:}$order.bank_number{/yun}" />
+                        </div>
+                        <div class="bank_list_p">
+                            <span class="bank_list_p_s">汇款金额：</span>
+                            <input type="text" id="bank_price" name="bank_price" class="bank_list_text" value="{yun:}$order.order_price{/yun}" />
+                        </div>
+                        <div class="bank_list_p">
+                            <span class="bank_list_p_s">汇款时间：</span>
+                            <input type="text" id="bank_time" name="bank_time" class="bank_list_text" />
+                        </div>
+                        <div class="bank_list_p">
+                            <span class="bank_list_p_s">备注</span>
+                            <textarea name='order_remark' class="bank_textarea"></textarea>
+                        </div>
+                        <div class="bank_list_p">
+                            <span class="bank_list_p_s">上传汇款单：</span>
+                            <button type="button" class="layui-btn layui-btn-normal noupload" lay-data="{imgid: 'imgicon',parentid: 'imgparent'}">选择文件</button>
+                            <input type="hidden" id="laynoupload" value="1" />
+                         <span id="imgparent" class=" none"> 
+                            <img id="imgicon" src="" width="38" height="38"> 
+                          </span></div>
+                       
+                        <script type="text/javascript">
+                            layui.use(['laydate'], function() {
+                                var laydate = layui.laydate,
+                                    $ = layui.$;
+                                laydate.render({
+                                    elem: '#bank_time'
+                                });
+                            });
+                        </script>
+
+                    </div>
+                </div>
+
+                <div class="payment_boxlist_zf_bth" id="order_pay">
+					
+                    <input type="button" value="确认支付" class="payment_boxlist_zf_bth_a" onClick="CheckForm();">
+                </div>
+				{yun:}else{/yun}
+					<div class="con_banner_no" style="width:300px;"><span></span><em>网站已关闭支付接口，请联系管理员</em></div>
+				{yun:}/if{/yun}
+
+            </div>
+
+        </form>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<!--支付弹出框-->
+<div id="payshow" style="width:450px; position:absolute;left:0px;top:0px; background:#fff; display:none;">
+    <div class="payment_tip">
+        请在新打开的支付页面上完成付款，付款完成前请不要关闭此窗口。<br> 如您在支付过程中遇到问题，请联系客服：
+        <span class="payment_tip_s">{yun:}$config.sy_freewebtel{/yun}</span>
+    </div>
+    <div class="payment_bottom">
+        <a href="index.php?c=paylist" class="payment_bottombutt">已完成付款</a>
+        <a href="index.php?c=payment&id={yun:}$order.id{/yun}" class="payment_bottom_bth2">重新支付</a>
+    </div>
+</div>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+
+<script>
+     $(document).ready(function() {
+
+        $("#alipay").click(function() {
+            document.getElementById('payform').action = "../api/alipay/alipayto.php";
+            $("#payform").attr("target", "_blank");
+            $("#alipay").addClass("payment_boxlist_zf_s_cur");
+            $("#otherpay").removeClass("payment_boxlist_zf_s_cur");
+            $("#tenpay").removeClass("payment_boxlist_zf_s_cur");
+            $(".other_pay").hide();
+            $("#pay_type").val("alipay");
+        });
+
+        $("#tenpay").click(function() {
+            document.getElementById('payform').action = "../api/tenpay/index.php";
+            $("#payform").attr("target", "_blank");
+            $("#tenpay").addClass("payment_boxlist_zf_s_cur");
+            $("#otherpay").removeClass("payment_boxlist_zf_s_cur");
+            $("#alipay").removeClass("payment_boxlist_zf_s_cur");
+            $(".other_pay").hide();
+            $("#pay_type").val("tenpay");
+        });
+
+        $("#otherpay").click(function() {
+            document.getElementById('payform').action = "index.php?c=payment&act=paybank";
+            $("#payform").attr("target", "supportiframe");
+            $("#otherpay").addClass("payment_boxlist_zf_s_cur");
+            $("#alipay").removeClass("payment_boxlist_zf_s_cur");
+            $("#tenpay").removeClass("payment_boxlist_zf_s_cur");
+            $(".other_pay").show();
+            $("#pay_type").val("bank");
+        });
+
+    });
+	
+	function CheckForm(){
+		var oid		=	$("input[name=oid]").val();
+		var paytype = 	$("input[name=pay_type]").val(); 
+		
+		var index	=	loadlayer();
+		$.ajax({
+			async: false, //设置ajax同步  
+			type: 'POST',  
+			global:false,
+			url: weburl+"/member/index.php?m=ajax&c=order_type",  
+			data: {oid:oid,paytype:paytype},  
+			success: function(data){
+				
+				layer.close(index);
+			
+ 				$('#payform').submit();
+			}  
+		});
+	}
+
+    function payforms() {
+
+        var id = '{yun:}$order.id{/yun}';
+		var pay_bank = $("#pay_type").val();
+		if(pay_bank == '') {
+			layer.msg('请选择支付方式！', 2, 8);
+			return false;
+		}
+        if($("#otherpay").hasClass("payment_boxlist_zf_s_cur")) {
+            var pay_bank = "bank";
+        } else if($("#alipay").hasClass("payment_boxlist_zf_s_cur")) {
+            var pay_bank = "directPay";
+        } else if($("#tenpay").hasClass("payment_boxlist_zf_s_cur")) {
+            var pay_bank = "tenpay";
+        } 
+
+        if(pay_bank == '') {
+            layer.msg('请选择支付方式！', 2, 8);
+            return false;
+        } else if(pay_bank == 'bank') {
+            if($("#bank_name").val() == "") {
+                layer.msg('请填写汇款银行！', 2, 8);
+                return false;
+            }
+            if($("#bank_number").val() == "") {
+                layer.msg('请填写汇入账号！', 2, 8);
+                return false;
+            }
+            if($("#bank_price").val() == "") {
+                layer.msg('请填写汇款金额！', 2, 8);
+                return false;
+            }
+            if($("#bank_time").val() == "") {
+                layer.msg('请填写汇款时间！', 2, 8);
+                return false;
+            }
+        } else {
+            $.layer({
+                type: 1,
+                title: '提示',
+                closeBtn: [0, true],
+                border: [10, 0.3, '#000', true],
+                area: ['450px', '280px'],
+                page: {
+                    dom: "#payshow"
+                }
+            });
+        }
+
+    }
+
+    layui.use(['form'], function() {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+		form.on('select(banks)', function(data){
+			if(data.value){
+				var bank = data.value.split("+");
+				
+				$("#bank_name").val(bank[0]);
+				$("#bank_number").val(bank[1]);
+				form.render('select');
+			}
+		});
+    });
+</script>
+
+{yun:}include file="$userstyle/footer.htm"{/yun}

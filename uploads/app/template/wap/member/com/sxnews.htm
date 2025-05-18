@@ -1,0 +1,38 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun} 
+<section class="wap_member">
+	<div class="wap_member_comp_h1"><span>私信</span></div>
+	
+	{yun:}if !empty($rows){/yun}
+		
+		{yun:}foreach from=$rows item=v{/yun}
+			
+			<div class="com_member_hr">
+				
+				
+						
+				<div class="com_member_user_box">
+					<div class="systemnews">{yun:}$v.content{/yun}</div>
+					<div class="com_member_hr_p1">
+						日期：{yun:}$v.ctime|date_format:"%Y-%m-%d %H:%M"{/yun} 
+					</div>
+			
+					<div class="com_member_hr_cz">
+						<em class="user_size">
+							<a href="javascript:void(0)" onclick="layer_del('确定要删除？','index.php?c=delsxnews&id={yun:}$v.id{/yun}')" class="yun_member_hr_bth" style="margin-right:0px">删除</a>
+						</em> 
+					</div> 
+				</div> 
+			</div>
+		{yun:}/foreach{/yun}
+		
+	{yun:}else{/yun} 
+		
+		<div class="wap_member_no">
+			没有私信记录
+		</div> 
+	
+	{yun:}/if{/yun} 
+
+</section>
+<div class="pages"> {yun:}$pagenav{/yun}</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

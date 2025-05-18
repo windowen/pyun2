@@ -1,0 +1,138 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<script>
+    var eid = '{yun:}$info.id{/yun}';
+
+    $(document).ready(function() {
+        $("input[name='days']").click(function() {
+            var val = $(this).val();
+            countmoney(val);
+        });
+    });
+
+    function countmoney(val) {
+        var price = $("#price").val();
+        var money = parseInt(val * (price * 100)) / 100;
+        $(".pricehtml").html(money);
+    }
+</script>
+
+<section class="wap_member">
+    
+    <div class="wap_member_comp_h1"><span>简历置顶</span></div>
+
+    {yun:}if $smarty.get.server=='1'{/yun}
+    <form action="index.php?c=getOrder" method="post" onsubmit="return pay_form('zdresume');">
+     
+	 <div class="resume_top">当前简历名称</div>
+      <div class="resume_topbox">
+	  <div class="resume_topname">{yun:}$info.name{/yun}</div>
+   <div class="">{yun:}if $info.topdatetime gt 0{/yun}{yun:}$info.topdate{/yun}到期{yun:}else{/yun}
+            <font color="#999">暂未购买置顶服务</font>{yun:}/if{/yun}</div>
+   </div>
+		 <div class="resume_top">简历置顶，效果翻倍提升，增加就业机会~</div>
+		 <div class="resume_toplistbox">
+		 <div class="resume_toplisttit">选择服务</div>
+		 <div class="resume_toplist resume_toplist_cur" data-days="1">
+            <div class="resume_toplist_c">
+                <span class="resume_top_day">1天</span> <span class="resume_top_m"><span class="resume_top_y">￥</span>{yun:}$config.integral_resume_top{/yun}</span>
+            </div>
+        </div>
+		 <div class="resume_toplist" data-days="3">
+            <div class="resume_toplist_c">
+                <span class="resume_top_day">3天</span> <span class="resume_top_m"><span class="resume_top_y">￥</span>{yun:}3*$config.integral_resume_top{/yun}</span>
+            </div>
+        </div>
+		 <div class="resume_toplist" data-days="5"><div class="resume_toplist_c"><span class="resume_top_day">5天</span> <span class="resume_top_m"><span class="resume_top_y">￥</span>{yun:}5*$config.integral_resume_top{/yun}</span></div></div>
+		 <div class="resume_toplist" data-days="7"><div class="resume_toplist_c"><span class="resume_top_day">7天</span> <span class="resume_top_m"><span class="resume_top_y">￥</span>{yun:}7*$config.integral_resume_top{/yun}</span></div></div>
+		  <div class="resume_toplist" data-days="15"><div class="resume_toplist_c"><span class="resume_top_day">15天</span> <span class="resume_top_m"><span class="resume_top_y">￥</span>{yun:}15*$config.integral_resume_top{/yun}</span></div></div>
+		 <div class="resume_toplist" data-days="30"><div class="resume_toplist_c"><span class="resume_top_day">30天</span> <span class="resume_top_m"><span class="resume_top_y">￥</span>{yun:}30*$config.integral_resume_top{/yun}</span></div></div>
+         </div>
+	
+			
+		<div class="resumeTop_zf">
+			{yun:}if $paytype.alipay{/yun}
+			<div class="resumeTop_zfbzf" onclick="paycheck('alipay');"><i class="alipay resumeTop_zf_gx"></i> 支付宝支付</div>
+            {yun:}/if{/yun}
+		</div>
+        <input id="paytype" name="paytype" type="hidden" value="" />
+        <input id="price" type="hidden" value="{yun:}$config.integral_resume_top{/yun}" />
+        {yun:}if $paytype.alipay{/yun}
+		<div class="resumeTop_zf_box">
+			<input type="button" value="确认支付" name="nextstep" class="resumeTop_zf_btn" onclick="serverPay('zdresume','{yun:}$info.id{/yun}');">
+		</div>
+        {yun:}else{/yun} 
+        <div class="pay_zfgb_tip">
+                <span>网站已关闭支付功能，请联系管理员！</span>
+           
+        </div>
+        {yun:}/if{/yun}
+        {yun:}if $config.sy_freewebtel{/yun}
+        <div class="getserbver_box_tel mt15">
+            <a href="tel:{yun:}$config.sy_freewebtel{/yun}">客服电话：{yun:}$config.sy_freewebtel{/yun}</a>
+        </div>{yun:}/if{/yun}
+    </form>
+	{yun:}/if{/yun}
+</section>
+<div class="clear"></div>
+<link rel="stylesheet" href="{yun:}$wap_style{/yun}/js/swiper/swiper.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/pay.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$wap_style{/yun}/js/swiper/swiper.min.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+	window.onload = function() {
+		var mySwiper1 = new Swiper('#getserver_tc', {
+			freeMode: true,
+			slidesPerView: 'auto',
+			hashnav: true
+		});
+	}
+	
+	
+    $('.resume_toplist').click(function(){
+        
+        $('.resume_toplist').removeClass('resume_toplist_cur');
+        $(this).addClass('resume_toplist_cur');
+    })
+
+	function serverPay(server, eid){
+		
+		var paytype 	= $("#paytype").val();
+    	
+    	if(paytype == ''){
+    		layermsg('请选择支付方式！');
+    		return false;
+    	}
+		
+		if(server == 'zdresume'){
+			//var days 	=	$('input[name="days"]:checked').val(); 
+            var days = $('.resume_toplist_cur').attr('data-days');
+
+			var pData	= 	{server: server, resumeid: eid, days: days, paytype: paytype};
+		}else if(server == 'wtresume'){
+			var pData  	= 	{server: server, wteid: eid, paytype: paytype};
+		}
+    	 
+    	var ajaxUrl		= 'index.php?c=getOrder';
+    	
+    	$.post(ajaxUrl, pData, function(data){
+    		
+    		var data = eval('(' + data + ')');
+    		
+    		if(data.error == '0') { // 下单成功成功
+    			
+    			layermsg(data.msg, 2, function() {
+    				location.href = data.url;
+    			});
+    			
+    			return false;
+    		} else {
+    			layermsg(data.msg, 2, function() {
+    				location.reload(true);
+    			});
+    			
+    			return false;
+    		}
+    	});
+	}
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

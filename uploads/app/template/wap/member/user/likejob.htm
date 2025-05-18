@@ -1,0 +1,31 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun} 
+<div class="main_member_cot_box">
+<div class="wap_member_comp_h1"><span>相似职位</span></div>
+{yun:}foreach item=one from=$job{/yun}
+  <div class="com_member_hr">
+ <div class="com_member_hr_name"> 
+<a href="{yun:}url m=wap c=job a=comapply id=$one.id{/yun}"  class="wap_member_com_name  com_member_hr_cblue">{yun:}$one.name{/yun}</a>    
+</div>
+ <div class="user_member_box">
+  <div class="com_member_hr_p1"><a href="{yun:}url m=wap c=company a=show id =$one.uid{/yun}">{yun:}$one.com_name{/yun}</a> </div>
+ <div class="com_member_hr_p1">{yun:}$one.job_salary{/yun} {yun:}if $one.job_edu{/yun}&nbsp;&nbsp;|&nbsp;&nbsp;<span class="">{yun:}$one.job_edu{/yun}学历</span>{yun:}/if{/yun}{yun:}if $one.job_exp{/yun}&nbsp;&nbsp;|&nbsp;&nbsp;{yun:}$one.job_exp{/yun}经验{yun:}/if{/yun}
+ </div>
+ <div class="com_member_hr_p1"> 职位匹配度：{yun:}$one.pre{/yun}% </div>
+
+  </div>
+<div class="com_member_hr_cz">
+
+<a href="{yun:}url m=wap c=job a=comapply id=$one.id{/yun}" class="yun_member_hr_bth">查看详情</a>
+</div>
+</div>
+{yun:}foreachelse{/yun}  
+<div class="wap_member_no">
+您还没有相似职位<div><a class="wap_member_no_submit" href="{yun:}url m=wap c=job{/yun}">去搜索相关职位</a></div>
+</div>
+{yun:}/foreach{/yun} 
+</div>
+{yun:}if $job|@count>0{/yun} 
+<div class="pages">{yun:}$pagenav{/yun}</div>
+{yun:}/if{/yun} 
+
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

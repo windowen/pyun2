@@ -1,0 +1,50 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<div class="main_member_cot_box">
+
+
+	<div class="wap_member_post_list">
+		{yun:}foreach item=log from=$rows{/yun}
+
+	
+		<div class="com_member_hrlist">
+			<div class="com_member_hrlist_top">
+				<div class="com_member_hrlist_logo"> <img src="{yun:}$log.logo{/yun}"></div>
+				<div class="com_member_hrlist_gsname">
+					<a href="{yun:}url m=wap c=company a=show id='`$log.sc_uid`'{/yun}" class=" ">{yun:}$log.com_name{/yun}</a>
+				</div>
+				<div class="com_member_hrlist_m">
+					{yun:}$log.pr_n{/yun}
+					<span class="yun_newedition_jobline"></span>
+					{yun:}$log.mun_n{/yun}
+					<span class="yun_newedition_jobline"></span>
+					{yun:}$log.hy_n{/yun}
+				</div>
+			</div>
+			<div class="com_member_hrlist_zzjob_box">
+				{yun:}if $log.jobnum>0{/yun}
+				<span class="com_member_hrlist_zzjob">
+					{yun:}$log.jobname{/yun}
+				</span>
+				<a href="{yun:}url m=wap c=company a=show id='`$log.sc_uid`'{/yun}#job" class="gz_job_n">共{yun:}$log.jobnum{/yun}个职位></a>{yun:}else{/yun}暂无职位
+				{yun:}/if{/yun}
+			</div>
+			
+			<div class="com_member_cz"><span class="com_member_hrlist_time">{yun:}$log.time|date_format:"%Y-%m-%d"{/yun}</span>
+				<a href="javascript:void(0)" onclick="layer_del('是否取消关注？','index.php?c=atncom&id={yun:}$log.id{/yun}&uid={yun:}$log.sc_uid{/yun}')" class="yun_member_hr_bth">取消关注</a>
+			</div>
+
+		</div>
+
+
+		{yun:}foreachelse{/yun}
+		<div class="wap_member_no">
+			暂无关注的企业<div><a class="wap_member_no_search" href="{yun:}url m=wap c=company {/yun}">去搜索我感兴趣的企业</a></div>
+		</div>
+		{yun:}/foreach{/yun}
+	</div>
+
+	<div class="pages"> {yun:}$pagenav{/yun}</div>
+</div>
+</div>
+</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

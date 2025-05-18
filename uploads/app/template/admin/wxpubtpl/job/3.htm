@@ -1,0 +1,41 @@
+{yun:}foreach item=v from=$lists{/yun}
+ <section>
+      <section style="margin:10px 10px 10px 20px;">
+        <section style="width:65px;height:65px;background:#fefefe;transform: rotate(0);margin-bottom: -56px;margin-left: -10px;">
+          <section style="width:8px;height: 8px;border-radius:100%;background:#f7d749;float: right;margin-top:6px;"></section>
+          <section  data-brushtype="text" style="text-align: left;color: #333;font-size:24px;letter-spacing:3px;font-weight: bold;"> 诚聘 </section>
+          <section  data-brushtype="text" style="text-align: left;color: #333;font-size:12px;font-weight: bold;"> Join Us </section>
+          <section style="width:8px;height: 8px;border-radius:100%;background:#f7d749;margin-top:5px;margin-left:2px;"></section>
+        </section>
+<section data-bgless="spin" data-bglessp="120" data-bgopacity="1%" style="padding-bottom:5px;border-radius:8px;background-color:#ffeea4;">
+<section style="border: 2px solid #f7d749;padding: 10px 0px 20px 0px;background-color:#ffffff;border-radius:8px;margin-left: -5px;margin-top: -10px;margin-right:4px;">
+<section style="text-align: center;margin-top:15px;">
+<section  data-brushtype="text" style="display:inline-block;background:#f7d749;padding:6px 1em;font-size: 16px;color: #333;letter-spacing: 1.5px; width:150px; overflow:hidden; margin-top:30px;">{yun:}$v.name{/yun}</section>
+</section>
+<section  data-brushtype="text" style="text-align: center;font-size: 14px;color: #333;letter-spacing: 1.5px;margin:15px auto;"> 月薪： <strong style="color:#c00000;font-size: 16px;">￥{yun:}$v.job_salary{/yun}</strong> </section>
+<section  data-brushtype="text" style="text-align: left;font-size: 14px;color: #333;letter-spacing: 1.5px;margin:15px auto;">
+{yun:}if $v.job_welfare{/yun}<p style="padding:0 0.5rem;">{yun:}foreach from=$v.job_welfare item = welv{/yun}<span style="display:inline-block;padding:0.1rem 0.5rem; background-color:#eee; border-radius:0.5rem; margin-bottom:0.5rem;">{yun:}$welv{/yun}</span> {yun:}/foreach{/yun}{yun:}/if{/yun}</p>
+</section>
+<section data-autoskip="1"  style="padding:0px 1.5em;text-align: justify;font-size: 14px;color: #333;margin:12px auto;line-height: 1.75em;">
+<p>{yun:}$v.com_name{/yun}</p>
+<p>
+{yun:}if $v.job_number{/yun}<section style="width:48%; display:inline-block">招聘：{yun:}$v.job_number{/yun}</section>{yun:}/if{/yun}
+{yun:}if $v.job_age{/yun}<section style="width:48%; display:inline-block">年龄：{yun:}$v.job_age{/yun}</section>{yun:}/if{/yun}
+{yun:}if $v.job_exp{/yun}<section style="width:48%; display:inline-block">经验：{yun:}$v.job_exp{/yun}</section>{yun:}/if{/yun}
+{yun:}if $v.job_edu{/yun}<section style="width:48%; display:inline-block">学历：{yun:}$v.job_edu{/yun}</section>{yun:}/if{/yun}</p>
+<p>地点：{yun:}if $v.job_city_one||$v.job_city_two||$v.job_city_three{/yun}{yun:}$v.job_city_one{/yun}-{yun:}$v.job_city_two{/yun}{yun:}if $v.job_city_three{/yun} -{yun:}$v.job_city_three{/yun} {yun:}/if{/yun}{yun:}/if{/yun}</p>
+
+{yun:}if $ewmtype != 'xcx'{/yun}
+<p style="text-align:center;" align="center"><img style="width:50%; max-width:180px;" src="{yun:}pubqrcode  toc=job toa=comapply toid=$v.id totype=$ewmtype{/yun}"><br>扫码或长按二维码识别投递简历</p>
+
+ {yun:}else{/yun}
+	<p style="text-align:center; padding-top:20px;"><a data-miniprogram-type="text"  data-miniprogram-appid="{yun:}$wxpaydata.sy_xcxappid{/yun}" data-miniprogram-path="/pages/job/show?id={yun:}$v.id{/yun}" class="weapp_text_link" href="" style="color: rgb(51, 51, 51);padding: 6px 1.4em;-webkit-tap-highlight-color: rgba(0, 0, 0, 0);cursor: pointer;max-width: 100%;font-size: 14px;display: inline-block;border-radius: 50px;letter-spacing: 1.5px;background: rgba(247, 215, 73, 0.86);box-sizing: border-box !important;overflow-wrap: break-word !important;">查看详情</a></p>
+{yun:}/if{/yun}
+<p style="text-align:center;color:#0070c0;" align="center">求职招聘，就上{yun:}$config.sy_webname{/yun}<br>{yun:}$config.sy_weburl{/yun}</p>
+
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+{yun:}/foreach{/yun}

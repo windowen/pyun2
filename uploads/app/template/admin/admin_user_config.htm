@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+
+	<style>
+		.layui-form-radio{
+			margin-top: 4px;
+		}
+	</style>
+	
+	<body class="body_ifm">
+		<form class="layui-form">
+
+			<div id="subboxdiv" style="width:100%;height:100%;display:none;position:absolute;"></div>
+		
+			<div class="infoboxp">
+				<div class="tty-tishi_top">
+			
+				<div class="tabs_info">
+					<ul>
+						<li class="curr">
+							<a href="index.php?m=admin_userset">个人设置</a>
+						</li>
+						<li>
+							<a href="index.php?m=admin_userset&c=logo">头像设置</a>
+						</li>
+						<li>
+							<a href="index.php?m=admin_userset&c=userspend">消费设置</a>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">通过个人设置，可以实现“简历审核、个人身份证认证”等设置。管理员根据自己运营需求自由设置。</div>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+
+					<div class="tag_box">
+						<div class="">
+							<table width="100%" class="table_form">
+								<tr>
+									<th width="220" style="float: left;">审核信息：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input name="user_state" title="会员审核" type="checkbox" lay-skin="primary" {yun:}if $config.user_state == '0'{/yun}checked{yun:}/if{/yun} />
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input name="resume_status" title="简历审核" type="checkbox" lay-skin="primary" {yun:}if $config.resume_status == '0'{/yun}checked{yun:}/if{/yun} />
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input name="user_photo_status" title="头像审核" type="checkbox" lay-skin="primary" {yun:}if $config.user_photo_status == '1'{/yun}checked{yun:}/if{/yun} />
+											</div>
+										</div>
+										<div class="layui-input-block">
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input name="rshow_photo_status" title="作品审核" type="checkbox" lay-skin="primary" {yun:}if $config.rshow_photo_status == '1'{/yun}checked{yun:}/if{/yun} />
+											</div>
+											
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input name="user_idcard_status" title="身份证审核" type="checkbox" lay-skin="primary" {yun:}if $config.user_idcard_status == '1'{/yun}checked{yun:}/if{/yun}/>
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<th width="220" style="float: left;">强制操作：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input name="user_resume_status" title="创建简历" type="checkbox" lay-skin="primary" {yun:}if $config.user_resume_status == '1'{/yun}checked{yun:}/if{/yun} />
+											</div>
+										</div>
+									</td>
+								</tr>
+
+								
+								
+								<tr>
+									<th width="220">邮件激活：</th>
+									<td>
+										<div class="layui-input-inline" style="float: left;">
+											<input type="checkbox" {yun:}if $config.user_status == '1'{/yun}checked{yun:}/if{/yun} name="user_status" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭" />
+											<div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch">
+												<em>开启</em>
+												<i></i>
+											</div>
+										</div>
+										<div class="layui-form-mid">
+											<a href="javascript:jihuo();" style="color: #2d8cf0;margin-left: 30px;">以前用户全部激活</a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="220">拥有简历才可报名兼职：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="checkbox" {yun:}if $config.com_resume_partapply == '1'{/yun}checked{yun:}/if{/yun} name="com_resume_partapply" lay-skin="switch" lay-filter="switchTest" lay-text="开启|关闭">
+											<div class="layui-unselect layui-form-switch layui-form-onswitch" lay-skin="_switch">
+												<em>开启</em><i></i>
+											</div>
+										</div>
+									</td>
+								</tr>
+					 
+								<tr class="admin_table_trbg">
+									<th width="220" style="float: left;">简历创建必填项：</th>
+									<td>
+										
+										<div class="layui-input-block">
+											<input name="resume_create_exp" title="工作经历" {yun:}if $config.resume_create_exp==1{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary" lay-filter="resume_create_exp"/>
+											<input name="resume_create_edu" title="教育经历" {yun:}if $config.resume_create_edu==1{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary" lay-filter="resume_create_edu"/>
+											<input name="resume_create_project" title="项目经历" {yun:}if $config.resume_create_project==1{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary"/>
+										</div>
+
+										<div id="expshow" {yun:}if $config.resume_create_exp!=1{/yun}style="display:none;"{yun:}/if{/yun}>  
+											<div class="admin_tj_xz">
+												<div class="layui-input-block">
+													{yun:}foreach from=$userdata.user_word item=v{/yun}
+													<div class="layui-input-inline" style="margin-top: 16px;">
+														<input name="expcreate" title="{yun:}$userclass_name[$v]{/yun}" value="{yun:}$v{/yun}" {yun:}if strpos($config.expcreate,$v)!==false{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary"/>
+													</div>
+													{yun:}/foreach{/yun}
+												</div>
+												<span class="admin_web_tip" style="padding-top: 15px;">工作经历非必填条件选择 &nbsp; 根据求职者填写基本信息时选择的工作经验，创建简历时可不强制填写工作经历</span>
+											</div>
+										</div> 
+                                        <div id="edushow" {yun:}if $config.resume_create_edu!=1{/yun}style="display:none;"{yun:}/if{/yun}>
+											<div class="admin_tj_xz">
+												<div class="layui-input-block">
+													{yun:}foreach from=$userdata.user_edu item=v{/yun}
+													<div class="layui-input-inline" style="margin-top: 16px;">
+														<input name="educreate" title="{yun:}$userclass_name[$v]{/yun}" value="{yun:}$v{/yun}" {yun:}if strpos($config.educreate,$v)!==false{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary"/>
+													</div>
+													{yun:}/foreach{/yun}
+												</div>
+												<span class="admin_web_tip" style="padding-top: 15px;">教育经历非必填条件选择 &nbsp; 根据求职者填写基本信息时选择的学历，创建简历时可不强制填写教育经历</span>
+											</div>
+                                        </div>
+									</td>
+								</tr>
+                              
+								<tr class="admin_table_trbg">
+									<th width="220">简历置顶要求：</th>
+									<td>
+										<div class="layui-input-inline">
+											<input name="user_work_regiser" title="工作经历" {yun:}if $config.user_work_regiser==1{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary"/>
+											<input name="user_edu_regiser" title="教育经历" {yun:}if $config.user_edu_regiser==1{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary"/>
+											<input name="user_project_regiser" title="项目经历" {yun:}if $config.user_project_regiser==1{/yun} checked {yun:}/if{/yun} type="checkbox" lay-skin="primary"/>
+										</div>
+									</td>
+								</tr>
+								
+								<tr class="admin_table_trbg">
+									<th width="220" class="t_fl">个人搜索器数量：</th>
+									<td>
+										<div class="layui-input-block ">
+											<input class="tty_input t_w480" type="text" name="user_finder" id="user_finder" value="{yun:}$config.user_finder{/yun}" size="20" maxlength="255" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />个
+										</div>
+										<span class="admin_web_tip">提示：数量太多，发送订阅邮件会很慢，为空则不限</span>
+									</td>
+								</tr>
+								<tr>
+									<th width="220" class="t_fl">个人会员发布简历数：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="user_number" id="user_number" value="{yun:}$config.user_number{/yun}" size="20" maxlength="255" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />份
+										</div>
+										<span class="admin_web_tip">提示：为空则不限</span>
+									</td>
+								</tr>
+								 
+								<tr class="admin_table_trbg">
+									<th width="220">姓名展示：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="radio" name="user_name" value="1" title="用户自定义" {yun:}if $config.user_name==1{/yun}checked{yun:}/if{/yun}/>
+											<input type="radio" name="user_name" value="2" title="编号" {yun:}if $config.user_name==2{/yun}checked{yun:}/if{/yun}/>
+											<input type="radio" name="user_name" value="3" title="性别称呼" {yun:}if $config.user_name==3{/yun}checked{yun:}/if{/yun}/>
+											<input type="radio" name="user_name" value="4" title="真实姓名" {yun:}if $config.user_name==4{/yun}checked{yun:}/if{/yun}/>
+											<span class="admin_web_tip">编号：如NO.12，性别称呼：如冯先生/女士，真实姓名：如冯云鹏</span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="220">个人简历头像：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="radio" name="user_pic" value="1" title="用户自定义" {yun:}if $config.user_pic==1{/yun}checked{yun:}/if{/yun}/>
+											<input type="radio" name="user_pic" value="2" title="显示" {yun:}if $config.user_pic==2{/yun}checked{yun:}/if{/yun}/>
+											<input type="radio" name="user_pic" value="3" title="不显示" {yun:}if $config.user_pic==3{/yun}checked{yun:}/if{/yun}/>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="220" class="t_fl">申请职位要求简历完整度达到：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="user_sqintegrity" id="user_sqintegrity" value="{yun:}$config.user_sqintegrity{/yun}" size="20" maxlength="255" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />%
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="220">个人简历刷新类型：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="radio" name="resume_sx" value="1" title="登录后自动刷新" {yun:}if $config.resume_sx==1{/yun}checked{yun:}/if{/yun}/>
+											<input type="radio" name="resume_sx" value="2" title="弹出框手动刷新" {yun:}if $config.resume_sx==2{/yun}checked{yun:}/if{/yun}/>
+										</div>
+									</td>
+								</tr>
+								<tr class="admin_table_trbg">
+                                    <th width="220" class="t_fl">简历模糊化：</th>
+                                    <td>
+										<div class="layui-input-block">
+											<input type="radio" name="resume_open_check" lay-filter="type" value="1" title="开放" {yun:}if $config.resume_open_check==1{/yun}checked{yun:}/if{/yun}>
+											<input type="radio" name="resume_open_check" lay-filter="type" value="2" title="企业登录" {yun:}if $config.resume_open_check==2{/yun}checked{yun:}/if{/yun}>
+											<input type="radio" name="resume_open_check" lay-filter="type" value="3" title="发布职位" {yun:}if $config.resume_open_check==3{/yun}checked{yun:}/if{/yun}>
+											<input type="radio" name="resume_open_check" lay-filter="type" value="4" title="下载简历(查看联系方式)" {yun:}if $config.resume_open_check==4{/yun}checked{yun:}/if{/yun}>
+										</div>
+										<span class="admin_web_tip">提示：若选择“开放”，任何人都可以查看具体的工作经历等内容</span>
+                                    </td>
+                                </tr>
+								
+								<tr class="">
+									<th>&nbsp;</th>
+									<td align="left">
+										<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}"/>
+										<input class="tty_sub" id="config" type="button" name="config" value="提交"/>&nbsp;&nbsp;
+										<input class="tty_cz" type="reset" value="重置" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<script>
+					layui.use(['layer', 'form'], function() {
+						var layer = layui.layer,
+							form = layui.form,
+							$ = layui.$;
+						form.on('checkbox(resume_create_edu)', function(data) {
+							if(data.elem.checked) {
+								$('#edushow').show();
+							}else{
+								$('#edushow').hide();
+							}
+						});
+						form.on('checkbox(resume_create_exp)', function(data) {
+							if(data.elem.checked) {
+								$('#expshow').show();
+							}else{
+								$('#expshow').hide();
+							}
+						});
+					});
+					$(function() {
+						$("#config").click(function() {
+							var educreate	= "";
+                        	$('input[name="educreate"]:checked').each(function() {
+                                if(educreate == "") {
+                                	educreate = $(this).val();
+                                } else {
+                                	educreate = educreate + "," + $(this).val();
+                                }
+                            });
+							var expcreate	= "";
+                        	$('input[name="expcreate"]:checked').each(function() {
+                                if(expcreate == "") {
+                                	expcreate = $(this).val();
+                                } else {
+                                	expcreate = expcreate + "," + $(this).val();
+                                }
+                            });
+							loadlayer();
+							$.post("index.php?m=admin_userset&c=save", {
+								config: $("#config").val(),
+								user_number: $("#user_number").val(),
+								user_finder: $("#user_finder").val(),
+								user_work_regiser: $("input[name=user_work_regiser]").is(":checked") ? 1 : 0,
+								user_edu_regiser: $("input[name=user_edu_regiser]").is(":checked") ? 1 : 0,
+								user_project_regiser: $("input[name=user_project_regiser]").is(":checked") ? 1 : 0,
+								//简历完善度达到80%以上验证，是否开启 1是开启 0是关闭  暂时不需要
+								//简历完整度字段名称为：user_integrity_eighty
+								user_integrity_eighty: $("input[name=user_integrity_eighty]:checked").val(),
+								
+								// 审核信息
+								user_state: $("input[name=user_state]").is(":checked") ? 0 : 1,
+								resume_status: $("input[name=resume_status]").is(":checked") ? 0 : 1,
+								user_height_resume: $("input[name=user_height_resume]").is(":checked") ? 1 : 2,
+								user_idcard_status: $("input[name=user_idcard_status]").is(":checked") ? 1 : 0,
+								user_photo_status: $("input[name=user_photo_status]").is(":checked") ? 1 : 2,
+								rshow_photo_status: $("input[name=rshow_photo_status]").is(":checked") ? 1 : 0,
+
+								// 邮件激活
+								user_status: $("input[name=user_status]").is(":checked") ? 1 : 0,
+
+								// 强制操作
+								user_resume_status: $("input[name=user_resume_status]").is(":checked") ? 1 : 0,
+
+								user_gzgzh: $("input[name=user_gzgzh]").is(":checked") ? 1 : 0,
+
+								com_resume_partapply: $("input[name=com_resume_partapply]").is(":checked") ? 1 : 0,
+								
+								resume_open_check: $("input[name=resume_open_check]:checked").val(),
+
+								resume_sx: $("input[name=resume_sx]:checked").val(),
+								
+								pytoken: $("#pytoken").val(),
+
+								user_name: $("input[name=user_name]:checked").val(),
+								//个人简历头像是否显示，1是用户自定义 2是显示 3是不显示
+								user_pic: $("input[name=user_pic]:checked").val(),
+								user_sqintegrity: $("#user_sqintegrity").val(),
+								//简历创建必填项
+								resume_create_edu: $("input[name=resume_create_edu]").is(":checked") ? 1 : 0,
+								resume_create_exp: $("input[name=resume_create_exp]").is(":checked") ? 1 : 0,
+								resume_create_project: $("input[name=resume_create_project]").is(":checked") ? 1 : 0,
+								educreate:educreate,
+								expcreate:expcreate
+							}, function(data, textStatus) {
+								parent.layer.closeAll('loading');
+								config_msg(data);
+							});
+						});
+					})
+
+					function jihuo() {
+						var pytoken = $("#pytoken").val();
+						loadlayer();
+						$.get('index.php?m=admin_userset&c=jihuo&pytoken=' + pytoken, function(data) {
+							parent.layer.closeAll('loading');
+							if (data) {
+								parent.layer.msg('激活成功！', 2, 9);
+							} else {
+								parent.layer.msg('激活失败！', 2, 8);
+							}
+						})
+					}
+				</script>
+			</div>
+		</form>
+	</body>
+
+</html>

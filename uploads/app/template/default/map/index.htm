@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<meta name="keywords" content="{yun:}$keywords{/yun}" />
+		<meta name="description" content="{yun:}$description{/yun}" />
+
+		<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+		<link href="{yun:}$style{/yun}/style/map.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+
+		<title>{yun:}$title{/yun}</title>
+	</head>
+
+	<body style="background: #f8f8f8; height: 100%; overflow: hidden;">
+		{yun:}include file="$tplstyle/header.htm"{/yun}
+
+		<div class="clear"></div>
+		<div class="new_mapbox">
+			<div class="new_mapbox_nav">
+				<ul>
+					<li id="tjob" class="new_mapbox_nav_cur">
+						<a href="javascript: void(0)" class="changetype" data-type="job"><i class="new_mapbox_nav_icon"></i>职位</a>
+					</li>
+					<li id="tcompany">
+						<a href="javascript: void(0)" class="changetype" data-type="company"><i class="new_mapbox_nav_icon new_mapbox_nav_icon_gs"></i>公司</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="new_mapbox_left">
+				<div class="new_mapbox_search">
+					<input id="keyword" type="text" name="key" value="" placeholder="请输入职位名称" class="new_mapbox_search_text">
+					<input type="hidden" name="searchtype" id="searchtype" value="job" />
+					<input id="submitbutton" type="button" value="搜索" class="new_mapbox_search_bth" href="javascript: void(0)">
+				</div>
+
+				<div id="newcontent" class="new_map_jobbox">
+
+
+				</div>
+				<div id="Pagination" class="pagination"></div>
+			</div>
+			<div class="new_mapbox_right">
+				<div id="map_content">
+
+					<div id="map">
+						<div id="map-container" class="inner"></div>
+						<div class="map-loader">
+							<img src="{yun:}$style{/yun}/images/map_loader.gif" />
+						</div>
+						<div class="map-loader-box">
+							<img src="{yun:}$style{/yun}/images/map_loader_box.gif" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<!--[if IE 6]>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script>
+		DD_belatedPNG.fix('.png');
+		</script>
+		<![endif]-->
+
+		<script>
+			weburl = "{yun:}$config.sy_weburl{/yun}";
+		</script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+		 type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script type="text/javascript" src="{yun:}$config.mapurl{/yun}" charset="utf-8"></script>
+
+		<script>
+			var getdataurl = '{yun:}url m=map c=search{/yun}';
+			var marker_icon_url = "{yun:}$style{/yun}/images/map_markers.png";
+			var marker_icon_blue = "{yun:}$style{/yun}/images/map_marker_blue.png";
+			var x = "{yun:}$config.map_x{/yun}";
+			var y = "{yun:}$config.map_y{/yun}";
+			var map_tocity = "{yun:}$config.map_tocity{/yun}";
+		</script>
+		<script src="{yun:}$style{/yun}/js/map.js?v={yun:}$config.cachecode{/yun}"></script>
+		<div class="none">{yun:}include file="$tplstyle/footer.htm"{/yun}></div>
+		{yun:}include file="$tplstyle/public_search/login.htm"{/yun}

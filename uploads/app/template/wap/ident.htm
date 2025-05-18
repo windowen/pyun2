@@ -1,0 +1,23 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<style type="text/css">
+	body {
+		background: #fff
+	}
+	.header_h{ display:none;}
+	.yun_footer{ display:none;}
+</style>
+<div class="login_tit">  <a class="hd-lbtn" href="{yun:}if $backurl{/yun}{yun:}$backurl{/yun}{yun:}else{/yun}javascript:goBack();{yun:}/if{/yun}"><i class="header_top_l"></i></a>恭喜您注册成功
+<div class="regok_tit_p">请选择一个身份，激活当前账户！</div>
+</div>
+<div class="regok_box">	
+<ul>
+<li><a href="{yun:}url m=wap c=register a=ident usertype=1{/yun}"><div class="regok_box_user">我是求职者</div><div class="regok_box_user_p">免费发布简历，海量职位随意挑</div><i class="regok_box_user_icon"></i></a></li>
+<li><a href="{yun:}url m=wap c=register  a=ident usertype=2{/yun}"><div class="regok_box_user">我是招聘者</div><div class="regok_box_user_p">发布招聘信息，收取简历投递</div><i class="regok_box_user_icon regok_box_user_icon_com"></i></a></li>
+
+
+
+</ul>
+
+</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

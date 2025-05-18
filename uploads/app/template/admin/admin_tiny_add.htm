@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<title>后台管理</title>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+}
+body, div {
+	margin: 0;
+	padding: 0;
+}
+</style>
+</head>
+<body class="body_ifm">
+<div class="infoboxp">
+
+
+ <div class="tty-tishi_top"> 
+    <div class="tag_box">
+      <iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+      <form class="layui-form" target="supportiframe" class='layui-form' action="index.php?m=admin_tiny&c=save" method="post" onSubmit="return check_resume_tiny()">
+        <table width="100%" class="table_form" style="background:#fff;">
+         <tr>
+			 <th colspan="2" class="admin_bold_box">
+			 	<div class="admin_bold">普工简历</div>
+			 </th>
+            </tr>
+          <tr>
+            <th width="120">姓名：</th>
+            <td><input type="text"  value="{yun:}$row.username{/yun}" lay-verify="required" placeholder="请输入姓名" name="username" id="username" class="layui-input t_w480"></td>
+            </tr>
+            <tr>
+            <th>性别：</th>
+            <td>
+			 <div class="layui-input-inline">
+					<select name="sex" lay-filter="" id="sex">
+						<option>请选择</option>
+						{yun:}foreach from=$user_sex item=v key=j{/yun}
+						<option  value="{yun:}$j{/yun}" {yun:}if $row.sex==$j{/yun} selected {yun:}/if{/yun}> {yun:}$v{/yun}</option>
+						{yun:}/foreach{/yun}
+					</select>
+				</div>
+            </td>
+          </tr>
+          <tr  class="admin_table_trbg">
+            <th>工作年限：</th>
+            <td>
+				<div class="layui-input-inline">
+					<select name="exp" id="exp" lay-verify="" >
+						<option>请选择</option>
+						{yun:}foreach from=$userdata.user_word item=v{/yun}
+						<option  value="{yun:}$v{/yun}"{yun:}if $row.exp==$v{/yun} selected {yun:}/if{/yun} > {yun:}$userclass_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+					</select>
+				</div>
+			 </td>
+          </tr>
+          <tr  class="admin_table_trbg">
+            <th>工作地区：</th>
+            <td>
+				 <div class="layui-input-block">
+					<div class="layui-input-inline t_w157">
+						<select name="provinceid" id="provinceid" lay-filter="citys" >
+						<option>请选择</option>
+						{yun:}foreach from=$city_index item=v{/yun}
+						<option  value="{yun:}$v{/yun}"{yun:}if $row.provinceid==$v{/yun}selected{yun:}/if{/yun}> {yun:}$city_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+					</div>
+					<div class="layui-input-inline t_w157">
+						<select name="cityid" id="cityid" lay-filter="citys" >
+						<option>请选择</option>
+						{yun:}foreach from=$city_type[$row.provinceid] item=v{/yun}
+						<option  value="{yun:}$v{/yun}"{yun:}if $row.cityid==$v{/yun}selected{yun:}/if{/yun}> {yun:}$city_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+					</div>
+					<div class="layui-input-inline t_w157">
+						<select name="three_cityid" id="three_cityid" lay-filter="citys" >
+						<option>请选择</option>
+						{yun:}foreach from=$city_type[$row.cityid] item=v{/yun}
+						<option  value="{yun:}$v{/yun}"{yun:}if $row.three_cityid==$v{/yun}selected{yun:}/if{/yun}> {yun:}$city_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+					</div>
+				</div>
+			 </td>
+             </tr>
+             <tr>
+            <th>意向职位：</th>
+            <td><input type="text" id="job" name="job" lay-verify="required" placeholder="请填写意向职位" value="{yun:}$row.job{/yun}" class="layui-input t_w480"/></td>
+          </tr>
+          <tr>
+            <th>手机：</th>
+            <td colspan="3"><input type="text" name="mobile" lay-verify="required" placeholder="请填写手机号码" id="mobile" value="{yun:}$row.mobile{/yun}" class="layui-input t_w480" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')"/></td>
+          </tr>
+          <tr  class="admin_table_trbg">
+            <th class="t_fl">自我介绍：</th>
+            <td colspan="3"><textarea class="layui-textarea t_w480" id="production" name="production" lay-verify="required" placeholder="请填写自我介绍">{yun:}$row.production{/yun}</textarea></td>
+          </tr>
+          <tr  class="admin_table_trbg">
+            <th class="t_fl">密码：</th>
+            <td><input type="password" name="password"  id="password" value="" class="layui-input t_w480" style='width:100px' onkeyup="this.value=this.value.replace(/^ +| +$/g,'')"/>
+              <span class="admin_web_tip">不填写则不修改</span></td>
+          </tr>
+          <tr>
+          <th>&nbsp;</th>
+            <td align="left" > {yun:}if is_array($row){/yun}
+              <input type="hidden" name="id" id="id" value="{yun:}$row.id{/yun}"/>
+              {yun:}/if{/yun}
+              <input class="tty_sub" type="submit" name="submit" value="&nbsp;保 存&nbsp;" />
+              <input class="tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" /></td>
+          </tr>
+        </table>
+        <input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+function check_resume_tiny(){ 
+	var id=$("#id").val();
+	var username=$("#username").val();
+	if($.trim(username)==""){ 
+		layer.msg('请填写姓名', 2, 8);return false; 
+	}	
+	var job=$("input[name=job]").val();
+	if($.trim(job)==""){
+		layer.msg('请填写求职意向', 2, 8);return false; 
+	}
+	var mobile=$.trim($("#mobile").val());
+	if(!mobile){ 
+		layer.msg('请填写手机号', 2, 8);return false; 
+	}else{
+		if(!isjsMobile(mobile)){ 
+			layer.msg('手机格式错误！', 2, 8);return false;
+		}
+	}
+	var production=$("#production").val();
+	if($.trim(production)==""){ 
+		layer.msg('请填写自我介绍', 2, 8);return false;
+	}
+
+}
+</script>
+<script type="text/javascript">
+  layui.use(['layer', 'form'], function(){
+    var layer = layui.layer
+    ,form = layui.form
+    ,$ = layui.$;
+
+  });
+</script>
+<script src='{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}'></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/city.js?v={yun:}$config.cachecode{/yun}"></script>
+</body>
+</html>

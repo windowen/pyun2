@@ -1,0 +1,259 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+    <div class="admin_mainbody"> {yun:}include file="$comstyle/left.htm"{/yun}
+        <div class="right_box">
+            <div class="member_data">
+                <div class="member_data_left">
+                    <div class="member_data_left_name">尊敬的企业用户：</div>
+                    <div class="mt10">您当前是：<span class="comindex_money_pd_s">{yun:}$statis.rating_name{/yun}</span>
+                    </div>
+
+                    <div class="member_data_tip mt10">服务到期为：
+                        {yun:}if $statis.vip_etime > $todayStart{/yun}
+                        
+                        	{yun:}$statis.vip_stime|date_format:'%Y-%m-%d'{/yun} - {yun:}$statis.vip_etime|date_format:'%Y-%m-%d'{/yun}
+                        {yun:}else if $statis.vip_etime==0{/yun}
+                        
+                        	{yun:}$statis.vip_stime|date_format:'%Y-%m-%d'{/yun} - 永久
+                        {yun:}else{/yun}
+                        
+                        	{yun:}$statis.vip_stime|date_format:'%Y-%m-%d'{/yun} - <span class="comindex_money_pd_s">{yun:}$statis.vip_etime|date_format:'%Y-%m-%d'{/yun}</span>
+                        	<a href="index.php?c=right" class="member_data_right_a member_data_right_a_cz">立即开通</a>
+                        {yun:}/if{/yun}
+                    </div>
+                </div>
+                
+                <div class="member_data_right {yun:}if !empty($spid){/yun}none{yun:}/if{/yun}">
+                    <ul>
+                        <li><span class="member_data_right_n">{yun:}$statis.zhjf{/yun}</span>
+                            <div class="member_data_right_p">可用{yun:}$config.integral_pricename{/yun}</div>
+                        </li>
+                        <li><span class="member_data_right_n">{yun:}$integral{/yun}</span>
+                            <div class="member_data_right_p">已消费{yun:}$config.integral_pricename{/yun}</div>
+                        </li>
+                        <li>
+                            <a href="index.php?c=pay" class="member_data_right_a member_data_right_a_cz">充值</a>
+                            <div class="member_data_right_p">
+                                <a href="index.php?c=paylog&consume=ok" class="member_data_right_a cblue">明细</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="admincont_box  mt20">
+                <div class="com_tit"> <span class="com_tit_span">专属服务使用情况</span> </div>
+                <div class="com_body ">
+                    <ul class="member_data_list">
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    {yun:}if $statis.rating_type=='2'{/yun} 
+                                    
+	                                    {yun:}if $rating.job_num == 0{/yun}
+	                                    	<div class="com_pay_balance_n"> 不限  </div>
+	                                    {yun:}else{/yun}
+	                                    <div class="com_pay_balance_n" style="font-size:21px;">
+	                                        {yun:}$rating.job_num{/yun}次/天
+	                                    </div>
+	                                    {yun:}/if{/yun} 
+	                                    
+	                              	{yun:}else{/yun}
+	                              	
+                                    	<div class="com_pay_balance_n"> {yun:}$statis.job_num{/yun} </div>
+                                    {yun:}/if{/yun}
+                                </div>
+                                
+                                <div class="com_pay_balance_list_h1">发布职位</div>
+                                
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}if $statis.rating_type=='2'{/yun}不限{yun:}else{/yun}{yun:}$rating.job_num{/yun}{yun:}/if{/yun}</div>
+                                {yun:}/if{/yun}
+                                
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="javascript:void(0);" onclick="jobadd_url('{yun:}$addjobnum{/yun}','{yun:}$config.integral_job{/yun}','','{yun:}$config.com_integral_online{/yun}','{yun:}$config.integral_proportion{/yun}');return false;" class="com_pay_balance_data_btha">发布职位</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    {yun:}if $statis.rating_type=='2'{/yun} {yun:}if $rating.resume == 0{/yun}
+                                    <div class="com_pay_balance_n">不限</div>
+                                    {yun:}else{/yun}
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$rating.resume{/yun}次/天
+                                    </div>
+                                    {yun:}/if{/yun} {yun:}else{/yun}
+                                    <div class="com_pay_balance_n">
+                                        {yun:}$statis.down_resume{/yun}
+                                    </div>
+                                    {yun:}/if{/yun}
+                                </div>
+                                <div class="com_pay_balance_list_h1">下载简历</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}if
+                                        $statis.rating_type=='2'{/yun}不限{yun:}else{/yun}{yun:}$rating.resume{/yun}{yun:}/if{/yun}
+                                    </div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="index.php?c=down" class="com_pay_balance_data_btha">查看</a>
+                                </div>
+                            </div>
+                        </li>
+                       
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    {yun:}if $statis.rating_type=='2'{/yun} {yun:}if $rating.interview == 0{/yun}
+                                    <div class="com_pay_balance_n">不限</div>
+                                    {yun:}else{/yun}
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$rating.interview{/yun}次/天
+                                    </div>
+                                    {yun:}/if{/yun} {yun:}else{/yun}
+                                    <div class="com_pay_balance_n">
+                                        {yun:}$statis.invite_resume{/yun}
+                                    </div>
+                                    {yun:}/if{/yun}
+                                </div>
+                                <div class="com_pay_balance_list_h1">邀请面试</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}if
+                                        $statis.rating_type=='2'{/yun}不限{yun:}else{/yun}{yun:}$rating.interview{/yun}{yun:}/if{/yun}
+                                    </div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="{yun:}$config.sy_weburl{/yun}/resume" class="com_pay_balance_data_btha">搜人才</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    {yun:}if $statis.rating_type=='2'{/yun} {yun:}if $rating.breakjob_num == 0{/yun}
+                                    <div class="com_pay_balance_n">不限</div>
+                                    {yun:}else{/yun}
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$rating.breakjob_num{/yun}次/天
+                                    </div>
+                                    {yun:}/if{/yun} {yun:}else{/yun}
+                                    <div class="com_pay_balance_n">
+                                        {yun:}$statis.breakjob_num{/yun}
+                                    </div>
+                                    {yun:}/if{/yun}
+                                </div>
+                                <div class="com_pay_balance_list_h1">刷新职位</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}if
+                                        $statis.rating_type=='2'{/yun}不限{yun:}else{/yun}{yun:}$rating.breakjob_num{/yun}{yun:}/if{/yun}
+                                    </div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="index.php?c=job&w=1" class="com_pay_balance_data_btha">刷新职位</a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    {yun:}if $statis.rating_type=='2'{/yun} {yun:}if $rating.zph_num == 0{/yun}
+                                    <div class="com_pay_balance_n">不限</div>
+                                    {yun:}else{/yun}
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$rating.zph_num{/yun}次/天
+                                    </div>
+                                    {yun:}/if{/yun} {yun:}else{/yun}
+                                    <div class="com_pay_balance_n">
+                                        {yun:}$statis.zph_num{/yun}
+                                    </div>
+                                    {yun:}/if{/yun}
+                                </div>
+                                <div class="com_pay_balance_list_h1">招聘会报名次数</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}if
+                                        $statis.rating_type=='2'{/yun}不限{yun:}else{/yun}{yun:}$rating.zph_num{/yun}{yun:}/if{/yun}
+                                    </div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="{yun:}url m=zph{/yun}" class="com_pay_balance_data_btha">查看招聘会</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$statis.top_num{/yun}天
+                                    </div>
+
+                                </div>
+                                <div class="com_pay_balance_list_h1">置顶天数</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}$rating.top_num{/yun}</div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="index.php?c=job&w=1" class="com_pay_balance_data_btha">置顶职位</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$statis.urgent_num{/yun}天
+                                    </div>
+                                </div>
+                                <div class="com_pay_balance_list_h1">紧急天数</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}$rating.urgent_num{/yun}</div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="index.php?c=job&w=1" class="com_pay_balance_data_btha">紧急职位</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_m">
+                                    <div class="com_pay_balance_n" style="font-size:21px;">
+                                        {yun:}$statis.rec_num{/yun}天
+                                    </div>
+                                </div>
+                                <div class="com_pay_balance_list_h1">推荐天数</div>
+                                {yun:}if empty($spid){/yun}
+                                    <div class="com_pay_balance_list_h1">套餐总数：{yun:}$rating.rec_num{/yun}</div>
+                                {yun:}/if{/yun}
+                                <div class="com_pay_balance_data_bth">
+                                    <a href="index.php?c=job&w=1" class="com_pay_balance_data_btha">推荐职位</a>
+                                </div>
+                            </div>
+                        </li>
+                        
+                       
+                       
+                        <li>
+                            <div class="com_pay_balance_list">
+                                <div class="com_pay_balance_look_tq_box">
+                                    <a href="index.php?c=right" class="com_pay_balance_look_tq"> 点击查看
+                                        <div class="">会员套餐特权</div>
+                                        <i class="com_pay_balance_look_tq_box_icon"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{yun:}include file="$comstyle/footer.htm"{/yun}

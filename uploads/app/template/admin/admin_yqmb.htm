@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	
+	<title>后台管理</title>
+</head>
+<style>
+	#infobox table{width: 100%;border-collapse: separate;border-spacing: 0px 10px;margin: 0;}
+	#infobox table tr th{text-align: right;width: 100px;}
+</style>
+<body class="body_ifm" style="font-size:12px; line-height:20px;">
+	<div id="status_div" style="display:none;">
+		<div id="infobox">
+
+			<form action="index.php?m=admin_yqmb&c=save" target="supportiframe" method="post"  class="layui-form"  onsubmit="return checkform();">
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<table cellspacing='1' cellpadding='1' width="100%">
+					<tr>
+						<th>模板名称：</th>
+						<td><input id="name" class="tty_input t_w250" type="text" size="30" name="name"></td>
+					</tr>
+					<tr>
+						<th>联系人：</th>
+						<td><input id="linkman" class="tty_input t_w250" type="text" size="30" name="linkman"></td>
+					</tr>
+					<tr>
+						<th>联系电话：</th>
+						<td><input class="tty_input t_w250" type="text" id="linktel" name="linktel" size="20" value="" /></td>
+					</tr>
+					<tr>
+						<th>面试地址：</th>
+						<td><input class="tty_input t_w250" type="text" id="address" name="address" size="20" value="" /></td>
+					</tr>
+					<tr>
+						<th>面试时间：</th>
+						<td id="intertimeHtml"></td>
+					</tr>
+					<tr>
+						<th class="t_fr">面试备注：</th>
+						<td><textarea id="content" name="content" class="layui-textarea" style="width: 262px;"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan='2' align="center"> <input type="submit" value='确认' class="admin_examine_bth">
+							&nbsp;&nbsp;<input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'></td>
+					</tr>
+				</table>
+				<input type="hidden" name="id" id="id" value="" />
+				<input type="hidden" name="uid" id="uid" value="" />
+			</form>
+		</div>
+	</div>
+<div class="infoboxp">
+	
+<div class="tty-tishi_top">
+			
+	
+		
+	
+	  <div class="clear"></div>
+	  <div class="admin_new_search_box">
+		<form action="index.php" name="myform" method="get">
+		  <input name="m" value="admin_yqmb" type="hidden"/>
+		  <div class="admin_new_search_name">搜索类型：</div>
+		  <div class="admin_Filter_text formselect" did='dtype'>
+			<input type="button" value="{yun:}if $smarty.get.type==''||$smarty.get.type=='1'{/yun}公司名称 {yun:}elseif $smarty.get.type=='2'{/yun}职位名称{yun:}/if{/yun}" class="admin_new_select_text" id="btype">
+			<input type="hidden" id='type' value="{yun:}if $smarty.get.type{/yun}{yun:}$smarty.get.type{/yun}{yun:}else{/yun}1{yun:}/if{/yun}" name='type' value='1'>
+			<div class="admin_Filter_text_box" style="display:none" id='dtype'>
+			  <ul>
+				<li><a href="javascript:void(0)" onClick="formselect('1','type','公司名称')">公司名称</a></li>
+				<li><a href="javascript:void(0)" onClick="formselect('2','type','职位名称')">职位名称</a></li>
+			  </ul>
+			</div>
+		  </div>
+		  <input type="text" value="" placeholder="请输入你要搜索的关键字" name='keyword'class="admin_new_text">
+		  <input type="submit" value="搜索" name='search'  class="admin_new_bth">
+		</form>
+	   {yun:}include file="admin/admin_search.htm"{/yun}
+	   </div>
+	  <div class="clear"></div>
+  </div>
+
+<div class="tty_table-bom">
+  <div class="table-list">
+    <div class="admin_table_border">
+    	<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+      <form action="index.php" name="myform" method="get" target="supportiframe" id='myform'>
+        <input name="m" value="admin_yqmb" type="hidden"/>
+        <input name="c" value="delYqmb" type="hidden"/>
+        <table width="100%">
+          <thead>
+            <tr class="admin_table_top">
+              <th style="width:20px;"><label for="chkall">
+                  <input type="checkbox" id='chkAll'  onclick='CheckAll(this.form)'/>
+                </label></th>
+               
+                  <th>编号</th>
+                 
+              <th align="left">公司名称</th>
+              <th align="left">联系人</th>
+              <th align="center">联系电话</th>
+              <th align="center">地址</th>
+              <th align="center">邀请时间</th>
+              <th align="center">备注</th>
+              
+              <th>添加时间</th>
+            
+              
+              <th align="center">操作</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+          {yun:}foreach item=v from=$rows{/yun}
+          <tr align="center" id="list{yun:}$v.id{/yun}">
+            <td><input type="checkbox" value="{yun:}$v.id{/yun}"  name='del[]' onclick='unselectall()' rel="del_chk" /></td>
+            <td align="left" >{yun:}$v.id{/yun}</td>
+            <td align="left" >{yun:}$v.comname{/yun}</td>
+            <td align="left">{yun:}$v.linkman{/yun}</td>
+            <td align="center">{yun:}$v.linktel{/yun}</td>
+            <td align="center">{yun:}$v.address{/yun}</td>
+            <td align="center">{yun:}$v.intertime{/yun}</td>
+            <td class="td"><div style="max-width:300px;">{yun:}$v.content{/yun}</div></td>
+            <td class="td">{yun:}$v.addtime|date_format:"%Y-%m-%d %H:%M"{/yun}</td>
+            
+            <td>
+            	<span style="cursor:pointer;" onClick="keywords('{yun:}$v.linkman{/yun}','{yun:}$v.linktel{/yun}','{yun:}$v.address{/yun}','{yun:}$v.intertime{/yun}','{yun:}$v.content{/yun}','{yun:}$v.id{/yun}','{yun:}$v.uid{/yun}','{yun:}$v.name{/yun}')"
+											 class="admin_new_c_bth admin_n_sc mt5">修改</span>
+            	<a href="javascript:void(0)" onClick="layer_del('删除面试模板？', 'index.php?m=admin_yqmb&c=delYqmb&del={yun:}$v.id{/yun}');" class="admin_new_c_bth admin_new_c_bth_sc">删除</a>
+            </td>
+            
+          </tr>
+          {yun:}/foreach{/yun}
+          <tr>
+			<td align="center"><input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /></td>
+			<td colspan="10">
+				<label for="chkAll2">全选</label>&nbsp;
+				<input class="admin_button" type="button" name="delsub" value="删除所选" onclick="return really('del[]')" /></td>
+		</tr>
+			{yun:}if $total > $config.sy_listnum {/yun}
+				<tr>
+					{yun:}if $pagenum==1{/yun}
+						<td colspan="3"> 从 1 到 {yun:}$config.sy_listnum {/yun} ，总共 {yun:}$total{/yun} 条</td>
+					{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun}
+						<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$pagenum * $config.sy_listnum{/yun} ，总共 {yun:}$total{/yun} 条</td>
+					{yun:}else if $pagenum == $pages{/yun}
+						<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$total{/yun} ，总共 {yun:}$total{/yun} 条</td>
+					{yun:}/if{/yun}
+					<td colspan="9" class="digg">{yun:}$pagenav{/yun}</td>
+				</tr>
+			{yun:}/if{/yun}
+            </tbody>
+        </table>
+		<input type="hidden" name="pytoken"  id='pytoken' value="{yun:}$pytoken{/yun}">
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
+<script type="text/javascript">
+	
+		var weburl="{yun:}$config.sy_weburl{/yun}";
+	
+		var form;
+		layui.use(['layer', 'form','laydate'], function(){
+			var form = layui.form,
+				laydate = layui.laydate,
+				$ = layui.$;
+			
+		});//end layui.use()
+		
+		function keywords(man,tel,address,intertime,content,id,uid,name){
+			$("#intertimeHtml").html('');
+			$("#name").val(name);
+			$("#id").val(id);
+			$("#uid").val(uid);
+			$("#linkman").val(man);
+			$("#linktel").val(tel);
+			$("#address").val(address);
+			$("#intertimeHtml").append("<input class='tty_input t_w250' type='text' id='intertime'  name='intertime' value='"+intertime+"' />");
+			$("#content").val(content);
+			
+			layui.use(['laydate'], function(){
+				var laydate = layui.laydate,
+					$ = layui.$;
+				laydate.render({
+					elem: '#intertime',
+					trigger: 'click',
+					type: 'datetime',
+					value:intertime//'2018-08-20 20:08:08'
+				});
+			});
+			add_class('面试模板管理','420','520','#status_div','');
+		}
+		function checkform(){
+
+			var linkman = $.trim($("#linkman").val());
+			var linktel = $.trim($("#linktel").val());
+			if ($.trim($("#name").val()) == "") {
+				layer.msg('模板名称不能为空！', 2, 8);
+				return false;
+			}
+			if (linkman == "") {
+				layer.msg('联系人不能为空！', 2, 8);
+				return false;
+			}
+			
+			if (linktel == "") {
+				layer.msg('联系电话不能为空！', 2, 8);
+				return false;
+			}else if((isjsTell(linktel) != true) && (isjsMobile(linktel) != true) && ($.trim(linktel) != '')){
+				layer.msg('电话格式错误！', 2,8); return false;
+			}
+			if ($.trim($("#address").val()) == "") {
+				layer.msg('面试地址不能为空！', 2, 8);
+				return false;
+			}
+			if ($.trim($("#intertime").val()) == "") {
+				layer.msg('面试时间不能为空！', 2, 8);
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="js/ZeroClipboard/ZeroClipboard.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="js/ZeroClipboard/Clipboard.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.config.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/ueditor/ueditor.all.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<title>后台管理</title>
+</head>
+<script id="myEditor" name="content" type="text/plain" style="width:0px;height:0px;"> </script>
+	<script>
+		 layui.use(['form'], function(){
+
+			var form = layui.form;
+            
+
+		});
+		var ue = UE.getEditor('myEditor');
+		
+		function setType(type){
+			// console.log(type).
+			$('.infotype').hide();
+			
+			$('.type'+type).show();
+			
+		}
+		var clip = null;
+
+		//提交参数
+		function save(load) {
+			
+			//信息类型 1职位2简历3企业
+			var type = $("input[name=type]:checked").val();
+
+			//职位参数
+			var params = [];
+			var param  = "";
+
+			$('input[name=param]:checked').each(function(){
+				params.push($(this).val());
+				param = params.join(",");
+			});
+
+			//发布时间
+			var times = $("input[name=times]:checked").val();
+
+			//指定企业职位 企业ID
+			var copos = $("#copos").val();
+
+			//职位展示限制
+			var rule  = $("input[name=rule]:checked").val();
+
+			//关键词
+			var keyword = $("#keyword").val();
+
+			//简历类型
+			var cvkinds = [];
+			var cvkind  = "";
+			$('input[name=cvkind]:checked').each(function(){
+				cvkinds.push($(this).val());
+				cvkind = cvkinds.join(",");
+			});
+
+			//意向职位
+			var ideapos = $("#ideapos").val();
+
+			//意向地区
+			var ideaarea = $("#ideaarea").val();
+
+			//学历
+			var bds = [];
+			var bd  = "";
+			$('input[name=bd]:checked').each(function(){
+				bds.push($(this).val());
+				bd = bds.join(",");
+			});
+
+			//经验
+			var exps = [];
+			var exp  = "";
+			$('input[name=exp]:checked').each(function(){
+				exps.push($(this).val());
+				exp = exps.join(",");
+			});
+
+			//简历完整度
+			var whole = $("input[name=whole]:checked").val();
+
+			//站点
+			var did = $("#did").val()
+
+			//企业类型
+			var bekinds = [];
+			var bekind  = "";
+			$('#bekind:checked').each(function(){
+				bekinds.push($(this).val());
+				bekind = bekinds.join(",");
+			});
+
+			//信息数量
+			var num = $("input[name=num]:checked").val();
+
+			//信息模板
+			if(type == '1'){
+				var tpl = $("input[name=jobtpl]:checked").val();
+			}else if(type == '2'){
+				var tpl = $("input[name=resumetpl]:checked").val();
+			}else if(type == '3'){
+				var tpl = $("input[name=companytpl]:checked").val();
+			}
+			
+			var ewmtype = $("input[name=ewmtype]:checked").val();
+
+			//提交参数
+			var postData = {
+				'type' : type,
+				'num'  : num,
+				'tpl'  : tpl,
+				'ewmtype'  : ewmtype
+			};
+			
+			if(type == 1){
+				postData.param = param;
+				postData.times = times;
+				postData.copos = copos;
+				postData.rule  = rule;
+				postData.keyword = keyword;
+			}
+
+			if(type == 2){
+				postData.cvkind   = cvkind;
+				postData.ideapos  = ideapos;
+				postData.ideaarea = ideaarea;
+				postData.bd       = bd;
+				postData.exp      = exp;
+				postData.whole    = whole;
+			}
+
+			if(type == 3){
+				postData.param   = param;
+				postData.copos   = copos;
+				postData.did     = did;
+				postData.bekind  = bekind;
+				postData.keyword = keyword;
+			}
+
+			// console.log(postData)
+			// return false
+			submit(postData,load)
+
+		}
+
+		//提交请求
+		function submit(postData,load){
+		
+			$("#content").html('请等待...');
+			if(load == 2){
+				loadlayer();
+			}
+			
+			
+
+			$.get("index.php?m=wx&c=Getpubtool",postData,function(data){
+
+					parent.layer.closeAll();
+					
+					$("#content").html(data);
+
+			});
+
+		}
+		$(document).ready(function() {save();
+		
+		//优先Flash复制
+		var clip = new ZeroClipboard($('#copy'));
+
+		ZeroClipboard.config({forceHandCursor : true, swfPath: "js/ZeroClipboard/ZeroClipboard.swf" });
+		
+
+		ZeroClipboard.create();
+  
+		
+		
+			
+			clip.on('copy', function(event){
+					
+					var html = $('#content').html();
+
+					event.clipboardData.setData('text/html', html);
+					event.clipboardData.setData('text/plain', html);
+
+					layer.alert('复制成功！', {icon: 1});
+					
+			  
+			  });
+			  //不支持FLASH 则换JS复制
+			  clip.on('error', function (event) {
+					
+					var clipboard = new Clipboard('#copy', {
+						target: function() {
+							return document.querySelector('#content');
+						}
+					});
+					
+					clipboard.on('success', function(e) {
+						
+						e.clearSelection();
+						layer.alert('复制成功！', {icon: 1});
+					});
+					//clipboard JS 不支持 则换百度编辑器复制
+					clipboard.on('error', function(e) {
+						
+						try {
+							var html = $('#content').html();
+
+							UE.getEditor('myEditor').setContent(html); //设置新内容
+							ue.execCommand('selectall'); //全选内容
+							ue.document.execCommand('copy');
+							UE.getEditor('myEditor').setContent(html); //还原老内容
+
+							layer.alert('复制成功！', {icon: 1});
+							 clip.hide();
+							return ;
+						} catch (err) {
+							
+							layer.alert('复制失败，您是否屏蔽Flash，建议使用360极速浏览器！', {icon: 2});
+						}
+					});
+
+					
+					   
+			  });
+			
+		
+		
+		
+		});
+	</script>
+<body class="body_ifm"><div class="admin_indextip">
+			根据选择内容，生成微信公众号文章内容，方便公众号发布消息	</div>
+	<div class="infoboxp">
+		
+		<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+<form method="get" target="supportiframe" name="config" class="layui-form" onsubmit="return false;">
+		
+		<div class="tty_table-bom" >
+			<div class="clear"></div>
+			<div style=" padding-right:350px;">
+				<table id="alipay" width="100%" class="table_form">
+					
+					<tr>
+						<th class="t_fl" width="100">信息类型</th>
+						<td>
+							<div class="layui-input-block">
+								<div class="layui-input-inline">
+									<span onclick="setType('job')"><input type="radio" checked name="type" value='1' title="职位列表"></span>
+									<span onclick="setType('resume')"><input type="radio" name="type" value='2' title="简历列表"></span>
+									<span onclick="setType('company')"><input type="radio" name="type" value='3' title="企业列表"></span>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typejob">
+						<th class="t_fl" width="100">职位参数</th>
+						<td>
+							<div class="layui-form-item" style=" margin-bottom:0px;">
+								<div class="layui-input-block">
+									<span>
+										<input type="checkbox" class="checkbox" name="param" title="置顶职位" value="0"  />
+										<input type="checkbox" class="checkbox" name="param" title="紧急职位" value="1" />
+										<input type="checkbox" class="checkbox" name="param" title="推荐职位" value="2" />
+									</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr  class="infotype typejob">
+						<th class="t_fl" width="100">职位发布时间</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="times" checked value='0' title="不限">
+										<input type="radio" name="times" value='1' title="1天内">
+										<input type="radio" name="times" value='3' title="3天内">
+										<input type="radio" name="times" value='7' title="7天内">
+										<input type="radio" name="times" value='15' title="15天内">
+										<input type="radio" name="times" value='30' title="30天内">
+									</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr  class="infotype typejob">
+						<th class="t_fl" width="100">指定企业职位</th>
+						<td>
+							<div class="layui-input-inline t_w120">
+								<input class="layui-input" type="text" name="copos" id="copos" value="" >
+							</div>
+							<span class="admin_web_tip">指定企业职位(输入企业ID)</span>
+						</td>
+					</tr>
+
+					
+
+					<tr  class="infotype typejob">
+						<th class="t_fl" width="100">关键词</th>
+						<td>
+							<div class="layui-input-inline t_w120">
+								<input class="layui-input" type="text" name="keyword" id="keyword" value="" >
+							</div>
+						</td>
+					</tr>
+					<tr class="infotype typejob">
+						<th class="t_fl" width="100">风格模板</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="jobtpl" checked value='1' title="模板1">
+										<input type="radio" name="jobtpl" value='2' title="模板2">
+										<input type="radio" name="jobtpl" value='3' title="模板3">
+										<input type="radio" name="jobtpl" value='4' title="模板4">
+										<input type="radio" name="jobtpl" value='5' title="模板5">
+									</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="infotype typeresume none">
+						<th class="t_fl" width="100">简历类型</th>
+						<td>
+							<div class="layui-form-item" style=" margin-bottom:0px;">
+								<div class="layui-input-block">
+									<input type="checkbox" class="checkbox" name="cvkind" title="置顶简历" value="0" id="cvkind" />
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typeresume none">
+						<th class="t_fl" width="100">意向职位</th>
+						<td>
+							<div class="layui-input-inline t_w120" >
+								<input class="layui-input" type="text" name="ideapos" id="ideapos" value="" >
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typeresume none">
+						<th class="t_fl" width="100">意向地区</th>
+						<td>
+							<div class="layui-input-inline t_w120">
+								<input class="layui-input" type="text" name="ideaarea" id="ideaarea" value="" >
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typeresume none">
+						<th class="t_fl" width="100">学历要求</th>
+						<td>
+							<div class="layui-form-item" style=" margin-bottom:0px;">
+									<div class="layui-input-block">
+										{yun:}foreach from=$userdata.user_edu item=v key=key{/yun}
+										<input type="checkbox" class="checkbox" name="bd" title="{yun:}$userclass_name[$v]{/yun}" value="{yun:}$v{/yun}" id="bd" />
+										{yun:}/foreach{/yun}
+									</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typeresume none">
+						<th class="t_fl" width="100">经验要求</th>
+						<td>
+							<div class="layui-form-item"style=" margin-bottom:0px;">
+									<div class="layui-input-block">
+										{yun:}foreach from=$userdata.user_word item=v key=key{/yun}
+										<input type="checkbox" class="checkbox" name="exp" title="{yun:}$userclass_name[$v]{/yun}" value="{yun:}$v{/yun}" id="exp" />
+										{yun:}/foreach{/yun}
+									</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typeresume none">
+						<th class="t_fl" width="100">简历完整度</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="whole" checked value='55' title="55%以上">
+										<input type="radio" name="whole" value='75' title="75%以上">
+										<input type="radio" name="whole" value='95' title="95%以上">
+									</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typecompany none">
+						<th class="t_fl" width="100">站点/分站</th>
+						<td>
+							<div class="layui-input-inline t_w157">
+								<select name="did" id="did" lay-filter="citys">
+									<option value="">全部</option>
+									{yun:}foreach from=$domain key=k item=v{/yun}
+									<option value="{yun:}$k{/yun}">{yun:}$v{/yun}
+									</option>
+									{yun:}/foreach{/yun}
+								</select>
+							</div>
+						</td>
+					</tr>
+					
+					<tr class="infotype typecompany none">
+						<th class="t_fl" width="100">企业类型</th>
+						<td>
+							<div class="layui-form-item"style=" margin-bottom:0px;">
+									<div class="layui-input-block">
+										<input type="checkbox" class="checkbox" name="bekind" title="名企" value="1" id="bekind" />
+									</div>
+							</div>
+						</td>
+					</tr>
+					<tr  class="infotype typecompany none">
+						<th class="t_fl" width="100">职位限制</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="rule" checked value='0' title="不限">
+										<input type="radio" name="rule" value='1' title="1条">
+										<input type="radio" name="rule" value='2' title="2条">
+										<input type="radio" name="rule" value='3' title="3条">
+									</div>
+									<span class="admin_web_tip">每家企业最多展示多少职位</span>
+							</div>
+						</td>
+					</tr>
+
+					<tr class="infotype typecompany none">
+						<th class="t_fl" width="100">风格模板</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="companytpl" checked value='1' title="模板1">
+										
+									</div>
+							</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<th class="t_fl" width="100">信息数量</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="num" checked value='10' title="10条">
+										<input type="radio" name="num" value='20' title="20条">
+										<input type="radio" name="num" value='30' title="30条">
+										<input type="radio" name="num" value='40' title="40条">
+										<input type="radio" name="num" value='50' title="50条">
+									</div>
+							</div>
+						</td>
+					</tr>
+
+					<tr>
+						<th class="t_fl" width="100">二维码类型</th>
+						<td>
+							<div class="layui-input-block">
+									<div class="layui-input-inline">
+										<input type="radio" name="ewmtype" checked value='wap' title="移动端二维码">
+										<input type="radio" name="ewmtype" value='weixin' title="公众号二维码">
+										<input type="radio" name="ewmtype" value='xcx' title="小程序H5跳转">
+									</div>
+							</div>
+							<span class="admin_web_tip">手机端二维码：扫码直接打开移动端链接</span>
+                            <div style="padding:0px 0">	<span class="admin_web_tip">公众号二维码：扫码关注公众号后提供微信端链接</span></div>
+                            	<span class="admin_web_tip">小程序H5跳转：点击直接跳转小程序（H5跳转）（需确保开通小程序）</span>
+						</td>
+					</tr>
+					<tr class="admin_table_trbg">
+						<th width="100">&nbsp;</th>
+						<td align="left">
+							<input class="layui-btn tty_sub" id="" type="submit" name="" onclick="save(2)" value="提交" />&nbsp;&nbsp;
+						
+						</td>
+					</tr>
+
+					<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+				</table>
+			</div>
+		</div>
+
+		<div class="wxpubtool_sj">
+			<div class="wxpubtool_sj_tit"><div class="wxpubtool_sj_tit_c">手机预览样式</div></div>
+			<div class="wxpubtool_sj_con" id="content">
+			</div>
+			<div class="wxpubtool_CZ">	<input type="submit" class="wxpubtool_CZbth" id="copy" value="一键复制" /><div>
+		</div>
+
+
+	</div>	</form>
+	
+	
+</body>
+</html>

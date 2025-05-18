@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <title>{yun:}$config.sy_webname{/yun} - 手机人才网</title>
+        <meta name="keywords" content="人才招聘,网络招聘,wap" />
+        <meta name="description" content="人才招聘网wap网站" />
+        <meta content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport" />
+        <meta name="MobileOptimized" content="240" />
+        <meta http-equiv="Expires" content="0" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta content="yes" name="apple-mobile-web-app-capable" />
+        <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/yun_wap_member.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <script src="{yun:}$config.sy_weburl{/yun}/app/template/wap/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link rel="stylesheet" type="text/css" href="{yun:}$wap_style{/yun}/js/webapppic/cropper.css?v={yun:}$config.cachecode{/yun}" />
+    </head>
+
+    <body>
+        
+        <div class="body_wap">
+            <header>
+                <div class="header_bg">
+                    <div class="header_h1">上传头像</div>
+                </div>
+            </header>
+            <section class="resume_mangage">
+				<div class="clear"></div>
+				<div class="verify">
+					<div class="photo_i_box_v">
+						<div class="photo_i_box_v_c">
+							<div id="showResult">
+								<div id="changeAvatar" class="photo_i_box">
+									<img src="{yun:}$photo{/yun}" width="120" height="120">
+								</div>
+								<div class="clear"></div>
+								<div class="photo_xz">
+									<input id="image" type="file" accept="image/*" />选择上传头像
+								</div>
+								<div class="yunset_identity_msg"><i class="yunset_identity_msg_icon"></i>选择上传头像点击提交按钮即可上传</div>
+							</div>
+							
+							<input type="hidden" value=""  id="preview">
+						</div>
+						<div class="photo_tj">
+							<input type='hidden' name="txt" id="uimage" value="">
+							<input name="submit" type="button" onclick="photo()" value="提交" class="yunset_bth" />
+						</div>
+					</div>
+				</div>
+			</section>
+        </div>
+		<script src="{yun:}$wap_style{/yun}/js/alloy/transform.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/alloy/alloy-finger.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/alloy-crop.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/compress.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/exif.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script>
+		 $(function() {
+			$('#image').on('change', function() {
+				cutImg();
+			});
+
+			var $inputImage = $('#image'),
+				URL = window.URL || window.webkitURL;
+			if (URL) {
+				$inputImage.change(function() {
+					var files = this.files,
+						file;
+					previewImage(this,'preview');
+					if(files && files.length) {
+						file = files[0];
+
+						if(/^image\/\w+$/.test(file.type)) {
+							setTimeout(function(){
+
+								toAlloyCrop($('#preview').val());
+							},1000);
+							$inputImage.val('');
+						} else {
+							showMessage('请上传图片');
+						}
+					}
+				});
+			} else {
+				$inputImage.parent().remove();
+			}
+		});
+		function cutImg() {
+			$('#showResult').fadeOut();
+		}
+		function toAlloyCrop(pic){
+			var mAlloyCrop;
+			
+			mAlloyCrop = new AlloyCrop({
+				image_src: pic,
+				width: 200,
+				height: 200,
+				output: 1,
+				ok: function(base64, canvas) {
+					$("#changeAvatar > img").attr("src", base64);
+					document.getElementById('uimage').value = base64;
+					$('#showResult').fadeIn();
+					mAlloyCrop.destroy();
+				},
+				cancel: function() {
+					$('#showResult').fadeIn();
+					mAlloyCrop.destroy();
+				},
+				ok_text: '确定',
+				cancel_text: '取消'
+			});
+		}
+		function photo() {
+			var uimage = $("#uimage").val();
+			if(uimage == '') {
+				layermsg('头像未改变，无需修改');
+				return false;
+			}else{
+				var token = '{yun:}$token{/yun}';
+				var regS = new RegExp("\\+", "gi");
+				uimage = uimage.replace(regS, "#");
+				layer_load('执行中，请稍候...');
+				$.ajax({
+					type: 'POST',
+					url: "index.php?c=upload&a=uploadimg_save",
+					cache: false,
+					dataType: 'json',
+					data: {
+						token: token,
+						uimage: uimage,
+						submit: 1
+					},
+					success: function(arr) {
+						layer.closeAll();
+						if(arr.errcode == 9) {
+							$('#submit').attr('onclick','');
+							$('#submit').val(arr.msg);
+						}
+						layermsg(arr.msg);
+						return false;
+					}
+				});
+			}
+		}
+	</script>
+        {yun:}include file="$wapstyle/footer.htm"{/yun}

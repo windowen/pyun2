@@ -1,0 +1,144 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<style>
+	table[align="center"] { margin: 0 auto; }
+	table,table tr th, table tr td { border:1px solid #666; }
+	.img_auto img{max-width:100%;}
+	.yun_footer{ display:none;}
+	.header_bg  { background:#2D3659}
+</style>
+<div class="header_navlist">
+    <a href="javascript:void(0);" class="moreOptions"><i class="naviconfont"></i></a>
+</div>
+<div class="yun_newedition_jobshow_opt">
+<a href="javascript:void(0);"  id="shareClick" class="yun_newedition_jobshow_opt_icon yun_newedition_jobshow_opt_fx"title="分享"></a></div>
+
+<section>
+<div class="zph_show_body">
+    <div class="zph_show_box  " >
+        <div class="zph_bg_name">
+            <h2>
+         
+        {yun:}$Info.title{/yun}
+        {yun:}if $Info.stime<'0'&&$Info.etime>'0'{/yun}
+        <span class="zphshow_zt">进行中</span>
+        {yun:}elseif $Info.stime>'0'{/yun}
+        <span class="zphshow_zt zph_zt_yd">预定中</span>
+         {yun:}/if{/yun}
+        </h2></div>
+        <div class="zphshowinfo"><i class="zphshow_time_icon"></i>{yun:}$Info.starttime|date_format:"%Y-%m-%d"{/yun} 至 {yun:}$Info.endtime|date_format:"%Y-%m-%d"{/yun}</div>
+        	{yun:}if $Info.phone{/yun}
+        <div class="zphshowinfo"><i class="zphshow_tel_icon"></i>{yun:}$Info.phone{/yun} ({yun:}$Info.user{/yun})</div>
+          {yun:}/if{/yun}
+          {yun:}if $Info.address{/yun}
+         <div class="zphshowinfo"><i class="zphshowadd_icon"></i>{yun:}$Info.address{/yun}</div>
+         {yun:}/if{/yun}
+ 
+    </div>
+
+
+<div class="zph_showsj ">
+<a href="{yun:}url m=wap c=zph a=com id=$Info.id{/yun}"><div class="zph_showsjlist"><div class="zph_showsj_n">{yun:}$Info.comnum{/yun}</div>参与企业</div></a>  
+<a href="{yun:}url m=wap c=zph a=com id=$Info.id{/yun}"><div class="zph_showsjlist"><div class="zph_showsj_n">{yun:}$Info.jobnum{/yun}</div>参与职位</div>  
+</a>  
+	
+ <a href="tel:{yun:}$Info.phone{/yun}" >	
+<div class="zph_showsjlist zph_showsjlistzx"><div class="zph_showsj_icon"><i class="zph_showsj_dhicon"></i></div>电话咨询</div>
+</a> 
+ </div> </div></section>
+ <div class="zph_show_pd">
+<div class="zph_bg">
+
+
+    {yun:}if $Info.body{/yun}
+    <section>
+        <div class="zph_bg_pd mt15 img_auto">
+            <div class="zphwap_title"><span class="">招聘会介绍</span></div>
+	
+            <div class="zph_show_content">		  
+			{yun:}if $Info.organizers{/yun}
+        <div class="">主&nbsp;  办&nbsp; 方：{yun:}$Info.organizers{/yun}</div>
+                {yun:}/if{/yun} 
+           
+            {yun:}$Info.body{/yun} 
+			{yun:}if $Info.traffic{/yun}交通路线：{yun:}$Info.traffic{/yun}</div>
+      
+         {yun:}/if{/yun}
+        </div></div>
+    </section>
+    {yun:}/if{/yun} 
+    {yun:}if $Info.media{/yun}
+    <section>
+        <div class="zph_bg_pd mt15 img_auto">
+            <div class="zphwap_title"><span class="">媒体宣传</span></div>
+            <div class="zph_show_content"> {yun:}$Info.media{/yun} 
+        </div></div>
+    </section>
+    {yun:}/if{/yun} 
+    {yun:}if $Info.packages{/yun}
+    <section>
+        <div class="zph_bg_pd mt15 img_auto">
+            <div class="zphwap_title"><span class="">超值服务套餐</span></div>
+            <div class="zph_show_content"> {yun:}$Info.packages{/yun}</div>
+        </div>
+    </section>
+    {yun:}/if{/yun} 
+    {yun:}if $Info.booth{/yun}
+    <section>
+        <div class="zph_bg_pd mt15 img_auto">
+            <div class="zphwap_title"><span class="">展位设置方案</span></div>
+          <div class="zph_show_content">   {yun:}$Info.booth{/yun}</div>
+        </div>
+    </section>
+    {yun:}/if{/yun} 
+    {yun:}if $Info.participate{/yun}
+    <section>
+        <div class="zph_bg_pd mt15 img_auto">
+            <div class="zphwap_title"><span class="">参与办法</span></div>
+            <div class="zph_show_content"> {yun:}$Info.participate{/yun}</div></div>
+    </section> 
+    {yun:}/if{/yun}
+</div>
+<div class="zphshow_footer">
+<div class="zphshow_footer_fix"> 
+<div class="zphshow_footer_fix_c"> 
+	
+	{yun:}if $Info.stime lt '0'|| $Info.etime lt '0'{/yun}
+    <a class="zphshow_footer_btgbth zphshow_footer_bth_tz">已停止预订</a>
+    {yun:}else{/yun} {yun:}if $usertype==2{/yun}
+    <a href="{yun:}url m=wap c=zph a=reserve id='`$Info.id`'{/yun}" class="zphshow_footer_btgbth zphshow_footer_bth_yd">预订展位</a>
+    {yun:}else{/yun} {yun:}if $uid{/yun}
+	<a href="javascript:void(0);" {yun:}if $config.sy_user_change==1{/yun}onclick="layermsg('请先申请企业账户');"{yun:}else{/yun}onclick="layermsg('只有企业用户才能预订');"{yun:}/if{/yun} class="zphshow_footer_btgbth zphshow_footer_bth_yd">预订展位</a>
+	{yun:}else{/yun}
+    <a href="{yun:}url m=wap c=login {/yun}" class="zphshow_footer_btgbth zphshow_footer_bth_yd">预订展位</a>
+    {yun:}/if{/yun} {yun:}/if{/yun} {yun:}/if{/yun}
+  
+ </div>   
+</div>
+</div>
+
+</div>
+<style>
+    .user_contnet_box {
+        width: 100%;
+        overflow: hidden
+    }
+    
+    .user_contnet_box img {
+        max-width: 100%;
+    }
+</style>
+<script src="{yun:}$wap_style{/yun}/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script>
+    var config = {
+        url: '{yun:}url m=wap c=zph a=show id=$Info.id{/yun}',
+        title: '{yun:}$Info.title{/yun}',
+        desc: '{yun:}$Info.description|replace:"\r\n":""{/yun}',
+        img: '{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_wx_sharelogo{/yun}',
+        img_title: '{yun:}$Info.title{/yun}',
+        from: '{yun:}$config.sy_webname{/yun}'
+    };
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

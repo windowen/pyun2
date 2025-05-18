@@ -1,0 +1,60 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<div class="main_member_cot_box">
+	<div class="wap_member_comp_h1 "><span>申请的职位</span></div>
+
+	<div class="m_user_infocont">
+		{yun:}foreach item=v from=$rows{/yun}
+
+		<div class="m_user_infolist">
+			<div class="m_user_infobox">
+				<div class="m_user_infonamebox">
+					<div class="m_user_infoname">
+						
+						<a href="{yun:}url m=wap c=job a=comapply id=$v.job_id{/yun}" class="">{yun:}$v.job_name|mb_substr:0:16:'utf-8'{/yun}</a>
+						
+					</div>
+					<span class="m_user_info_xz">{yun:}$v.job_salary{/yun}</span>
+				</div>
+
+				<div class="m_user_info_p">{yun:}if $v.city{/yun}{yun:}$v.city{/yun}<i class="m_user_info_line">|</i>
+					{yun:}/if{/yun}经验{yun:}$v.exp_n{/yun} <i class="m_user_info_line">|</i> 学历{yun:}$v.edu_n{/yun}
+
+				</div>
+				<div class="m_user_info_com">{yun:}$v.com_name{/yun} </div>
+
+				{yun:}if $v.is_browse=='1'{/yun}
+				<div class="m_user_infojlzt"><span class="m_user_jlwck">未查看</span>
+					<i class="m_user_infojlztiocn"><img src="{yun:}$v.logo{/yun}"></i><span class="">简历已投递成功，等待企业查看！</span> </div>
+
+				<span class="m_user_jlwck"></span>
+				{yun:}elseif $v.is_browse=='2'{/yun}
+				<div class="m_user_infojlzt"><span class="m_user_jlwck">已查看</span>
+					<i class="m_user_infojlztiocn"><img src="{yun:}$v.logo{/yun}"></i><span class="">我们已经查看了您的简历，正在仔细评估。</span> </div>
+				{yun:}elseif $v.is_browse=='3'{/yun}
+				<div class="m_user_infojlzt"><span class="m_user_jobzt">待沟通 </span>
+					<i class="m_user_infojlztiocn"><img src="{yun:}$v.logo{/yun}"></i><span class="">我们对您的职业过往很感兴趣，近期
+						可能会致电您，请保持手机畅通！ </span> </div>
+				{yun:}elseif $v.is_browse=='4'{/yun}
+				<div class="m_user_infojlzt"> <span class="m_user_jobzt">条件不符 </span>
+					<i class="m_user_infojlztiocn"><img src="{yun:}$v.logo{/yun}"></i><span class="">经公司决定，您的简历不适合，祝您
+						早日找到合适的工作。 </span> </div>
+				{yun:}elseif $v.is_browse=='5'{/yun}
+				<div class="m_user_infojlzt"><span class="m_user_jobzt">无法联系 </span>
+					<i class="m_user_infojlztiocn"><img src="{yun:}$v.logo{/yun}"></i><span class="">我们无法联系到您本人，近期
+						可能还会致电您，请保持手机畅通！</span> </div>
+				{yun:}/if{/yun}
+
+			</div>
+			<div class="m_user_info_cz"><span class="m_user_info_time">{yun:}$v.datetime|date_format:"%Y-%m-%d"{/yun}</span>
+				<a href="javascript:void(0)" onclick="layer_del('确定要删除？','index.php?c=delsq&id={yun:}$v.id{/yun}')" class="m_user_info_a">删除</a>
+			</div>
+		</div>
+		{yun:}foreachelse{/yun}
+		<div class="wap_member_no">
+			暂无申请记录<div><a class="wap_member_no_submit" href="{yun:}url m=wap c=job{/yun}">去搜索感兴趣的职位</a></div>
+		</div>
+		{yun:}/foreach{/yun} </div>
+</div>
+<div class="pages"> {yun:}$pagenav{/yun}</div>
+</div>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

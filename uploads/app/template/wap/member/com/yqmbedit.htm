@@ -1,0 +1,89 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun}
+<link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.picker.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<section class="wap_member">
+    <div class="mui-collapse-content">
+		<form action="index.php?c=yqmbeditsave" method="post" id="editchildForm" onsubmit="return check_editchildmsg(this);">
+			<ul class="yunset_password mt15">
+				<li><span class="yunset_password_mname">模板名称</span>
+					<div class="mui-input-row">
+						<input type="text" id="name" name="name" value="{yun:}$info.name{/yun}" autocomplete="off" placeholder="请输入模板名称" >
+					</div>
+				</li>
+				<li><span class="yunset_password_mname">联系人</span>
+					<div class="mui-input-row">
+						<input type="text" id="linkman" name="linkman" value="{yun:}$info.linkman{/yun}" autocomplete="off" placeholder="请输入联系人" >
+					</div>
+				</li>
+				<li><span class="yunset_password_mname">联系电话</span>
+					<div class="mui-input-row">
+						<input type="text" id="linktel" name="linktel" value="{yun:}$info.linktel{/yun}" autocomplete="off" placeholder="请输入联系手机" >
+					</div>
+				</li>
+				<li><span class="yunset_password_mname">面试地址</span>
+					<div class="mui-input-row">
+						<input type="text" id="address" name="address" value="{yun:}$info.address{/yun}" autocomplete="off" placeholder="请输入面试地址" >
+					</div>
+				</li>
+				<li><span class="yunset_password_mname">面试时间</span>
+					<div class="mui-input-row">
+						<button id='intertimePicker' data-options='{"value":"{yun:}if $info.intertime{/yun}{yun:}$info.intertime{/yun}{yun:}else{/yun}{yun:}time()|date_format:"Y-m-d h:m"{/yun}{yun:}/if{/yun}","beginYear":{yun:}time()|date_format:"Y"{/yun}}' style="border:none;float: right;padding: 6px 0;color: #999;">{yun:}if $info.intertime{/yun}{yun:}$info.intertime{/yun}{yun:}else{/yun}请选择面试时间{yun:}/if{/yun}</button>
+						<input type="hidden" id="intertime" name="intertime" value="{yun:}$info.intertime{/yun}">
+					</div>
+				</li>
+				<li><span class="yunset_password_mname">面试备注</span>
+					<div class="mui-input-row">
+						<textarea class="" id="content" name="content" placeholder="请输入面试备注" style="font-size: 14px;color: #999;padding: 5px 10px;height: 100px;">{yun:}$info.content{/yun}</textarea>
+					</div>
+				</li>
+				
+				<div class="yunset_bth_box">
+					<input type="hidden" name="yid" id="yid" value = "{yun:}if !empty($info){/yun}{yun:}$info.id{/yun}{yun:}else{/yun}0{yun:}/if{/yun}">
+					<button class="mui-btn mui-btn-primary" name ="submit" type="submit">确认</button>&nbsp;&nbsp;
+				</div>
+			</ul>
+		</form>
+	</div>
+</section>
+
+
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.picker.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.poppicker.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script>
+
+	mui.init();
+
+	//提交判断
+	function check_editchildmsg(target_form) {
+
+		var linkman = $.trim($("#linkman").val());
+		if ($.trim($("#name").val()) == "") {
+			layermsg('模板名称不能为空！', 2);
+			return false;
+		}
+		if (linkman == "") {
+			layermsg('联系人不能为空！');
+			return false;
+		}
+		var linktel = $.trim($("#linktel").val());
+		if (linktel == "") {
+			layermsg('联系电话不能为空！', 2);
+			return false;
+		}else if(isjsTell(linktel) == false && isjsMobile(linktel) == false){
+			layermsg('联系电话格式错误！', 2); return false;
+		}
+		
+		if ($.trim($("#address").val()) == "") {
+			layermsg('面试地址不能为空！', 2);
+			return false;
+		}
+		if ($.trim($("#intertime").val()) == "") {
+			layermsg('面试时间不能为空！', 2);
+			return false;
+		}
+		post2ajax(target_form);
+		return false;
+	}
+
+</script>
+<script src="{yun:}$wap_style{/yun}/js/publicselect.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

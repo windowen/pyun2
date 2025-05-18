@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>{yun:}$title{/yun}</title>
+        <meta name="keywords" content="{yun:}$keywords{/yun}" />
+        <meta name="description" content="{yun:}$description{/yun}" />
+        
+        <link href="{yun:}$style{/yun}/style/microresume.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+    </head>
+
+<body class="once_bg">
+	{yun:}include file="$tplstyle/header.htm"{/yun}
+	<div class="clear"></div>
+	
+	<div class="tiny_banner" style="background:#b8daf6">
+		<div class="tiny_banner_cont">
+			<div class="tiny_banner_cur">您当前的位置：
+				<a href="{yun:}$config.sy_weburl{/yun}">首页</a> >
+				<a href="{yun:}url m=once{/yun}">店铺招聘</a>
+			</div>
+			<div class="once_banner_cont_b"><img src="{yun:}$style{/yun}/images/once_bg.jpg" width="1200" height="220" /></div>
+			<div class="tiny_banner_bg"></div>
+			<div class="tiny_banner_fb">
+				<div class="tiny_banner_fb_h1">发布店铺招聘</div>
+				<div class="tiny_banner_fb_p">不用注册，快速发布招聘信息，这里也能找到满意人才！</div>
+				
+				<div class="tiny_banner_fb_fb">
+					{yun:}if $config.sy_once == 0{/yun}
+						<a href='{yun:}url m=once c=add{/yun}'  class="recruit_user_public">发布店铺招聘</a>
+					{yun:}elseif $num>0{/yun}
+						{yun:}if $ordernum{/yun}
+							<a href='javascript:;' onclick="showOrder('{yun:}$ordernum{/yun}')"  class="recruit_user_public">发布店铺招聘</a>
+						{yun:}else{/yun}
+							<a href='javascript:;' onclick="addoncemsg('一天内只能发布{yun:}$config.sy_once{/yun}次，剩余可发布{yun:}$num{/yun}次','{yun:}url m=once c=add{/yun}')" class="recruit_user_public">发布店铺招聘</a>
+						{yun:}/if{/yun}
+					{yun:}else{/yun}
+						<a href="javascript:;" onclick="layer.msg('每天最多可发布{yun:}$config.sy_once{/yun}份店铺招聘！',2,8)" class="">发布店铺招聘</a>
+					{yun:}/if{/yun}   
+								   
+           </div>
+    </div>
+    
+        </div>    </div>    </div>
+        <div class="yun_content">
+        <div class="tiny_search">
+         <form action="{yun:}if !$config.sy_oncedir{/yun}index.php{yun:}else{/yun}{yun:}url m=once{/yun}{yun:}/if{/yun}" method="get" onsubmit="return search_keyword(this,'请输入关键字');">
+         {yun:}if !$config.sy_oncedir{/yun}<input type="hidden" name="m" value="tiny" id="m" />{yun:}/if{/yun}
+         {yun:}foreach from=$finder item=v key=key{/yun}
+         <input type="hidden" name="{yun:}$key{/yun}" value="{yun:}$v{/yun}" /> 
+         {yun:}/foreach{/yun}
+  <div class="tiny_search_list"><span class="tiny_search_name">筛选条件：</span>
+  <div class="tiny_search_choice">
+  <input type="button" value="{yun:}if $add_time[$smarty.get.add_time]{/yun}{yun:}$add_time[$smarty.get.add_time]{/yun}{yun:}else{/yun}时间范围{yun:}/if{/yun}" id="add_times" class="tiny_search_but">
+  <div class="tiny_search_select none"id="res_menu"> <ul class="" >
+		{yun:}foreach item=v key=key from=$add_time{/yun}
+		<li>
+			<a href="{yun:}listurl m=once type=add_time v=$key{/yun}"> {yun:}$v{/yun}</a>
+		</li>
+		{yun:}/foreach{/yun}
+	</ul></div>
+  </div>
+
+ 
+  
+  <div class="tiny_search_text">
+   <input id="key_word" class="tiny_search_t" type="text" value="{yun:}if $smarty.get.keyword{/yun}{yun:}$smarty.get.keyword{/yun}{yun:}else{/yun}请输入关键字{yun:}/if{/yun}" name="keyword" onclick="if(this.value=='请输入关键字'){this.value=''}" placeholder="请输入关键字" onblur="if(this.value==''){this.value='请输入关键字'}" /></div>
+    <input type="submit" value="搜索" id="search_button" class="tiny_search_bth yun_bg_color" />
+  </div>
+  <!--   city--> 
+        {yun:}if $config.sy_web_site==1 && $config.cityname && $config.cityname!=$config.sy_indexcity{/yun}
+			<div class="Search_citybox">
+				<div class="Search_cityboxname"> 按&nbsp;地&nbsp; 区：</div>
+				<div class="Search_citybox_right">
+					<div class="Search_cityboxright">
+						<div class="search_secondcity_list">
+							{yun:}if !$smarty.get.cityid && $smarty.get.three_cityid{/yun} 
+								<a class="city_name city_name_active" style="text-decoration:none;cursor:pointer;">
+									{yun:}$city_name[$smarty.get.three_cityid]{/yun}
+								</a> 
+							{yun:}else{/yun}
+								{yun:}if $smarty.get.cityid{/yun}
+									{yun:}if is_array($city_type[$smarty.get.cityid]){/yun} 
+										<a href="{yun:}listurl m=once untype=three_cityid{/yun}" class="city_name {yun:}if !$smarty.get.three_cityid {/yun}city_name_active{yun:}/if{/yun}">不限</a> 
+										{yun:}foreach from=$city_type[$smarty.get.cityid] item=tid key=key{/yun} 
+											<a href="{yun:}listurl m=once type=three_cityid v=$tid{/yun}" class="city_name {yun:}if $smarty.get.three_cityid==$tid{/yun}city_name_active{yun:}/if{/yun}">{yun:}$city_name[$tid]{/yun}</a> 
+										{yun:}/foreach{/yun}
+									{yun:}else{/yun} 
+										<a class="city_name city_name_active" style="text-decoration:none;cursor:pointer;">{yun:}$city_name[$smarty.get.cityid]{/yun}</a>
+									{yun:}/if{/yun}
+								{yun:}else{/yun}
+									{yun:}if is_array($city_type[$smarty.get.provinceid]){/yun} 
+										<a href="{yun:}listurl m=once untype=cityid{/yun}" class="city_name {yun:}if !$smarty.get.cityid {/yun}city_name_active{yun:}/if{/yun}">不限</a> 
+										{yun:}foreach from=$city_type[$smarty.get.provinceid] item=tid key=key{/yun} 
+											<a href="{yun:}listurl  m=once type=cityid v=$tid{/yun}" class="city_name {yun:}if $smarty.get.cityid==$tid{/yun}city_name_active{yun:}/if{/yun}">{yun:}$city_name[$tid]{/yun}</a>
+										{yun:}/foreach{/yun}
+									{yun:}else{/yun} 
+										<a class="city_name city_name_active" style="text-decoration:none;cursor:pointer;">{yun:}$city_name[$smarty.get.provinceid]{/yun}</a>
+									{yun:}/if{/yun}
+								{yun:}/if{/yun}
+							{yun:}/if{/yun} 
+						</div>
+					</div>
+				</div>
+			</div>
+		{yun:}else{/yun}
+			<div class="Search_citybox">
+				<div class="Search_cityboxname">按&nbsp;地&nbsp; 区：</div>
+				<div class="Search_citybox_right">
+					<div class="Search_cityall none"> 
+						<a href="{yun:}listurl m=once type=provinceid v=0{/yun}" class="city_name">全部</a> 
+						{yun:}foreach from=$city_index item=pid key=key{/yun} 
+							<a href="{yun:}listurl m=once type=provinceid v=$pid{/yun}" class="city_name {yun:}if $smarty.get.provinceid==$pid{/yun}city_name_active{yun:}/if{/yun}">{yun:}$city_name[$pid]{/yun}</a> 
+						{yun:}/foreach{/yun} 
+					</div>
+					<div class="Search_cityboxright"> 
+						<a href="javascript:;" onclick="acityshow('1')" class="search_city_list_cur {yun:}if $smarty.get.provinceid && !$smarty.get.cityid || !is_array($city_type[$smarty.get.cityid]){/yun}search_city_active{yun:}/if{/yun}  {yun:}if !$smarty.get.provinceid{/yun}none{yun:}/if{/yun}  acity_two" style="text-decoration:none;cursor:pointer;">
+							<span class="search_city_p">{yun:}$city_name[$smarty.get.provinceid]{/yun}</span>
+							<i class="search_city_p_jt"></i>
+							<i class="search_city_list_line"></i>
+						</a>
+						<a href="javascript:;" {yun:}if $smarty.get.cityid{/yun}onclick="acityshow('2')"{yun:}/if{/yun} class="search_city_list_cur {yun:}if $smarty.get.cityid && is_array($city_type[$smarty.get.cityid]){/yun}search_city_active{yun:}/if{/yun} {yun:}if !$smarty.get.provinceid || !$smarty.get.cityid || !is_array($city_type[$smarty.get.cityid]){/yun}none{yun:}/if{/yun} acity_three" style="text-decoration:none;cursor:pointer;">
+							<span class="search_city_p">
+								{yun:}if !$smarty.get.cityid{/yun}不限{yun:}else{/yun}{yun:}$city_name[$smarty.get.cityid]{/yun}{yun:}/if{/yun}
+							</span>
+							<i class="search_city_list_line"></i>
+						</a> 
+						<a href="{yun:}listurl m=once type=provinceid v=0{/yun}" class="search_city_list_all {yun:}if !$smarty.get.provinceid{/yun}city_name_active{yun:}/if{/yun}">全部</a>
+						<div class="search_city_list">
+							{yun:}foreach from=$city_index item=pid key=key{/yun} 
+								<a href="{yun:}listurl m=once type=provinceid v=$pid{/yun}" class="city_name {yun:}if $smarty.get.provinceid && !$smarty.get.cityid{/yun}{yun:}if $key>12{/yun}none{yun:}/if{/yun}{yun:}else if $smarty.get.cityid{/yun}{yun:}if $key>13{/yun}none{yun:}/if{/yun}{yun:}else{/yun}{yun:}if $key>14{/yun}none{yun:}/if{/yun}{yun:}/if{/yun} {yun:}if $smarty.get.provinceid==$pid{/yun}city_name_active{yun:}/if{/yun}">{yun:}$city_name[$pid]{/yun}</a> 
+							{yun:}/foreach{/yun} 
+						</div>
+						<a href="javascript:;" class="search_city_list_more" id="acity">更多</a>
+					</div>
+					<div class="Search_cityboxclose {yun:}if !$smarty.get.provinceid || ($smarty.get.provinceid && $smarty.get.cityid && is_array($city_type[$smarty.get.cityid])){/yun}none{yun:}/if{/yun}" id="acity_two"> 
+						<a href="{yun:}listurl m=once untype=cityid{/yun}" class="city_name {yun:}if $smarty.get.provinceid&&!$smarty.get.cityid&&!$smarty.get.three_cityid{/yun}city_name_active{yun:}/if{/yun}">不限</a> 
+						{yun:}foreach from=$city_type[$smarty.get.provinceid] item=cid key=key{/yun} 
+							<a href="{yun:}listurl m=once type=cityid v=$cid{/yun}" class="city_name {yun:}if $smarty.get.cityid==$cid{/yun}city_name_active{yun:}/if{/yun}">{yun:}$city_name[$cid]{/yun}</a> 
+						{yun:}/foreach{/yun} 
+					</div>
+					<div class="Search_cityboxclose {yun:}if !$smarty.get.cityid || !is_array($city_type[$smarty.get.cityid]){/yun}none{yun:}/if{/yun}" id="acity_three"> 
+						<a href="{yun:}listurl m=once untype=three_cityid{/yun}" class="city_name {yun:}if $smarty.get.provinceid && $smarty.get.cityid && !$smarty.get.three_cityid {/yun}city_name_active{yun:}/if{/yun}">不限</a> 
+						{yun:}foreach from=$city_type[$smarty.get.cityid] item=tid key=key{/yun} 
+							<a href="{yun:}listurl m=once type=three_cityid v=$tid{/yun}" class="city_name {yun:}if $smarty.get.three_cityid==$tid{/yun}city_name_active{yun:}/if{/yun}">{yun:}$city_name[$tid]{/yun}</a>
+						{yun:}/foreach{/yun} 
+					</div>
+				</div>
+			</div>
+        {yun:}/if{/yun} 
+
+        <!--   city end-->
+  </form>
+  <div class="tiny_search_want"><span class="tiny_search_name">关&nbsp;键&nbsp; 字：</span>  
+  {yun:}if $oncekeyword{/yun}
+	{yun:}key limit=17 type=1 item=keylist{/yun}
+		<a href="{yun:}$keylist.url{/yun}"> {yun:}$keylist.key_name{/yun}</a> {yun:}/key{/yun} 
+	{yun:}else{/yun}
+
+	{yun:}/if{/yun} 
+	
+   </div>
+  </div>
+  
+        <div class="once_list_left">
+  
+          
+ <div class="once_list_tit"> 共为您找到 <span class="tiny_list_tit_n" id="totalshow"> 0 </span> 条店铺信息</div>
+<div class="once_list_left_box">
+	{yun:}fast item=once ispage=1 limit=20 keyword='auto.keyword' add_time='auto.add_time' provinceid='auto.provinceid' cityid='auto.cityid' three_cityid='auto.three_cityid' {/yun}
+    <div class="once_list">
+        <div class="once_list_pic"><img src="{yun:}$once.pic{/yun}" width="200" height="130" alt="{yun:}$once.title{/yun}"/></div>
+		<div class="once_list_info">
+			<div class="once_list_name">
+				<a href="{yun:}url m=once c=show id='`$once.id`'{/yun}" target="_blank"  class="once_list_name_a" title="{yun:}$once.title{/yun}">{yun:}$once.title|mb_substr:0:8:'utf-8'{/yun}</a>  <span class="once_list_gx"> {yun:}if $once.redtime==1 || $once.ctime<60{/yun} <span style="color:red;">{yun:}$once.ctime{/yun}</span> {yun:}else{/yun} {yun:}$once.ctime{/yun} {yun:}/if{/yun}更新</span>
+			</div>
+			<div class="once_list_dpname">{yun:}$once.companyname{/yun} {yun:}if $once.once_job_one{/yun} 地区：{yun:}$once.once_job_one{/yun}{yun:}if $once.once_job_two{/yun}-{yun:}$once.once_job_two{/yun}{yun:}/if{/yun}{yun:}/if{/yun}</div>
+			<div class="once_list_p">要求：{yun:}$once.require|mb_substr:0:38:'utf-8'{/yun}<a href="{yun:}url m=once c=show id='`$once.id`'{/yun}" class="once_list_p_a">详情</a></div>
+			<span class="once_list_xz">{yun:}if $once.salary{/yun}￥{yun:}$once.salary{/yun}{yun:}else{/yun}面议{yun:}/if{/yun}</span>
+			{yun:}if $config.user_wzp_link==1 && $uid<=0{/yun}
+				<div class="once_list_login"><a href="javascript:void(0);" onclick="showlogin('');" style="color:#1c99ef">[登录]</a> 后才可以查看联系方式</div>
+			{yun:}else{/yun}
+				{yun:}if $once.phone{/yun}
+					<div class="once_list_tel">{yun:}$once.phone{/yun}<span class="once_list_tel_man">{yun:}$once.linkman{/yun}</span></div>
+					<div class="once_list_tel_bg"></div>
+				{yun:}/if{/yun}
+				{yun:}if $once.address{/yun}
+					<div class="once_list_add">联系地址：{yun:}$once.address{/yun}</div>
+				{yun:}else{/yun}
+				{yun:}/if{/yun} 
+			{yun:}/if{/yun}                
+        </div>
+    </div>
+	{yun:}/fast{/yun}
+{yun:}if $pagenav{/yun}
+<div class="clear"></div>
+<div class="pages"> {yun:}$pagenav{/yun}</div>
+{yun:}/if{/yun} {yun:}if $total==0{/yun}
+
+<div class="onceseachno">
+	<div class="onceseachno_left"> <img src="{yun:}$style{/yun}/images/search-no.gif" /></div>
+	<div class="onceseachno_content"> <strong>很抱歉，没有找到满足条件的职位</strong><br/>
+		<span> 建议您：<br/>
+  1、适当减少已选择的条件<br/>
+  2、适当删减或更改搜索关键字<br/>
+  </span> <span> 热门关键字：<br/>
+  {yun:}key limit=6 recom=1 type=1 item=top_key{/yun} <a href="{yun:}$top_key.url{/yun}">{yun:}$top_key.key_name{/yun}</a> {yun:}/key{/yun} </span> </div>
+			</div>
+			{yun:}/if{/yun} 
+        </div>
+          </div>
+          
+        
+
+             </div>
+        
+        <script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$style{/yun}/js/fast.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/search.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+        <style>
+            .once_tel_add1 {
+                width: 330px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                height: 25px;
+                line-height: 25px;
+                font-size: 12px;
+                padding-left: 20px;
+            }
+        </style>
+        <!--[if IE 6]>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script>
+		DD_belatedPNG.fix('.png');
+		</script>
+		<![endif]-->
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(window).scroll(function() {
+                    var scroll_Top = $(window).scrollTop();
+                    var width = document.body.clientWidth;
+                    if(scroll_Top > 520) {
+                        if(window.XMLHttpRequest) {
+                            var top = 0;
+                            var right = (width - 970) / 2 + "px";
+                        } else {
+                            var top = parseInt(scroll_Top) - (520);
+                            var right = 0;
+                        }
+                        $(".Fast_left").attr("style", "position:fixed;top:" + top + "px;_position:absolute;right:" + right + ";");
+                    } else {
+                        $(".Fast_left").attr("style", "");
+                    }
+                });
+            });
+
+            $(function() {
+                $(".tiny_search_choice").hover(function() {
+                    $(this).find("#res_menu").show();
+
+                }, function() {
+                    $(this).find("#res_menu").hide();
+                });
+            });
+
+            function selectonce(val, name) {
+                $("#add_time").val(val);
+                $('#add_times').val(name)
+                $("#res_menu").hide();
+            }
+			'{yun:}if $total{/yun}'
+				$(function() {
+					$("#totalshow").html('{yun:}$total{/yun}');
+				})
+			'{yun:}/if{/yun}'
+			function addoncemsg(content,url){
+				layer.open({
+					content: content,
+					yes: function() {
+						setTimeout(function() {
+							location.href = url;
+						}, 0);
+					}
+				});
+			}			
+
+        </script>
+        {yun:}include file="$tplstyle/public_search/login.htm"{/yun} 
+        {yun:}include file="$tplstyle/once/fast.htm"{/yun} 
+        {yun:}include file="$tplstyle/footer.htm"{/yun}

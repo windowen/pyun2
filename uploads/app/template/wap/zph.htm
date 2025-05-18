@@ -1,0 +1,107 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+ {yun:}fairs limit=1 item=zphs{/yun}
+ <div class="wap_zph_bannerbox">
+<div class="wap_zph_banner">
+<div class="wap_zph_ct">
+<div class="wap_zph_ct_c">
+          <div class="wap_zph_ct_tit">  <a href="{yun:}url m=wap c=zph a=show id='`$zphs.id`'{/yun}">{yun:}$zphs.title{/yun}</a></div>
+		           <div class="wap_zph_ct_tm"> {yun:}$zphs.starttime|date_format:"%Y-%m-%d"{/yun} 至 {yun:}$zphs.endtime|date_format:"%Y-%m-%d"{/yun} </div>
+				   
+          <div class="wap_zph_ct_job">已有 <a href="{yun:}url m=wap c=zph a=com id=$zphs.id{/yun}">{yun:}$zphs.jobnum{/yun}</a> 个职位 ,  <a href="{yun:}url m=wap c=zph a=com id=$zphs.id{/yun}">{yun:}$zphs.comnum{/yun}</a> 家企业参会</div>
+ 
+          <div class="wap_zph_ct_but">
+               {yun:}if $zphs.stime<'0' || $zphs.etime<'0'{/yun}
+               <a class="wap_zph_jxz">正在进行中</a>
+               {yun:}else{/yun}
+                   {yun:}if $usertype==2{/yun}
+                   <a class="wap_zph_ydz" href="{yun:}url m=wap c=zph a=reserve id='`$zphs.id`'{/yun}">火热预订中</a>
+                   {yun:}else{/yun}
+                   {yun:}if $uid{/yun}
+                    <a class="wap_zph_ydz" href="javascript:void(0);" onclick="layermsg('只有企业用户才能预定')">火热预订中</a>
+                    {yun:}else{/yun}
+                    <a class="wap_zph_ydz" href="{yun:}url m=wap c=login {/yun}">火热预订中</a>
+                    {yun:}/if{/yun}
+                  
+                   {yun:}/if{/yun}
+               {yun:}/if{/yun}
+          
+          </div>
+     </div>     </div>
+</div>   
+</div>
+ {yun:}/fairs{/yun}
+
+<section>
+  <div class="warp_content clear">
+
+        <div class="zphlist_content">
+		
+<div class="zph_nav">
+  <ul class="zph_navbox">
+    <li onclick="tabshow()" class="{yun:}if !$smarty.get.state{/yun}zph_navcur{yun:}/if{/yun}">全部</li> 
+    <li onclick="tabshow(1)" class="{yun:}if $smarty.get.state=='1'{/yun}zph_navcur{yun:}/if{/yun}">预订中</li> 
+    <li onclick="tabshow(2)" class="{yun:}if $smarty.get.state=='2'{/yun}zph_navcur{yun:}/if{/yun}">已开始</li>  
+    <li onclick="tabshow(3)" class="{yun:}if $smarty.get.state=='3'{/yun}zph_navcur{yun:}/if{/yun}">已结束</li> 
+  </ul>
+
+
+
+
+</div>
+      {yun:}fairs ispage=1 limit=5 state='auto.state' item=zph {/yun}
+           <div class="zph_list_box "> 
+      
+         <a href="{yun:}url m=wap c=zph a=show id='`$zph.id`'{/yun}">
+		 <div class="zphtimebox"> <div class="zphtime"><i class="zphtime_icon"></i>{yun:}$zph.starttime|date_format:"%Y-%m-%d"{/yun} 至 {yun:}$zph.endtime|date_format:"%Y-%m-%d"{/yun}{yun:}if $zph.stime<'0'&&$zph.etime>'0'{/yun}
+           <span class="zph_zt">已开始</span>
+         {yun:}elseif $zph.stime>'0'{/yun}
+         <span class="zph_zt zph_zt_yd">预定中</span>      
+         {yun:}/if{/yun}</div></div>
+		 
+		 <div class="zph_list_all">
+		 <img src="{yun:}$zph.is_themb{/yun}" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_zph_icon{/yun}',2);">
+         <div class="zph_bt">
+         {yun:}$zph.title{/yun}
+        </div>
+          
+         
+        
+         {yun:}if $zph.address{/yun}
+         <div class="zphadd">地址：{yun:}$zph.address{/yun}</div>
+         {yun:}/if{/yun}
+		    </div>  
+			<div class="zphcy"><span class="zphcy_list">参会职位：<em class="zphcy_n">{yun:}$zph.jobnum{/yun}</em></span><span class="zphcy_list">参会企业：<em class="zphcy_n">{yun:}$zph.comnum{/yun}</em></span></div>
+         </a>
+         </div>  
+          {yun:}/fairs{/yun}
+          <div class="pages">{yun:}$pagenav{/yun}</div>
+      <div class="clear"></div>
+      </div>
+  </div>
+</section>
+<section>
+{yun:}if !$total{/yun}
+  <div class="wap_member_no">很抱歉，还没有发布招聘会的相关信息</div>
+{yun:}/if{/yun}
+</section>
+<style>
+.header_bg{ background:#fff}
+.header_top_l:after{content: ' ';width: 12px;height: 12px;
+border: #333 solid;-webkit-transform: rotate(-135deg);border-width: 1px 1px 0 0;color: #828282;display: inline-block; position:absolute;left:0px;top:17px;}
+.header_h1{color:#000}
+</style>
+<script src="{yun:}$wap_style{/yun}/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script type="text/javascript">
+  function tabshow(state){
+
+    var url = '{yun:}url m=wap c=zph{/yun}';
+    if(state){
+      url  ='{yun:}url m=wap c=zph state="'+state+'"{/yun}';
+    }
+    window.location.href = url;
+  }
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun} 

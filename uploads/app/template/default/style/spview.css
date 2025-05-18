@@ -1,0 +1,172 @@
+
+/* 视频面试公司详情页 */
+.sp_show_box{}
+.sp_show{width: 820px;margin: auto;padding-top: 40px;padding-bottom: 100px;}
+.sp_show_p{font-size: 14px; border-bottom:1px solid #f0f0f0;padding:10px 0 15px 0;}
+
+.sp_show_top{text-align: center;}
+.sp_show_tit{font-size: 30px;}
+.sp_show_tit span{}
+.sp_show_mstime{font-size: 20px;margin-top: 25px;}
+.sp_show_sytime{font-size: 20px;padding: 20px 0;}
+.sp_show_yynumber{color: #00bc9b;margin-left: 40px;font-size: 18px;}
+
+.sp_show_time{overflow: hidden;width: 100%; text-align:center}
+.sp_show_time span{display:inline-block;width: 48px;height: 48px;line-height: 48px;text-align: center;font-size: 18px;}
+.sp_show_time .kp_m{background: #fff;color: #ff8a42;font-size: 28px;text-align: center;border-radius: 3px;}
+.sp_show_statebox{width:100%; background:#fff;border-radius:5px;box-shadow: 0px 5px 10px 0px rgba(111, 116, 132, 0.1); 
+; padding-top:20px; padding-bottom:60px;}
+.sp_show_state{width:1000px;text-align: center; margin:0px auto; }
+.sp_show_state_box{padding: 40px 0 35px 0;}
+.sp_show_state .tips1{font-size: 20px;font-weight: bold;}
+.sp_show_state_job{color: #276bf2;margin-left: 10px;}
+.sp_show_state_pdrs{color: #f71f09;}
+.sp_show_state .tips2{font-size: 16px;margin: 30px 0px;}
+.sp_show_state_btn a{display: block;width: 200px;height: 40px;text-align: center;line-height: 40px;border-radius: 5px;font-size: 16px;margin: auto;}
+.sp_show_state_btn .wait{background: #c7c6c6;color: #f55625;text-decoration: none;}
+.sp_show_state_btn .getinto{background: #00bc9b;color: #fff;}
+.sp_show_mstj_c{padding:20px 100px 20px 100px;}
+.sp_show_mstj{width:100%; background:#fff;border-radius:0 0 5px 5px;box-shadow: 0px 5px 10px 0px rgba(111, 116, 132, 0.1); margin-top:20px;
+}
+.sp_show_yks{width:100%; text-align:center; padding-top:150px;padding-bottom:50px; background:url(../images/wlzp_hr.png) no-repeat center 20px;}
+.sp_show_yks_bth{padding:20px 0;}
+.sp_show_yks_bth a{display:inline-block;width: 200px;height: 40px;line-height: 40px;background: #276bf2;color: #fff;font-size: 16px;border-radius: 6px;text-align: center;}
+.sp_show_yks_bth a:hover{color:#fff; text-align:none;}
+.sp_show_yks_p{font-size:24px;}
+.sp_show_yks_p2{padding:10px 0;color:#999}
+.sp_show_tips{padding-top:10px;}
+.sp_show_tips li{padding-left: 36px;position: relative;line-height: 28px;margin: 10px 0;font-size: 14px;color:#666666}
+.sp_show_tips li i{width: 24px;height: 24px;display: block;position: absolute;left: 0;top: 5px;}
+.sp_show_tips .tips_i1{background: url(../images/spview_show_i1.png) no-repeat;}
+.sp_show_tips .tips_i2{background: url(../images/spview_show_i2.png) no-repeat;}
+.sp_show_tips .tips_i3{background: url(../images/spview_show_i3.png) no-repeat;}
+.sp_show_tips .tips_i4{background: url(../images/spview_show_i4.png) no-repeat;}
+.sp_show_tips .tips_i5{background: url(../images/spview_show_i5.png) no-repeat;}
+.sp_show_joblist{width:100%; background:#fff;border-radius:5px;box-shadow: 0px 5px 10px 0px rgba(111, 116, 132, 0.1); padding-top:20px;}
+.sp_show_msjob{padding:0px 100px 40px 100px;}
+.sp_show_msjobtit{width:100%;height:50px; background:url(../images/msjobtit.png) no-repeat center center;font-size:0px;}
+.sp_show_msjob_list{border: 1px solid #dcdcdc;border-radius: 6px;margin-top:20px; cursor:pointer}
+.sp_show_msjob_list_cur{background: #f8f8f8;border: 1px solid #276bf2; box-shadow: 0 2px 10px 0 #b8d5f6;}
+.sp_show_msjob_list:hover{border: 1px solid #276bf2; box-shadow: 0 2px 10px 0 #b8d5f6;}
+.msjob_list_con{padding: 20px 15px;}
+.msjob_list_name{font-size: 18px;}
+.msjob_list_wages{color: #f4330c;margin-left: 15px;}
+.msjob_list_wages span{font-size: 18px}
+.msjob_list_detail{color: #276bf2;display: block;padding-left: 22px;position: relative;float: right;font-size: 14px;}
+.msjob_list_detail:hover{color: #276bf2;}
+.msjob_list_detail_i{position: absolute;display: block;width: 16px;height: 16px;background: url(../images/spview_show_i6.png) no-repeat;left: 0;top: 2px;}
+.msjob_list_con .xian{height: 10px;width: 1px;margin: 0 10px;display: inline-block;background: #bbb;}
+.msjob_list_con_yq{margin-top: 15px;font-size: 14px;}
+.msjob_list_con_yq .wuyaoqiu{color: #999;}
+.sp_show_msjobbth{width:100%; text-align:center;padding-top:35px}
+.sp_show_yyms{display:inline-block;width: 265px;height: 50px;line-height: 50px;background: #276bf2;color: #fff;font-size: 18px;border-radius: 6px;text-align: center;}
+.sp_show_yyms:hover{color: #fff;}
+
+
+
+/* 职位弹出框 */
+.job_popup{padding-bottom: 25px;}
+.job_popup_box{padding: 20px 25px;max-height: 450px;overflow-y: auto;}
+.job_popup_ftit{font-size: 16px;margin: 20px 0 15px 0;font-weight: bold;}
+.job_popup_hd_name{font-size: 24px;font-weight: bold;}
+.job_popup_hd_dy{margin: 15px 0;color: #181616;}
+.job_popup_hd_dy .gz{color: #f95b0e;font-size: 20px;font-weight: bold;margin-right: 20px;}
+.job_popup_hd_dy .xian{height: 10px;width: 1px;margin: 0 10px;display: inline-block;background: #bbb;}
+.job_popup_hd_fuli{overflow: hidden;}
+.job_popup_hd_fuli .bq1{float: left;}
+.job_popup_hd_fuli .bq2{float: left;}
+
+/* .job_popup_hd_fuli .bq1 span{width: 64px;height: 24px;display: inline-block;text-align: center;line-height: 24px;margin-right: 12px;font-size: 12px;border-radius: 3px;} */
+.job_popup_hd_fuli .bq1 span{width: 74px;height: 26px;display: inline-block;text-align: center;line-height: 26px;margin-right: 12px;font-size: 12px;background: #edf9ff;color: #007ccf;margin-bottom: 10px;}
+.job_popup_hd_fuli .bq1 .jjzp_span{width: 64px;height: 24px;line-height: 24px;border-radius: 3px;color: #f6693d;background: #fcf6ed;}
+.job_popup_hd_fuli .bq1 .zztj_span{width: 64px;height: 24px;line-height: 24px;border-radius: 3px;color: #52a95a;background: #f0f8f1;}
+
+.job_popup_yaoqiu{overflow: hidden;}
+.job_popup_yaoqiu li{float: left;width: 30%;line-height: 35px;color: #1e1a19;}
+.job_popup_miaoshu li{line-height: 35px;color: #1e1a19;}
+
+.job_popup_btn{text-align: center;padding-top: 10px;}
+.job_popup_btn a{width: 173px;height: 44px;line-height: 44px;text-align: center;display: inline-block;border-radius: 6px;font-size: 16px;}
+.job_popup_btn .yuyue{background: #276bf2; color: #fff;margin-right: 12px;}
+.job_popup_btn .close{background: #dcdcdc; color: #060606;}
+
+
+/* 点击预约简历弹出框 */
+
+.yyms_popup{padding: 0 25px 25px 25px;}
+.yyms_popup_tips{color: #f33e3e;font-size: 14px;height: 20px;line-height: 20px;}
+.yyms_popup_title{font-size: 14px;font-weight: bold;color: #666;margin: 10px 0;}
+.yyms_popup_list{}
+.yyms_popup_list li{height: 40px;line-height: 40px;cursor: context-menu;}
+.yyms_popup_list li div{float: left;height: 40px; color: #666;}
+
+
+.yyms_popup_list li .f_category{width: 20%;}
+.yyms_popup_list li .com_need{width: 30%;position: relative;}
+.yyms_popup_list li .my_need{width: 30%;position: relative;}
+.yyms_popup_list li .ljws_a{width: 30%;}
+.yyms_popup_list li .last_d{color: #999;position: relative;padding-left: 20px;width: 10%; float:right}
+.yyms_popup_list li .last_d i{width: 14px;height: 14px;display: inline-block;position: absolute;left: 0;top: 12px; background-size: 100%;}
+.yyms_popup_accord{background: url(../images/icon_accord.png) no-repeat center;}
+.yyms_popup_atypism{background: url(../images/icon_atypism.png) no-repeat center;}
+.yyms_popup_perfect{color: #0d92de;text-decoration: underline;}
+
+.yyms_popup_list li .my_need div,.yyms_popup_list li .com_need div{
+	height: auto;
+	background: #ffffff;
+    border: 1px solid #eee;
+    padding: 8px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1000;
+    position: absolute;
+	top: 35px;
+	line-height: initial;}
+
+
+/* 预约成功提示弹窗 */
+.yy_sucess_popup{text-align: center;padding: 50px 0 40px 0;}
+
+.sucess_popup_c1{font-size: 20px;}
+.sucess_popup_c2{font-size: 14px;margin: 15px 0 30px 0;}
+.sucess_popup_c2 span{color: #0a34f3;padding: 0 5px;}
+.sucess_popup_btn a{display: block;margin: auto; width: 170px;height: 44px;background: #00bd9b;color: #fff;font-size: 16px;text-align: center;line-height: 44px;border-radius: 6px;}
+.sucess_popup_btn a:hover{color: #fff;}
+
+/* 面试已结束弹窗 */
+.yyms_over_popup{
+    padding: 190px 80px 0px 80px;
+    text-align: center;
+    background: #fff url(../images/yun_yj.jpg) no-repeat center top;
+    color: #999;
+	margin-bottom: 30px;
+}
+.wx_bdtck_pic{ padding:10px;width:180px;height:180px; line-height:180px; text-align:center;border:1px solid #eee; margin:20px auto}
+.wx_bdtck_p{width:100%; text-align:center;color:#999; font-size:15px;}
+
+
+
+.sp_show_bg{ background:#231d9b url(../images/ms_bg.png) no-repeat;border-radius:5px 5px 0px 0px; padding:40px 0 40px 0;color:#fff; position:relative}
+
+.sp_show_rs{color:#ffee00; margin-left:20px;font-size:16px}
+
+
+/* 简历弹窗选择 */
+.job_prompt_sendresume{ padding-left:30px; padding-top:30px;}
+.job_prompt_sendresume_job{color:#9f9999; font-size:16px; padding-bottom:10px;}
+.POp_up_r{width:100%}
+.POp_up_r  em{ margin-right:10px;border:1px solid #ddd; padding:3px 10px; display:inline-block; font-size:14px; margin-top:3px;}
+.POp_up_r em input{width:13px;height:13px; overflow:hidden; vertical-align:middle; margin-right:3px;}
+.Pop-up_logoin_sq em {display: inline-block;}
+.Pop-up_logoin_sq .Pop-up_radio {margin-left: 10px;margin-right: 5px;}
+.job_prompt_box_ok{width:100%; text-align:center; padding:30px 0;}
+.job_prompt_box_ok_bth{width:125px;height:40px; line-height:40px; text-align:center; background:#ff6a6a;color:#fff;display:inline-block;border-radius:3px;}
+.job_prompt_box_ok_bth:hover{ background:#fb2222;color:#fff; text-decoration:none;}
+.login_button2 {background:#1369c0;color:#fff; margin-top:10px;border: medium none;cursor: pointer;height: 36px;width: 102px;}
+.job_prompt_sendresume_list{ padding-top:20px;color:#666; padding-left:25px; position:relative }
+.job_prompt_sendresume_radio{width:12px;height:12px;border:1px solid #ddd;border-radius:50%; position:absolute;left:0px;top:23px; display:inline-block; cursor:pointer}
+.job_prompt_sendresume_list_cur .job_prompt_sendresume_radio{border:1px solid #ff552e;}
+.job_prompt_sendresume_list_cur .job_prompt_sendresume_radio_q{width:6px;height:6px; background:#ff552e; display:inline-block;border-radius:50%; position:absolute;left:4px;top:27px; }
+
+.wx_login_show_sxbox{width:180px; line-height:20px; text-align:center;color:#999}
+.wx_login_show_sxicon{width:150px;height:150px; background:url(../images/sx.png) no-repeat ; display:inline-block; background-size:100%;display:block; margin:0 auto 10px}

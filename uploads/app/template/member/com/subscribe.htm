@@ -1,0 +1,115 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+<div class="admin_mainbody"> {yun:}include file="$comstyle/left.htm"{/yun}
+  <div class="com_tit"> 
+		<span class="com_tit_span">简历订阅</span>
+      </div>
+      <div class=right_box>
+    <div class=admincont_box>
+     
+         
+            
+      <div class="com_body">
+      <div class="com_new_tip"> 
+          <span class="com_new_tip_h">温馨小提示</span>主要为了在您忙碌期间，不让您错过任何新发布与你发布职位相符的简历</div>
+       <div class="clear"></div>
+   
+          
+       <div class="com_m_search" >
+       <a href="javascript:void(0)" onclick='subscribedingyue();' class="com_m_tj"style="margin-left:0px;">+ 我要订阅</a>
+       </div>
+            
+        <div class=admin_textbox_04>
+          <iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+          <form action="index.php?c=subscribe&act=del" target="supportiframe" method="post" id='myform' class='layui-form'>
+            <table class="com_table mt20">
+               {yun:}if !empty($rows){/yun}
+               <tr>
+              <th width="20">&nbsp;</th>
+              <th>职位类别</th>
+              <th>所在城市</th>
+              <th>月薪范围</th>
+             <th>发送周期</th>
+              <th width="200">操作</th>
+            </tr>
+           
+                {yun:}foreach  from=$rows  item=v{/yun}
+                  <tr>
+               <td>
+                  <input type=checkbox name="delid[]" value="{yun:}$v.id{/yun}"  class="com_Release_job_qx_check" lay-skin='primary'>
+                  </td>  
+                  <td >{yun:}$v.jobname{/yun}</td> 
+                 <td align="center">{yun:}$v.city_name{/yun}&nbsp;</td> 
+                  <td align="center">{yun:}$v.salary{/yun}&nbsp;</td> 
+                  <td align="center">{yun:}$v.time{/yun}天&nbsp;</td> 
+                  <td align="center">
+				<a href="index.php?c=subscribe&act=record&id={yun:}$v.id{/yun}" class="com_bth cblue"> 详细</a>
+                 <a href="{yun:}url m=subscribe id='`$v.id`'{/yun}" class="com_bth cblue" target="_blank">修改</a>
+				<a href="javascript:void(0)" onclick="layer_del('确定要删除？','index.php?c=subscribe&act=del&id={yun:}$v.id{/yun}')" class="com_bth cblue">删除</a> 
+				</td>
+                  </tr>
+                {yun:}/foreach{/yun}
+                
+                <tr>
+            <td colspan="7" class="table_end">
+                  <div class="com_Release_job_bot "> <span class="com_Release_job_qx">
+                    <input id='checkAll'  type="checkbox" lay-skin='primary' lay-filter='allcom' class="com_Release_job_qx_check">
+                    全选</span>
+                    <input  class="c_btn_02" type="button" name="subdel" value="批量删除" onclick="return really('delid[]');">
+                  </div>
+                  <div class="diggg">{yun:}$pagenav{/yun}</div>
+               </td>
+          </tr>
+                {yun:}else{/yun}
+                    <tr>
+            <td colspan="6" class="table_end">   <div class="msg_no">
+                   <p>亲爱的用户，目前您还没有订阅简历信息。</p>
+                   
+                   <a href="javascript:void(0)" onclick='subscribedingyue();'class="com_msg_no_bth com_submit">我要订阅</a></div>
+             </td>
+          </tr>
+                {yun:}/if{/yun} 
+          </form>
+         </table>
+        </div>
+
+    </div>
+  </div>
+</div> 
+</div> 
+<div class="clear"></div>
+<script type="text/javascript">
+layui.use(['form','layer'], function(){
+	var $ = layui.$,
+		form = layui.form,
+		layer = layui.layer;
+	
+	form.on('checkbox(allcom)', function (data) {
+   	 	$("input[name='delid[]']").each(function () {
+        	this.checked = data.elem.checked;
+    	});
+    	form.render('checkbox');
+  	});
+});
+function subscribedingyue(){
+    $.post('index.php?c=subscribe&act=subscribedingyue',function(data){
+		if(data==1){
+			layer.msg('您还未登录,请先登录！', 2, 8);return false;
+		}
+		if(data==2){
+			layer.msg('只有个人和企业用户才可订阅！', 2, 8);return false; 
+		}
+		if(data==3){
+			layer.msg(' 暂未绑定微信公众号，无法订阅！', 2, 8);return false; 
+		}
+		if(data==4){
+			$("#wxbdtitle").text('绑定微信公众号订阅人才');
+			gzhShow();
+		}
+		if(data==5){
+			window.location.href=weburl+"/index.php?m=subscribe";
+		}
+    });
+}
+</script>
+{yun:}include file="$comstyle/footer.htm"{/yun}

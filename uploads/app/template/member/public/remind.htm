@@ -1,0 +1,36 @@
+<link href="{yun:}$config.sy_weburl{/yun}/app/template/member/com/images/tips.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css"/>
+<!-- 引导完善信息 -->
+<div class="yun_prompt_box none" id="remind">
+	<div class="yun_tipsbox_tit">
+		<span class="yun_tipsbox_tit_name">温馨提示</span>
+		<a href="javascript:;" class="yun_tipsbox_close toinfo"></a>
+	</div>
+ 	<div class="yun_prompt_writingicon"><i class="yun_prompt_writingicon_noright"></i></div>
+	<div class="yun_prompt_writing">{yun:}$remindInfo.title{/yun}</div>
+	<div class="yun_prompt_writing_tip" id='zzrz_msg'>{yun:}$remindInfo.msg{/yun}</div>
+	<div class="yun_prompt_writing_operation">
+	    <a href="javascript:void(0)" class="yun_prompt_writing_operation_bth toinfo">立即完善</a>
+	</div>
+</div>
+<!--提示部分  end-->
+
+<script>
+
+	$(function(){
+		var url = '{yun:}$remindInfo.url{/yun}';
+		layui.use('layer', function(){
+		var layer = layui.layer;
+			layer.open({
+				type: 1,
+				skin: 'yun_skin',
+				title: false,
+				closeBtn : 0,
+				area : [ '450px', '320px' ],
+				content: $('#remind') 
+			});
+		});  
+
+		$('.toinfo').click(function(){window.location.href=url;});
+
+	});
+</script>

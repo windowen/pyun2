@@ -1,0 +1,31 @@
+{yun:}include file="$wapstyle/member/cheader.htm"{/yun}
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/style.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+
+<div class="jobadd_ok">职位发布成功</div>
+<div class="jobadd_ok_bth">
+	<a href="index.php?c=job" class="jobadd_ok_bth_a jobadd_ok_bth_a_gl">管理信息</a>
+	<a href="{yun:}url m=wap c=job a=comapply id=$job.id{/yun}" class="jobadd_ok_bth_a jobadd_ok_bth_a_look">查看信息</a>
+	<a href="javascript:void(0)" onclick="jobadd_url('{yun:}$statis.addjobnum{/yun}','{yun:}$config.integral_job{/yun}','job','{yun:}$config.com_integral_online{/yun}','{yun:}$config.integral_proportion{/yun}');" class="jobadd_ok_bth_a jobadd_ok_bth_a_zf">再发一条</a>
+	<a href="{yun:}url m=wap c=job a=share id=$job.id{/yun}" class="jobadd_ok_bth_a jobadd_ok_bth_a_fx">分享职位</a>
+</div>
+
+<div class="jobadd_ok_settip">为了吸引更多求职者的关注，建议您设置</div>
+<ul class="jobadd_ok_setlist">
+	<li>
+		<a href="javascript:void(0)" onclick="forserver('3')"><i class="jobadd_ok_setlist_icon jobadd_ok_setlist_icontj"></i><span class="jobadd_ok_setlist_name">职位推荐</span><em class="jobadd_ok_setlist_tip">迅速提高招聘效果</em></a>
+	</li>
+	<li>
+		<a href="javascript:void(0)" onclick="forserver('2')"><i class="jobadd_ok_setlist_icon jobadd_ok_setlist_iconzd"></i><span class="jobadd_ok_setlist_name">职位置顶</span><em class="jobadd_ok_setlist_tip">立即提升职位排名</em></a>
+	</li>
+	<li>
+		<a href="javascript:void(0)" onclick="forserver('4')"><i class="jobadd_ok_setlist_icon"></i><span class="jobadd_ok_setlist_name">职位紧急</span><em class="jobadd_ok_setlist_tip">强烈提升职位曝光度</em></a>
+	</li>
+	{yun:}if !$spid{/yun}
+	<li>
+		<a href="javascript:void(0)" onclick="forserver('1')"><i class="jobadd_ok_setlist_icon jobadd_ok_setlist_icon_sx"></i><span class="jobadd_ok_setlist_name">自动刷新</span><em class="jobadd_ok_setlist_tip">让职位管理轻松更高效</em></a>
+	</li>
+	{yun:}/if{/yun}
+</ul>
+
+{yun:}include file="$wapstyle/member/com/job_tg_tck.htm"{/yun}
+{yun:}include file="$wapstyle/footer.htm"{/yun}

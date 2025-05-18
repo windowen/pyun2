@@ -1,0 +1,40 @@
+{yun:}foreach item=v from=$lists{/yun}
+<section class="_135editor">
+    <p><br></p>
+    <section style=" margin:10px;">
+        <section style="height:50px;margin: 0px auto;overflow: hidden;margin-bottpm:-5px;" data-width="100%">
+            <section style="width: 90px;height: 90px;border-radius: 100%;background: #fff;margin-top: 10px;margin-left: 1px;border: 2px solid #e1e2e2;box-sizing: border-box;"></section>
+        </section>
+        <section style="" data-width="100%">
+            <section style="display: flex;justify-content: center;box-sizing: border-box;background: #fff;" data-width="100%">
+                <section style=" display: flex;display:-webkit-flex; justify-content: flex-start;-webkit-justify-content: flex-start;border-left: 2px solid #e1e2e2;">
+                    <section style="width:22px;background:#fff;border-top: 2px solid #e1e2e2;box-sizing: border-box;"></section>
+                    <section style="margin-left:1px;margin-top: -35px;flex:1;">
+                        <section style="width:80px;height:80px;border-radius:100%;">
+                            <section data-role="circle" style="border-radius: 100%; overflow: hidden; margin: 0px auto;  padding-bottom: 100%; height: 0px; background-image: url({yun:}$v.list.photo{/yun}); background-position: 50% 50%; background-size: cover; box-sizing: border-box;" data-width="100%">
+                            </section>
+                        </section>
+                        <section style="text-align: center;margin-top: 10px; font-size:18px;">{yun:}$v.list.username_n{/yun}</section>
+                        <section style="text-align: center;margin-top:2px;font-size:14px;">{yun:}if $v.list.age==0{/yun}保密{yun:}else{/yun}{yun:}$v.list.age{/yun}岁{yun:}/if{/yun}</section>
+                    </section>
+                </section>
+                <section style="flex:1;margin-left:3px;">
+                    <section style="border-top: 2px solid #e1e2e2;border-right: 2px solid #e1e2e2;box-sizing: border-box;" data-width="100%">
+                        <section style="width:150px;height:3px;background:#f7bc0a;margin:0px auto;margin-top:10px;"></section>
+                        <section style="width:200px;height:30px; line-height:30px; text-align:center;background:#f8f8f8;margin:10px auto;overflow:hidden;">{yun:}if $v.list.name{/yun}{yun:}$v.list.name{/yun}{yun:}else{/yun}{yun:}$v.list.username_n{/yun}{yun:}/if{/yun}</section>
+<section style="font-size: 15px;color: #3e3e3e;line-height:25px;text-align: justify;padding:5px 10px 5px 10px;">
+<p style="font-size:14px;">{yun:}$v.list.user_exp{/yun}经验{yun:}if $v.list.useredu{/yun}{yun:}$v.list.useredu{/yun}学历{yun:}/if{/yun}{yun:}if $v.list.idcard_status=='1'{/yun}<img src="https://job.molihua.net/app/template/default/images/sf.png" title="身份已认证" class="user_rz_img png fl" />{yun:}/if{/yun}{yun:}if $v.list.rec_resume{/yun}<img width="15" height="15" src="https://job.molihua.net/app/template/default/images/tui.png" title="推荐" class="user_rz_img png fl"/>{yun:}/if{/yun}</p><p style="font-size:14px;">期望薪资：{yun:}$v.list.salary{/yun}</p><p style="font-size:14px;">到岗时间：{yun:}$v.list.report{/yun}</p></section></section></section></section>
+<section style=" border-width:0 2px 2px 2px ;border-style:solid; border-color:#e1e2e2;box-sizing: border-box;background:#fff; padding:10px;" data-width="100%"><p style="font-size:14px;">期望地点：{yun:}if $v.list.expectcity{/yun}{yun:}foreach from=$v.list.expectcity item=v1 key=key{/yun}{yun:}if $key < 5{/yun}<span class="user_tag">{yun:}$v1{/yun}</span>{yun:}/if{/yun}{yun:}/foreach{/yun}{yun:}/if{/yun}</p>
+<p style="font-size:14px;">工作职能：{yun:}if $v.list.expectjob{/yun}{yun:}foreach from=$v.list.expectjob item=v2 key=key{/yun}{yun:}if $key < 5{/yun} <span class="user_tag">{yun:}$v2{/yun}</span>{yun:}/if{/yun}{yun:}/foreach{/yun}{yun:}/if{/yun}</p>
+{yun:}if $v.list.jobstatus{/yun}<p style="font-size:14px;">求职状态：{yun:}$v.list.jobstatus{/yun} </p>{yun:}/if{/yun}
+{yun:}if $v.list.tj.worknum>0{/yun}<p style="font-size:14px;">工作经历：{yun:}$v.list.tj.workmin{/yun}-{yun:}$v.list.tj.workmax{/yun} 参加过{yun:}$v.list.tj.worknum{/yun}份工作，平均工作时长{yun:}$v.list.tj.workavg{/yun}个月，涉及{yun:}$v.list.tj.worktit{/yun}等岗位</p>{yun:}/if{/yun}
+{yun:}if $v.list.tj.education{/yun}<p style="font-size:14px;">教育经历：{yun:}$v.list.tj.edumin{/yun}-{yun:}$v.list.tj.edumax{/yun} 已完成{yun:}$v.list.tj.education{/yun}段学业</p>{yun:}/if{/yun}
+<p style="text-align:center;" align="center"><img style="width:50%; max-width:180px;" src="{yun:}pubqrcode  toc=resume toa=show toid=$v.list.id totype=$ewmtype{/yun}"><br />扫码或长按二维码识别查看简历</p>
+<p style="text-align:center;color:#0070c0;" align="center">求职招聘，就上{yun:}$config.sy_webname{/yun}<br />{yun:}$config.sy_weburl{/yun}</p>
+		
+                <!--end-->
+            </section>
+        </section>
+    </section>
+</section>
+{yun:}/foreach{/yun}

@@ -1,0 +1,854 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet">
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+
+	<body class="body_ifm">
+		<div id="preview" style="display:none;width:450px ">
+			<div style="overflow:auto;width:450px;">
+				<form class="layui-form" name="formstatus" action="index.php?m=admin_resume&c=resumestatus" target="supportiframe"
+				 method="post" onsubmit="return tcdiv();">
+
+					<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+
+					<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+						<tr>
+							<th>姓名：</th>
+							<td align="left"><span id="username"></span></td>
+						</tr>
+						<tr>
+							<th width="85">简历审核：</th>
+							<td align="left">
+								<div class="layui-input-block">
+									<input name="r_status" id="userstatus1" value="1" title="正常" type="radio" lay-filter="userstatus" />
+									<input name="r_status" id="userstatus3" value="3" title="未通过" type="radio" lay-filter="userstatus" />
+								</div>
+							</td>
+						</tr>
+						<tr class="tbcss">
+							<th width="85">个人审核：</th>
+							<td align="left">
+								<div class="layui-input-inline">
+									<input name="istb" id="istb" title="同步" type="checkbox" value="1" lay-skin="primary" checked="checked" />
+								</div>
+							</td>
+						</tr>
+						<tr class="tbcss">
+							<th>同步说明：</th>
+							<td align="left">
+								<div class="sh_sm">个人身份状态根据简历状态同步审核</div>
+							</td>
+						</tr>
+						<tr>
+							<th>审核说明：</th>
+							<td align="left"> <textarea id="statusbody" name="statusbody" class="shsm_textarea"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan='2' align="center">
+								<div class="admin_Operating_sub"> 
+									<input type="submit" value='确认' class="admin_examine_bth"> 
+									<input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<input name="cid" value="0" type="hidden">
+					<input name="cuid" value="0" type="hidden">
+				</form>
+			</div>
+		</div>
+
+		<div id="export" style="display:none;">
+			<div style=" margin-top:10px;">
+				<div>
+					<form action="index.php?m=admin_resume&c=xls" target="supportiframe" method="post" class="myform">
+						<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+						<input type="hidden" name="ids">
+						<div class="admin_resume_dc">
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="id"> 简历ID</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="name"> 简历名称</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="uid"> 用户UID</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="uname"> 姓名</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="sex"> 性别</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="birthday"> 生日</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="marriage"> 婚姻</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="height"> 身高</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="nationality"> 民族</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="weight"> 体重</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="idcard"> 身份证</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="telphone"> 手机</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="telhome"> 座机</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="email"> 邮件</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="edu"> 教育程度</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="homepage"> 个人主页</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="address"> 详细地址</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="exp"> 工作经验</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="domicile"> 户籍</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="living"> 现居住地</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="description">
+									个人说明</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="hy"> 意向行业</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="job_classid">
+									意向职位</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="city_classid">
+									城市</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="minsalary,maxsalary">
+									薪水</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="type"> 工作性质</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="report"> 到岗时间</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="rtype[]" value="lastdate"> 更新时间</span></label>
+							<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" id="xlsAllCheck" onclick="xlsAll(this.form)">
+									全选</span></label>
+						</div>
+
+						<div class="admin_resume_dc_p" style=" padding:10px 0;">
+							<span class="admin_resume_dc_n">导出数量：</span>
+							<input name='limit' type='text' class="admin_resume_dc_ntext">
+							<span class="admin_web_tip admin_resume_dc_tip">数字太大会导致运行缓慢，请慎重填写</span>
+						</div>
+						<div class="admin_resume_dc_p" style=" padding:10px 0;">
+							<span class="admin_resume_dc_n">导出区段：</span>
+							<input name='section' type='text' class="admin_resume_dc_ntext">
+							<span class="admin_web_tip admin_resume_dc_tip">例如101,100  从101条开始导出100条</span>
+						</div>
+						<div class="admin_resume_dc_sub" style=" padding-top:10px;">
+							<input type="button" onClick="check_xls();" value='确认' class="admin_resume_dc_bth1"> &nbsp;&nbsp;
+							<input type="button" onClick="layer.closeAll();" class="admin_resume_dc_bth2" value='取消'>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="resumttop" style="display:none; ">
+			<div class="admin_com_t_box">
+				<form action="index.php?m=admin_resume&c=top" target="supportiframe" method="post">
+					<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+
+					<div class=" admin_com_smbox_list_pd">
+						<span class="admin_com_smbox_span">置顶天数：</span>
+						<input class="admin_com_smbox_text" value="" name="addday" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')"><span
+						 class="admin_com_smbox_list_s">天</span> </div>
+					<div class="topdiv" style="display:none">
+						<span class="admin_com_smbox_span">当前结束日期：</span>
+						<span class="admin_com_smbox_list_s top" style="color:#f60"></span>
+					</div>
+					<div class="admin_com_smbox_qx_box"> 如需取消置顶简历请单击 <input type="checkbox" name="s" value="1"> 点击确认即可</div>
+
+					<div class="admin_com_smbox_opt admin_com_smbox_opt_mt"><input type="submit" onclick="loadlayer();" value='确认' id='topsubmit'
+						 class="admin_examine_bth"><input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'></div>
+
+					<input name="eid" type="hidden" value="" />
+				</form>
+			</div>
+		</div>
+
+		<div id="info_div" style="display:none; width: 390px; ">
+			<div class="" style=" margin-top:10px; ">
+				<form class="layui-form" action="index.php?m=admin_resume&c=status" target="supportiframe" method="post" onsubmit="return htStatus()">
+					<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+						<tr>
+							<th width="80">审核操作：</th>
+							<td align="left">
+								<div class="layui-input-block">
+									<input name="status" id="status1" value="1" title="正常" type="radio" />
+									<input name="status" id="status3" value="3" title="未通过" type="radio" />
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th class="t_fr">审核说明：</th>
+							<td align="left"> <textarea id="alertcontent" name="statusbody" class="admin_explain_textarea"></textarea> </td>
+						</tr>
+						<tr>
+							<td colspan='2' align="center"><input type="submit" value='确认' class="admin_examine_bth">
+								<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+					<input name="id" value="0" type="hidden">
+				</form>
+			</div>
+		</div>
+
+		<div id="label_div" style="display:none;">
+			<div class="" style="margin-top: 10px;">
+				<form class="layui-form" action="index.php?m=admin_resume&c=label" target="supportiframe" method="post" id="formlabel">
+					<table cellspacing='1' cellpadding='1' class="admin_examine_table" align="center">
+						<tr>
+							<th>姓名：</th>
+							<td align="left">
+								<div id="labelname" style="font-weight:bold;"></div>
+							</td>
+						</tr>
+						<tr>
+							<th>简历标签：</th>
+							<td align="left">
+								<div class="layui-input-block t_w250">
+									<select name="label" lay-filter="" id="labels">
+										<option value="">请选择标签</option>
+										{yun:}foreach from=$userdata.user_label key=j item=v{/yun}
+										<option value="{yun:}$v{/yun}" {yun:}if $resume.report==$v{/yun}selected="selected" {yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}
+										</option> {yun:}/foreach{/yun} 
+									</select> 
+								</div>
+							</td> 
+						</tr> 
+						<tr>
+							<th class="t_fr">客服评价：</th>
+							<td align="left">
+								<textarea id="content" name="content" class="admin_explain_textarea" style="width:238px;height:100px;"></textarea>
+							</td>
+						</tr>
+						<tr height="50px">
+							<td colspan='2' align="center"><input type="submit" onclick="loadlayer();" value='确认' class="admin_examine_bth">
+								<input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'></td>
+						</tr>
+					</table>
+					<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+					<input name="id" id="labelid" value="0" type="hidden">
+				</form>
+			</div>
+		</div>
+
+		<div id="deleS_div" style="display:none; width: 390px; ">
+			<div class="" style=" margin-top:10px; ">
+				<form class="layui-form" action="index.php?m=admin_resume&c=delResume" target="supportiframe" method="post" onsubmit="return loadlayer();">
+					<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+						<tr>
+							<td align="center"> 
+								<input type="checkbox" value='1' name="delAccount" title="同步删除账号" lay-skin="primary" />
+							</td>
+						</tr>
+						<tr>
+							<td align="center"> 
+								<span class="admin_web_tip">勾选删除账号所有数据信息</span>
+							</td>
+						</tr>
+						<tr>
+							<td colspan='2' align="center">
+								<input type="submit" value='确认' class="admin_examine_bth">
+								<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+					<input name="del" value="0" type="hidden">
+				</form>
+			</div>
+		</div>
+
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+			
+
+				<div class="clear"></div>
+
+				<div class="admin_new_search_box">
+					
+					<form id="resumeFormSearch" action="index.php" name="myform" method="get">
+						<input name="m" value="admin_resume" type="hidden" />
+						{yun:}if $smarty.get.status{/yun}
+						<input name="status" value="{yun:}$smarty.get.status{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.uptime{/yun}
+						<input name="uptime" value="{yun:}$smarty.get.uptime{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.source{/yun}
+						<input name="source" value="{yun:}$smarty.get.source{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.service{/yun}
+						<input name="service" value="{yun:}$smarty.get.service{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.adtime{/yun}
+						<input name="adtime" value="{yun:}$smarty.get.adtime{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.type{/yun}
+						<input name="type" value="{yun:}$smarty.get.type{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.integrity{/yun}
+						<input name="integrity" value="{yun:}$smarty.get.integrity{/yun}" type="hidden" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.edu{/yun}
+						<input type="hidden" name="edu" value="{yun:}$smarty.get.edu{/yun}" />
+						{yun:}/if{/yun}
+						{yun:}if $smarty.get.exp{/yun}
+						<input type="hidden" name="exp" value="{yun:}$smarty.get.exp{/yun}" />
+						{yun:}/if{/yun}
+						<div class="admin_new_search_name">搜索类型：</div>
+						
+						<div class="admin_Filter_text formselect" did='dkeytype'>
+							<input type="button" {yun:}if $smarty.get.keytype=='' || $smarty.get.keytype=='1' {/yun} value="简历名称"
+							 {yun:}elseif $smarty.get.keytype=='2' {/yun} value="用户姓名" {yun:}elseif $smarty.get.keytype=='3' {/yun} value="简历ID" {yun:}elseif $smarty.get.keytype=='4' {/yun} value="毕业院校" {yun:}elseif $smarty.get.keytype=='5' {/yun} value="工作经历" {yun:}/if{/yun} class="admin_Filter_but" id="bkeytype" />
+							<input type="hidden" name="keytype" id="keytype" {yun:}if $smarty.get.keytype=='' || $smarty.get.keytype=='1' {/yun} value="1" {yun:}elseif $smarty.get.keytype=='2' {/yun} value="2" {yun:}elseif $smarty.get.keytype=='3' {/yun} value="3" {yun:}elseif $smarty.get.keytype=='4' {/yun} value="4" {yun:}elseif $smarty.get.keytype=='5' {/yun} value="5" {yun:}/if{/yun}/> 
+							
+							<div class="admin_Filter_text_box" style="display:none" id="dkeytype">
+								<ul>
+									<li>
+										<a href="javascript:void(0)" onClick="formselect('1','keytype','简历名称')">简历名称</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" onClick="formselect('2','keytype','用户姓名')">用户姓名</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" onClick="formselect('3','keytype','简历ID')">简历ID</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" onClick="formselect('4','keytype','毕业院校')">毕业院校</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" onClick="formselect('5','keytype','工作经历')">工作经历</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<input type="text" value="" placeholder="请输入你要搜索的关键字" name='keyword' class="admin_new_text">
+						<input type="button" onclick="resumeFormSearch()" value="搜索" class="admin_new_bth">
+						<a href="javascript:void(0)" onclick="$('.admin_screenlist_box').toggle();" class="admin_new_search_gj">高级搜索</a>
+						<a href="index.php?m=admin_resume&c=addResume" class="admin_new_cz_tj"> + 添加简历</a>
+					</form>
+					{yun:}include file="admin/admin_search.htm"{/yun}
+				</div>
+				
+				<div class="clear"></div>
+
+			</div>
+
+			<div class="tty_table-bom">
+			
+				<div class="admin_statistics">
+					<span class="tty_sjtj_color">数据统计：</span>
+					<em class="admin_statistics_s">总数：<span class="ajaxresumeall">0</span></em>
+					<em class="admin_statistics_s">未审核：<span class="ajaxresumestatus1">0</span></em>
+					<em class="admin_statistics_s">未通过：<span class="ajaxresumestatus2">0</span></em>
+					<em class="admin_statistics_s">已锁定：<span class="ajaxresumestatus3">0</span></em>
+					搜索结果：<span>{yun:}$total{/yun}</span>；
+				</div>
+				
+				<div class="table-list">
+					<div class="admin_table_border">
+						<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+						<form action="index.php?m=admin_resume&c=delResume" target="supportiframe" name="myform" method="post" id='myform'>
+							<table width="100%">
+								<thead>
+									<tr class="admin_table_top">
+										<th style="width:20px;">
+											<label for="chkall"><input type="checkbox" id='chkAll' onclick='CheckAll(this.form)' /></label>
+										</th>
+										<th width="60">
+											{yun:}if $smarty.get.t=="id" && $smarty.get.order=="asc"{/yun}
+											<a href="index.php?m=admin_resume&order=desc&t=id">简历ID<img src="images/sanj.jpg" /></a>
+											{yun:}else{/yun}
+											<a href="index.php?m=admin_resume&order=asc&t=id">简历ID<img src="images/sanj2.jpg" /></a>
+											{yun:}/if{/yun}
+										</th>
+										<th width="100" align="left">姓名/用户名</th>
+									<th align="left">基本信息</th>
+											
+										<th width="">简历完整度</th>
+										<th width="">来源/时间</th>
+										<th width="">简历状态</th>
+										<th width="">审核状态</th>
+										<th width="">推广</th>
+										<th width="" class="admin_table_th_bg">操作</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									{yun:}foreach item=v key=key from=$rows{/yun}
+									<tr {yun:}if ($key+1)%2=='0' {/yun}class="admin_com_td_bg" {yun:}/if{/yun} id="list{yun:}$v.id{/yun}">
+										<td><input type="checkbox" value="{yun:}$v.id{/yun}" class="check_all" name='del[]' onclick='unselectall()'
+											 rel="del_chk" /></td>
+										<td align="left" class="td1" style="text-align:center;"><span>{yun:}$v.id{/yun}</span></td>
+										<td class="gd" align="left">
+											<div class="">
+												{yun:}$v.uname{/yun}
+												{yun:}if $v.r_status!=1{/yun}
+												<a href="javascript:void(0)" class="job_name_all" v="{yun:}if $v.r_status==0{/yun}个人身份未审核{yun:}elseif $v.r_status==3{/yun}个人身份审核未通过{yun:}elseif $v.r_status==2{/yun}用户已锁定{yun:}/if{/yun}">
+													<img src="images/bg_wechat_help.png">
+												</a>
+												{yun:}/if{/yun}
+											</div>
+                                        
+											<div class="mt8">
+												<a href="index.php?m=user_member&c=Imitate&uid={yun:}$v.uid{/yun}" target="_blank" class="admin_com_name" >{yun:}$v.username{/yun}</a>
+											</div>
+										</td>
+
+										<td class="od" align="left">
+											<div class="">
+												<span class="admin_resume_yx" style="color:#5fb878">{yun:}$v.name|mb_substr:0:12{/yun}</span>
+											</div>
+											<div class="mt5">
+												{yun:}$v.age_n{/yun}岁<span class="reline">|</span>{yun:}if $v.sex_n{/yun}{yun:}$v.sex_n{/yun}<span class="reline">|</span>{yun:}/if{/yun}{yun:}if $v.edu_n{/yun}
+													{yun:}$v.edu_n{/yun}学历<span class="reline">|</span>{yun:}/if{/yun}{yun:}if $v.exp_n{/yun} {yun:}$v.exp_n{/yun}经验{yun:}/if{/yun}
+												
+												<div class="mt5">	{yun:}if $v.city_n{/yun}
+												{yun:}$v.city_n{/yun}
+												{yun:}if $v.citynum>1{/yun}
+												<a href="javascript:void(0)" class="city_name_all" v="{yun:}$v.cityall{/yun}"><img src="images/bg_wechat_help.png" width="12"></a>
+												{yun:}/if{/yun}
+												{yun:}/if{/yun}<span class="reline">|</span>
+												<span>{yun:}$v.salary{/yun}</span><span class="reline">|</span>{yun:}$v.report_n{/yun}<span class="reline">|</span>{yun:}$v.type_n{/yun}
+											</div>	</div>
+										
+											
+										</td>
+										<td align="center">					
+											<div style="width:90px;">
+												<div class="layui-progress layui-progress-big" lay-showpercent="true">
+													<div class="layui-progress-bar" lay-percent="{yun:}$v.integrity{/yun}%"></div>
+												</div>		
+											</div>	
+											<div class="mt5">{yun:}$v.lastupdate|date_format:"%Y-%m-%d"{/yun}更新</div>
+										</td>
+										<td align="center">{yun:}$source[$v.source]{/yun}{yun:}if $v.doc==1{/yun}粘贴{yun:}/if{/yun}
+											<div class="mt5">	
+												{yun:}if $v.ctime{/yun}
+												{yun:}$v.ctime|date_format:"%Y-%m-%d"{/yun}
+												{yun:}else{/yun}
+												{yun:}$v.lastupdate|date_format:"%Y-%m-%d"{/yun}、
+												{yun:}/if{/yun}
+											</div>
+										</td>
+										<td align="center">{yun:}if $v.status=='1'{/yun}公开{yun:}else{/yun}隐藏{yun:}/if{/yun}</td>
+										<td align="center">
+											{yun:}if $v.state==1{/yun}
+											<span class="admin_com_Audited">已审核</span>
+											{yun:}elseif $v.state== 3{/yun}
+											<span class="admin_com_tg">未通过</span>
+											{yun:}else if $v.state == 0{/yun}
+											<span class="admin_com_noAudited">未审核</span>
+											{yun:}/if{/yun}
+										</td>
+
+										<td align="center"><div style="width:90px;">推荐：
+											<div class="admin_new_t_j" style="display:inline;" id="rec_resume{yun:}$v.id{/yun}">
+												{yun:}if $v.rec_resume=="1"{/yun}
+												<a href="javascript:void(0);" onClick="rec_up('index.php?m=admin_resume&c=rec','{yun:}$v.id{/yun}','0','rec_resume');">
+													<img src="../config/ajax_img/doneico.gif"></a>
+												{yun:}else{/yun}
+												<a href="javascript:void(0);" onClick="rec_up('index.php?m=admin_resume&c=rec','{yun:}$v.id{/yun}','1','rec_resume');">
+													<img src="../config/ajax_img/errorico.gif"></a>
+												{yun:}/if{/yun}
+											</div>
+											<!--<div class="admin_new_t_j" id="top{yun:}$v.id{/yun}">置顶：
+												{yun:}if $v.top=="1"&&$v.topdate>time(){/yun}
+												<a href="javascript:void(0);" onClick="resumttop('{yun:}$v.id{/yun}','{yun:}$v.top_day{/yun}','{yun:}$v.topdate|date_format:'%Y-%m-%d'{/yun}')">
+													<img src="../config/ajax_img/doneico.gif"></a>
+												{yun:}else{/yun}
+												<a href="javascript:void(0);" onClick="resumttop('{yun:}$v.id{/yun}','{yun:}$v.top_day{/yun}')">
+													<img src="../config/ajax_img/errorico.gif"></a>
+												{yun:}/if{/yun}
+											</div>-->	</div>
+										</td>
+										<td width="180">
+											
+											<a href="{yun:}$config.sy_weburl{/yun}/resume/index.php?c=show&look=admin&id={yun:}$v.id{/yun}" target="_blank"
+												 class="admin_new_c_bth admin_new_c_bth_yl">预览</a>
+											<a href="javascript:;" class="admin_new_c_bth admin_new_c_bthsh status" pid="{yun:}$v.id{/yun}" uid="{yun:}$v.uid{/yun}"
+												 rstatus="{yun:}$v.r_status{/yun}" username="{yun:}$v.uname{/yun}" status="{yun:}$v.state{/yun}">审核</a>
+											<a href="index.php?m=admin_resume&c=editResume&uid={yun:}$v.uid{/yun}&id={yun:}$v.id{/yun}" class="admin_new_c_bth">修改</a>
+
+											<a href="javascript:;" class="admin_new_c_bth admin_new_c_bth_sc mt5 deleS" pid="{yun:}$v.id{/yun}">删除</a>
+
+											<a href="javascript:void(0)" onClick="layer_del('确认刷新简历？', 'index.php?m=admin_resume&c=refresh&id={yun:}$v.id{/yun}');"
+
+											 title="刷新简历" class="admin_new_c_bth mt5" >刷新</a>
+											{yun:}if $v.label|| $v.content{/yun}
+											<a href="javascript:;" class="admin_new_c_bth admin_new_c_bth_pp label mt5" pid="{yun:}$v.id{/yun}" names="{yun:}$v.uname{/yun}"
+												 status1="{yun:}$v.label{/yun}" status2="{yun:}$v.content{/yun}">查备</a>
+											{yun:}else{/yun}
+											<a href="javascript:;" class="admin_new_c_bth admin_new_c_bth_pp label mt5" pid="{yun:}$v.id{/yun}" names="{yun:}$v.uname{/yun}"
+												 status1="{yun:}$v.label{/yun}" status2="{yun:}$v.content{/yun}">备注</a>
+											{yun:}/if{/yun}
+										</td>
+									</tr>
+									{yun:}/foreach{/yun}
+									<tr>
+										<td align="center"><input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /></td>
+										<td colspan="14">
+											<label for="chkAll2">全选</label>&nbsp;
+
+											<input class="admin_button" type="button" value="删除" onClick="return delUser('del[]')" />
+											<input class="admin_button" type="button" value="审核" onClick="audall('1');" />
+											<input class="admin_button" type="button" value="刷新" onClick="Refreshs();" />
+											<input class="admin_button" type="button" value="推荐" onClick="checkdel('rec_resume','1');" />
+											<input class="admin_button" type="button" value="取消推荐" onClick="checkdel('rec_resume','0');" />
+											<input class="admin_button" type="button" value="置顶" onClick="checkdel('top','1');" />
+											<input class="admin_button" type="button" value="取消置顶" onClick="checkdel('top','0');" />
+											<input class="admin_button" type="button" value="导出" onClick="Export();" />
+										</td>
+									</tr>
+									{yun:}if $total > $config.sy_listnum {/yun}
+									<tr>
+										{yun:}if $pagenum==1{/yun}
+										<td colspan="3"> 从 1 到 {yun:}$config.sy_listnum {/yun} ，总共 {yun:}$total{/yun} 条</td>
+										{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun} <td colspan="3"> 从 {yun:}($pagenum-1) *
+											$config.sy_listnum + 1{/yun} 到 {yun:}$pagenum * $config.sy_listnum{/yun} ，总共 {yun:}$total{/yun} 条</td>
+											{yun:}else if $pagenum == $pages{/yun}
+											<td colspan="3"> 从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$total{/yun} ，总共
+												{yun:}$total{/yun} 条</td>
+											{yun:}/if{/yun}
+											<td colspan="12" class="digg">{yun:}$pagenav{/yun}</td>
+									</tr>
+									{yun:}/if{/yun}
+								</tbody>
+							</table>
+							<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			layui.use(['layer', 'form', 'element'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					$ = layui.$,
+					element = layui.element;
+				form.on('radio(userstatus)', function(data) {
+					if (data.value == 1) {
+						$("#istb").attr("checked", true);
+						$("#istb").attr("disabled", true);
+						$(".tbcss").show();
+					} else {
+						$(".tbcss").hide();
+					}
+					form.render('checkbox');
+				});
+			});
+
+			$(document).ready(function() {
+				$(".job_name_all").hover(function() {
+					var rstatus = $(this).attr('v');
+					if ($.trim(rstatus) != '') {
+						layer.tips(rstatus, this, {
+							guide: 1,
+							style: ['background-color:#5EA7DC; color:#fff;top:-7px', '#5EA7DC']
+						});
+						$(".xubox_layer").addClass("xubox_tips_border");
+					}
+				}, function() {
+					layer.closeAll('tips');
+				});
+				$.get("index.php?m=admin_resume&c=resumeNum", function(data) {
+					var datas = eval('(' + data + ')');
+					if (datas.resumeAllNum) {
+						$('.ajaxresumeall').html(datas.resumeAllNum);
+					}
+					if (datas.resumeStatusNum1) {
+						$('.ajaxresumestatus1').html(datas.resumeStatusNum1);
+					}
+					if (datas.resumeStatusNum2) {
+						$('.ajaxresumestatus2').html(datas.resumeStatusNum2);
+					}
+					if (datas.resumeStatusNum3) {
+						$('.ajaxresumestatus3').html(datas.resumeStatusNum3);
+					}
+				});
+
+				$(".city_name_all").hover(function() {
+					var city_name = $(this).attr('v');
+					if ($.trim(city_name) != '') {
+						layer.tips(city_name, this, {
+							guide: 1,
+							style: ['background-color:#5EA7DC; color:#fff;top:-7px', '#5EA7DC']
+						});
+						$(".xubox_layer").addClass("xubox_tips_border");
+					}
+				}, function() {
+					var city_name = $(this).attr('v');
+					if ($.trim(city_name) != '') {
+						layer.closeAll('tips');
+					}
+				});
+
+				$(".status").click(function() {
+					var rstatus = $(this).attr("rstatus");
+
+
+					if (rstatus != 1) {
+						if (rstatus == 2) {
+							parent.layer.msg("用户已锁定,无法审核相关信息", 2, 8);
+							return false;
+						} else {
+							$("input[name=cuid]").val($(this).attr("uid"));
+							$("input[name=cid]").val($(this).attr("pid"));
+							$("#userstatus1").attr("checked", true);
+							$("#istb").attr("checked", true);
+							$("#istb").attr("disabled", true);
+							$(".tbcss").show();
+
+							var username = $(this).attr("username");
+							if (rstatus == '0') {
+								$("#username").html(username + '<font color="red">【未审核】</font>');
+							} else if (rstatus == 3) {
+								$("#username").html(username + '<font color="red">【未通过】</font>');
+							}
+							$.layer({
+								type: 1,
+								title: '审核操作',
+								closeBtn: [0, true],
+								offset: ['80px', ''],
+								border: [10, 0.3, '#000', true],
+								area: ['450px', 'auto'],
+								page: {
+									dom: '#preview'
+								}
+							});
+						}
+					} else {
+						var id = $(this).attr("pid");
+						var status = $(this).attr("status");
+						$("#status" + status).attr("checked", true);
+						$("input[name=id]").val(id);
+						$.get("index.php?m=admin_resume&c=lockInfo&id=" + id, function(msg) {
+							$("#alertcontent").val($.trim(msg));
+							$.layer({
+								type: 1,
+								title: '简历审核',
+								closeBtn: [0, true],
+								border: [10, 0.3, '#000', true],
+								area: ['390px', '250px'],
+								page: {
+									dom: "#info_div"
+								}
+							});
+						});
+					}
+					layui.use(['form'], function() {
+						var form = layui.form;
+						form.render();
+					});
+
+				});
+
+				$(".deleS").click(function() {
+
+					var id	= $(this).attr("pid");
+			   
+					layui.use(['form'], function() {
+						var form = layui.form;
+						form.render();
+					});
+
+					$("input[name=del]").val(id);
+
+					$.layer({
+						type: 1,
+						title: '删除简历数据',
+						closeBtn: [0, true],
+						border: [10, 0.3, '#000', true],
+						area: ['390px', '240px'],
+						page: {
+							dom: "#deleS_div"
+						}
+					});
+
+				});
+
+
+				$(".label").click(function() {
+					var id = $(this).attr("pid");
+					var lable = $(this).attr("status1");
+					var content = $(this).attr("status2");
+					var name = $(this).attr("names");
+					$("#labelid").val(id);
+					$("#labels").val(lable);
+					$("#content").text(content);
+					$("#labelname").text(name);
+					layui.use(['form'], function() {
+						var form = layui.form;
+						form.render();
+					});
+					$.layer({
+						type: 1,
+						title: '简历备注',
+						closeBtn: [0, true],
+						border: [10, 0.3, '#000', true],
+						area: ['380px', 'auto'],
+						page: {
+							dom: "#label_div"
+						}
+					});
+				});
+			});
+
+			function Refreshs() {
+				var codewebarr = "";
+				$(".check_all:checked").each(function() {
+					if (codewebarr == "") {
+						codewebarr = $(this).val();
+					} else {
+						codewebarr = codewebarr + "," + $(this).val();
+					}
+				});
+				if (codewebarr == "") {
+					parent.layer.msg("请选择要刷新的简历！", 2, 8);
+					return false;
+				} else {
+					loadlayer();
+					$.post("index.php?m=admin_resume&c=refresh", {
+						ids: codewebarr,
+						pytoken: $('#pytoken').val()
+					}, function(data) {
+						parent.layer.closeAll('loading');
+						parent.layer.msg("批量刷新成功！", 2, 9, function() {
+							window.location.reload();
+						});
+					})
+				}
+			}
+
+			function Export() {
+				var codewebarr = "";
+				$(".check_all:checked").each(function() {
+					if (codewebarr == "") {
+						codewebarr = $(this).val();
+					} else {
+						codewebarr = codewebarr + "," + $(this).val();
+					}
+				});
+				if (codewebarr != '') {
+					$("input[name='ids']").val(codewebarr);
+				}
+				add_class('选择导出字段', '650', '450', '#export', '');
+			}
+
+			function check_xls() {
+				var type = "";
+				$(".type:checked").each(function() {
+					if (type == "") {
+						type = $(this).val();
+					} else {
+						type = type + "," + $(this).val();
+					}
+				});
+				if (type == "") {
+					layer.msg("请选择导出字段！", 2, 8);
+					return false;
+				}
+				setTimeout(function() {
+					$('.myform').submit()
+				}, 0);
+				layer.closeAll();
+			}
+
+			function checkdel(type, status) {
+				var codewebarr = "";
+				$(".check_all:checked").each(function() {
+					if (codewebarr == "") {
+						codewebarr = $(this).val();
+					} else {
+						codewebarr = codewebarr + "," + $(this).val();
+					}
+				});
+				if (codewebarr == "") {
+					parent.layer.msg("请选择简历！", 2, 8);
+					return false;
+				} else if (type == 'top') {
+					if (status != '1') {
+						$('input[name=s]').attr('checked', 'true');
+					}
+					resumttop(codewebarr, 0);
+				} else {
+					loadlayer();
+					$.post("index.php?m=admin_resume&c=rec", {
+						ids: codewebarr,
+						pytoken: $('#pytoken').val(),
+						type: type,
+						rec_resume: status
+					}, function(data) {
+						parent.layer.closeAll('loading');
+						if (data == 0) {
+							parent.layer.msg("操作出错，请稍后再试！", 2, 8);
+						} else {
+							parent.layer.msg("设置成功！", 2, 9, function() {
+								window.location.reload();
+							});
+						}
+					})
+				}
+			}
+
+			function resumttop(id, topday, topdate) {
+				if (topdate) {
+					$(".top").html(topdate);
+					$(".topdiv").show();
+					$("input[name='eid']").val(id);
+					add_class('简历置顶', '290', '280', '#resumttop', '');
+				} else {
+					$("input[name='eid']").val(id);
+					add_class('简历置顶', '290', '250', '#resumttop', '');
+				}
+			}
+
+			function audall() {
+				var codewebarr = "";
+				$(".check_all:checked").each(function() {
+					if (codewebarr == "") {
+						codewebarr = $(this).val();
+					} else {
+						codewebarr = codewebarr + "," + $(this).val();
+					}
+				});
+				if (codewebarr == "") {
+					parent.layer.msg("您还未选择任何信息！", 2, 8);
+					return false;
+				} else {
+					$("input[name=id]").val(codewebarr);
+					$("#alertcontent").val('');
+					$("input[name=status]").attr("checked", false);
+					add_class('批量审核', '390', '250', '#info_div', '');
+				}
+			}
+
+			function xlsAll(form) {
+				for (var i = 0; i < form.elements.length; i++) {
+					var e = form.elements[i];
+					if (e.name == 'type[]' && e.disabled == false) {
+						e.checked = form.xlsAllCheck.checked;
+					}
+				}
+				for (var i = 0; i < form.elements.length; i++) {
+					var e = form.elements[i];
+					if (e.name == 'rtype[]' && e.disabled == false) {
+						e.checked = form.xlsAllCheck.checked;
+					}
+				}
+			}
+			function resumeFormSearch(){
+				parent.layer.load('执行中，请稍候...', 0);
+				
+				var job_class = $("#job_class").val(),
+					city_class = $("#city_class").val();
+				
+				if($("#form_job_class").length > 0){
+					$("#form_job_class").val(job_class);
+				}else if(job_class){
+					$("#resumeFormSearch").prepend('<input type="hidden" id="form_job_class" name="job_class" value="'+job_class+'" />');
+				}
+				if($("#form_city_class").length > 0){
+					$("#form_city_class").val(city_class);
+				}else if(city_class){
+					$("#resumeFormSearch").prepend('<input type="hidden" id="form_city_class" name="city_class" value="'+city_class+'" />');
+				}
+				$("#resumeFormSearch").submit();
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,841 @@
+<div class="yun_tipsbox" style="display: none;z-index:100000000000;" id="tcmsg">
+    
+	<div class="yun_tipsboxbox">
+		<div id="tcbox">
+			<div class="yun_tipsboxbox_hello">尊敬的企业用户您好！</div>
+			
+			<div class="yun_tipsboxbox_level">
+				您当前是<span class="yun_tipsboxbox_level_name">{yun:}$statis.rating_name{/yun}</span>，您的{yun:}if $statis.vip_etime < strtotime('today') && $statis.vip_etime!=0{/yun}会员已到期{yun:}else{/yun}套餐已用完{yun:}/if{/yun}，升级会员享受更多特权，选择适合您的企业VIP套餐
+			</div>
+			
+			<ul class="buymeal_tit" id='rating_type'>
+
+				{yun:}if !$vipIsDown{/yun}
+					<li id="singleTab" rating='4' ishide='0'><a><span class="buymeal_tit_name">单项购买</span><em class="buymeal_p">组合购买更优惠</em></a></li>
+				{yun:}/if{/yun}
+
+				{yun:}if ($config.com_vip_type == '2' || $config.com_vip_type == '0') && !empty($rating_1){/yun} 
+					<li class="buymeal_tit_cur" rating='1' ishide='0'><a><span class="buymeal_tit_name">套餐会员</span><em class="buymeal_p">购买套餐会员更划算</em></a><span class="buymeal_tit_tj">推荐</span></li>
+				{yun:}/if{/yun} 
+				
+				{yun:}if ($config.com_vip_type == '1' || $config.com_vip_type == '0') && !empty($rating_2){/yun} 
+					<li rating='2' ishide='0'><a><span class="buymeal_tit_name">时间会员</span><em class="buymeal_p">尊享会员权益</em></a></li>
+				{yun:}/if{/yun} 
+				
+				{yun:}if !$vipIsDown && $config.com_integral_online != 4 && $statis.rating_type != 2 && !empty($add){/yun}
+					<li rating='3' ishide='0'><a><span class="buymeal_tit_name">增值包</span><em class="buymeal_p">招聘资源合理搭配</em></a></li>
+				{yun:}/if{/yun}
+				
+			</ul>
+			
+			<!--套餐展示区start-->
+			<div class="buymeal_cont rating_type {yun:}if $config.com_vip_type == '1'{/yun}none{yun:}/if{/yun}" id="rating_1">
+				<div class="layui-carousel" id='vip_1'>
+					<div carousel-item>
+						{yun:}foreach from=$rating_1 key=key item=v{/yun}
+						<div>
+							<div class="buymeal_info">
+								<div class="buymeal_name">{yun:}$v.name{/yun}</div>
+								
+								{yun:}if $config.com_integral_online==3 && $config.member_meal!=1{/yun} 
+								
+									{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.yh_price * $config.integral_proportion{/yun}</span>{yun:}$config.integral_pricename{/yun}</div>
+										<div class="buymeal_original_price">原价 <i class="buymeal_original_price_delete">{yun:}$v.service_price * $config.integral_proportion{/yun}</i> <span class="">{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}else{/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.service_price * $config.integral_proportion{/yun}</span>{yun:}$config.integral_pricename{/yun}</div>
+										<div class="buymeal_original_price"><span class="">{yun:}if $v.service_time >0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}/if{/yun}
+								
+								{yun:}else{/yun}
+								
+									{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.yh_price{/yun}</span>元</div>
+										<div class="buymeal_original_price">原价 <i class="buymeal_original_price_delete">{yun:}$v.service_price{/yun}</i> <span class="">{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}else{/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.service_price{/yun}</span>元</div>
+										<div class="buymeal_original_price"><span class="">{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}/if{/yun}
+								
+								{yun:}/if{/yun}  
+								
+								<div class="buymeal_purchase"><a href="javascript:void(0);" onclick='buyVip({yun:}$v.id{/yun})' class="buymeal_purchase_bth">购买</a></div>
+								
+							</div>
+							
+							<div class="buymeal_resources_cont">
+								<!--简历资源-->
+								<div class="buymeal_resources_list">
+									<div class="buymeal_resources_name">简历资源</div>
+									{yun:}if $usertype == 2{/yun}
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">面试邀请</span><span class="buymeal_resources_detailed_n">{yun:}$v.interview{/yun}</span>次</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">简历下载</span><span class="buymeal_resources_detailed_n">{yun:}$v.resume{/yun}</span>份</div>
+									{yun:}else{/yun}
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">简历下载</span><span class="buymeal_resources_detailed_n">{yun:}$v.lt_resume{/yun}</span>份</div>
+									{yun:}/if{/yun}
+								</div>
+								<!--职位资源-->
+								<div class="buymeal_resources_list">
+									<div class="buymeal_resources_name">职位资源</div>
+									
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位发布</span><span class="buymeal_resources_detailed_n">{yun:}$v.job_num{/yun}</span>份</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位推荐</span><span class="buymeal_resources_detailed_n">{yun:}$v.rec_num{/yun}</span>天</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位刷新</span><span class="buymeal_resources_detailed_n">{yun:}$v.breakjob_num{/yun}</span>次</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位置顶</span><span class="buymeal_resources_detailed_n">{yun:}$v.top_num{/yun}</span>天</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位紧急</span><span class="buymeal_resources_detailed_n">{yun:}$v.urgent_num{/yun}</span>天</div>
+									
+								</div>
+								{yun:}if $usertype == 2{/yun}
+								<!--其他资源-->
+								<div class="buymeal_resources_list">
+									<div class="buymeal_resources_name">其他资源</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">招聘会预定</span><span class="buymeal_resources_detailed_n">{yun:}$v.zph_num{/yun}</span>次</div>
+									
+								</div>
+								{yun:}/if{/yun}
+								<!--套餐说明-->
+								{yun:}if $v.explains{/yun}<div class="buymeal_resources_explain">套餐说明：{yun:}$v.explains{/yun}</div>{yun:}/if{/yun}
+								<i class="buymeal_resources_line"></i>
+							</div>
+						</div>
+						{yun:}/foreach{/yun}
+					</div>
+				</div>
+			</div>
+			<!--展示区 end-->
+			
+			<!--时间模式展示区start-->
+			<div class="buymeal_cont rating_type  {yun:}if $config.com_vip_type == '2' || $config.com_vip_type == '0'{/yun}none{yun:}/if{/yun}" id="rating_2">
+				<div class="layui-carousel" id='vip_2'>
+					<div carousel-item>
+						{yun:}foreach from=$rating_2 key=key item=v{/yun}
+						<div>
+							<div class="buymeal_info">
+								<div class="buymeal_name">{yun:}$v.name{/yun}</div>
+								{yun:}if $config.com_integral_online==3 && $config.member_meal!=1{/yun} 
+								
+									{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.yh_price * $config.integral_proportion{/yun}</span>{yun:}$config.integral_pricename{/yun}</div>
+										<div class="buymeal_original_price">原价 <i class="buymeal_original_price_delete">{yun:}$v.service_price * $config.integral_proportion{/yun}</i> <span class="">{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}else{/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.service_price * $config.integral_proportion{/yun}</span>{yun:}$config.integral_pricename{/yun}</div>
+										<div class="buymeal_original_price"><span class="">{yun:}if $v.service_time >0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}/if{/yun}
+								
+								{yun:}else{/yun}
+								
+									{yun:}if $v.time_start < time() && $v.time_end > time(){/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.service_price{/yun}</span>元</div>
+										<div class="buymeal_original_price">原价 <i class="buymeal_original_price_delete">{yun:}$v.service_price{/yun}</i> <span class="">{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}else{/yun}
+										<div class="buymeal_price"><span class="buymeal_price_n">{yun:}$v.service_price{/yun}</span>元</div>
+										<div class="buymeal_original_price"><span class="">{yun:}if $v.service_time>0{/yun}{yun:}$v.service_time{/yun}天{yun:}else{/yun}永久{yun:}/if{/yun}</span></div>
+									{yun:}/if{/yun}
+								
+								{yun:}/if{/yun}  
+								<div class="buymeal_purchase"><a href="javascript:void(0);" onclick='buyVip({yun:}$v.id{/yun})' class="buymeal_purchase_bth">购买</a></div>
+							</div>
+							
+							<div class="buymeal_resources_cont">
+								<!--简历资源-->
+								<div class="buymeal_resources_list">
+									<div class="buymeal_resources_name">简历资源</div>
+									{yun:}if $usertype == 2{/yun}
+									<div class="buymeal_resources_detailed">
+										<span class="buymeal_resources_detailedname">面试邀请</span>
+										{yun:}if $v.interview > 0{/yun}<span class="buymeal_resources_detailed_n">{yun:}$v.interview{/yun}</span>次/日
+										{yun:}else{/yun}<span class="buymeal_resources_detailed_n">不限</span>{yun:}/if{/yun}
+									</div>
+									<div class="buymeal_resources_detailed">
+										<span class="buymeal_resources_detailedname">简历下载</span>
+										{yun:}if $v.resume > 0{/yun}<span class="buymeal_resources_detailed_n">{yun:}$v.resume{/yun}</span>次/日
+										{yun:}else{/yun}<span class="buymeal_resources_detailed_n">不限</span>{yun:}/if{/yun}
+									</div>
+									{yun:}else{/yun}
+									<div class="buymeal_resources_detailed">
+										<span class="buymeal_resources_detailedname">简历下载</span>
+										{yun:}if $v.lt_resume > 0{/yun}<span class="buymeal_resources_detailed_n">{yun:}$v.lt_resume{/yun}</span>次/日
+										{yun:}else{/yun}<span class="buymeal_resources_detailed_n">不限</span>{yun:}/if{/yun}
+									</div>
+									{yun:}/if{/yun}
+								</div>
+								
+								<!--职位资源-->
+								<div class="buymeal_resources_list">
+									<div class="buymeal_resources_name">职位资源</div>
+									
+									<div class="buymeal_resources_detailed">
+										<span class="buymeal_resources_detailedname">职位发布</span>
+										{yun:}if $v.job_num > 0{/yun}<span class="buymeal_resources_detailed_n">{yun:}$v.job_num{/yun}</span>个/日
+										{yun:}else{/yun}<span class="buymeal_resources_detailed_n">不限</span>{yun:}/if{/yun}
+									</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位推荐</span><span class="buymeal_resources_detailed_n">{yun:}$v.rec_num{/yun}</span>天</div>
+									<div class="buymeal_resources_detailed">
+										<span class="buymeal_resources_detailedname">职位刷新</span>
+										{yun:}if $v.breakjob_num > 0{/yun}<span class="buymeal_resources_detailed_n">{yun:}$v.breakjob_num{/yun}</span>次/日
+										{yun:}else{/yun}<span class="buymeal_resources_detailed_n">不限</span>{yun:}/if{/yun}
+									</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位置顶</span><span class="buymeal_resources_detailed_n">{yun:}$v.top_num{/yun}</span>天</div>
+									<div class="buymeal_resources_detailed"><span class="buymeal_resources_detailedname">职位紧急</span><span class="buymeal_resources_detailed_n">{yun:}$v.urgent_num{/yun}</span>天</div>
+									
+								</div>
+								{yun:}if $usertype == 2{/yun}
+								<!--其他资源-->
+								<div class="buymeal_resources_list">
+									<div class="buymeal_resources_name">其他资源</div>
+									<div class="buymeal_resources_detailed">
+										<span class="buymeal_resources_detailedname">招聘会预定</span>
+										{yun:}if $v.zph_num > 0{/yun}<span class="buymeal_resources_detailed_n">{yun:}$v.zph_num{/yun}</span>次/日
+										{yun:}else{/yun}<span class="buymeal_resources_detailed_n">不限</span>{yun:}/if{/yun}
+									</div>
+									
+
+								</div>
+								{yun:}/if{/yun}
+								<!--说明-->
+								{yun:}if $v.explains{/yun}<div class="buymeal_resources_explain">套餐说明：{yun:}$v.explains{/yun}</div>{yun:}/if{/yun}
+								<i class="buymeal_resources_line"></i>
+							</div>
+						</div>
+						{yun:}/foreach{/yun}
+					</div>
+				</div>
+			</div>
+			<!--展示区 end-->
+			
+			<!--增值包模式展示区start-->
+			<div class="buymeal_incrementcont rating_type none" id='rating_3'>
+				<div class="buymeal_incrementbox">
+					<table class="buymeal_increment" cellpadding="0" cellspacing="0">
+						<tr>
+							<th align="left" width="150">套餐名称</th>
+							<th align="left">套餐资源</th>
+							<th width="80">普通会员价</th>
+							<th width="100">VIP会员价</th>
+							<th>操作</th>
+						</tr>
+						{yun:}foreach from=$add item=v{/yun}
+							<tr>
+								<td align="left">{yun:}$v.name{/yun}</td>
+								
+								<td align="left">
+									{yun:}if $v.interview{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">面试邀请 </span><span class="buymeal_increment_detailed_n">{yun:}$v.interview{/yun}</span>份</div>{yun:}/if{/yun}
+									{yun:}if $v.resume{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">简历下载</span><span class="buymeal_increment_detailed_n">{yun:}$v.resume{/yun}</span>份</div>{yun:}/if{/yun}
+									{yun:}if $v.job_num{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">职位发布 </span><span class="buymeal_increment_detailed_n">{yun:}$v.job_num{/yun}</span>份</div>{yun:}/if{/yun}
+									{yun:}if $v.breakjob_num{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">刷新职位 </span><span class="buymeal_increment_detailed_n">{yun:}$v.breakjob_num{/yun}</span>份</div>{yun:}/if{/yun}
+									{yun:}if $v.top_num{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">职位置顶 </span><span class="buymeal_increment_detailed_n">{yun:}$v.top_num{/yun}</span>天</div>{yun:}/if{/yun}
+									{yun:}if $v.rec_num{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">职位推荐 </span><span class="buymeal_increment_detailed_n">{yun:}$v.rec_num{/yun}</span>天</div>{yun:}/if{/yun}
+									{yun:}if $v.urgent_num{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">紧急招聘 </span><span class="buymeal_increment_detailed_n">{yun:}$v.urgent_num{/yun}</span>天</div>{yun:}/if{/yun}
+									{yun:}if $v.zph_num{/yun}<div class="buymeal_increment_detailed"><span class="buymeal_increment_detailed_name">报名招聘会 </span><span class="buymeal_increment_detailed_n">{yun:}$v.zph_num{/yun}</span>次</div>{yun:}/if{/yun}
+									
+								</td>
+								
+								{yun:}if $config.com_integral_online==3 && $config.member_meal!=1{/yun} 
+									<td align="center"><span class="buymeal_resources_price">{yun:}$v.service_price * $config.integral_proportion{/yun}{yun:}$config.integral_pricename{/yun}</span></td>
+									<td align="center">
+										{yun:}if $discount.service_discount{/yun}
+											<span class="buymeal_resources_price">{yun:}$v.service_price * $config.integral_proportion * $discount.service_discount * 0.01{/yun}{yun:}$config.integral_pricename{/yun}</span>
+											<div class="buymeal_resources_detailed_zk">专享{yun:}$discount.service_discount{/yun}折优惠</div>
+										{yun:}else{/yun}
+											<span class="buymeal_resources_price"> 升级会员</span>
+											<div class="buymeal_resources_detailed_zk">享受折扣</div>
+										{yun:}/if{/yun}
+									</td>
+								{yun:}else{/yun}
+									<td align="center"><span class="buymeal_resources_price">{yun:}$v.service_price{/yun}元</span></td>
+									<td align="center">
+										{yun:}if $discount.service_discount{/yun}
+											<span class="buymeal_resources_price">{yun:}$v.service_price * $discount.service_discount * 0.01{/yun}元</span>
+											<div class="buymeal_resources_detailed_zk">专享{yun:}$discount.service_discount{/yun}折优惠</div>
+										{yun:}else{/yun}
+											<span class="buymeal_resources_price"> 升级会员</span>
+											<div class="buymeal_resources_detailed_zk">享受折扣</div>
+										{yun:}/if{/yun}
+									</td>
+								{yun:}/if{/yun} 
+								
+								<td align="center"><a href="javascript:void(0);" onclick='buyPack({yun:}$v.id{/yun})' class="buymeal_resources_bth">购买</a></td>
+							</tr>
+						{yun:}/foreach{/yun}
+					</table>
+				</div>
+			</div>
+			<!--展示区 end-->
+		</div>
+		<!-- 单份消费形式 start -->
+		<div class="rating_type none" id='rating_4'>
+			<div class="single_outobox">
+				{yun:}if $config.com_integral_online==4{/yun}
+				<!--情况三，强制使用金额消费模式-->
+				<div class="new_pattern_paybox" style="padding-top:5px;">
+					<div id="dayslist" class="new_pattern_paylist none">
+						<span id="promote_name" class="new_pattern_paylist_name">置顶时长：</span>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="1" onclick="checkRadio(this.value,'radio')" checked="true" />1天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="3" onclick="checkRadio(this.value,'radio')" />3天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="7" onclick="checkRadio(this.value,'radio')" />7天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="15" onclick="checkRadio(this.value,'radio')" />15天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="30" onclick="checkRadio(this.value,'radio')" />30天</label>
+						<input type="text" id='xdays' name='xdays' onclick="radioClean(this.value)" onkeyup="checkRadio(this.value,'input')" maxlength="3" oninput="myFunction(this)"  value="" placeholder="自定义置顶天数" class="new_pattern_paylist_choice_text" />
+					</div>
+					<div class="new_pattern_paylist">
+						<span class="new_pattern_paylist_name">所需金额:</span>  
+						<div class="new_pattern_paylist_tip">本次操作需支付<span class="single_box_price" id='price_int'></span>元</div>
+					</div>
+					 
+					
+					
+					<div class='price_single_member'>
+					 
+						<div class="single_list">
+							<span class="single_left">需支付：</span>
+							<span class="single_payprice"><em class="single_payprice_n" id="single_order_price"></em> 元</span>
+						</div>
+						
+						<form name="alipayment" id="payform_server" action="../api/alipay/alipayto.php" method="post" target="_blank" onsubmit="return payforms('single');">
+							<div class="single_list">
+								{yun:}if $config.alipay=='1'{/yun}
+									<span class="single_left">选择支付方式：</span>
+									{yun:}if $config.alipay=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('alipay','payform_server','single')" class="single_paybth single_paybthzfb">支付宝快捷支付</a>
+									{yun:}/if{/yun}
+									{yun:}if $config.bank=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('bank','payform_vip','all')" class="single_paybth single_paybthyl">其他支付方式</a>
+									{yun:}/if{/yun}
+								{yun:}else{/yun}
+									<div class="zf_kq">提示：网站尚未开启支付功能 , 请联系管理员</div>
+								{yun:}/if{/yun} 
+							</div>
+							
+							<input type="hidden" id="pay_type" name="pay_type" value="" />
+			                <input type="hidden" id="order_single_id" name="dingdan" value="" />
+			                <input type="hidden" id="server_subject" name="subject" value="" />
+			                <input type="hidden" name="pay_bank" value="directPay">
+						</form>
+					</div>
+				</div>
+			{yun:}elseif $config.com_integral_online == 3 {/yun}			 	
+				<div class="new_pattern_paybox">
+					<div id="dayslist" class="new_pattern_paylist none">
+						<span id="promote_name" class="new_pattern_paylist_name">置顶时长：</span>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="1" onclick="checkRadio(this.value,'radio')" checked="checked" />1天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="3" onclick="checkRadio(this.value,'radio')" />3天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="7" onclick="checkRadio(this.value,'radio')" />7天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="15" onclick="checkRadio(this.value,'radio')" />15天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="30" onclick="checkRadio(this.value,'radio')" />30天</label>
+						<input type="text" id='xdays' name='xdays' onclick="radioClean(this.value)" onkeyup="checkRadio(this.value,'input')" maxlength="3" oninput="myFunction(this)" value="" placeholder="自定义置顶天数" class="new_pattern_paylist_choice_text" />
+					</div>
+	          		<div class="new_pattern_paylist ">
+	           			<span class="new_pattern_paylist_name">所需{yun:}$config.integral_pricename{/yun}:</span>
+	           			<div class="new_pattern_paylist_tip">
+							当前拥有<span class="single_box_price">{yun:}$statis.integral{/yun}</span>{yun:}$config.integral_pricename{/yun} ， 本次操作将扣除您
+							<span class="single_box_price" id="single_integral"></span>{yun:}$config.integral_pricename{/yun}
+						</div>
+	           		</div>
+	           		
+	           		<!--状态1： 积分不足情况积分购买-->
+	           		<div id='pay_integral_buy'>
+		           		
+		           		<div class="new_pattern_paylist">
+		           			<span class="new_pattern_paylist_name">充值{yun:}$config.integral_pricename{/yun}：</span>
+		           			<input type="text" value="" id="integral_int" maxlength='6' onkeyup="checkIntegralPaySingle({yun:}$statis.integral{/yun}, {yun:}$config.integral_min_recharge{/yun}, {yun:}$config.integral_proportion{/yun});" oninput="myFunction(this)" placeholder="请输入充值{yun:}$config.integral_pricename{/yun}数量" class="single_text" />
+							<div style="width:400px; float: left; padding-left:10px;color:#999;line-height: 33px;">最低充值<font color="red"> {yun:}$config.integral_min_recharge{/yun}</font> {yun:}$config.integral_pricename{/yun} ,兑换比为1元={yun:}$config.integral_proportion{/yun}{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}</div>
+		           		</div>
+		           		<div class="new_pattern_paylist">
+		           			<span class="new_pattern_paylist_name">需支付：</span>
+		           			<span class="single_payprice"><em class="single_payprice_n" id="price_int"></em> 元</span>
+		           		</div>
+		           		
+		            	<form name="alipayment" id="payform_server" action="../api/alipay/alipayto.php" method="post" target="_blank" onsubmit="return payforms('single');">
+			            	<div class="new_pattern_paylist">
+			            		{yun:}if $config.alipay=='1'{/yun}
+				            		<span class="new_pattern_paylist_name">选择支付方式：</span>
+							 		{yun:}if $config.alipay=='1'{/yun}
+				            			<a href="javascript:void(0);" onclick="payVip('alipay','payform_server','single')" class="single_paybth single_paybthzfb">支付宝快捷支付</a>
+				            		{yun:}/if{/yun}
+									{yun:}if $config.bank=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('bank','payform_vip','all')" class="single_paybth single_paybthyl">其他支付方式</a>
+									{yun:}/if{/yun}
+								{yun:}else{/yun}
+									<div class="zf_kq">提示：网站尚未开启支付功能 , 请联系管理员</div>
+				            	{yun:}/if{/yun}
+			            	</div>
+			            	
+			            	<input type="hidden" id="pay_type" name="pay_type" value="" />
+			                <input type="hidden" id="order_single_id" name="dingdan" value="" />
+			                <input type="hidden" id="server_subject" name="subject" value="" />
+			                <input type="hidden" name="pay_bank" value="directPay" />
+		            	</form>
+	            	</div>
+	            	
+	            	<!--状态2： 积分充足-->
+	            	<div id='integral_buy'>
+		            	<div class="new_pattern_paylist">
+	            			<span class="new_pattern_paylist_name">&nbsp;</span>
+	            			<a href="javascript:void(0);" onclick="integralBuy();" class="new_pattern_paylist_bth">确认支付</a> 
+	            		</div>
+	              		<div class="new_pattern_paylist">
+	              			<span class="new_pattern_paylist_name">&nbsp;</span>  
+	              			<div class="new_pattern_paylist_tip_b">套餐购买更优惠，升级会员享受专属特权</div>
+	              		</div>
+	            	</div>
+					
+				</div>
+				
+			{yun:}else if $config.com_integral_online == 2{/yun}
+				
+				<!--情况三，强制使用金额消费模式-->
+				<div class="new_pattern_paybox" style="padding-top:5px;">
+					<div id="dayslist" class="new_pattern_paylist none">
+						<span id="promote_name" class="new_pattern_paylist_name">置顶时长：</span>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="1" onclick="checkRadio(this.value,'radio')" checked="true" />1天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="3" onclick="checkRadio(this.value,'radio')" />3天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="7" onclick="checkRadio(this.value,'radio')" />7天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="15" onclick="checkRadio(this.value,'radio')" />15天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="30" onclick="checkRadio(this.value,'radio')" />30天</label>
+						<input type="text" id='xdays' name='xdays' onclick="radioClean(this.value)" onkeyup="checkRadio(this.value,'input')" maxlength="3" oninput="myFunction(this)"  value="" placeholder="自定义置顶天数" class="new_pattern_paylist_choice_text" />
+					</div>
+					<div class="new_pattern_paylist">
+						<span class="new_pattern_paylist_name">所需金额:</span>  
+						<div class="new_pattern_paylist_tip">本次操作需支付<span class="single_box_price" id='price_int'></span>元</div>
+					</div>
+					
+					
+					
+					<div class='price_single_member'>
+					 
+						<div class="single_list">
+							<span class="single_left">需支付：</span>
+							<span class="single_payprice"><em class="single_payprice_n" id="single_order_price"></em> 元</span>
+						</div>
+						
+						<form name="alipayment" id="payform_server" action="../api/alipay/alipayto.php" method="post" target="_blank" onsubmit="return payforms('single');">
+							<div class="single_list">
+								{yun:}if $config.alipay=='1' {/yun}
+									<span class="single_left">选择支付方式：</span>
+									{yun:}if $config.alipay=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('alipay','payform_server','single')" class="single_paybth single_paybthzfb">支付宝快捷支付</a>
+									{yun:}/if{/yun}
+									{yun:}if $config.bank=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('bank','payform_vip','all')" class="single_paybth single_paybthyl">其他支付方式</a>
+									{yun:}/if{/yun}
+								{yun:}else{/yun}
+									<div class="zf_kq">提示：网站尚未开启支付功能 , 请联系管理员</div>
+								{yun:}/if{/yun} 
+							</div>
+							
+							<input type="hidden" id="pay_type" name="pay_type" value="" />
+			                <input type="hidden" id="order_single_id" name="dingdan" value="" />
+			                <input type="hidden" id="server_subject" name="subject" value="" />
+			                <input type="hidden" name="pay_bank" value="directPay">
+						</form>
+					</div>
+				</div>
+				
+			{yun:}else if $config.com_integral_online == 1 {/yun}
+					
+				<!--情况四，金额抵扣消费模式-->
+				<div class="new_pattern_paybox"  style="padding-top:5px;">
+					<div id="dayslist" class="new_pattern_paylist none">
+						<span id="promote_name" class="new_pattern_paylist_name">置顶时长：</span>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="1" onclick="checkRadio(this.value,'radio')" checked="true" />1天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="3" onclick="checkRadio(this.value,'radio')" />3天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="7" onclick="checkRadio(this.value,'radio')" />7天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="15" onclick="checkRadio(this.value,'radio')" />15天</label>
+						<label class="new_pattern_paylist_choice"><input type="radio" name='days' value="30" onclick="checkRadio(this.value,'radio')" />30天</label>
+						<input type="text" id='xdays' name='xdays' onclick="radioClean(this.value)" onkeyup="checkRadio(this.value,'input')" maxlength="3" oninput="myFunction(this)"  value="" placeholder="自定义置顶天数" class="new_pattern_paylist_choice_text" />
+					</div>
+					<div class="new_pattern_paylist">
+						<span class="new_pattern_paylist_name">所需金额:</span>  
+						<div class="new_pattern_paylist_tip">本次操作需支付<span class="single_box_price" id='price_int'></span>元</div>
+					</div>
+					
+					
+					{yun:}if $statis.integral>0{/yun}
+					<div class="single_list" id="integral_dk_div">
+						<span class="single_left">{yun:}$config.integral_pricename{/yun}抵扣：</span>
+						<input type="text"  id="server_integral_dk" value="" placeholder="请输入要抵扣的{yun:}$config.integral_pricename{/yun}数" maxlength='6' onkeyup="checkIntegralDKSingle({yun:}$statis.integral{/yun},{yun:}$config.integral_proportion{/yun});" oninput="myFunction(this)" class="single_text" autocomplete="off">
+						<span class="single_dq">您当前拥有<span class="single_box_price">{yun:}$statis.integral{/yun}</span>{yun:}$config.integral_pricename{/yun}</span>
+					</div>
+					{yun:}/if{/yun}
+					
+					
+					<div class='price_single_member'>
+					
+						<div class="single_list">
+							<span class="single_left">需支付：</span>
+							<span class="single_payprice"><em class="single_payprice_n" id='single_order_price'></em> 元</span>
+						</div>
+						<form name="alipayment" id="payform_server" action="../api/alipay/alipayto.php" method="post" target="_blank" onsubmit="return payforms('single');">
+							<div class="single_list" id='server_pay_div'>
+								{yun:}if $config.alipay=='1'{/yun}
+									<span class="single_left">选择支付方式：</span>
+									{yun:}if $config.alipay=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('alipay','payform_server','single')" class="single_paybth single_paybthzfb">支付宝快捷支付</a>
+									{yun:}/if{/yun}
+									{yun:}if $config.bank=='1'{/yun}
+										<a href="javascript:void(0);" onclick="payVip('bank','payform_vip','all')" class="single_paybth single_paybthyl">其他支付方式</a>
+									{yun:}/if{/yun}
+								{yun:}else{/yun}
+									<div class="zf_kq">提示：网站尚未开启支付功能 , 请联系管理员</div>
+								{yun:}/if{/yun} 
+							</div>
+							
+							<input type="hidden" id="pay_type" name="pay_type" value="" />
+	                		<input type="hidden" id="order_single_id" name="dingdan" value="" />
+	                		<input type="hidden" id="server_subject" name="subject" value="" />
+	                		<input type="hidden" name="pay_bank" value="directPay" />
+	                		
+	                		<div class="single_list none" id='server_integral_div'>
+	                         	<span class="single_left">&nbsp;</span>
+								<a href="javascript:void(0);" onclick="integralBuy();" class="single_bth">确认购买</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			{yun:}/if{/yun}	
+				
+			</div>
+		</div>
+		<!-- 单份消费 end-->
+	</div>
+</div>
+
+<input type="hidden" name="orderid" id="orderid" value="" />
+<input type="hidden" name="ratingid" id="ratingid" value="" />
+<input type="hidden" name="comserviceid" id="comserviceid" value="" />
+<input type="hidden" name='promoteid' id='promoteid' value='' />
+<input type="hidden" name="partids" id="partids" value="" />
+<input type="hidden" name="jobids" id="jobids" value="" />
+<input type="hidden" name="eid" id="eid" value="{yun:}$Info.id{/yun}" />
+<input type="hidden" name="zid" id="zid" value="" />
+<input type="hidden" name="bid" id="bid" value="" />
+
+<input type="hidden" id="integral_pro" value="{yun:}$config.integral_proportion{/yun}" />
+<input type="hidden" id="integral_min" value="{yun:}$config.integral_min_recharge{/yun}" />
+<input type="hidden" id="integral_online" value="{yun:}$config.com_integral_online{/yun}" />
+<input type="hidden" id="member_meal" value="{yun:}$config.member_meal{/yun}" />
+<input type="hidden" id="user_integral_all" value="{yun:}$statis.integral{/yun}" />
+<input type="hidden" id="is_member" value="{yun:}$is_member{/yun}" />
+
+<!-- 服务价格显示参数begin -->
+<!-- 服务 -->
+<input type="hidden" id="pay_server" value="" />
+<!-- 价格 -->
+<input type="hidden" id="server_intrgral_name" value="{yun:}$config.integral_name{/yun}" />
+<input type="hidden" id="server_integral_job" value="{yun:}$config.integral_job{/yun}" />
+<input type="hidden" id="server_integral_jobefresh" value="{yun:}$config.integral_jobefresh{/yun}" />
+<input type="hidden" id="server_integral_sons_num" value="{yun:}$config.integral_sons_num{/yun}" />
+<input type="hidden" id="server_integral_interview" value="{yun:}$config.integral_interview{/yun}" />
+{yun:}if $is_member{/yun}
+<input type="hidden" id="server_com_recjob" value="{yun:}$config.com_recjob{/yun}" />
+<input type="hidden" id="server_com_urgent" value="{yun:}$config.com_urgent{/yun}" />
+<input type="hidden" id="server_integral_job_top" value="{yun:}$config.integral_job_top{/yun}" />
+<input type="hidden" id="server_job_auto" value="{yun:}$config.job_auto{/yun}" />
+<input type="hidden" id="jobautoids" value="" />
+{yun:}/if{/yun}
+<!-- 服务价格显示参数end -->
+
+<!--以上购买产品点击购买弹出的样式为统一下方样式-->
+{yun:}if $config.com_integral_online == 3 && $config.member_meal!=1{/yun}
+<!--积分购买，只有套餐设置为积分消费，并且不是强制金额消费-->
+<!--方式二.积分购买-->
+<div class="yun_purchase_payment mt20 none" style="margin-left:20px;" id='buyVipDiv_2'>
+	<div class="yun_purchase_payment_tit">
+		<span class="yun_purchase_payment_titname">购买<span class="" id='service_name_2'></span></span>
+	</div>
+	<div class="yun_purchase_payment_tip">
+		您当前拥有<span class="single_box_price">{yun:}$statis.integral{/yun}</span>{yun:}$config.integral_pricename{/yun} , 本次购买需扣除<span class="single_box_price" id='vip_order_price_2'></span>{yun:}$config.integral_pricename{/yun}
+	</div>
+	<div class="single_bthbox">
+		<a href="javascript:void(0);" onclick="integralBuy();" class="single_bth">确认购买</a>
+	</div>
+	<div class="single_tip">套餐购买更优惠，升级会员享受专属特权</div>
+</div>
+
+<!--方式三.积分购买但余额不足-->
+<div class="yun_purchase_payment mt20 none" style="margin-left:20px;" id='buyVipDiv_3'>
+	<div class="yun_purchase_payment_tittwo">
+		<span class="yun_purchase_payment_titname">购买<span id='service_name_3'></span></span>
+	</div>
+	
+	<div class="yun_purchase_payment_list">
+		<span class="yun_purchase_payment_listname">产品价格：</span>
+		<div class="yun_purchase_payment_price">
+			<span class="yun_purchase_payment_price_n" id='service_price_3'></span> {yun:}$config.integral_pricename{/yun} 
+			<span class="yun_purchase_payment_price_yj" id='origin_tag_3'>原价：<i class="buymeal_original_price_delete" id='service_origin_price_3'></i></span>
+		</div>
+	</div>
+	
+	<div class="yun_purchase_payment_list">
+		<span class="yun_purchase_payment_listname">{yun:}$config.integral_pricename{/yun}充值：</span>
+		<input type="text" value="" id='integral_int_vip' name='integral_int_vip' maxlength='6' onkeyup="checkIntegralPay({yun:}$statis.integral{/yun}, {yun:}$config.integral_min_recharge{/yun}, {yun:}$config.integral_proportion{/yun});" oninput="myFunction(this)" placeholder="请输入充值数量"  class="yun_purchase_text" >
+		<span class="single_dq">您当前拥有<span class="single_box_price">{yun:}$statis.integral{/yun}</span>{yun:}$config.integral_pricename{/yun}</span>
+		
+	</div>
+	<div class="new_pattern_paylist_tip" style="padding-left:130px;color:#999">最低充值 <font color="red">{yun:}$config.integral_min_recharge{/yun}</font> {yun:}$config.integral_pricename{/yun},兑换比为1元={yun:}$config.integral_proportion{/yun}{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}</div>
+	<div class="yun_purchase_payment_list">
+		<span class="yun_purchase_payment_listname">需支付：</span>
+		<span class="single_payprice"><em class="single_payprice_n" id='vip_order_price_3'>0</em> 元</span>
+	</div>
+	
+	<form name="alipayment" id="payform_vip" action="../api/alipay/alipayto.php" method="post" target="_blank" onsubmit="return payforms('vip');">
+		<div class="yun_purchase_payment_list" style="padding-bottom:20px;">
+			{yun:}if $config.alipay=='1' || $config.bank=='1'{/yun}
+				<span class="yun_purchase_payment_listname">选择支付方式：</span>
+				
+			 	{yun:}if $config.alipay=='1'{/yun}
+					<a href="javascript:void(0);" onclick="payVip('alipay','payform_vip','all')" class="single_paybth single_paybthzfb">支付宝快捷支付</a>
+				{yun:}/if{/yun} 
+				
+				{yun:}if $config.bank=='1'{/yun}
+					<a href="javascript:void(0);" onclick="payVip('bank','payform_vip','all')" class="single_paybth single_paybthyl">其他支付方式</a>
+				{yun:}/if{/yun} 
+			{yun:}else{/yun}
+				<div class="zf_kq">提示：网站尚未开启支付功能 , 请联系管理员</div>
+			{yun:}/if{/yun}
+ 		</div>
+ 		
+		<input type="hidden" id="pay_type_vip" name="pay_type" value="" />
+		<input type="hidden" id="order_vip_id" name="dingdan" value="" />
+		<input type="hidden" id="subject_3" name="subject" value="充值{yun:}$config.integral_pricename{/yun}购买会员" />
+		<input type="hidden" name="pay_bank" value="directPay" />
+	</form>
+</div>
+{yun:}else{/yun}
+<!--方式一.金额购买-->
+<div class="yun_purchase_payment mt20 none" style="margin-left:20px;" id='buyVipDiv_1'>
+
+	<div class="yun_purchase_payment_tit">
+		<span class="yun_purchase_payment_titname">购买<span id='service_name_1'></span></span>
+ 	</div>
+	
+	<div class="yun_purchase_payment_list">
+		<span class="yun_purchase_payment_listname">产品价格：</span>
+		<div class="yun_purchase_payment_price">
+			<span class="yun_purchase_payment_price_n" id='service_price_1'></span> 元 
+			<span class="yun_purchase_payment_price_yj" id='origin_tag_1'>原价：<i class="buymeal_original_price_delete" id='service_origin_price_1'></i></span>
+		</div>
+	</div>
+	
+	
+	{yun:}if $config.com_integral_online == 1 && $config.member_meal!=1{/yun}
+		
+		<div class="yun_purchase_payment_list">
+			<span class="yun_purchase_payment_listname">{yun:}$config.integral_pricename{/yun}抵扣：</span>
+			<input type="text" value="" placeholder="请输入抵扣数量" id='integral_dk_vip' name='integral_dk_vip' oninput="myFunction(this)" onkeyup="checkIntegralDK('{yun:}$statis.integral{/yun}','{yun:}$config.integral_proportion{/yun}','1');" class="yun_purchase_text" />
+			<span class="single_dq">您当前拥有<span class="single_box_price">{yun:}$statis.integral{/yun}</span>{yun:}$config.integral_pricename{/yun}</span>
+		</div>
+		
+	{yun:}/if{/yun}
+	
+	
+	<div class='price_1'>
+		<div class="yun_purchase_payment_list">
+			<span class="yun_purchase_payment_listname">需支付：</span>
+			<span class="single_payprice"><em class="single_payprice_n" id='vip_order_price_1'>0</em> 元</span>
+		</div>
+		
+		<form name="alipayment" id="payform_vip" action="../api/alipay/alipayto.php" method="post" target="_blank" onsubmit="return payforms('vip');">
+			<div class="yun_purchase_payment_list" id='vip_pay_div'>
+			 	{yun:}if $config.alipay=='1' || $config.bank=='1'{/yun}
+			 		<span class="yun_purchase_payment_listname">选择支付方式：</span>
+			 	 	{yun:}if $config.alipay=='1'{/yun}
+			 			<a href="javascript:void(0);" onclick="payVip('alipay','payform_vip','all')" class="single_paybth single_paybthzfb">支付宝快捷支付</a>
+			 		{yun:}/if{/yun} 
+			 		{yun:}if $config.bank=='1'{/yun}
+			 			<a href="javascript:void(0);" onclick="payVip('bank','payform_vip','all')" class="single_paybth single_paybthyl">其他支付方式</a>
+			 		{yun:}/if{/yun} 
+				{yun:}else{/yun}
+					<div class="zf_kq">提示：网站尚未开启支付功能 , 请联系管理员</div>
+			 	{yun:}/if{/yun}
+			</div>
+			<input type="hidden" id="pay_type_vip" name="pay_type" value="" />
+			<input type="hidden" id="order_vip_id" name="dingdan" value="" />
+			<input type="hidden" id="subject_1" name="subject" value="购买会员" />
+			<input type="hidden" name="pay_bank" value="directPay" />
+			<div class="single_bthbox none" id='vip_integral_div'>
+				<a href="javascript:void(0);" onclick='integralBuy();' class="single_bth">确认购买</a>
+			</div>
+		</form>
+	</div>
+</div>
+{yun:}/if{/yun}
+
+<!--支付弹出框-->
+<div id="payshow" style="width:450px; position:absolute;left:0px;top:0px; background:#fff; display:none;">
+    <div class="payment_tip">
+        请在新打开的支付页面上完成付款，付款完成前请不要关闭此窗口。<br> 如您在支付过程中遇到问题，请联系客服：
+        <span class="payment_tip_s">{yun:}$config.sy_freewebtel{/yun}</span>
+    </div>
+    <div class="payment_bottom">
+		{yun:}if $is_member{/yun}
+        <a href="index.php?c=paylog" class="payment_bottombutt">已完成付款</a>
+		{yun:}if $order.id{/yun}
+		<a href="index.php?c=payment&id={yun:}$order.id{/yun}" class="payment_bottom_bth2">重新支付</a>
+		{yun:}else{/yun}
+        <a id="repaya" href="javascript:location.reload();" class="payment_bottom_bth2">重新支付</a>
+		{yun:}/if{/yun}
+		{yun:}else{/yun}
+		<a href="javascript:location.reload();" class="payment_bottombutt">已完成付款</a>
+		{yun:}/if{/yun}
+    </div>
+</div>
+
+<div class="yun_prompt_box" style="margin-top:20px;display:none;" id="jobcheck" >
+	<!--提示部分 start-->
+	<div class="yun_prompt_release">
+		<div class="yun_prompt_release_hi">尊敬的用户您好！</div>
+		<div id='tips_way'>
+			<div class="yun_prompt_release_tip">以下条件尚未满足,暂时无法查看简历，请按顺序完成：</div>
+		</div>
+		<div id='msgList'></div>
+		<div class="yun_prompt_writing_operation" id='gourl'>
+			{yun:}if $is_member{/yun}
+			<a href="index.php?c=jobadd" class="yun_prompt_writing_operation_bth">我已完成以上操作</a>
+			{yun:}else{/yun}
+			<a href="javascript:location.reload();" class="yun_prompt_writing_operation_bth">我已完成以上操作</a>
+			{yun:}/if{/yun}
+		</div>
+	</div>
+	<!--提示部分  end-->
+</div>
+
+<div id="wxbd" style="display: none;">
+	<div id="wxbdtitle" class="yun_wxbd_tit">关注微信公众号，手机轻松招人</div>
+	<div class="yun_wxbd_box">
+		<div class="yun_wxbd_img_c">
+			<div class="yun_wxbd_img" id="wx_bind_qrcode">
+				<img src="" width="180" height="180" />
+			</div>
+		</div>
+		<div id="gzwx_sx" class="none">
+			<div class="wx_login_show_sxbox"><a href="javascript:void(0);" onclick="getwxlogincode()" class="wx_login_show_sxicon"></a>二维码已失效点击刷新</div>
+		</div>
+		<div class="yun_wxbd_p"> 扫码关注公众号</div>
+		<div class="yun_wxbd_ok">
+			<a class="sx_bot_qx" href="javascript:void(0)" >好，知道了</a>
+		</div>
+	</div>
+</div>
+<!-- 发布职位弹出框end -->
+<style>
+	.layui-carousel{ background:none;}
+	.layui-carousel>[carousel-item]>*{background:none;}
+	.layui-carousel>[carousel-item]:before { display:none;}
+	.layui-carousel-arrow{ margin-top:-48px;}
+</style>
+
+<script>
+	var pricename = '{yun:}$config.integral_pricename{/yun}';
+
+	var single_can = '';
+	'{yun:}if $usertype=="2"{/yun}'
+	single_can = '{yun:}$config.com_single_can{/yun}';
+	'{yun:}else if $usertype=="3"{/yun}'
+	single_can = '{yun:}$config.lt_single_can{/yun}';
+	'{yun:}/if{/yun}'
+	var single_can_arr = single_can.split(",");
+	
+	/* 选择不同会员/增值包/单次购买  */
+	$(function(){
+		$("ul#rating_type").on("click", "li", function() {
+	        $(this).addClass("buymeal_tit_cur");
+	        $(this).siblings('li').removeClass("buymeal_tit_cur");
+	        var rating = $(this).attr("rating");
+	        if(rating) {
+	        	$(".rating_type").hide();
+	        	$("#rating_"+rating).show();
+	        } 
+	    })
+	})
+	/* 会员套餐滚动 */
+	layui.use('carousel', function() {
+		var carousel = layui.carousel;
+		
+		// 套餐会员
+		carousel.render({
+			elem : '#vip_1',
+			width : '748px',// 设置容器宽度
+			arrow : 'hover' // 悬停显示箭头
+			,autoplay:false // 自动切换关闭
+		});
+		// 时间会员
+		carousel.render({
+			elem : '#vip_2',
+			width : '748px',	
+			autoplay:false // 自动切换关闭
+	 	});
+	});
+
+    function firstTab(){
+    	
+    	$("ul#rating_type li").each(function(){
+    		
+    		if($(this).attr('ishide')=='0'){
+    			$(this).click();
+    			return false
+    		}
+    	})
+    	
+    }
+</script>
+<script>
+	var gzsetval,
+		gzsetwout;
+		
+	function getwxlogincode(){
+		$.post('{yun:}url m=login c=wxlogin{/yun}',{t:1},function(data){
+			if(data==0){
+				$('#wx_bind_qrcode').html('二维码获取失败..');
+			}else{
+				$('#wx_bind_qrcode').html('<img src="'+data+'" width="180" height="180">');
+				gzsetval = setInterval(function(){
+					$.post('{yun:}url m=login c=getwxloginstatus{/yun}',{t:1},function(data){
+						var data=eval('('+data+')');
+						if(data.url!='' && data.msg!=''){
+							clearInterval(gzsetval);
+							gzsetval = null;
+							layer.msg(data.msg, 2, 9,function(){window.location.href=data.url;});
+						}else if(data.url){
+							window.location.href=data.url;
+						}
+					});
+				}, 2000);
+				if(gzsetwout){
+					clearTimeout(gzsetwout);
+					gzsetwout = null;
+				}
+				gzsetwout = setTimeout(function(){
+					clearInterval(gzsetval);
+					gzsetval = null;
+					var gzwx_sx = $("#gzwx_sx").html();
+					$('#wx_bind_qrcode').html(gzwx_sx);
+				},300*1000);
+			}
+		});
+	}
+	function gzhShow(){
+		var wxlayer = layer.open({
+			type: 1,
+			title: false,
+			closeBtn: 0,
+			border: [10, 0.3, '#000', true],
+			area: ['500px', 'auto'],
+			content: $("#wxbd"),
+			end: function(){
+				if(gzsetwout){
+					clearTimeout(gzsetwout);
+					gzsetwout = null;
+				}
+				if(gzsetval){
+					clearInterval(gzsetval);
+					gzsetval = null;
+				}
+			}
+		});
+		getwxlogincode();
+		$(".sx_bot_qx").click(function () {
+			layer.close(wxlayer);
+		})
+	}
+</script>

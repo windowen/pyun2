@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="keywords" content="{yun:}$keywords{/yun}" />
+	<meta name="description" content="{yun:}$description{/yun}" />
+	<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+	<link href="{yun:}$style{/yun}/style/microresume.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<title>{yun:}$title{/yun}</title>
+</head>
+
+<body class="once_bg">
+	{yun:}include file="$tplstyle/header.htm"{/yun}
+	<div class="yun_content">
+	
+		<div class="current_Location png"> 您当前的位置：
+			<a href="{yun:}$config.sy_weburl{/yun}">首页</a> >
+			<a href="{yun:}url m=once{/yun}">店铺招聘</a> > 发布店铺招聘
+		</div>
+	
+		<form id="subform" action="{yun:}url m=once c=save{/yun}" target="supportiframefast" method="post" onSubmit="return check_once_job()" enctype="multipart/form-data" autocomplete="off" class="layui-form">
+		<div class="once_add_box">
+			<div class="once_title">快速发布招聘信息</div>
+			<div class="once_add_cont">
+				<div class="once_title_p"><i class="once_title_p_icon once_title_p_icon_zw"></i>职位信息</div>
+				
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>我想招聘</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input" type="text" id="title" maxlength="15" name="title" value="{yun:}$info.title{/yun}"/>
+					</div>
+				</div>
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>工资</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input" type="text" id="salary" maxlength="15" name="salary" value="{yun:}$info.salary{/yun}"/> 
+					</div>
+				</div>
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>招聘有效期</span>
+					<div class="once_add_list_text">
+						<input class="once_add_list_input" type="text" id="edate" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="3" name="edate"  value="{yun:}$info.day_n{/yun}" {yun:}if $smarty.get.id{/yun} readonly {yun:}/if{/yun}/>
+						<span class="once_add_list_text_dw">天</span>
+						{yun:}if $config.once_pay_price>0{/yun}
+						<span class="once_add_list_text_dw">{yun:}$config.once_pay_price{/yun}元/天</span>
+						{yun:}/if{/yun}
+					</div>
+				</div>
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>工作地区</span>
+					<div class="once_add_list_text">	
+						<div class="layui-input-inline">
+						<select id="provinceid" lay-filter="citys" name="provinceid">
+						<option value=''>请选择</option>
+						{yun:}foreach from=$city_index item=v{/yun}
+						<option value="{yun:}$v{/yun}" {yun:}if $info.provinceid==$v{/yun}selected{yun:}/if{/yun}>{yun:}$city_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select>
+						</div>
+						<div class="layui-input-inline">
+						<select id="cityid" lay-filter="citys" name="cityid">
+						<option value=''>请选择</option>
+						{yun:}foreach from=$city_type[$info.provinceid] item=v{/yun}
+						<option value="{yun:}$v{/yun}" {yun:}if $info.cityid==$v{/yun}selected{yun:}/if{/yun}>{yun:}$city_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select></div>
+						<div class="layui-input-inline">
+						<select id="three_cityid" name="three_cityid">
+						<option value=''>请选择</option>
+						{yun:}foreach from=$city_type[$info.cityid] item=v{/yun}
+						<option value="{yun:}$v{/yun}" {yun:}if $info.three_cityid==$v{/yun}selected{yun:}/if{/yun}>{yun:}$city_name[$v]{/yun}</option>
+						{yun:}/foreach{/yun}
+						</select></div>
+					</div>
+				</div> 
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>工作地点</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input" type="text" id="address" maxlength="15" name="address" value="{yun:}$info.address{/yun}" />
+					</div>
+				</div> 
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>招聘要求</span>
+					<div class="once_add_list_text">
+						<textarea rows='6' class="once_tck_box_job_simplew_textarea" id="require" onfocus="if(this.value=='请填写招聘的具体要求，如：性别，学历，年龄，工作经验，工资待遇等相关信息') this.value=''" onblur="this.value=this.value==''?'请填写招聘的具体要求，如：性别，学历，年龄，工作经验，工资待遇等相关信息':this.value" name="require"> {yun:}$info.require{/yun}</textarea>
+					</div>
+				</div> 
+
+				<div class="once_title_p"><i class="once_title_p_icon once_title_p_icon_dp"></i>店铺信息</div> 
+
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>店铺名称</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input" type="text" id="companyname" maxlength="15" name="companyname"  value="{yun:}$info.companyname{/yun}"  />
+					</div>
+				</div>
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>联系电话</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input" type="phone" id="phone" onkeyup="this.value=this.value.replace(/[^0-9-]/g,'')" maxlength="13" name="phone" value="{yun:}$info.phone{/yun}"  />
+					</div>
+				</div> 
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>联系人</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input"type="text" id="linkman" maxlength="15" name="linkman"  value="{yun:}$info.linkman{/yun}" />
+					</div>
+				</div> 
+				
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">&nbsp;</i>店铺形象</span>
+					<div class="once_add_list_text" style="position:relative">	
+						<button type="button" class="yun_bth_pic noupload" lay-data="{imgid: 'imgicon'}">上传图片</button>
+						<input type="hidden" id="laynoupload" value="1"/>
+						<input type="hidden" name="pic" value="{yun:}$info.pic{/yun}"/>
+						
+						<div style="width:100px; position:absolute;left:130px;top:-10px;">
+							<img id="imgicon" src="{yun:}$info.pic_n{/yun}" width="100" height="60"{yun:}if !$info.pic_n{/yun}class="none"{yun:}/if{/yun}>
+						</div>
+
+ 					</div>
+				</div>
+			
+
+				<div class="once_title_p"><i class="once_title_p_icon once_title_p_icon_zh"></i>账户信息</div>
+      
+				<div class="once_add_list">
+					<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>设置密码：</span>
+					<div class="once_add_list_text">	
+						<input class="once_add_list_input" type="password" id="password" name="password" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" />
+						<span class="once_add_list_text_dw">用于刷新/修改/删除招聘信息，请牢记！</span>
+					</div> 
+				</div>
+				
+				{yun:}if strpos($config.code_web,"店铺招聘")!==false{/yun}
+				
+					{yun:}if $config.code_kind>2{/yun}
+						<div class="gtdx-captcha">
+
+							<div id="bind-captcha" data-id='subform' data-type='submit'></div>
+							<input type='hidden' id="verify_token"  name="verify_token" value="">
+							<input type='hidden' id="popup-submit">	
+							<input type='hidden' id="bind-submit">
+						</div>
+					{yun:}else{/yun}
+						<div class="once_add_list">
+							<span class="once_add_list_name"><i class="once_add_list_name_bt">*</i>验证码 </span>
+							<input id="authcode" class="once_add_list_input" type="text" maxlength="6" name="authcode" />
+							<a class="fl">
+								<img id="vcodeimgs" onclick="checkCode('vcodeimgs');" src="{yun:}$config.sy_weburl{/yun}/app/include/authcode.inc.php" style="margin-left:10px;border:1px solid #eee" />
+							</a>
+						</div>
+					{yun:}/if{/yun}
+				
+				{yun:}else{/yun}
+					<input id="authcode" type="hidden" value="12345" maxlength="6" name="authcode" /> 
+				{yun:}/if{/yun}
+			
+				<div class="once_add_list"><span class="once_add_list_name">&nbsp;</span> 
+					<input type="hidden" id="id" name="id"  value="{yun:}$info.id{/yun}" />
+					<input id="botton" class="once_add_list_bth" type="submit" value="发布信息"/>
+					<input type="hidden" id="cionly" name="cionly" value="{yun:}if empty($city_type){/yun}1{yun:}/if{/yun}">
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+
+	 
+	
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$style{/yun}/js/fast.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+<script src='{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}'></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/city.js?v={yun:}$config.cachecode{/yun}"></script>
+{yun:}include file="$wapstyle/verify_js.htm"{/yun}
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png');
+</script>
+<![endif]-->
+<script type="text/javascript">
+
+function returnmessagefast(frame_id){ 
+	if(frame_id==''||frame_id==undefined){
+		frame_id='supportiframe';
+	}
+	var message = $(window.frames[frame_id].document).find("#layer_msg").val(); 
+	if(message != null){
+		var url=$(window.frames[frame_id].document).find("#layer_url").val();
+		var layer_time=$(window.frames[frame_id].document).find("#layer_time").val();
+		var layer_st=$(window.frames[frame_id].document).find("#layer_st").val();
+		var layer_url = $(window.frames[frame_id].document).find("#layer_url").val();
+		var edate=$("input[id='edate']").attr("value");
+		var once_pay_price='{yun:}$config.once_pay_price{/yun}';
+		var once_price=accMul(edate,once_pay_price);
+		layer.closeAll('loading');
+		if(layer_st=='10'){
+			$('#onceid').val(layer_url);
+ 			$('#once_price').val(once_price);
+ 			$('#oncePrice').html(once_price);
+				$.layer({
+					type : 1,
+					move:false,
+					fix: true,
+					zIndex:666,
+					title : '店铺招聘收费', 
+					border : [10 , 0.3 , '#000', true],
+					area : ['480px','330px'],
+					page : {dom : '#fastjob'},
+					close: function(){
+						window.location.href = "{yun:}url m=once{/yun}";
+					}
+				});
+		}else{
+			if(url=='1'){
+				layer.msg(message, layer_time, Number(layer_st),function(){window.location.reload();window.event.returnValue = false;return false;});
+			}else if(url==''){
+				layer.msg(message, layer_time, Number(layer_st));
+			}else{
+				layer.msg(message, layer_time, Number(layer_st),function(){window.location.href = url;window.event.returnValue = false;return false;});
+			}
+		} 
+	}
+}
+function accMul(arg1, arg2) {
+    var m = 0,
+        s1 = arg1.toString(),
+        s2 = arg2.toString();
+    try {
+        m += s1.split(".")[1].length
+    } catch(e) {}
+    try {
+        m += s2.split(".")[1].length
+    } catch(e) {}
+    return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
+}
+</script>
+<iframe id="supportiframefast" name="supportiframefast" onload="returnmessagefast('supportiframefast');" class="none"></iframe>
+{yun:}include file="$tplstyle/once/fast.htm"{/yun} 
+{yun:}include file="$tplstyle/footer.htm"{/yun}

@@ -1,0 +1,404 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+
+		<title>后台管理</title>
+
+		<style>
+			* {margin: 0;padding: 0;}
+			body, div {margin: 0;padding: 0;}
+		</style>
+	</head>
+
+	<body class="body_ifm">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+				
+			<div class="tabs_info">
+				<ul>
+					<li class="curr">基本资料</li>
+					<li>账户信息</li>
+				</ul>
+			</div>
+				
+			<div class="admin_new_tip">
+				<a href="javascript:;" class="admin_new_tip_close"></a>
+				<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+				<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+				<div class="admin_new_tip_list_cont">
+					<div class="admin_new_tip_list">该页面展示了网站个人会员信息。</div>
+					<div class="admin_new_tip_list">
+						<span class="admin_new_comsj">
+							{yun:}if is_array($member){/yun}
+							最近登录时间：
+							{yun:}$member.login_date|date_format:'%Y-%m-%d'{/yun}
+							{yun:}/if{/yun}
+						</span>
+						<span class="admin_new_comsj"> {yun:}if is_array($member){/yun}
+							注册时间：
+							{yun:}$member.reg_date|date_format:'%Y-%m-%d'{/yun}
+							{yun:}/if{/yun} </span>
+						<span class="admin_new_comsj"> {yun:}if is_array($member){/yun}
+							注册IP： {yun:}$member.reg_ip{/yun}
+							{yun:}/if{/yun}
+						</span>
+						<span class="admin_new_comsj">
+							{yun:}if is_array($member){/yun}
+							登录IP：{yun:}$member.login_ip{/yun}
+							{yun:}/if{/yun} </span>
+						<span class="admin_new_comsj"> {yun:}if is_array($member){/yun}
+							登录次数：{yun:}$member.login_hits{/yun}
+							{yun:}/if{/yun} </span>
+					</div>
+				</div>
+			</div>
+
+			<div class="con_form">
+				
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+				<form class="layui-form" name="myform" target="supportiframe" action="index.php?m=user_member&c=editSave" method="post" onsubmit="return ckForm()" enctype="multipart/form-data" id="userform">
+					
+					<table width="100%" class="table_form table_form_thr" style="background:#fff;">
+						<tr>
+							<th>姓名：</th>
+							<td>
+								<div class="layui-input-inline t_w480">
+									<input name="name" id="name" type="text" maxlength="50" class="layui-input" value="{yun:}$row.name{/yun}" placeholder="请输入姓名"/>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>性别：</th>
+							<td>
+								<div class="layui-input-inline t_w480">
+									<select name="sex" lay-filter="sex" id="sex">
+										<option>请选择</option>
+										{yun:}foreach from=$user_sex item=v key=j{/yun}
+										<option value="{yun:}$j{/yun}" {yun:}if $row.sex==$j{/yun} selected {yun:}/if{/yun}> {yun:}$v{/yun} </option>
+										 {yun:}/foreach{/yun} 
+									</select> 
+								</div> 
+							</td> 
+						</tr> 
+						
+						<tr>
+							<th>出生年月：</th>
+							<td>
+								<input name="birthday" id="birthday" type="text" maxlength="50" value="{yun:}$row.birthday{/yun}" class="layui-input t_w480"  placeholder="请输入出生日期"/>
+							</td>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th>工作经验：</th>
+							<td>
+								<div class="layui-input-inline t_w480">
+									<select name="exp" id="exp" lay-filter="exp">
+										<option>请选择</option>
+										{yun:}foreach from=$userdata.user_word item=v{/yun}
+										<option value="{yun:}$v{/yun}" {yun:}if $row.exp==$v{/yun} selected {yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}
+										 </option> {yun:}/foreach{/yun} 
+									</select> 
+								</div> 
+							</td> 
+						</tr> 
+						
+						<tr>
+							<th>教育程度：</th>
+							<td>
+								<div class="layui-input-block">
+									<div class="layui-input-inline t_w480">
+										<select name="edu" id="edu" lay-filter="edu">
+											<option>请选择</option>
+											{yun:}foreach from=$userdata.user_edu item=v{/yun}
+											<option value="{yun:}$v{/yun}" {yun:}if $row.edu==$v{/yun} selected {yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}
+											</option> {yun:}/foreach{/yun} 
+										</select> 
+									</div> 
+								</div> 
+							</td> 
+						</tr> 
+						<tr class="admin_table_trbg">
+							<th>联系手机：</th>
+							<td>
+								<input type="text" value="{yun:}$member.moblie{/yun}" name="moblie" id="moblie" class="layui-input t_w480" placeholder="请输入手机号码">
+								<font color="gray"></font>
+							</td>
+						</tr>
+						<tr>
+							<th>E-mail：</th>
+							<td>
+								<input type="text" value="{yun:}$member.email{/yun}" name="email" id="email" class="layui-input t_w480" placeholder="请输入邮箱">
+								<font color="gray"></font>
+							</td>
+						</tr>
+						<tr>
+							<th>户籍所在地：</th>
+							<td>
+								<input name="domicile" id="domicile" type="text" class="layui-input t_w480" maxlength="255" size="40" value="{yun:}$row.domicile{/yun}"  placeholder="请输入户籍所在地"/>
+							</td>
+						</tr>
+						<tr>
+							<th>现居住地：</th>
+							<td>
+								<input name="living" id="living" type="text" class="layui-input t_w480" maxlength="255" size="40" value="{yun:}$row.living{/yun}"  placeholder="请输入现居住地"/>
+							</td>
+						</tr>
+						<tr>
+							<th>婚姻状况：</th>
+							<td>
+								<div class="layui-input-block">
+									<div class="layui-input-inline t_w480">
+										<select name="marriage" id="marriage" lay-filter="marriage">
+											<option>请选择</option>
+											{yun:}foreach from=$userdata.user_marriage item=v{/yun}
+											<option value="{yun:}$v{/yun}" {yun:}if $row.marriage==$v{/yun} selected {yun:}/if{/yun}>{yun:}$userclass_name[$v]{/yun}
+											</option> {yun:}/foreach{/yun} 
+										</select> 
+									</div> 
+								</div> 
+							</td> 
+						</tr> 
+						<tr>
+							<th>身高：</th>
+							<td>
+								<div class="layui-form-item" style="margin-bottom: 0;">
+									<div class="layui-input-inline t_w480">
+										<input type="text" name="height" id="height" class="layui-input" value="{yun:}$row.height{/yun}" size="10" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')"  placeholder="请输入身高"/>
+									</div>
+									<div class="layui-form-mid layui-word-aux">CM</div>
+								</div>
+							</td>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th>民族：</th>
+							<td>
+								<input type="text" name="nationality" id="nationality" class="layui-input t_w480" value="{yun:}$row.nationality{/yun}" size="15"  placeholder="请输入名族"/>
+							</td>
+						</tr>
+						<tr>
+							<th>体重：</th>
+							<td>
+								<div class="layui-form-item" style="margin-bottom: 0;">
+									<div class="layui-input-inline t_w480">
+										<input type="text" name="weight" id="weight" class="layui-input" value="{yun:}$row.weight{/yun}" size="12" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')"  placeholder="请输入体重"/>
+									 </div>
+									<div class="layui-form-mid layui-word-aux">KG</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>证件号码：</th>
+							<td>
+								<input name="idcard" id="idcard" type="text" size="30" class="layui-input t_w480" maxlength="20" value="{yun:}$row.idcard{/yun}" onKeyUp="this.value=this.value.replace(/[^0-9Xx.]/g,'')"  placeholder="请输入身份证号码"/>
+							</td>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th>详细地址：</th>
+							<td><input name="address" id="address" type="text" class="layui-input t_w480" maxlength="255" size="40" value="{yun:}$row.address{/yun}"  placeholder="请输入详细地址"/></td>
+						</tr>
+						<tr>
+							<th>个人主页/博客：</th>
+							<td><input name="homepage" type="text" class="layui-input t_w480" maxlength="255" size="40" value="{yun:}$row.homepage{/yun}"  placeholder="个人主页/博客地址"/></td>
+						</tr>
+						<tr class="admin_table_trbg">
+							<th>QQ：</th>
+							<td><input name="qq" type="text" class="layui-input t_w480" value="{yun:}$row.qq{/yun}"  placeholder="请输入QQ"/></td>
+						</tr>
+						<tr class="admin_table_trbg" style="margin-top: 12px;">
+							<th width="140" class="t_fr">个人二维码：</th>
+							<td>
+								
+								<div class="admin_uppicbox">
+									<input class="layui-upload-file" type="file" accept="" name="file">
+									<input type="hidden" id="laynoupload" value="1">
+								
+									<div class="admin_uppicimg">
+										<img id="ewm" class="none" src="{yun:}$row.wxewm{/yun}" width="140" height="140" {yun:}if !$row.wxewm{/yun}class="none"{yun:}/if{/yun}>
+									</div>
+								
+									<span>
+										<button type="button" class="noupload adminupbtn" lay-data="{imgid: 'ewm'}">重新上传</button>
+									</span>
+								</div>
+							</td> 
+						</tr> 
+						<tr class="admin_table_trbg" style="margin-top: 24px;">
+							<th>自我介绍：</th>
+							<td>
+								
+								<div class="layui-input-block t_w480">
+									<textarea name="description" id="description" class="layui-textarea" placeholder="请自我介绍下吧">{yun:}$row.description{/yun}</textarea>
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<th></th>
+							<td colspan="3">
+								<input type="hidden" name="uid" value="{yun:}$member.uid{/yun}" />
+								<input type="hidden" name="lasturl" value="{yun:}$lasturl{/yun}">
+								<input class="layui-btn tty_sub" type="submit" name="submit" value="&nbsp;修 改&nbsp;" />
+								<input class="layui-btn tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+				</form>
+				
+				<form action="index.php?m=user_member&c=saveUser" class="layui-form" style="display: none;" target="supportiframe" method="post" id="userform2" onsubmit="return ckUserForm();">
+					<table width="100%" class="table_form table_form_thr" style="background:#fff;">
+						<tr>
+							<th width="140">用户名：</th>
+							<td width="100%">
+								<div class="layui-input-inline t_w480">
+									<input type="text" value="{yun:}$member.username{/yun}" name="username" id="username" class="layui-input" placeholder="请输入用户名">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th width="140">登陆密码：</th>
+							<td width="100%">
+								<div class="layui-input-inline t_w480">
+									<input type="text" value="" name="password" class="layui-input" placeholder="请输入密码">
+								</div>
+								<span class="admin_web_tip">不修改请留空</span>
+							</td>
+						</tr>
+						<tr>
+							<th>状态：</th>
+							<td>
+								<div class="layui-input-block">
+									<div class="admin_examine_right">
+										<input lay-filter="status" name="status" {yun:}if $member.status=='1' {/yun}checked{yun:}/if{/yun} value="1" title="正常" type="radio" />
+										<input lay-filter="status" name="status" {yun:}if $member.status=='2' {/yun}checked{yun:}/if{/yun} value="2" title="锁定" type="radio" />
+									</div>
+								</div>
+								<font color="gray"></font>
+							</td>
+						</tr>
+
+						<tr  {yun:}if $member.status!='2'{/yun}style="display: none"{yun:}/if{/yun} id='lock_info'>
+							<th>锁定说明：</th>
+							<td>
+								<div class="layui-input-block">
+									<div class="admin_examine_right">
+										 <textarea name="lock_info" id="lockinfo" cols="70" rows="2" class="admin_comdit_textarea">{yun:}$member.lock_info{/yun}</textarea>
+									</div>
+								</div>
+								<font color="gray"></font>
+							</td>
+						</tr>
+
+						<tr>
+							<th></th>
+							<td colspan="3">
+								<input type="hidden" name="uid"  value="{yun:}$member.uid{/yun}" />
+								<input type="hidden" name="lasturl" value="{yun:}$lasturl{/yun}">
+								<input class="layui-btn tty_sub" type="submit" name="submit" value="&nbsp;修 改&nbsp;" />
+								<input class="layui-btn tty_cz" type="reset" name="reset" value="&nbsp;重 置 &nbsp;" />
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" name="pytoken" id="pytokens" value="{yun:}$pytoken{/yun}">
+				</form>
+				
+			</div>
+			
+			</div>
+		</div>
+
+		<script>
+			
+			var weburl = '{yun:}$config.sy_weburl{/yun}';
+			layui.use(['layer', 'form', 'laydate'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					laydate = layui.laydate,
+					$ = layui.$;
+
+				laydate.render({
+					elem: '#birthday',
+					max: '2018-12-31',
+					value: '{yun:}if $row.birthday{/yun}{yun:}$row.birthday{/yun}{yun:}else{/yun}1988-08-08{yun:}/if{/yun}'
+				});
+
+				form.on('radio(status)', function(data){
+					if(data.value==2){
+						$("#lock_info").show();
+					}else{
+						$("#lock_info").hide();
+					}
+				});
+			});
+
+			function ckForm() {
+				
+				var moblie = $.trim($("input[name='moblie']").val());
+				if (moblie && isjsMobile(moblie) == false) {
+					layer.msg('手机格式错误！', 2, 8);
+					return false;
+				}
+				
+				var email = $.trim($("input[name='email']").val());
+				if (email && check_email(email) == false) {
+					layer.msg('邮箱格式错误！', 2, 8);
+					return false;
+				}
+				
+				loadlayer();
+			}
+
+			function ckUserForm() {
+				
+				var username	=	$('#username').val();
+				if(username == ''){
+					layer.msg('请填写用户名！', 2, 8);
+					return false;
+				}
+
+				var status	=	$("input[name=status]:checked").val(),
+					lockInfo=	$("#lockinfo").val();
+				if(status == '2' && lockInfo == ''){
+					layer.msg('请填写锁定说明！', 2, 8);
+					return false;
+				}
+				loadlayer();
+			}
+
+		</script>
+
+		<script>
+			var ah2 = $(".tabs_info li")
+			var ap = $(".con_form form")
+			
+			for (var i = 0; i < ah2.length; i++) {
+			    ah2[i].index = i;
+				
+			    ah2[i].onclick = function () {
+			        for (var j = 0; j < ap.length; j++) {
+			            ap[j].style.display = "none"
+			        }
+			        ap[this.index].style.display = "block";
+			    }
+			}
+			ah2.each(function(){
+				
+				$(this).click(function(){
+					ah2.removeClass("curr")
+					$(this).addClass("curr")
+				})
+			})
+			 
+		</script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+	</body>
+</html>

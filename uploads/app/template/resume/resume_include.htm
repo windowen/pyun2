@@ -1,0 +1,156 @@
+<div id='job_box' class="none" style="float:left">
+    <div class="r_Interview" style="z-index:11">
+        <span class="Interview_span">面试职位</span>
+        <div class="Interview_text_box">
+            <input type="button" value="请选择面试职位" class="Interview_text_box_t" id="name" onClick="search_show('job_name');" />
+            <input type="hidden" id="nameid" name="name" value='' />
+            <div class="Interview_text_box_list none" id="job_name">
+                <ul>
+                    {yun:}foreach from=$company_job key=j item=v{/yun}
+                    <li>
+                        <a href="javascript:;" onclick="selecteInviteJob('{yun:}$v.id{/yun}', 'name', '{yun:}$v.name{/yun}','{yun:}$v.link_man{/yun}','{yun:}$v.link_moblie{/yun}','{yun:}$v.address{/yun}');">{yun:}$v.name{/yun}</a>
+                    </li>
+                    {yun:}/foreach{/yun}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--切换使用模板-->
+    {yun:}if !empty($ymlist){/yun}
+    <div class="r_Interview" style="z-index:10">
+        <span class="Interview_span">选择面试模板</span>
+        <div class="Interview_text_box">
+            <input type="button" value="请选择面试模板" class="Interview_text_box_t" id="mbname" onClick="search_show('mb_name');" />
+            <input type="hidden" id="ymid" name="ymid" value='' />
+            <div class="Interview_text_box_list none" id="mb_name">
+                <ul>
+                    {yun:}foreach from=$ymlist key=yk item=yv{/yun}
+                    <li>
+                        <a href="javascript:;" onclick="selecteYqmb('{yun:}$yv.linkman{/yun}','{yun:}$yv.linktel{/yun}', '{yun:}$yv.address{/yun}','{yun:}$yv.intertime{/yun}','{yun:}$yv.content{/yun}','{yun:}$yv.name{/yun}','{yun:}$yv.id{/yun}');">{yun:}$yv.name{/yun}</a>
+                    </li>
+                    {yun:}/foreach{/yun}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {yun:}/if{/yun}
+    <div class="r_Interview" style="z-index:9"><span class="Interview_span">联系人</span><input size='5' id='linkman' value='' class="Interview_text" /></div>
+    <div class="r_Interview"><span class="Interview_span">联系电话</span><input size='19' id='linktel' value='' class="Interview_text" /></div>
+    <div class="r_Interview"><span class="Interview_span">面试时间</span><input size='40' id='intertime' value='' class="Interview_text" placeholder="请选择面试时间" /></div>
+    <div class="r_Interview"><span class="Interview_span">面试地址</span><input size='40' id='address' value='' class="Interview_text" /></div>
+    <div class="r_Interview"><span class="Interview_span">面试备注</span><textarea id="content" cols="40" rows="5" class="Interview_textarea_text"></textarea></div>
+    
+    <div id="ymctrl" class="r_Interview {yun:}if !$ymcan{/yun}none{yun:}/if{/yun}">
+        <form  method="post" action=""  class="layui-form">
+            <input type="checkbox" id="save_yqmb" name="save_yqmb" title="保存面试模板"  value="1" lay-filter="save_yqmb" lay-skin="primary" />
+        </form>
+    </div>  
+    
+    <div class="r_Interview " style="padding-bottom:20px;"><span class="Interview_span">&nbsp;</span>
+        <input type="hidden" value="{yun:}$Info.uid{/yun}" id="uid" />
+		{yun:}if $uid{/yun}
+        <input type="hidden" id="username" value="{yun:}$Info.name{/yun}" />
+		{yun:}/if{/yun}
+        <input class="resume_sub_yq" id="click_invite" type="button" value="邀请面试" />
+    </div>
+</div>
+
+<div id="talent_pool_beizhu" class="none">
+    <div class="resume_beizu" style="margin-left:18px; margin-top:18px;">
+        <textarea id="remark" cols="40" rows="5" class="resume_beizu_text" style="width:340px;height:90px;border:1px solid #ddd"></textarea>
+    </div>
+    <div style="text-align:center; padding:10px 0;">
+        <input type="button" value="保存" onClick="talent_pool('{yun:}$Info.uid{/yun}','{yun:}$Info.id{/yun}','{yun:}url m=ajax c=talent_pool{/yun}')" class="resume_beizu_bth" />
+    </div>
+</div>
+
+<script>
+    var ymcan = '{yun:}$ymcan{/yun}';
+    
+    function selecteYqmb(man,tel,address,intertime,content,name,id){
+        
+        $("#ymid").val(id);
+        $("#linkman").val(man);
+        $("#linktel").val(tel);
+        $("#address").val(address);
+        $("#content").val(content);
+        $("#intertime").val(intertime);
+        $('#mbname').val(name);
+
+        
+        $('#ymctrl').removeClass('none');
+        $('#save_yqmb').attr('title','更新面试模板')
+
+        $('#save_yqmb').prop("checked", false);
+        
+        layui.use(['form', 'layer'], function() {
+            var $ = layui.$,
+                form = layui.form,
+                layer = layui.layer;
+            form.render();
+
+        });
+
+        $("#mb_name").hide();
+    }
+    function search_show(id) {
+        $("#" + id).show();
+    }
+    function selecteInviteJob(id, type, name, man, tel, address) {
+        $("#job_" + type).hide();
+        $("#" + type).val(name);
+        $("#" + type + "id").val(id);
+        if(man && tel){
+            $("#linkman").val(man);
+            $("#linktel").val(tel);
+            $("#address").val(address);
+        }
+    }
+    
+	$(function(){
+		$('body').click(function(evt) {
+            if($(evt.target).parents("#name").length == 0 && evt.target.id != "name") {
+                $('#job_name').hide();
+            }
+            if($(evt.target).parents("#mbname").length == 0 && evt.target.id != "mbname") {
+                $("#mb_name").hide();
+            }
+        });
+        layui.use(['form','laydate'], function() {
+            var $ = layui.$,
+                form = layui.form,
+                laydate = layui.laydate;
+            
+            laydate.render({
+                elem: '#intertime',
+                type: 'datetime',
+                format: 'yyyy-MM-dd HH:mm:ss'
+            });
+
+        });
+	})
+    var height = "300px";
+    function onResume_invite() {
+        $.layer({
+            type: 1,
+            title: '邀请面试',
+            closeBtn: [0, true],
+            border: [10, 0.3, '#000', true],
+            area: ['480px', height],
+            page: {
+                dom: '#invite_server'
+            }
+        });
+    }
+ 
+	$(function(){
+		'{yun:}if $usertype==2 || $usertype==3{/yun}'
+			var eid = '{yun:}$eid{/yun}';
+			$.post('index.php?m=resume&c=show&a=history',{eid:eid},function(data){
+				if(data){
+					return true;			
+				}
+			})
+		'{yun:}/if{/yun}'
+	}); 
+</script>

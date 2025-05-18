@@ -1,0 +1,1366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<!--[if IE 6]>
+	<script src="./js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script>
+		DD_belatedPNG.fix('.png,.admin_infoboxp_tj,');
+	</script>
+	<![endif]-->
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script type="text/javascript" src="js/admin_public.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script type="text/javascript" src="js/show_pub.js?v={yun:}$config.cachecode{/yun}"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<title>后台管理</title>
+</head>
+
+<body class="body_ifm">
+
+	<!--管理弹出框-->
+	<div id="manage" class="" style="display:none;">
+		<div class="admin_comtck_box">
+			<div class="admin_comtck_hd">
+				<div class="comtck_hd_name">
+					<span class="name"  id="m_name"></span>
+					<div class="comtck_hd_btn">
+						<a href="" class="b1" id="m_center" target="_blank">企业中心</a>
+						<a href="" class="b2" id="m_home" target="_blank">预览主页</a>
+					</div>
+				</div>
+				<div class="comtck_hd_userInfo">
+					<span>用户名：<em id="m_username"></em></span>
+					<span>用户ID：<em id="m_comid"></em></span>
+					<span>IP：<em id="m_regip"></em></span>
+				</div>
+			</div>
+			
+			<div class="admin_comtck_md">
+				<ul class="comtck_md_list">
+					<li><a href="javascript:void(0)" id="m_integral"><div id="m_integral_num">10</div><span>积分管理</span></a></li>
+					<li><a href="javascript:void(0)" id="m_order"><div id="m_order_num">10</div><span>充值订单</span></a></li>
+					<li><a href="javascript:void(0)" id="m_down"><div id="m_down_num">10</div><span>下载简历</span></a></li>
+					<li><a href="javascript:void(0)" id="m_apply"><div id="m_apply_num">10</div><span>收到简历</span></a></li>
+					<li><a href="javascript:void(0)" id="m_invite"><div id="m_invite_num">10</div><span>面试邀请</span></a></li>
+					<li><a href="javascript:void(0)" id="m_job"><div id="m_job_num">10</div><span>职位管理</span></a></li>
+					<li><a href="javascript:void(0)" id="m_show"><div id="m_show_num">10</div><span>企业环境</span></a></li>
+				</ul>
+				<div class="comtck_md_gn">
+					<a href="javascript:;" id="m_tongji"><i class="comtck_md_i1"></i>招聘效果</a>
+					<a href="javascript:;" id="m_whb"><i class="comtck_md_i2"></i>微海报</a>
+					<a href="javascript:;" id="m_comtpl"><i class="comtck_md_i3"></i>企业模板</a>
+					<a href="javascript:;" id="m_sendmsg"><i class="comtck_md_i4"></i>发短信</a>
+					<a href="javascript:;" id="m_sendemail" style="margin-right: 0;"><i class="comtck_md_i5"></i>发邮件</a>
+				</div>
+			</div>
+			
+			<div class="com_telbox">
+				<span class="com_tel"><em id="m_linkman"></em></span>
+				<span class="com_tel"><em id="m_linktel"></em> </span>
+              	<span class="com_tel"><em id="m_phone"></em> </span>
+              	<span class="com_tel"><em id="m_email"></em> </span>
+                <span class="com_tel">企业顾问：<em id="m_adviser"></em></span>
+			</div>
+		</div>
+	</div>
+   	<!--管理弹出框 end-->
+    
+    <!-- 邮箱认证弹出框 -->
+	<div id="renemail" style="display:none;text-align:center; ">
+       	<div class="mt10">
+			<form class="layui-form" action="index.php?m=admin_company&c=emaillock" target="supportiframe" method="post" autocomplete="off">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+           			 <tr>
+						<th width="80">邮箱：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input type="text" id="comemail" class="tty_input t_w200" name="comemail" value="">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th width="80">认证操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="estatus" id="estatus0"  value="0" title="待认证" type="radio" /> 
+								<input name="estatus" id="estatus1"  value="1" title="已认证" type="radio" /> 
+							</div>
+						</td>
+					</tr>
+	
+					<tr>
+						<td colspan='2' align="center">
+							<input type="submit" onclick="loadlayer();" value='确认' class="admin_examine_bth">
+							<input type="button" class="admin_examine_bth_qx closebutton" value='取消'>
+						</td>
+					</tr>
+				</table>
+				
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<input type="hidden" name="uid" id="uid" value="0" >
+			</form>
+		</div>
+	</div>
+	<!-- 邮箱认证弹出框END -->
+	
+	<!--手机认证弹出框-->
+	<div id="renphone" style="display:none;text-align:center; ">
+		<div class="mt10">
+		 	<form class="layui-form" action="index.php?m=admin_company&c=phonelock" target="supportiframe" method="post" autocomplete="off">
+			 	<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+				 	<tr>
+					 	<th width="80">手机号码：</th>
+					 	<td align="left">
+							<div class="layui-input-block">
+								<input type="text" class="tty_input t_w200" id="comlinktel" name="comlinktel" value="">
+							</div>
+					 	</td>
+				 	</tr>
+				 	<tr>
+						<th width="80">认证操作：</th>
+					 	<td align="left">
+							<div class="layui-input-block">
+								<input name="mstatus" id="pstatus0"  value="0" title="待认证" type="radio" /> 
+								<input name="mstatus" id="pstatus1"  value="1" title="已认证" type="radio" /> 
+							</div>
+					 	</td>
+				 	</tr>
+ 
+					<tr>
+						<td colspan='2' align="center">
+							<input type="submit" onclick="loadlayer();" value='确认' class="admin_examine_bth">
+							<input type="button" class="admin_examine_bth_qx closebutton" value='取消'>
+						</td>
+					</tr>
+			 	</table>
+			 
+			 	<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+			 	<input type="hidden" name="uid" id="phoneuid" value="0" >
+		 	</form>
+	 	</div>
+	</div>
+   	<!-- 手机认证end -->
+   	
+   	<!-- 证书认证弹出框 -->
+   	<div id="preview" style="display:none;">
+     	<div>
+ 			<form class="layui-form" name="formstatus" action="index.php?m=admin_company&c=comStatus" target="supportiframe" method="post" onsubmit="return tcdiv();">
+            	
+            	<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+
+          		<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+                	<tr>
+                   		<th>公司名称：</th>
+                       	<td align="left"><span id="comname"></span></td>
+                   	</tr>
+               		<tr>
+	                	<th class="t_fr">认证图片：</th>
+	                 	<td align="left">
+	                		<div class="job_box_div" style="float:left;border:1px solid #eee;"></div>
+							<a target="_blank" href="" id='preview_url' style="line-height:70px; padding-left:10px;">查看原图</a>
+							<a id="zwyyzz" style="line-height:70px; padding-left:10px;display: none">暂无营业执照</a>
+	                  	</td>
+	               	</tr>
+                	<tr>
+                  		<th width="80">审核操作：</th>
+                 		<td align="left">
+							<div class="layui-input-block">
+								<input name="r_status" id="comstatus1" value="1" title="正常" type="radio" />
+								<input name="r_status" id="comstatus3" value="3" title="未通过" type="radio" />
+							</div>
+                     	</td>
+                  	</tr> 
+               		{yun:}if $config.com_free_status=='1'{/yun}
+                  		<tr>
+                        	<th width="80">同步操作：</th>
+                        	<td align="left">
+								<div class="layui-input-block">
+									<input name="job_status" value="1" title="审核" type="checkbox" />
+									【说明：所有未审核职位同步审核成功】
+								</div>
+                        	</td>
+                   		</tr>
+                	{yun:}/if{/yun}
+
+                   	<tr>
+                       	<th class="t_fr">审核说明：</th>
+                       	<td align="left"><textarea id="renzhencontent" name="statusbody" class="admin_explain_textarea"></textarea></td>
+                   	</tr>
+                   	<tr>
+                    	<td colspan='2' align="center">
+                           	<div class=""> <input type="submit" value='确认' class="admin_examine_bth"> <input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'></div>
+                       	</td>
+                   	</tr>
+            	</table>
+        		<input name="noyyzz" id="noyyzz" value="" type="hidden">
+             	<input name="uid" id="comuid" value="0" type="hidden">
+      		</form>
+
+       	</div>
+	</div>
+	<!-- 证书认证弹出框end -->
+	
+	<!-- 批量认证 -->
+	<div id="batchrezhen" style="display:none;width:360px ">
+		<div style="overflow:auto;width:360px;">
+			<form class="layui-form" action="index.php?m=admin_company&c=batchfirm" target="supportiframe" method="post">
+				<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+					<tr>
+						<th width="80">认证类型：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="comname_email" title="邮箱" type="checkbox" lay-skin="primary"/>
+								<input name="comname_moblie" title="手机" type="checkbox" lay-skin="primary"/>
+								<input name="comname_yyzz" title="营业执照" type="checkbox" lay-skin="primary"/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th width="80">认证操作：</th>
+						<td align="left">
+							<div class="layui-input-block">
+								<input name="plstatus" id="batchstatis0" value="0" title="待认证" type="radio" />
+								<input name="plstatus" id="batchstatis1" value="1" title="已认证" type="radio" />
+							</div>
+						</td>
+					</tr>
+	
+					<tr>
+						<td colspan='2' align="center">
+							<div class="admin_Operating_sub">
+								<input type="submit" onclick="loadlayer();" value='确认' class="admin_examine_bth">
+								<input type="button" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'></div>
+						</td>
+					</tr>
+				</table>
+				<input name="uid" id="btachuid" value="0" type="hidden">
+				<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+			</form>
+		</div>
+	</div>
+	<!-- 批量认证End -->
+	
+	<div id="export" style="display:none;">
+       	<div style=" margin-top:10px;">
+           	<div>
+               	<form action="index.php?m=admin_company&c=xls" target="supportiframe" method="post" class="myform">
+                   	<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+					<input name="uid" value="0" type="hidden">
+                   	
+                   	<div class="admin_resume_dc">
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="uid"> 企业UID</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="name"> 企业名称</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="hy"> 从事行业</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="pr"> 企业性质</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="rating"> 会员等级</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="provinceid"> 省</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="cityid"> 市</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="mun"> 规模</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="sdate"> 创办时间</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="money"> 注册资金</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="address"> 公司地址</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="linkman"> 联系人</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="linkjob"> 所属职位</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="linkqq"> 联系QQ</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="linkphone"> 固定电话</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="linktel"> 联系手机</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="linkmail"> 邮件</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="website"> 网址</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="rec"> 知名企业</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="lastdate"> 更新时间</span></label>
+                       	<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" name="type[]" value="vip_stime">会员开始时间</span></label>
+                  		<label><span class="admin_resume_dc_s"><input type="checkbox" class="type" id="xlsAllCheck" onclick="xlsAll(this.form)"> 全选</span></label>
+                       	
+                   	</div>
+					
+					<div class="admin_resume_dc_p" style=" padding:10px 0;">
+                   		<span class="admin_resume_dc_n">导出数量：</span>
+                   		<input name='limit' type='text' class="admin_resume_dc_ntext">
+                   		<span class="admin_web_tip admin_resume_dc_tip">数字太大会导致运行缓慢，请慎重填写。</span>
+                   	</div>
+                   	
+                   	<div class="admin_resume_dc_sub" style="margin-top:10px;">
+                       	<input type="button" onClick="check_xls();" value='确认' class="admin_resume_dc_bth1">
+                       	<input type="button" onClick="layer.closeAll();" class="admin_resume_dc_bth2" value='取消'>
+                   	</div>
+               	</form>
+           	</div>
+       	</div>
+   	</div>
+   	
+	{yun:}include file="$adminstyle/member_send_email.htm"{/yun}
+	<div id="comrating" style="display: none;">
+		<div style="width: 710px;">
+			<form class="layui-form" action="index.php?m=admin_company&c=uprating" target="supportiframe" method="post">
+				<table cellspacing='1' cellpadding='1' class="table_form contentWrap" width="100%" style="border-spacing: 5px 18px;margin: 0;">
+					<tr>
+						<th align="right">会员等级：</th>
+						<td align="left">
+							<div class="layui-input-block" style="width: 162px;">
+								<select name="rating" id="ratingid" lay-filter="rating">
+									{yun:}foreach from = $ratingarr key=key item=ratlist{/yun}
+										<option value="{yun:}$key{/yun}">{yun:}$ratlist{/yun}</option>
+									{yun:}/foreach{/yun}
+								</select>
+							</div>
+						</td>
+						<th align="right" class="comp_hotjob_line">账户{yun:}$config.integral_pricename{/yun}：</th>
+						<td>
+							<div class="admin_company_width220">
+								<input type="text" name="integral" id="integral" size="15" class="tty_input t_w150" value="" />
+							</div>
+						</td>
+					</tr>
+					<tr class="admin_table_trbg">
+						<th align="right">到期时间：</th>
+						<td>
+							<input type="text" name="vipetime" id="vipetime" lay-verify="required" autocomplete="off" class="tty_input t_w150 t_w150time">
+						</td>
+						<th align="right" class="comp_hotjob_line">企业推广：</th>
+						<td>
+							<input type="checkbox" name="hotjob" id="hotjob" title="设为名企" />
+						</td>
+					</tr>
+					<tr>
+						<th align="right">发布职位数：</th>
+						<td>
+							<input type="text" name="job_num" id="job_num" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />
+						</td>
+						<th align="right" class="comp_hotjob_line">刷新职位数：</th>
+						<td>
+							<input type="text" name="breakjob_num" id="breakjob_num" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />
+						</td>
+					</tr>
+					<tr class="admin_table_trbg">
+						<th align="right">剩余下载数：</th>
+						<td><input type="text" name="down_resume" id="down_resume" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" /></td>
+						<th align="right" class="comp_hotjob_line">邀请面试：</th>
+						<td><input type="text" name="invite_resume" id="invite_resume" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" /></td>
+					</tr>
+					<tr class="admin_table_trbg">
+						<th align="right">招聘会报名次数：</th>
+						<td><input type="text" name="zph_num" id="zph_num" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" /></td>
+						<th align="right" class="comp_hotjob_line">置顶天数：</th>
+						<td><input type="text" name="top_num" id="top_num" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" /></td>
+
+					</tr>
+					<tr>
+						<th align="right">紧急天数：</th>
+						<td>
+							<input type="text" name="urgent_num" id="urgent_num" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />
+						</td>
+						<th align="right" class="comp_hotjob_line">推荐天数：</th>
+						<td>
+							<input type="text" name="rec_num" id="rec_num" size="15" class="tty_input t_w150" onKeyUp="this.value=this.value.replace(/[^0-9]/g,'')" />
+						</td>
+					</tr>
+					
+					<tr>
+						<th align="center" colspan="4" style="text-align: center; border-right: 0px;">
+							<input type="submit" value='确认' class="admin_examine_bth" /> 
+							<input type="button" class="admin_examine_bth_qx closebutton" value='取消' />
+						</th>
+					</tr>
+				</table>
+				<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+				<input type="hidden" name="rating_name" id="rating_name" value="">
+				<input type="hidden" name="oldetime" id="oldetime" value="">
+				<input name="ratuid" id="ratuid" value="0" type="hidden">
+			</form>
+		</div>
+	</div>
+
+	<!-- 审核弹出框 -->
+	<div id="infobox2" style="display:none;">
+    	<form class="layui-form" action="index.php?m=admin_company&c=status" target="supportiframe" method="post" onsubmit="return htStatus()">
+           	<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+               	<tr>
+                   	<th width="80">审核操作：</th>
+                   	<td align="left">
+						<div class="layui-input-block">
+							<input name="status" id="status0" value="0" title="未审核" type="radio" />
+							<input name="status" id="status1" value="1" title="已审核" type="radio" />
+							<input name="status" id="status3" value="3" title="未通过" type="radio" />
+						</div>
+                   	</td>
+               	</tr>
+               	<tr>
+                   	<th class="t_fr">审核说明：</th>
+                   	<td align="left"><textarea id="statusbody" name="statusbody" class="admin_explain_textarea"></textarea></td>
+               	</tr>
+               	<tr>
+                   	<td colspan='2' align="center">
+                       	<input type="submit" value='确认' class="admin_examine_bth">
+                       	<input type="button" class="admin_examine_bth_qx closebutton" value='取消'>
+                   	</td>
+               	</tr>
+           	</table>
+           	<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+           	<input name="uid" value="0" type="hidden">
+       	</form>
+   	</div>
+	<!-- 审核弹出框End -->
+
+	<div id="deleS_div" style="display:none; width: 390px; ">
+    	<form class="layui-form" action="index.php?m=admin_company&c=del" target="supportiframe" method="post" onsubmit="return loadlayer();">
+           	<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+               	<tr>
+					<td align="center"> 
+						<input type="checkbox" value='1' name="delAccount" title="同步删除账号" lay-skin="primary" />
+					</td>
+				</tr>
+				<tr>
+					<td align="center"> 
+						<span class="admin_web_tip">勾选删除账号所有数据信息</span>
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2' align="center">
+						<input type="submit" value='确认' class="admin_examine_bth">
+						<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+					</td>
+				</tr>
+           	</table>
+           	<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+           	<input name="del" value="0" type="hidden">
+       	</form>
+   	</div>
+	
+   	<div class="infoboxp">
+   	
+	<div class="tty-tishi_top">
+       	<div class="tabs_info">
+           	<ul>
+               	<li {yun:}if $smarty.get.time!=5 && !$smarty.get.c{/yun}class="curr" {yun:}/if{/yun}>
+                   	<a href="index.php?m=admin_company">全部会员</a>
+               	</li>
+				<li {yun:}if $smarty.get.time==5 && !$smarty.get.c{/yun}class="curr" {yun:}/if{/yun}>
+                   	<a href="index.php?m=admin_company&time=5">过期会员</a>
+               	</li>
+               	<li {yun:}if $smarty.get.c{/yun}class="curr" {yun:}/if{/yun}>
+                   	<a href="index.php?m=user_member&c=writtenOffLog&utype=2" >解绑记录</a>
+               	</li>
+				<li {yun:}if $smarty.get.c{/yun}class="curr" {yun:}/if{/yun}>
+                   	<a href="index.php?m=admin_company&c=member_log">会员日志</a>
+               	</li>
+           	</ul>
+       	</div>
+
+
+         	
+       	<div class="clear"></div>
+         	
+   		<div class="admin_new_search_box">
+     			
+     		<div class="admin_new_search_name">搜索类型：</div>
+     			
+			<form action="index.php" name="myform" method="get">
+	
+				<input type="hidden" name="m" value="admin_company" />
+				<input type="hidden" name="status" value="{yun:}$smarty.get.status{/yun}" />
+				<input type="hidden" name="rec" value="{yun:}$smarty.get.rec{/yun}" />
+				<input type="hidden" name="time" value="{yun:}$smarty.get.time{/yun}" />
+				<input type="hidden" name="rating" value="{yun:}$smarty.get.rating{/yun}" />
+
+				<div class="admin_Filter_text formselect" did="dcom_type">
+					<input type="button" {yun:}if $smarty.get.type=='1' ||$smarty.get.type== '' {/yun} value="企业名称" {yun:}elseif $smarty.get.type== '2' {/yun} value="用户名称" {yun:}elseif $smarty.get.type== '3' {/yun} value="联系人" {yun:}elseif $smarty.get.type== '4' {/yun} value="联系电话" {yun:}elseif $smarty.get.type== '5' {/yun} value="用户邮箱" {yun:}elseif $smarty.get.type== '6' {/yun} value="用户ID" {yun:}/if{/yun} class="admin_new_select_text" id="bcom_type">
+
+					<input type="hidden" name="type" id="com_type" value="{yun:}if $smarty.get.type{/yun}{yun:}$smarty.get.type{/yun}{yun:}else{/yun}1{yun:}/if{/yun}" />
+					
+					<div class="admin_Filter_text_box" style='display: none' id="dcom_type">
+						<ul>
+							<li><a href="javascript:void(0)" onClick="formselect('1','com_type','企业名称')">企业名称</a></li>
+							<li><a href="javascript:void(0)" onClick="formselect('2','com_type','用户名称')">用户名称</a></li>
+							<li><a href="javascript:void(0)" onClick="formselect('3','com_type','联系人')">联系人</a></li>
+							<li><a href="javascript:void(0)" onClick="formselect('4','com_type','联系电话')">联系电话</a></li>
+							<li><a href="javascript:void(0)" onClick="formselect('5','com_type','用户邮箱')">用户邮箱</a></li>
+							<li><a href="javascript:void(0)" onClick="formselect('6','com_type','用户ID')">用户ID</a></li>
+						</ul>
+					</div>
+				</div>
+				<input type="text" placeholder="输入你要搜索的关键字" name="keyword" class="admin_new_text">
+				<input type="submit" name='news_search' value="搜索" class="admin_new_bth" />
+
+				<a href="javascript:void(0)" onclick="$('.admin_screenlist_box').toggle();" class="admin_new_search_gj">高级搜索</a>
+				<a href="index.php?m=admin_company&c=add" class="admin_new_cz_tj">+ 添加企业</a>
+			</form>
+	      	
+	      	{yun:}include file="admin/admin_search.htm"{/yun}
+	      	
+       	</div>
+        	
+		<div class="clear"></div>
+	</div>
+		
+	<div class="tty_table-bom">
+		<div class="admin_statistics">
+			<span class="tty_sjtj_color">数据统计：</span>
+			<em class="admin_statistics_s">总数：<span class="ajaxcompanyall">0</span></em>
+			<em class="admin_statistics_s">未审核：<span class="ajaxcompanystatus1">0</span></em>
+			<em class="admin_statistics_s">未通过：<span class="ajaxcompanystatus2">0</span></em>
+			<em class="admin_statistics_s">已锁定：<span class="ajaxcompanystatus3">0</span></em>
+			搜索结果：<span>{yun:}$total{/yun}</span>；
+		</div> 
+		   
+		<div class="clear"></div>
+		
+		<div class="table-list" style="color:#898989">
+			<div class="admin_table_border">
+				<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+				<form action="index.php" name="myform" method="get" id='myform' target="supportiframe">
+				
+					<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+					<input name="m" value="admin_company" type="hidden" />
+					<input name="c" value="del" type="hidden" />
+					<table width="100%">
+						<thead>
+							<tr class="admin_table_top">
+								<th style="width: 20px;">
+									<label for="chkall"><input type="checkbox" id='chkAll' onclick='CheckAll(this.form)' /></label>
+								</th>
+								<th>
+									{yun:}if $smarty.get.t=="uid" && $smarty.get.order=="asc"{/yun} 
+										<a href="{yun:}searchurl order=desc t=uid m=admin_company untype='order,t'{/yun}">用户ID<img	src="images/sanj.jpg" /></a> 
+									{yun:}else{/yun} 
+										<a href="{yun:}searchurl order=asc t=uid m=admin_company untype='order,t'{/yun}">用户ID<img src="images/sanj2.jpg" /></a> 
+									{yun:}/if{/yun}
+								</th>
+								<th align="left" width="150">用户</th>
+								<th align="left">等级/到期时间</th>
+								<th>认证</th>
+								<th align="left"> <div class="qyly">来源</div></th>
+								<th>登录/注册</th>
+								<th>职位数</th>
+								<th>设为名企</th>
+								<th>站点</th>
+								<th>企业顾问</th>
+								<th>审核</th>
+								<th width="130">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							{yun:}foreach item=v key=key from=$rows{/yun}
+								<tr align="center" {yun:}if ($key+1)%2=='0' {/yun}class="admin_com_td_bg"{yun:}/if{/yun} id="list{yun:}$v.uid{/yun}">
+									<td><input type="checkbox" value="{yun:}$v.uid{/yun}" class="check_all" name='del[]' onclick='unselectall()' rel="del_chk" /></td>
+									<td align="left" class="td1" style="text-align: center;">
+										<span>{yun:}$v.uid{/yun}</span>
+										
+									</td>
+									<td align="left">
+										<div class="">
+											<a href="{yun:}url m=company c=show id=$v.uid{/yun}" target="_blank" title="{yun:}$v.name{/yun} {yun:}if $v.shortname{/yun}【简称：{yun:}$v.shortname{/yun}】{yun:}/if{/yun}">
+												{yun:}$v.name|mb_substr:0:10:"utf-8"{/yun}
+												{yun:}if strlen($v.name)>10{/yun}...{yun:}/if{/yun} 
+												{yun:}if $v.shortname{/yun}【{yun:}$v.shortname{/yun}】{yun:}/if{/yun}
+											</a>
+										</div>
+										<div class="mt5">
+											<a href="javascript:void(0)" class="admin_com_name" onclick="toMember('index.php?m=admin_company&c=Imitate&uid={yun:}$v.uid{/yun}','{yun:}$v.usertype{/yun}')">{yun:}$v.username{/yun}</a>
+											{yun:}if $v.status==2{/yun} <img src="../config/ajax_img/suo.png" title="已锁定" width="15">{yun:}/if{/yun}
+										</div>
+									</td>
+	
+									<td align="left">
+										{yun:}if $today <= $v.vipetime || $v.vipetime=='0'{/yun}
+											{yun:}$v.rating_name{/yun} 
+										{yun:}else{/yun} 
+											<b style="color: red;"> 
+												{yun:}if $v.oldrating_name{/yun}
+													{yun:}$v.oldrating_name{/yun} 
+												{yun:}else{/yun}
+													{yun:}$v.rating_name{/yun}
+												{yun:}/if{/yun} 
+											</b> 
+										{yun:}/if{/yun} 
+										<a data-uid="{yun:}$v.uid{/yun}" href="javascript:void(0);" class="comrating"> 
+											<span class="admin_company_xg_icon">[修改]</span>
+										</a> 
+										{yun:}if $v.vipetime{/yun} 
+											{yun:}if $today <= $v.vipetime{/yun}
+												<div class="mt5">{yun:}$v.vipetime|date_format:"%Y-%m-%d"{/yun}</div>
+											{yun:}else{/yun}
+												<div class="mt5" style="color: red;">{yun:}$v.vipetime|date_format:"%Y-%m-%d"{/yun}</div>
+											{yun:}/if{/yun} 
+										{yun:}/if{/yun}
+									</td>
+									<td>
+										{yun:}if $v.email_status==1{/yun} 
+											<img src="../config/ajax_img/1-1.png"  title="邮箱已认证" data-status="{yun:}$v.email_status{/yun}" data-url="{yun:}$v.uid{/yun}"  data-mail="{yun:}$v.linkmail{/yun}"   data-name="{yun:}$v.name{/yun}" class="company_rzpng mt_email" width="20" height="20"> 
+										{yun:}else{/yun} 
+                    
+											<img src="../config/ajax_img/1-2.png"  title="邮箱未认证" data-status="{yun:}$v.email_status{/yun}" data-url="{yun:}$v.uid{/yun}"  data-mail="{yun:}$v.linkmail{/yun}"  data-name="{yun:}$v.name{/yun}"  class="company_rzpng mt_email" width="20" height="20"> 
+										{yun:}/if{/yun} 
+										
+										{yun:}if $v.moblie_status==1{/yun} 
+											<img src="../config/ajax_img/2-1.png" title="手机已认证" data-status="{yun:}$v.moblie_status{/yun}" data-url="{yun:}$v.uid{/yun}"  data-phone="{yun:}$v.linktel{/yun}"  data-name="{yun:}$v.name{/yun}"  class="company_rzpng  mt_phone" width="20" height="20">
+										{yun:}else{/yun} 
+											<img src="../config/ajax_img/2-2.png" title="手机未认证" data-status="{yun:}$v.moblie_status{/yun}" data-url="{yun:}$v.uid{/yun}"  data-phone="{yun:}$v.linktel{/yun}"  data-name="{yun:}$v.name{/yun}"  class="company_rzpng  mt_phone" width="20" height="20">
+										{yun:}/if{/yun}
+
+										{yun:}if $v.yyzz_status==1{/yun} 
+											<img src="../config/ajax_img/3-1.png" title="营业执照已认证" data-url="{yun:}$v.yyzzurl{/yun}" data-uid="{yun:}$v.uid{/yun}" data-name="{yun:}$v.name{/yun}" data-status="{yun:}$v.yyzz_status{/yun}" class="company_rzpng m_yyzz" width="20" height="20">
+										{yun:}else{/yun} 
+											<img src="../config/ajax_img/3-2.png" title="营业执照未认证" data-url="{yun:}$v.yyzzurl{/yun}" data-uid="{yun:}$v.uid{/yun}" data-name="{yun:}$v.name{/yun}" data-status="{yun:}$v.yyzz_status{/yun}" class="company_rzpng m_yyzz" width="20" height="20"> 
+										{yun:}/if{/yun}
+										
+									</td>
+									<td align="left">
+                                    <div class="qyly">
+									<div class="">{yun:}$source[$v.source]{/yun}</div>
+									<div>
+                                            {yun:}if $v.linktel{/yun}
+												<span class="admin_new_sj">{yun:}$v.linktel{/yun}</span> 
+												
+											
+											{yun:}elseif $v.linkphone{/yun}
+												<span class="admin_new_sj">{yun:}$v.linkphone{/yun}</span> 
+												
+											{yun:}/if{/yun}
+                                        </div>
+                                        <div>
+                                            {yun:}if $v.linkmail{/yun}
+												<span class="admin_new_yx">{yun:}$v.linkmail{/yun}</span> 
+												
+											{yun:}/if{/yun}
+                                        </div>  </div>
+									</td>
+									<td>
+										{yun:}if $v.login_date{/yun}
+											{yun:}$v.login_date|date_format:"%Y-%m-%d"{/yun}
+										{yun:}else{/yun} 
+											未登录
+										{yun:}/if{/yun}
+										<div class="">{yun:}$v.reg_date|date_format:"%Y-%m-%d"{/yun}</div>
+									</td>
+									
+									<td align="center">
+										<div>
+											{yun:}if $v.jobnum gt 0{/yun}{yun:}$v.jobnum{/yun}{yun:}else{/yun}<font color="red">0</font>{yun:}/if{/yun}个
+										</div>
+										<div>
+											<a href="index.php?m=admin_company_job&c=show&uid={yun:}$v.uid{/yun}" class="admin_cz_sc"><span class="admin_company_xg_icon">添加</span></a>
+										</div>
+									</td>
+									<td>
+										<div style="width: 94px;">
+											{yun:}if $v.hottime && $v.rec==1{/yun}
+												<div class="">
+													{yun:}if $v.hottime >= time(){/yun}
+														{yun:}$v.hottime|date_format:"%Y-%m-%d"{/yun}
+													{yun:}else{/yun} 
+														<font color='red'>{yun:}$v.hottime|date_format:"%Y-%m-%d"{/yun}</font>
+													{yun:}/if{/yun}
+												</div>
+												<a href="javascript:void(0);" onClick="showdiv3('{yun:}$v.uid{/yun}');" class="admin_cz_sc">
+													<span class="admin_company_xg_icon">修改</span>
+												</a>/ 
+												<a href="javascript:void(0);" onClick="layer_del('确定要取消该名企？','index.php?m=admin_hotjob&c=del&del={yun:}$v.uid{/yun}');" class="admin_cz_sc">
+													<span class="admin_company_xg_icon">取消</span>
+												</a>
+	
+											{yun:}else{/yun}
+												{yun:}if $v.name{/yun} 
+													<a href="javascript:void(0);" onClick="showdiv('{yun:}$v.uid{/yun}');" class="admin_cz_sc">
+													<span class="admin_company_xg_icon">设为名企</span></a> 
+												{yun:}else{/yun} 
+													<a href="javascript:void(0);" onClick="layer.msg('请先完善企业资料',2,8);" class="admin_cz_sc">
+													<span class="admin_company_xg_icon">设为名企</span></a> 
+												{yun:}/if{/yun}
+											{yun:}/if{/yun}
+										</div>
+									</td>
+	
+									<td>
+										<div>{yun:}$Dname[$v.did]{/yun}</div>
+										<div>
+											<a href="javascript:;" onclick="checksite('{yun:}$v.name{/yun}','{yun:}$v.uid{/yun}','index.php?m=admin_company&c=checksitedid');" class="admin_company_xg_icon">
+												<span class="admin_company_xg_icon">分配</span>
+											</a>
+										</div>
+									</td>
+									
+									<td align="center">
+										{yun:}if $v.crm_uid{/yun}
+											<div>{yun:}$v.crm_name{/yun}</div>
+											<div>
+												<a href="javascript:void(0);" onclick="checkguwen('{yun:}$v.username{/yun}','{yun:}$v.uid{/yun}','index.php?m=admin_company&c=checkguwen');" class="admin_company_xg_icon">
+													<span class="admin_company_xg_icon">分配</span>
+												</a>
+											</div> 
+										{yun:}else{/yun}
+											<div>未分配</div>
+											<div>
+												<a href="javascript:void(0);" onclick="checkguwen('{yun:}$v.username{/yun}','{yun:}$v.uid{/yun}','index.php?m=admin_company&c=checkguwen');" class="admin_company_xg_icon">
+													<span class="admin_company_xg_icon">分配</span>
+												</a>
+											</div> 
+										{yun:}/if{/yun}
+									</td>
+									
+									<td>
+										{yun:}if $v.r_status=='1'{/yun} 
+											<span class="admin_com_Audited">已审核</span> 
+										{yun:}elseif $v.r_status=='2'{/yun} 
+											<span class="admin_com_Lock">已锁定</span>
+										{yun:}elseif $v.r_status=='3'{/yun} 
+											<span class="admin_com_tg">未通过</span>
+										{yun:}else{/yun} 
+											<span class="admin_com_noAudited">未审核</span>
+										{yun:}/if{/yun} 
+										
+									</td>
+									
+									<td align="left">
+										<a href="javascript:void(0);" uid="{yun:}$v.uid{/yun}" status="{yun:}$v.r_status{/yun}"  class="admin_new_c_bth admin_new_c_bthsh status" title="审核">审核</a>
+										<a href="index.php?m=admin_company&c=edit&id={yun:}$v.uid{/yun}&rating={yun:}$v.rating{/yun}" class="admin_new_c_bth" title="修改密码、信息、套餐">修改</a> 
+
+										<br> 
+										<a href="index.php?m=admin_company&c=member_log&uid={yun:}$v.uid{/yun}" class="admin_new_c_bth admin_new_c_rz mt5" title="查看企业操作记录">日志</a>
+
+
+										<a href="javascript:void(0);" class="admin_new_c_bth admin_new_c_bth_sc deleS" uid="{yun:}$v.uid{/yun}"  title="删除关于该企业所有记录">删除</a>
+										
+										
+										<br> 
+										<a href="javascript:void(0)" onClick="resetpw('{yun:}$v.username{/yun}','{yun:}$v.uid{/yun}');" class="admin_new_c_bth admin_new_c_mmcz mt5" title="重置密码为123456">密码</a> 
+										<a href="javascript:;" onclick="manage('{yun:}$v.uid{/yun}','{yun:}url m=company c=show id=$v.uid{/yun}')" class="admin_new_c_bth admin_new_c_bth_more  mt5" title="包括积分管理、订单记录、下载简历、收到简历、面试邀请、企业环境、企业模板、招聘分析、短信邮箱联系会员">更多</a>
+									</td>
+								</tr>
+							{yun:}/foreach{/yun}
+							<tr>
+								<td align="center"><label for="chkall2"><input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /></label></td>
+								<td colspan="12">
+									<label for="chkAll2">全选</label> 
+									<input class="admin_button" type="button" name="delsub" value="批量审核" onClick="audall();" /> 
+									
+									{yun:}if $email_promiss{/yun} 
+										<input class="admin_button" type="button" value="发邮件"	onclick="return confirm_email('确定发邮件吗？','email_div')" />
+									{yun:}/if{/yun} 
+									
+									{yun:}if $moblie_promiss{/yun} 
+										<input	class="admin_button" type="button" value="发信息" onclick="return confirm_email('确定发信息吗？','moblie_div')" />
+									{yun:}/if{/yun} 
+
+									<input class="admin_button" type="button" name="delsub" value="删除所选" onClick="return delUser('del[]')" />
+									
+									<input class="admin_button" type="button" name="delsub" value="导出" onClick="Export();" /> 
+									<input class="admin_button" type="button" name="delsub" value="批量选择分站" onClick="checksiteall('index.php?m=admin_company&c=checksitedid');" />
+									<input class="admin_button" type="button" name="delsub" value="批量分配顾问" onClick="checkguwenall('index.php?m=admin_company&c=checkguwen');" />
+									<input class="admin_button" type="button" name="delsub" value="批量认证" onclick="return batch('del[]')" />
+								</td>
+							</tr>
+							
+							{yun:}if $total > $config.sy_listnum {/yun}
+								<tr>
+									{yun:}if $pagenum==1{/yun}
+										<td colspan="3">从 1 到 {yun:}$config.sy_listnum {/yun} ，总共 {yun:}$total{/yun} 条</td> 
+									{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun}
+										<td colspan="3">从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到  {yun:}$pagenum * $config.sy_listnum{/yun} ，总共 {yun:}$total{/yun} 条</td> 
+									{yun:}else if $pagenum == $pages{/yun}
+										<td colspan="3">从 {yun:}($pagenum-1) * $config.sy_listnum + 1{/yun} 到 {yun:}$total{/yun} ，总共 {yun:}$total{/yun} 条</td>
+									{yun:}/if{/yun}
+									<td colspan="10" class="digg">{yun:}$pagenav{/yun}</td>
+								</tr>
+							{yun:}/if{/yun}
+						</tbody>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+	<script>
+		
+		$(document).ready(function() {
+			$('body').click(function(evt) {
+				if ($(evt.target).parents("#gw_name").length == 0 && evt.target.id != "gw_name") {
+					$('#gw_select').hide();
+				}
+			});
+		})
+		
+		/* 批量审核 */
+		function audall() {
+			var codewebarr = "";
+			
+			$(".check_all:checked").each(function() { 	
+				if (codewebarr == "") {
+					codewebarr = $(this).val();
+				} else {
+					codewebarr = codewebarr + "," + $(this).val();
+				}
+			});
+			
+			if (codewebarr == "") {
+				parent.layer.msg('您还未选择需要审核的用户！', 2, 8);
+				return false;
+			} else {
+				$("input[name=uid]").val(codewebarr);
+				$("#statusbody").val('');
+				$("input[name='status']").attr('checked', false);
+				$.layer({
+					type : 1,
+					title : '企业用户审核',
+					closeBtn : [ 0, true ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '410px', '240px' ],
+					page : {
+						dom : "#infobox2"
+					}
+				});
+			}
+		}
+
+		$(function() {
+			/* 审核操作 */
+			$(".status").click(function() {
+				var uid = $(this).attr("uid");
+				var status = $(this).attr("status");
+				if(status==2){
+					parent.layer.msg('当前用户为已锁定状态，无法进行审核操作', 2, 8);
+					return false;
+				}
+				$("input[name='status']").attr('checked', false);
+				$("#status" + status).attr("checked", true);
+				layui.use([ 'form' ], function() {
+					var form = layui.form;
+					form.render();
+				});
+				var pytoken = $("#pytoken").val();
+		
+				$("input[name=uid]").val(uid);
+				$.post("index.php?m=admin_company&c=lockinfo", {
+					uid : uid,
+					pytoken : pytoken
+				}, function(msg) {
+					$("#statusbody").val(msg);
+					$.layer({
+						type : 1,
+						title : '企业用户审核',
+						closeBtn : [ 0, true ],
+						border : [ 10, 0.3, '#000', true ],
+						area : [ '400px', '240px' ],
+						page : {
+							dom : "#infobox2"
+						}
+					});
+				});
+			});
+			/* 邮件认证 */
+			$(".mt_email").click(function(data){
+				var status = $(this).attr("data-status");
+				var uid    = $(this).attr("data-url");
+				var email  = $(this).attr("data-mail");
+				$('#comname').html(name);
+				$('#comemail').val(email);
+				$('#uid').val(uid);
+				$("#estatus" + status).attr("checked", true);
+				layui.use([ 'form' ], function() {
+					var form = layui.form;
+					form.render();
+				});
+				$.layer({
+					type : 1,
+					title : '邮箱认证',
+					closeBtn : [ 0, true ],
+					offset : [ '80px', '' ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '350px', '220px' ],
+					page : {
+						dom : '#renemail'
+					}
+				});
+			})
+			/* 手机认证 */
+			$(".mt_phone").click(function(data){
+			  var status   = 	$(this).attr("data-status");
+			  var uid      = 	$(this).attr("data-url");
+			  var linktel  = 	$(this).attr("data-phone");
+				$('#comlinktel').val(linktel);
+				 $('#phoneuid').val(uid);
+				$("#pstatus" + status).attr("checked", true);
+				layui.use([ 'form' ], function() {
+				  var form = layui.form;
+				  form.render();
+				});
+				$.layer({
+					type : 1,
+					title : '手机认证',
+					closeBtn : [ 0, true ],
+					offset : [ '80px', '' ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '350px', '220px' ],
+					page : {
+					  dom : '#renphone'
+					}
+				});
+			})
+
+			/* 营业执照 */
+			$(".m_yyzz").click( function() {
+              var url = $(this).attr("data-url");
+              var name = $(this).attr("data-name");
+              var status = $(this).attr("data-status");
+              var uid = $(this).attr("data-uid");
+              var pytoken = $('#pytoken').val();
+              $("#comname").html(name);
+              $("#comuid").val(uid);
+              $("#comstatus" + status).attr("checked", true);
+                layui.use([ 'form' ], function() {
+                    var form = layui.form;
+                    form.render();
+                });
+                $.post("index.php?m=comcert&c=sbody", {uid: uid,pytoken: pytoken}, function(msg) {
+                	$("#renzhencontent").val(msg);
+                });
+                $(".job_box_div").html("<img src='" + url + "' style='width:250px;height:100px' />");
+                if(url){
+                    $("#preview_url").attr("href",url);
+                    $("#zwyyzz").hide();
+                    $("#preview_url").show();
+                }else{
+                    $("#preview_url").hide();
+                    $("#noyyzz").val('1');
+                    $("#zwyyzz").show();
+                }
+				$.layer({
+					type : 1,
+					title : '查看图片',
+					closeBtn : [ 0, true ],
+					offset : [ '80px', '' ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '460px', 'auto' ],
+					page : {
+						dom : '#preview'
+					}
+				});
+			});
+			
+			/* 发短信 */
+			$("#m_sendmsg").click(function() {
+				var linktel = $('#m_linktel').val();
+				if (!linktel) {
+					parent.layer.msg('该企业未填写联系手机！', 2, 8);
+				} else {
+					send_moblie(linktel);
+				}
+			});
+			
+			/* 发邮件 */
+			$("#m_sendemail").click(function() {
+				var linkmail = $('#m_linkmail').val();
+				if (!linkmail) {
+					parent.layer.msg('该企业未填写联系邮箱！', 2, 8);
+				} else {
+					send_email(linkmail);
+				}
+			});
+			
+			/* 会员等级修改 */
+			$(".comrating").click(function() {
+				
+				var uid = $(this).attr("data-uid");
+				var pytoken = $("#pytoken").val();
+				$.post("index.php?m=admin_company&c=getstatis", {
+					uid : uid,
+					pytoken : pytoken
+				},function(data) {
+					if (data) {
+
+						var dataJson = eval("(" + data + ")");
+						
+						$('#top_num').val(dataJson.top_num);
+						$('#urgent_num').val(dataJson.urgent_num);
+						$('#rec_num').val(dataJson.rec_num);
+						$('#sons_num').val(dataJson.sons_num);
+						$('#job_num').val(dataJson.job_num);
+						$('#down_resume').val(dataJson.down_resume);
+						$('#invite_resume').val(dataJson.invite_resume);
+						$('#breakjob_num').val(dataJson.breakjob_num);
+						$('#zph_num').val(dataJson.zph_num);
+						$('#oldetime').val(dataJson.vip_etime);
+						$('#pay').val(dataJson.pay);
+						$('#integral').val(dataJson.integral);
+						$('#ratuid').val(uid);
+						$("#ratingid").val(dataJson.rating);
+
+						if(dataJson.hotjob==1){
+							$('#hotjob').prop("checked",true);
+						}else{
+							$('#hotjob').prop("checked",false);
+						}
+
+						layui.use(['laydate'], function() {
+							var laydate = layui.laydate;
+							laydate.render({
+								elem: '#vipetime',
+								min: dataJson.vip_setime*1000,
+								value:dataJson.vipetime,
+							});
+						});
+
+						var ratingname = $("#ratingid").find("option:selected").text();
+
+						$('#rating_name').val(ratingname);
+
+						layui.form.render();
+						$.layer({
+							type : 1,
+							title : '企业会员等级修改',
+							closeBtn : [ 0, true ],
+							border : [ 10, 0.3, '#000', true ],
+							area : [ '710px', 'auto' ],
+							offset : [ '20px', '' ],
+							page : {
+								dom : "#comrating"
+							}
+						});
+						
+					} else {
+						parent.layer.msg('用户信息获取失败！', 2, 8);
+						return false;
+					}
+				});
+			});
+			
+			/* 删除会员信息 */
+			$(".deleS").click(function() {
+
+				var uid = $(this).attr("uid");
+		   
+				layui.use(['form'], function() {
+					var form = layui.form;
+					form.render();
+				});
+
+				$("input[name=del]").val(uid);
+
+				$.layer({
+					type: 1,
+					title: '删除企业数据',
+					closeBtn: [0, true],
+					border: [10, 0.3, '#000', true],
+					area: ['390px', '240px'],
+					page: {
+						dom: "#deleS_div"
+					}
+				});
+
+			});
+		});
+		
+		/* 导出企业数据  */
+		function Export() {
+			var codewebarr = "";
+			$(".check_all:checked").each(function() { 	
+				if (codewebarr == "") {
+					codewebarr = $(this).val();
+				} else {
+					codewebarr = codewebarr + "," + $(this).val();
+				}
+			});
+			if (codewebarr != '') {
+				$("input[name=uid]").val(codewebarr);
+			}
+			add_class('选择导出字段', '650', '370', '#export', '');
+		}
+		
+		function check_xls() {
+			var type = "";
+			$(".type:checked").each(function() { 	
+				if (type == "") {
+					type = $(this).val();
+				} else {
+					type = type + "," + $(this).val();
+				}
+			});
+			if (type == "") {
+				layer.msg("请选择导出字段！", 2, 8);
+				return false;
+			}
+			setTimeout(function() {
+				$('.myform').submit()
+			}, 0);
+			layer.closeAll();
+		}
+
+		/* 在管理中重置密码 */
+		function resetpassword() {
+			var pytoken = $('#pytoken').val();
+			var resetpassword = $("#m_resetpassword").val(); //通过管理获取用户名称的值
+			var uid = $("#m_uid").val(); //通过管理获取用户名称的ID值
+			parent.layer.confirm("确定要重置密码？", function() { //重置程序
+				parent.layer.closeAll();
+				loadlayer();
+				$.get("index.php?m=admin_company&c=reset_companypassword&uid=" + uid + "&pytoken=" + pytoken, function(data) {
+					parent.layer.closeAll('loading');
+					parent.layer.alert("企业会员：" + resetpassword + "密码已经重置为123456！", 9);
+					return false;
+				});
+
+			});
+		}
+		function showDIVMore(url, title) {
+			layer.open({
+				type : 2,
+				title : title,
+				shadeClose : true,
+				shade : false,
+				maxmin : true, //开启最大化最小化按钮
+				area : [ '1100px', '495px' ],
+				content : url
+			});
+		}
+
+		function manage(comid, url) {
+			var pytoken = $("#pytoken").val();
+			$('#m_comid').html(comid);
+			$('#m_uid').val(comid);
+			$('#m_home').attr('href', url);
+			$('#m_taocan').attr('data-uid', comid);
+			$('#m_zengzhi').attr('data-uid', comid);
+			$('#m_center').attr('href', 'index.php?m=admin_company&c=Imitate&uid=' + comid);
+			$('#m_integral').attr('onclick', "showDIVMore('index.php?m=company_pay&comid=" + comid + "','积分管理')");
+			$('#m_order').attr('onclick', "showDIVMore('index.php?m=company_order&comid=" + comid + "','充值/订单')");
+			$('#m_apply').attr('onclick', "showDIVMore('index.php?m=admin_comlog&comid=" + comid + "','收到简历')");
+			$('#m_down').attr('onclick', "showDIVMore('index.php?m=admin_userlog&comid=" + comid + "','下载简历')");
+			$('#m_invite').attr( 'onclick', "showDIVMore('index.php?m=admin_comlog&c=useridmsg&comid=" + comid + "','面试邀请')");
+			$('#m_job').attr('onclick', "showDIVMore('index.php?m=admin_company_job&uid=" + comid + "','职位管理')");
+			$('#m_show').attr('onclick', "showDIVMore('index.php?m=admin_company_pic&c=show&comid="	+ comid + "','企业环境')");
+			$('#m_comtpl').attr('onclick',"showDIVMore('index.php?m=admin_company&c=mcomtpl&comid="	+ comid + "','企业模板')");
+			$('#m_memberlog').attr('href','index.php?m=admin_company&c=member_log&comid=' + comid);
+			
+			$('#m_tongji').attr('href',	'index.php?m=admin_company&c=Imitate&uid=' + comid	+ '&type=tongji');
+			$('#m_tongji').attr('target', '_blank');
+
+			$('#m_whb').attr('href','index.php?m=admin_company&c=mwhb&comid='+comid);
+
+			$('#m_addjob').attr('href',	'index.php?m=admin_company_job&c=show&uid=' + comid);
+			$('#sonMsgAId').attr('href', 'index.php?m=admin_company&c=child&com_id=' + comid)
+			var i = loadlayer();
+			$.post("index.php?m=admin_company&c=getinfo", {
+				comid : comid,
+				pytoken : pytoken
+			}, function(data) {
+				parent.layer.closeAll();
+				if (data) {
+					var comdata = eval("(" + data + ")");
+					if (comdata.name != "") {
+						$('#m_name').html(comdata.name);
+					} else {
+						$('#m_name').html("企业尚未完善资料");
+					}
+					$('#m_username').html(comdata.username);
+					if (comdata.linkman != "") {
+						$('#m_linkman').html("联系人：" + comdata.linkman + "&nbsp;&nbsp;");
+					} else {
+						$('#m_linkman').html("联系人：" + "暂未填写");
+					}
+					if (comdata.linktel != "") {
+						$('#m_linktel').html("手机：" + comdata.phone);
+					} else {
+						$('#m_linktel').html("手机：" + "暂未填写");
+					}
+					if (comdata.phone != "") {
+						$('#m_phone').html("电话：" + comdata.phone + "&nbsp;&nbsp;");
+					} else {
+						$('#m_phone').html("电话：" + "暂未填写");
+					}
+					if (comdata.linkmail != "") {
+						$('#m_email').html("邮箱：" + comdata.linkmail);
+					} else {
+						$('#m_email').html("邮箱：" + "暂未填写");
+					}
+					if (comdata.adviser != "") {
+						$('#m_adviser').html(comdata.adviser);
+					} else {
+						$('#m_adviser').html("该企业尚未分配顾问");
+					}
+					if (comdata.integralNum != "") {
+						$('#m_integral_num').html(comdata.integralNum);
+					}
+					if (comdata.orderNum != "") {
+						$('#m_order_num').html(comdata.orderNum);
+					}
+					if (comdata.downNum != "") {
+						$('#m_down_num').html(comdata.downNum);
+					}
+					if (comdata.applyNum != "") {
+						$('#m_apply_num').html(comdata.applyNum);
+					}
+					if (comdata.inviteNum != "") {
+						$('#m_invite_num').html(comdata.inviteNum);
+					}
+					if (comdata.showNum != "") {
+						$('#m_show_num').html(comdata.showNum);
+					}
+					if (comdata.jobNum != "") {
+						$('#m_job_num').html(comdata.jobNum);
+					}
+					if (comdata.sonsNum != "") {
+						$('#sonMsgId').html(comdata.sonsNum);
+					}
+
+					$('#m_status').val(comdata.status);
+					$('#m_regip').html(comdata.reg_ip);
+					$('#m_rating').val(comdata.rating);
+					$('#m_info').attr('href','index.php?m=admin_company&c=edit&id=' + comid+ '&rating=' + comdata.rating);
+					$('#m_password').attr('href','index.php?m=admin_company&c=edit&id=' + comid+ '&rating=' + comdata.rating);
+					$('#m_yyzzurl').val(comdata.yyzzurl);
+					$('#m_yyzz').attr('data-name', comdata.name);
+					$('#m_yyzz').attr('data-status', comdata.comyyzzstatus);
+					$('#m_linktel').val(comdata.linktel);
+					$('#m_linkmail').val(comdata.linkmail);
+					$('#m_user').val(comdata.username);
+					$('#m_resetpassword').val(comdata.username);
+
+					$.layer({
+						type : 1,
+						title : '企业管理',
+						closeBtn : [ 0, true ],
+						border : [ 10, 0.3, '#000', true ],
+						area : [ '610px', 'auto' ],
+						offset : [ '20px', '' ],
+						page : {
+							dom : "#manage"
+						}
+					});
+				}
+			});
+		}
+		
+  		layui.use(['layer', 'form'], function() {
+        	var layer = layui.layer,
+            	form = layui.form,
+            	$ = layui.$,
+            	url = "index.php?m=admin_company&c=getrating";
+
+           	var pytoken = $("#pytoken").val();
+			form.on('select(rating)', function(data) {
+               	$.post(url, {
+                   	id: data.value,
+					uid:$('#ratuid').val(),
+                   	pytoken: pytoken
+               	}, function(htm) {
+               		if(htm) {
+                       	var dataJson = eval("(" + htm + ")");
+						$('#top_num').val(dataJson.top_num);
+						$('#urgent_num').val(dataJson.urgent_num);
+						$('#rec_num').val(dataJson.rec_num);
+						$('#sons_num').val(dataJson.sons_num);
+                       	$('#job_num').val(dataJson.job_num);
+                       	$('#down_resume').val(dataJson.down_resume);
+                       	$('#invite_resume').val(dataJson.invite_resume);
+                       	$('#breakjob_num').val(dataJson.breakjob_num);
+                       	$('#zph_num').val(dataJson.zph_num);
+                       	$('#oldetime').val(dataJson.oldetime);
+                       	$('#rating_name').val(dataJson.rating_name);
+                       	$('#com_rating_val').val(dataJson.rating);
+
+						layui.use(['laydate'], function() {
+							var laydate = layui.laydate;
+							laydate.render({
+								elem: '#vipetime',
+								min: dataJson.oldetime*1000,
+								value:dataJson.vipetime,
+							});
+						});
+
+
+                   	} else {
+                       	parent.layer.msg('请选择会员等级',2,8);
+                   	}
+                   	form.render('select');
+               	});
+           	});
+		});
+		$(document).ready(function(){
+			$.get("index.php?m=admin_company&c=companyNum", function(data) {
+				var datas = eval('(' + data + ')');
+				if(datas.companyAllNum) {
+					$('.ajaxcompanyall').html(datas.companyAllNum);
+				}
+				if(datas.companyStatusNum1) {
+					$('.ajaxcompanystatus1').html(datas.companyStatusNum1);
+				}
+				if(datas.companyStatusNum2) {
+					$('.ajaxcompanystatus2').html(datas.companyStatusNum2);
+				}
+				if(datas.companyStatusNum3) {
+					$('.ajaxcompanystatus3').html(datas.companyStatusNum3);
+				}
+			});
+		});
+		function xlsAll(form){
+			for (var i=0;i<form.elements.length;i++){
+				var e = form.elements[i];
+				if (e.name == 'type[]' && e.disabled == false){
+					e.checked = form.xlsAllCheck.checked;
+				}
+			}
+			for (var i=0;i<form.elements.length;i++){
+				var e = form.elements[i];
+				if (e.name == 'rtype[]' && e.disabled == false){
+					e.checked = form.xlsAllCheck.checked;
+				}
+			}
+		}
+
+		//批量认证
+		function batch(name){
+			var chk_value =[];  
+		   
+			$('input[name="'+name+'"]:checked').each(function(){    
+				chk_value.push($(this).val());   
+			});  
+		
+			if(chk_value.length==0){
+				layer.msg("请选择要批量认证的数据！",2,8);return false;
+			}else{
+
+				$('#btachuid').val(chk_value);
+				$.layer({
+					type : 1,
+					title : '批量认证',
+					closeBtn : [ 0, true ],
+					offset : [ '80px', '' ],
+					border : [ 10, 0.3, '#000', true ],
+					area : [ '350px', '235px' ],
+					page : {
+						dom : '#batchrezhen'
+					}
+				}); 
+			}
+		}
+		function toMember(url, usertype){
+			if (usertype !='2'){
+				if(usertype == '0'){
+					parent.layer.confirm("该账户当前没有设置身份，以招聘者身份模拟进入可能导致部分功能无法正常使用，是否确认进入？", function() {
+						parent.layer.closeAll();
+						window.open(url);
+					});
+				}else{
+					if(usertype == '1'){
+						var u = '求职者';
+					}
+					parent.layer.confirm("该账户当前身份为"+u+"，以招聘者身份模拟进入可能导致部分功能无法正常使用，是否确认进入？", function() {
+						parent.layer.closeAll();
+						window.open(url);
+					});
+				}
+			}else{
+				window.open(url);
+			}
+		}
+	</script>
+
+	{yun:}include file="$adminstyle/checkdomain.htm"{/yun}
+	
+    </body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+
+	<body class="body_ifm">
+		<div class="infoboxp">
+			
+			<div class="tty-tishi_top">
+				
+			<div class="tabs_info">
+				<ul>
+					<li class="curr"><a href="index.php?m=admin_user_pic">个人头像</a></li>
+					<li><a href="index.php?m=admin_user_pic&c=show">作品案例</a></li>
+				</ul>
+			</div>	
+			
+			<div class="admin_new_search_box">
+				<div class="admin_new_search_name">搜索类型：</div>
+				<form action="index.php" name="myform" method="get">
+					<input type="hidden" name="m" value="admin_user_pic" />
+					<div class="admin_Filter_text formselect" did="dcom_type">
+						<input type="button" value="{yun:}if $smarty.get.type=='1' ||$smarty.get.type=='' {/yun} 个人姓名 {yun:}elseif $smarty.get.type=='2' {/yun} 用户ID {yun:}/if{/yun}" class="admin_new_select_text" id="bcom_type">
+						<input type="hidden" name="type" id="com_type" value="{yun:}if $smarty.get.type{/yun}{yun:}$smarty.get.type{/yun}{yun:}else{/yun}1{yun:}/if{/yun}" />
+			
+						<div class="admin_Filter_text_box" style="display:none" id="dcom_type">
+							<ul>
+								<li><a href="javascript:void(0)" onClick="formselect('1','com_type','个人姓名')">个人姓名</a></li>
+								<li><a href="javascript:void(0)" onClick="formselect('2','com_type','用户ID')">用户ID</a></li>
+							</ul>
+						</div>
+					</div>
+					<input type="text" placeholder="输入你要搜索的关键字" name="keyword" class="admin_new_text">
+					<input type="submit" name='news_search' value="搜索" class="admin_new_bth" />
+					<a href="javascript:void(0)" onclick="$('.admin_screenlist_box').toggle();" class="admin_new_search_gj">高级搜索</a>
+				</form>
+				{yun:}include file="admin/admin_search.htm"{/yun}
+			</div>
+			
+			<div class="clear"></div>
+			</div>
+
+			<div class="main_tag mt10">
+
+				
+
+				<div class="tag_box">
+					<div class="clear"></div>
+
+					<form action="index.php?m=admin_user_pic&c=delPhoto" target="supportiframe" name="myform" id='myform' method="post">
+						<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+						{yun:}foreach from=$rows item=list{/yun}
+						<div class="admin_zph_img">
+							<div class="admin_zph_img_box">
+								<div class="admin_com_img_box_img">
+									<img src="{yun:}$list.photo{/yun}" lay-src="{yun:}$list.photo{/yun}" id="pix{yun:}$list.uid{/yun}" width="140" height="140" >
+
+									<input type="checkbox" value="{yun:}$list.uid{/yun}" name='del[]' onclick='unselectall()' rel="del_chk" class="admin_com_img_checkbox check_all">
+
+									<div class="admin_zph_img_box_img_p" title="{yun:}$list.username_n{/yun}{yun:}if $list.photo_status=='0'{/yun}已审核{yun:}else if $list.photo_status=='1'{/yun}未审核{yun:}else if $list.photo_status=='2'{/yun}未通过{yun:}/if{/yun}">
+										{yun:}$list.username_n{/yun}
+										{yun:}if $list.photo_status=='0'{/yun}
+										<span>
+											<font color="#1bbe36">已审核</font>
+										</span>
+										{yun:}else if $list.photo_status=='1'{/yun}
+										<span>
+											<font color="#f00">未审核</font>
+										</span>
+										{yun:}else if $list.photo_status=='2'{/yun}
+										<span>
+											<font color="#f00"> 未通过</font>
+										</span>
+										{yun:}/if{/yun}
+									</div>
+								</div>
+
+								<div class="admin_zph_img_box_p">
+
+									<a href="javascript:void(0)" pid="{yun:}$list.uid{/yun}" status="{yun:}$list.photo_status{/yun}" class="admin_new_c_bth admin_new_c_bthsh status">审核</a>
+									<a href="javascript:addImg('{yun:}$list.uid{/yun}','{yun:}$list.name_n{/yun}')" class="admin_new_c_bth">修改</a>
+
+									<a href="javascript:void(0)" onClick="layer_del('确定要删除？', 'index.php?m=admin_user_pic&c=delPhoto&del={yun:}$list.uid{/yun}');" class="admin_new_c_bth admin_new_c_bth_sc">删除</a>
+								</div>
+							</div>
+						</div>
+						{yun:}/foreach{/yun}
+
+						<div class="clear"></div>
+
+						<div class="admin_com_img_box_digg">
+							<span class="admin_com_img_box_qx">
+								<input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)'><label for="chkAll2">全选</label>
+								<input type="button" name="delsub" onClick="return really('del[]')" value="批量删除" class="admin_button">
+								<input type="button" name="delsub" onClick="StatusAll();" value="批量审核" class="admin_button">
+							</span>
+						</div>
+
+						{yun:}if $total > 15 {/yun}
+						<div class="admin_com_img_box_digg">
+							{yun:}if $pagenum==1{/yun}
+							<span class="admin_com_img_box_qx"> 从 1 到 15 ，总共 {yun:}$total{/yun} 条</span>
+							{yun:}else if $pagenum > 1 && $pagenum < $pages{/yun} 
+							<span class="admin_com_img_box_qx"> 从 {yun:}($pagenum-1) * 15 + 1{/yun} 到 {yun:}$pagenum * 15{/yun} ，总共 {yun:}$total{/yun} 条</span>
+							{yun:}else if $pagenum == $pages{/yun}
+							<span class="admin_com_img_box_qx"> 从 {yun:}($pagenum-1) * 15 + 1{/yun} 到 {yun:}$total{/yun} ，总共{yun:}$total{/yun} 条</span>
+							{yun:}/if{/yun}
+							<div class="digg">{yun:}$pagenav{/yun}</div>
+						</div>
+						{yun:}/if{/yun}
+					</form>
+				</div>
+
+				<div class="clear"></div>
+				<div id="info_div" style="display:none; width: 390px;padding-bottom: 10px;">
+					<div class="">
+						<form class="layui-form" action="index.php?m=admin_user_pic&c=status" target="supportiframe" method="post" onsubmit="return htStatus()">
+							<input type="hidden" name="pytoken" value="{yun:}$pytoken{/yun}">
+							<input name="uid" value="0" type="hidden">
+							<table cellspacing='1' cellpadding='1' class="admin_examine_table">
+								<tr>
+									<th width="80">审核操作：</th>
+									<td align="left">
+										<div class="layui-input-block">
+											<input name="status" id="state0" value="0" title="正常" type="radio" />
+											<input name="status" id="state2" value="2" title="未通过" type="radio" />
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th class="t_fr">审核说明：</th>
+									<td align="left"> <textarea id="statusbody" name="statusbody" class="admin_explain_textarea"></textarea> </td>
+								</tr>
+								<tr>
+									<th></th>
+									<td>
+										<span class="admin_web_tip" style="padding-top: 0;">审核未通过将删除图片</span>
+									</td>
+								</tr>
+								
+								<tr>
+									<td colspan='2' align="center">
+										<input type="submit" value='确认' class="admin_examine_bth">
+										<input type="button" id="zxxCancelBtn" onClick="layer.closeAll();" class="admin_examine_bth_qx" value='取消'>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+
+				<div class="subnav" id="addImage" style="display:none">
+					<div class="">
+						<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
+						<form name="myform" target="supportiframe" action="index.php?m=admin_user_pic&c=savePhoto" method="post" encType="multipart/form-data" onsubmit="return ckform()">
+							<input type="hidden" name="pytoken" id="pytoken" value="{yun:}$pytoken{/yun}">
+
+							<div class="zph_tjlist">
+								<em class="zph_tjlist_s">姓名：</em>
+								<input class="layui-input" id="name" type="text" value="" disabled />
+							</div>
+							
+							
+							
+							<div class="zph_tjlist">
+								<em class="zph_tjlist_s">上传图片：</em>
+								
+								<div class="admin_uppicbox" style="width: 100px;height: 100px;">
+									<input type="hidden" id="laynoupload" value="1">
+								
+									<div class="admin_uppicimg" id="imgparent" class="none">
+										<img id="imgicon" width="100" height="100" />
+									</div>
+								
+									<span>
+										<button type="button" class="noupload adminupbtn"  lay-data="{imgid: 'imgicon',parentid: 'imgparent'}">重新上传</button>		
+									</span>
+								</div>
+								
+							</div>
+							
+							<div class="zph_tjlist tty_tc_botm">
+								<input type="hidden" name="id" value="" />
+								<input class="t_tanc_btn" type="submit" name="update" value="修改" style="margin-left:0px;">
+							</div>
+						</form>
+					</div>
+				</div>
+				<div id="preview" style="display:none; width:400px; ">
+					<div style="height:300px; overflow:auto; width:auto; ">
+						<div class="job_box_div" style="text-align:center;"></div>
+					</div>
+				</div>
+
+			</div>
+
+			<script>
+				layui.use(['layer'], function() {
+					var layer = layui.layer,
+						$ = layui.$;
+					layer.photos({
+					  photos: '#myform',
+					  anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+					}); 
+				});
+				var weburl = '{yun:}$config.sy_weburl{/yun}';
+				$(function() {
+					$(".status").click(function() {
+						$("input[name=pid]").val($(this).attr("pid"));
+						var uid = $(this).attr("pid");
+						var status = $(this).attr("status");
+
+						$("#state" + status).attr("checked", true);
+
+						layui.use(['form'], function() {
+							var form = layui.form;
+							form.render();
+						});
+						$("input[name=uid]").val(uid);
+						$.get("index.php?m=admin_user_pic&c=getStatusBody&uid=" + uid, function(msg) {
+							$("#statusbody").val($.trim(msg));
+							$.layer({
+								type: 1,
+								title: '个人头像审核',
+								closeBtn: [0, true],
+								border: [10, 0.3, '#000', true],
+								area: ['390px', 'auto'],
+								page: {
+									dom: "#info_div"
+								}
+							});
+						});
+					});
+				});
+				function ckform() {
+					if ($("input[name=id]").val() == '') {
+						var pic = $("input[name=pic]").val();
+						if (!pic) {
+							layer.msg('请上传图片！', 2, 8);
+							return false;
+						}
+					}
+					loadlayer();
+				}
+
+				function addImg(id, name) {
+					$("#name").val(name);
+					$("input[name=id]").val(id);
+					$.layer({
+						type: 1,
+						title: '修改个人头像',
+						closeBtn: [0, true],
+						border: [10, 0.3, '#000', true],
+						area: ['400px', '300px'],
+						page: {
+							dom: "#addImage"
+						}
+					});
+				}
+
+				function StatusAll() {
+					var codewebarr = "";
+					$(".check_all:checked").each(function() { //由于复选框一般选中的是多个,所以可以循环输出
+						if (codewebarr == "") {
+							codewebarr = $(this).val();
+						} else {
+							codewebarr = codewebarr + "," + $(this).val();
+						}
+					});
+					if (codewebarr == "") {
+						parent.layer.msg('您还未选择需要审核的头像！', 2, 8);
+						return false;
+					} else {
+						layui.use(['form'], function() {
+							var form = layui.form;
+							form.render();
+						});
+						$("input[name=uid]").val(codewebarr);
+						$("#statusbody").val('');
+						$("input[name='status']").attr('checked', false);
+
+						$.layer({
+							type: 1,
+							title: '个人头像审核',
+							closeBtn: [0, true],
+							border: [10, 0.3, '#000', true],
+							area: ['390px', 'auto'],
+							page: {
+								dom: "#info_div"
+							}
+						});
+					}
+				}
+			</script>
+			<script src="{yun:}$config.sy_weburl{/yun}/js/layui.upload.js?v={yun:}$config.cachecode{/yun}" type='text/javascript'></script>
+		</div>
+	</body>
+</html>

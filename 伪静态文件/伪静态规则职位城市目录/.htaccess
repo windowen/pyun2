@@ -1,0 +1,15 @@
+RewriteRule ^job/zp([0-9a-zA-Z]+)/$ job/index.php?c=search&ejob=$1 [L]
+RewriteRule ^job/([0-9a-zA-Z]+)/$ job/index.php?c=search&ecity=$1 [L]
+RewriteRule ^job/([0-9a-zA-Z]+)/zp([0-9a-zA-Z]+)/$ job/index.php?c=search&ecity=$1&ejob=$2 [L]
+
+RewriteRule ^job/zp([0-9a-zA-Z]+)/index.php?(.*)$ job/index.php?%{QUERY_STRING}&ejob=$1 [L]
+RewriteRule ^job/([0-9a-zA-Z]+)/index.php?(.*)$ job/index.php?%{QUERY_STRING}&ecity=$1 [L]
+RewriteRule ^job/([0-9a-zA-Z]+)/zp([0-9a-zA-Z]+)/index.php?(.*)$ job/index.php?%{QUERY_STRING}&ecity=$1&ejob=$2 [L]
+
+RewriteRule ^resume/qz([0-9a-zA-Z]+)/$ resume/index.php?c=search&ejob=$1 [L]
+RewriteRule ^resume/([0-9a-zA-Z]+)/$ resume/index.php?c=search&ecity=$1 [L]
+RewriteRule ^resume/([0-9a-zA-Z]+)/qz([0-9a-zA-Z]+)/$ resume/index.php?c=search&ecity=$1&ejob=$2 [L]
+
+RewriteRule ^resume/qz([0-9a-zA-Z]+)/index.php?(.*)$ resume/index.php?%{QUERY_STRING}&ejob=$1 [L]
+RewriteRule ^resume/([0-9a-zA-Z]+)/index.php?(.*)$ resume/index.php?%{QUERY_STRING}&ecity=$1 [L]
+RewriteRule ^resume/([0-9a-zA-Z]+)/qz([0-9a-zA-Z]+)/index.php?(.*)$ resume/index.php?%{QUERY_STRING}&ecity=$1&ejob=$2 [L]

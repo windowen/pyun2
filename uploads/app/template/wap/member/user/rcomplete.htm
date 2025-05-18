@@ -1,0 +1,63 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.picker.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.poppicker.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<style>
+    .layermbox {z-index: 10000000000}
+	.header_userbg{ background:#1178c3;}
+	.header_h1{color:#fff}
+	.header_top_l:after{content: ' ';width: 12px;height: 12px;border: #fff solid;-webkit-transform: rotate(-135deg);border-width: 1px 1px 0 0;display: inline-block;
+}
+.yun_footer{ display:none}
+</style>
+
+<!--有简历的情况-->
+<div class="yun_usermember_have" style="display:;">
+	<!--基础创建成功情况-->
+	<div class="basics_box">
+		<div class="rcomplete_gx">恭喜你 , 简历发布成功</div>
+<div class="rcomplete_ylbox">
+		<a href="{yun:}url m=wap c=resume a=show id=$smarty.get.eid{/yun}" class="rcomplete_yl">预览简历</a>
+		<a href="{yun:}url m=wap c=job{/yun}" class="rcomplete_yljob">开始找工作</a>
+		
+	</div>
+		</div>	
+
+     	
+    <div class="rcomplete_tjjob">
+    	<div>95%的人发布简历后都主动投递了职位!</div>
+    	<div>
+    		{yun:}foreach from=$list item=job{/yun}
+    		<a href="{yun:}url m=wap c=job a=comapply id=$job.id{/yun}">
+            <div class="rcomplete_tjjoblist">
+    			<div class="rcomplete_tjjobname">{yun:}$job.name{/yun}</div>
+    			<div>
+    				<span class="rcomplete_tjjobxz">{yun:}$job.job_salary{/yun}</span>
+                    <span class="rcomplete_tjjob_line">|</span>
+    				<span>{yun:}$job.job_exp{/yun}经验</span>
+                    <span class="rcomplete_tjjob_line">|</span>
+    				<span>{yun:}$job.job_edu{/yun}学历</span>
+    			</div>
+    			<div class="rcomplete_tjcomname">{yun:}$job.com_name{/yun}</div>
+                </div>
+    		</a>
+    		{yun:}/foreach{/yun}
+    	</div>
+    	<div class="rcomplete_tjmore"><a href="{yun:}url m=wap c=job{/yun}">查看更多职位></a></div>
+    </div>
+
+</div>
+
+
+<div id="bg" style="display:none; z-index:100000000000"></div>
+
+
+
+
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.picker.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.poppicker.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script>
+    
+	 
+</script>
+
+{yun:}include file="$wapstyle/footer.htm"{/yun}

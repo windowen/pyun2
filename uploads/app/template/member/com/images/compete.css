@@ -1,0 +1,47 @@
+/*职位竞争力分析*/
+.competitive_power_box{ padding:0px 30px;}
+.competitive_power_tit{ padding:30px 0 10px 0; font-size:24px;color:#333;}
+.competitive_power_option{width:100%;height:55px;border-bottom:1px solid #eee;}
+.competitive_power_option li{width:120px; font-size:16px; float:left; line-height:55px; position:relative}
+.competitive_power_option li a:hover{color:#098dcb; text-decoration:none;}
+.competitive_power_option .competitive_power_option_cur a{color:#098dcb;}
+.competitive_power_option .competitive_power_option_cur .competitive_power_option_line{width:60px;height:2px; background:#098dcb; display:inline-block; position:absolute;left:0px;bottom:-1px;}
+.competitive_power_left{width:330px; float:left; padding-bottom:15px;}
+.competitive_power_section_tit{ padding-top:15px;color:#999}
+.competitive_power_n1{ display:inline-block;width:220px; float:left}
+.competitive_power_section {width:100%; float:left; }
+.competitive_power_section li{width:100%; float:left; margin-top:15px;color:#000}
+.competitive_power_section_name{width:100px; float:left; display:block}
+.competitive_power_section_proportion{width:100px;height:15px; float:left; display:block}
+.competitive_power_section_proportion em{width:100%;height:15px;  background:#098dcb;display:block;border-radius:3px;}
+.competitive_power_section_proportion_n{ float:left; padding-left:30px;}
+.competitive_power_section li:nth-child(2n) em{ background:#ef521f}
+.competitive_power_section li:nth-child(3n) em{ background:#dede0a}
+.competitive_power_section li:nth-child(4n) em{ background:#4fb336}
+.competitive_power_section li:nth-child(5n) em{ background:#e7af19}
+.competitive_power_section li:nth-child(6n) em{ background:#259a08}
+.competitive_power_cont{width:100%;min-height:260px; float:left;}
+.competitive_power_bz{width:100%; float:left; text-align:center; font-size:12px;color:#999;border-top:1px solid #eee; padding-top:10px; padding-bottom:10px;}
+.competitive_power_right{width:200px; float:right; padding-left:50px;border-left:1px solid #eee; margin-top:20px;}
+.competitive_power_r_n{ color:#999}
+.competitive_power_r_xz{ font-size:26px;color:#f60; padding:15px 0;}
+.competitive_power_r_analysis_h1{ padding-top:10px; padding-bottom:15px;color:#999}
+.competitive_power_r_analysis{ font-size:12px; line-height:28px; padding-left:25px; position:relative}
+.competitive_power_r_analysis span{ display:inline-block; padding:0px 5px;}
+.competitive_power_r_analysis_n{color:#ef521f}
+.competitive_power_r_analysis_n2{color:#098dcb}
+.competitive_power_r_analysis_n3{color:#259a08}
+.competitive_power_r_analysis i{width:12px;height:12px;display:inline-block; position:absolute;left:0px;top:9px;}
+.competitive_power_r_analysis_g{ background:url(../images/jzl_icon.png) no-repeat 0 0; }
+.competitive_power_r_analysis_d{ background:url(../images/jzl_icon.png) no-repeat 0 -12px; }
+.competitive_power_r_analysis_p{ background:url(../images/jzl_icon.png) no-repeat 0 -24px; }
+.competitive_power_fltit{ font-size:16px; padding:20px 0;color:#333}
+.competitive_power_fln{  padding:5px 10px;background: #edf9ff; color:#007CCF;  font-size:14px; margin-right:10px; margin-top:5px; display:inline-block;border-radius:3px;}
+.competitive_power_myfl{  padding:5px 10px;background:#fef2d0; color:#ff6c32;  font-size:14px; margin-right:10px; margin-top:5px; display:inline-block;border-radius:3px;}
+.competitive_power_analysis_p{width:100%; text-align:center; padding:10px 0;color:#999}
+.competitive_power_analysis_tip_t{ padding-bottom:5px; font-weight:bold;color:#333;}
+.competitive_power_analysis_tip_b{width:500px; margin:0 auto; line-height:25px;color:#999 }
+.competitive_analysis_pm{width:100%; text-align:center; padding-top:30px; font-size:33px;color:#34a853}
+.competitive_analysis_pm_n{width:87px;height:87px; line-height:87px; text-align:center; display:inline-block; background:url(../images/jzl_2.png) no-repeat}
+.competitive_analysis_name{width:100%; text-align:center; font-size:18px; padding-top:15px;}
+/*职位竞争力分析  end*/

@@ -1,0 +1,200 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<link rel="stylesheet" type="text/css" href="{yun:}$wap_style{/yun}/js/webapppic/cropper.css?v={yun:}$config.cachecode{/yun}" />
+<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/yun_wap_member.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+
+<script src="{yun:}$wap_style{/yun}/js/compress.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/exif.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+
+<script>var wapurl="{yun:}url m=wap{/yun}"</script>
+<script type="text/javascript">
+    (function() {
+        var num = '{yun:}$num{/yun}';
+		
+        if(parseInt(num) > 0 ) {
+            layer.open({
+                content: '您还有{yun:}$num{/yun}个订单未付款，是否继续发布！',
+                btn: ['去付款', '继续发布'],
+                shadeClose: false,
+                yes: function() {
+                    setTimeout(function() {
+                        location.href = wapurl+"index.php?c=once&a=paylog";
+                    }, 0);
+                }
+            });
+        }
+
+    })()
+</script>
+<div id="app" class="mui-views">
+    <div class="mui-view">
+        <div class="mui-pages"></div>
+    </div>
+</div>
+<!--页面主结构结束-->
+<!--单页面开始-->
+<div id="main" class="mui-page">
+    <!--页面主内容区开始-->
+    <div class="mui-page-content">
+    	
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <ul class="yun_newwap_box">
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">我想招聘</span>
+                        <span class="yun_newwap_text_box"> 
+							<input type="text" id="title" name="title" value="{yun:}$row.title{/yun}" class="reinputText" placeholder="请填写招聘名称,如厨师">
+			            </span>
+                    </li>
+				 
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">工作薪资</span>
+                        <span class="yun_newwap_text_box"> 
+                        <input type="text" id="salary" name="salary"  value="{yun:}$row.salary{/yun}"  onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" class="reinputText" placeholder="请填写工资">
+			            </span>
+                    </li>
+                    <li class=""><span class="yun_newwap_text_name">工作地区</span>
+                        <span class="yun_newwap_text_box"> 
+							<button id='cityPicker' class="mui-btn mui-btn-block" type='button' placeholder="请选择" data-provinceid="{yun:}$row.provinceid{/yun}" data-cityid="{yun:}$row.cityid{/yun}" data-three_cityid="{yun:}$row.three_cityid{/yun}">{yun:}if $row.provinceid{/yun}{yun:}$city_name[$row.provinceid]{/yun} {yun:}$city_name[$row.cityid]{/yun} {yun:}$city_name[$row.three_cityid]{/yun}{yun:}else{/yun}请选择工作地区{yun:}/if{/yun}</button>
+							<input type="hidden" id="provinceid" name="provinceid" value="{yun:}$row.provinceid{/yun}">
+							<input type="hidden" id="cityid" name="cityid" value="{yun:}$row.cityid{/yun}">
+							<input type="hidden" id="three_cityid" name="three_cityid" value="{yun:}$row.three_cityid{/yun}">
+			            </span>
+                    </li>
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">详细地址</span>
+                        <span class="yun_newwap_text_box"> 
+							<input type="text" id="address" name="address" value="{yun:}$row.address{/yun}"  class="reinputText" placeholder="请填写详细地址">
+			            </span>
+                    </li>
+                    <li>
+                        <a href="#contenthtml"><span class="yun_newwap_text_name">招聘要求</span><div class="yun_newwap_text_box yun_newwap_text_box_p" id="contentshow">{yun:}if $row.require{/yun}{yun:}$row.require{/yun}{yun:}else{/yun}请填写{yun:}/if{/yun}</div></a>
+                    </li>
+                </ul>
+
+                <ul class="yun_newwap_box mt15">
+                    
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">店面名称</span>
+                        <div class="yun_newwap_text_box">
+                            <input type="text" id="companyname" name="companyname" value="{yun:}$row.companyname{/yun}" class="reinputText" placeholder="请填写店铺名称">
+                        </div>
+                    </li>
+                    
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">联&nbsp;系&nbsp; 人</span>
+                        <div class="yun_newwap_text_box">
+                            <input type="text" id="linkman" name="linkman" value="{yun:}$row.linkman{/yun}" class="reinputText" placeholder="请填写联系人">
+                        </div>
+                    </li>
+                    
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">联系电话</span>
+                        <div class="yun_newwap_text_box">
+                            <input type="text" id="phone" name="phone" onkeyup="this.value=this.value.replace(/[^0-9-]/g,'')" value="{yun:}$row.phone{/yun}" class="reinputText" placeholder="请填写联系电话">
+                        </div>
+                    </li>
+                    
+                    <li class=""><span class="yun_newwap_text_name">店面形象</span>
+                        <div class="yun_newwap_text_box">
+                        	<span class="once_cont_wate_list_photo_pic" id="previewshow" style="right:30px;"> <img id="previewimg" src="{yun:}if $row.pic_n{/yun}{yun:}$row.pic_n{/yun}{yun:}else{/yun}{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_once_icon{/yun}{yun:}/if{/yun}"   width="35" height="35"></span>
+                            <div class="once_cont_wate_list_photo">
+                           		<div class="yunset_list_file"> 
+                            	<input type="file" id="pic" name="pic" onchange="previewImage(this,'preview')" accept="image/*"  />
+                           		</div>
+                           		<input type='hidden' name='preview' value='{yun:}$row.pic{/yun}' id='preview'>  
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">招聘天数</span>
+                        <div class=" yun_newwap_text_time">
+                            <input type="text" id="edate" name="edate" value="{yun:}$row.day_n{/yun}" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="3" class=" " placeholder="请输入招聘天数" {yun:}if $smarty.get.id{/yun} readonly {yun:}/if{/yun}>
+                            <span class="yun_newwap_text_time_dw" style="top:10px;right:10px;">天</span>
+                        </div>{yun:}if $config.once_pay_price>0{/yun}<div style="text-align:right; font-size:12px;color:#f00; padding-top:5px;">按照 {yun:}$config.once_pay_price{/yun}元/天收取费用</div>{yun:}/if{/yun}
+                    </li>
+
+                </ul>
+
+                <div class="yun_newwap_box_ts">提示：密码可用于刷新/修改/删除此信息</div>
+                <ul class="yun_newwap_box ">
+                    {yun:}if $row.id==''{/yun}
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">设置密码</span>
+                        <div class="yun_newwap_text_box">
+                            <input type="password" id="password" name="password" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" class=" " placeholder="请输入密码">
+                        </div>
+                    </li>
+                    {yun:}else{/yun}
+                    <li class="yun_newwap_text"><span class="yun_newwap_text_name">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                        <div class="yun_newwap_text_box">
+                            <input type="password" id="password" name="password" onkeyup="this.value=this.value.replace(/^ +| +$/g,'')" class=" " placeholder="请输入密码">
+                        </div>
+                    </li>
+					{yun:}/if{/yun} 
+					
+					{yun:}if strpos($config.code_web,"店铺招聘")!==false{/yun} 
+					
+						{yun:}if $config.code_kind>2{/yun}
+							<div class="gtdx-captcha">
+
+								<input type='hidden' id="verify_token"  name="verify_token" value="">
+								<input type='hidden' id="popup-submit">	
+								<input type='hidden' id="bind-submit">
+							</div>
+
+						{yun:}else{/yun}
+						<li class="yun_newwap_text"><span class="yun_newwap_text_name">验证码</span>
+							<div class="yun_newwap_yz">
+								<input type="text" id="checkcode" name="checkcode" id="checkcode" value="" placeholder="请输入图片验证码">
+								<div class="yun_newwap_yz_img">
+									<img id="vcode_img" class="authcode" src="{yun:}$config.sy_wapdomain{/yun}/authcode.inc.php" onclick="checkCode('vcode_img');" />
+								</div>
+							</div>
+						</li>
+						{yun:}/if{/yun}
+						{yun:}/if{/yun}
+                </ul>
+                <div class="yun_newwap_bth ">
+					<input id="id" name="id" value="{yun:}$row.id{/yun}" type="hidden" /> 
+					<button id="oncesubmit" type="button" class="mui-btn mui-btn-block mui-btn-primary">提交操作</button>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="bind-captcha" data-id='oncesubmit' data-type='click'></div>
+
+<!--单页面结束-->
+<div id="contenthtml" class="mui-page">
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+                <div class="yun_wap_info_brief">
+                    <div class="yun_wap_info_brief_c">
+                        <div class="yun_wap_info_brief_tit"> 招聘要求 </div>
+                        <textarea class="textAreaMsg tip contenttext" id="content" name="require" placeholder="请填写招聘的具体要求，如性别、学历、年龄、工作经验和工作待遇等">{yun:}$row.require{/yun}</textarea></div>
+                 <div class="yunset_bth_box">     <a class="yun_wap_info_brief_tit_bc mui-action-back">确定</a>    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var weburl = "{yun:}$config.sy_weburl{/yun}";
+    var code_web = "{yun:}$config.code_web{/yun}";
+	var formData = new FormData(),newuploadpic;
+</script>
+
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+{yun:}include file="$wapstyle/verify_js.htm"{/yun}
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.view.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/onceadd.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.picker.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.poppicker.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/data/plus/city.cache.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/category.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script language="javascript">
+	$(document).ready(function() {
+		if(document.getElementById('main')){
+			document.getElementById('main').addEventListener('touchmove', function (e) { e.preventDefault();}, {passive: false});
+		}
+	})
+</script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

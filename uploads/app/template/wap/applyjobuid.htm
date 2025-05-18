@@ -1,0 +1,767 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <meta http-equiv="Cache-Control" content="no-cache" />
+        <title>{yun:}$title{/yun}</title>
+        <meta name="keywords" content="{yun:}$keywords{/yun},wap" />
+        <meta name="description" content="{yun:}$description{/yun}" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width" initial-scale="1" />
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="format-detection" content="telephone=no,email=no" />
+        <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, width=device-width" />
+        <link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.min.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.picker.min.css?v={yun:}$config.cachecode{/yun}" type="text/css"/>
+        <link rel="stylesheet" href="{yun:}$config_wapdomain{/yun}/js/mui/css/mui.poppicker.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/job.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/style.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+		<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/wap_tck.css?v={yun:}$config.cachecode{/yun}" type="text/css">
+		<link rel="stylesheet" href="{yun:}$config.sy_weburl{/yun}/app/template/wap/css/yun_wap_member.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <script>
+            weburl = "{yun:}$config.sy_weburl{/yun}";
+        </script>
+    </head>
+
+    <body>
+        <div class="body_wap">
+            <header class="header_h">
+                <div class="header_fixed">
+                    <div class="header">
+                        <div class="header_bg">
+                            <a class="hd-lbtn mui-action-back"><i class="header_top_l"></i></a>
+                            <div class="header_h1">
+                                <div class="header_p_z">{yun:}$headertitle{/yun}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+		<div id="app" class="mui-views">
+			<div class="mui-view">
+				<div class="mui-pages"></div>
+			</div>
+		</div>
+		<!--单页面开始-->
+		<div id="main" class="mui-page">
+			<!--页面主内容区开始-->
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div id="infobase" class="mui-scroll">
+						<div class="yun_reg_BasicInfo_h1">
+
+							<div class="yun_reg_BasicInfo_h1_em">如您有简历，可直接登录
+								<a href="{yun:}url m=wap c=login{/yun}" class="yun_reg_BasicInfo_h1_bth">登录</a>
+							</div>
+						</div>
+						<div class="yun_applyjobuid_tit mt15">基本信息</div>
+
+						<ul class="yun_newwap_box">
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">真实姓名</span>
+								<div class="yun_newwap_text_box">
+									<input type="text" name="uname" id="uname" value="" class=" " placeholder="请填写真实姓名" />
+								</div>
+							</li>
+							<li class=""><span class="yun_newwap_text_name">性别</span>
+								<div class="yun_newwap_text_box">
+									<button id="sexPicker" class="mui-btn mui-btn-block" type="button" data-sex="">男</button>
+									<input type="hidden" id="sex" name="sex" value="1">
+								</div>
+							</li>
+							<li class=""><span class="yun_newwap_text_name">出生年月</span>
+								<div class="yun_newwap_text_box">
+									<button id='birthdayUserPicker' data-options='{"type":"date","value":"1988-08-08","beginYear":1900,"endYear":{yun:}time()|date_format:"Y"{/yun}}' class="btn mui-btn mui-btn-block" type="button">请选择出生年月</button>
+									<input type="hidden" id="birthday" name="birthday" value="">
+								</div>
+							</li>
+							<li class=""><span class="yun_newwap_text_name">最高学历</span>
+								<div class="yun_newwap_text_box">
+									<button id="eduPicker" class="mui-btn mui-btn-block" type="button" data-edu="">请选择最高学历</button>
+									<input type="hidden" id="edu" name="edu" value="">
+								</div>
+							</li>
+							<li class=""><span class="yun_newwap_text_name">工作经验</span>
+								<div class="yun_newwap_text_box">
+									<button id="expPicker" class="mui-btn mui-btn-block" type="button" data-exp="">请选择工作经验</button>
+									<input type="hidden" id="exp" name="exp" value="">
+								</div>
+							</li>
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">手机号码</span>
+								<div class="yun_newwap_text_box">
+									<input type="number" name="telphone" id="telphone" value="" placeholder="请输入手机号码" />
+								</div>
+							</li>
+						</ul>
+
+						<ul class="yun_newwap_box mt15">
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">登录密码</span>
+								<div class="yun_newwap_text_box">
+									<input type="password" name="reg_password" id="reg_password" value="" placeholder="请设置登录密码" />
+								</div>
+							</li>
+							{yun:}if strpos($config.code_web,"注册会员")!==false{/yun} 
+							{yun:}if $config.code_kind > 2{/yun}
+							<div class="gtdx-captcha">
+							
+								<input type='hidden' id="verify_token" name="verify_token" value="">
+								<input type='hidden' id="popup-submit">	
+								<input type='hidden' id="bind-submit">
+							</div>
+
+							{yun:}else{/yun}
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">验证码</span>
+								<div class="yun_newwap_yz">
+									<input type="text" name="reg_authcode" id="reg_authcode" class="" placeholder="请输入图片验证码">
+									<div class="yun_newwap_yz_img">
+										<img id="vcode_img" class="authcode" src="{yun:}$config.sy_wapdomain{/yun}/authcode.inc.php" onclick="checkCode('vcode_img');" />
+									</div>
+								</div>
+							</li>
+							{yun:}/if{/yun}
+							{yun:}/if{/yun}
+							
+							{yun:}if $config.sy_msg_isopen==1 && $config.sy_msg_regcode==1{/yun}
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">手机验证</span>
+								<div class="yun_newwap_text_sjyz">
+									<input type="text" name="mobcode" id="mobcode" class="yun_reg_BasicInfo_text yun_reg_BasicInfo_text_w155" placeholder="请填写手机验证码" />
+									<a href="javascript:void(0);" class="yun_newwap_text_sjyz_send" id="send_msg_tip" onclick="send_msg();">发送验证码</span>
+										</span>
+									</a>
+								</div>
+							</li>
+							{yun:}/if{/yun}
+						</ul>
+						<input type="hidden" id="jobid" name="jobid" value="{yun:}$job.id{/yun}">
+						<input type="hidden" id="resumeid" name="resumeid" value="{yun:}$smarty.get.id{/yun}"> 
+						{yun:}if $config.resume_create_project==1 || $config.resume_create_exp==1 || $config.resume_create_edu==1{/yun}
+						<div class="yun_newwap_bth">
+							<a href="javascript:void(0)" id="nextadd" class="yun_newwap_bth_a">下一步</a>
+						</div>
+						{yun:}else{/yun}
+						<div class="yun_newwap_bth"><button id="applybtn">立即申请</button></div>
+						{yun:}/if{/yun}
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--单页面结束-->
+		<div id="nextaddhtml" class="mui-page">
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						{yun:}if $config.resume_create_exp=='1'{/yun}
+						<div class="yun_applyjobuid_tit mt15">最近一份工作</div>
+						<ul class="yun_newwap_box">
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">公司名称</span>
+								<div class="yun_newwap_text_box">
+									<input type="text" id="workname" name="workname" value="" placeholder="请填写公司名称" class="">
+								</div>
+							</li>
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">担任职位</span>
+								<div class="yun_newwap_text_box">
+									<input type="text" name="worktitle" id="worktitle" value="" placeholder="请填写担任职位" class=""></div>
+							</li>
+							<li>
+								<a href="#worktimehtml"><span class="yun_newwap_text_name">在职时间</span>
+									<div class="yun_newwap_text_box yun_newwap_text_box_p" id="worktimeshow"> 请选择在职时间</div>
+								</a>
+							</li>
+							<li>
+								<a href="#workcontenthtml"><span class="yun_newwap_text_name">工作内容</span>
+									<div class="yun_newwap_text_box yun_newwap_text_box_p" id="workcontentshow"> 请填写工作职责</div>
+								</a>
+							</li>
+						</ul>
+						{yun:}/if{/yun} 
+						{yun:}if $config.resume_create_edu=='1'{/yun}
+						<div class="yun_applyjobuid_tit mt15">毕业院校</div>
+						<ul class="yun_newwap_box">
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">学校名称</span>
+								<div class="yun_newwap_text_box">
+									<input type="text" id="eduname" name="eduname" value="" placeholder="请填写学校名称" class=""></div>
+							</li>
+							<li>
+								<a href="#edutimehtml"><span class="yun_newwap_text_name">在校时间</span>
+									<div class="yun_newwap_text_box yun_newwap_text_box_p" id="edutimeshow"> 请选择在校时间</div>
+								</a>
+							</li>
+
+							<li><span class="yun_newwap_text_name">毕业学历</span > <span class="yun_newwap_text_box" ><button id='educationUserPicker' class="mui-btn mui-btn-block" type='button' data-education="">请选择毕业学历</button>
+								<input type="hidden" id="education" name="education" value="">
+									</span>
+							</li>
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">所学专业</span>
+								<div class="yun_newwap_text_box"> <input type="text" id="eduspec" name="eduspec" value="" placeholder="请填写所学专业" class=""></div>
+							</li>
+
+						</ul>
+						{yun:}/if{/yun} 
+						{yun:}if $config.resume_create_project=='1'{/yun}
+						<div class="yun_applyjobuid_tit mt15">近期项目</div>
+						<ul class="yun_newwap_box">
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">项目名称</span>
+								<div class="yun_newwap_text_box">
+									<input type="text" name="proname" id="proname" value="" placeholder="请填写项目名称" class=""></div>
+							</li>
+							<li class="yun_newwap_text"><span class="yun_newwap_text_name">担任职位</span>
+								<div class="yun_newwap_text_box">
+									<input type="text" name="protitle" id="protitle" value="" placeholder="请填写担任职位" class=""></div>
+							</li>
+							<li>
+								<a href="#protimehtml"><span class="yun_newwap_text_name">项目时间</span>
+									<div class="yunset_list_commentary yun_newwap_text_box_p" id="protimeshow"> 请选择项目时间</div>
+								</a>
+							</li>
+
+							<li>
+								<a href="#procontenthtml"><span class="yun_newwap_text_name">项目内容</span>
+									<div class="yunset_list_commentary yun_newwap_text_box_p" id="procontentshow"> 请填写项目内容</div>
+								</a>
+							</li>
+						</ul>
+						{yun:}/if{/yun}
+						<input type='hidden' id='resume_edu' value='{yun:}$config.resume_create_edu{/yun}'>
+						<input type='hidden' id='resume_exp' value='{yun:}$config.resume_create_exp{/yun}'>
+						<input type='hidden' id='resume_pro' value='{yun:}$config.resume_create_project{/yun}'>
+
+						<div class="yun_newwap_bth"><button id="applybtn">立即申请</button></div>
+						<div class="yun_newwap_bth_fh mui-action-back">
+							<a href="javascript:void(0)">《 返回上一步</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="procontenthtml" class="mui-page">
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="yun_wap_addresume_box_group">
+							<div class="yun_wap_addresume_box_control_text">
+								<textarea name="procontent" id="procontent" style="height:200px;width:100%;" class="yun_wap_addresume_texttextAreaMsg" placeholder="请填写项目内容"></textarea>
+							</div>
+							<a class="yun_wap_info_brief_tit_bc mui-action-back">确定</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="workcontenthtml" class="mui-page">
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="yun_wap_addresume_box_group">
+							<div class="yun_wap_addresume_box_control_text">
+								<textarea name="workcontent" id="workcontent" style="height:200px;width:100%;" class="yun_wap_addresume_texttextAreaMsg" placeholder="请填写工作职责"></textarea>
+							</div>
+							<a class="yun_wap_info_brief_tit_bc mui-action-back">确定</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="worktimehtml" class="mui-page">
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="yunset_list mt15">
+							<li><span class="yunset_list_name">入职时间</span > <span class="yunset_list_commentary"><button id='worksdateComPicker' data-options='{"type":"month","beginYear":1955,"endYear":{yun:}time()|date_format:"%Y"{/yun}}'  class="btn mui-btn mui-btn-block">请选择入职时间</button>
+							<input type="hidden" id="worksdate" name="worksdate" value=""></span>
+
+							</li>
+							<li><span class="yunset_list_name">离职时间</span > <span class="yunset_list_commentary"><button id='workedateComPicker' data-options='{"type":"month","beginYear":1955,"endYear":{yun:}time()|date_format:"%Y"{/yun}}'  class="btn mui-btn mui-btn-block">请选择离职时间</button>
+							<input type="hidden" id="workedate" name="workedate" value=""></span>
+							</li>
+						</ul>
+						<a class="yun_wap_info_brief_tit_bc mui-action-back">确定</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="edutimehtml" class="mui-page">
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="yunset_list mt15">
+							<li><span class="yunset_list_name">入校时间</span > <span class="yunset_list_commentary"><button id='edusdateComPicker' data-options='{"type":"month","beginYear":1955,"endYear":{yun:}time()|date_format:"%Y"{/yun}}'  class="btn mui-btn mui-btn-block">请选择入校时间</button>
+							<input type="hidden" id="edusdate" name="edusdate" value=""></span>
+
+							</li>
+							<li><span class="yunset_list_name">离校时间</span > <span class="yunset_list_commentary"><button id='eduedateComPicker' data-options='{"type":"month","beginYear":1955,"endYear":{yun:}time()|date_format:"%Y"{/yun}}'  class="btn mui-btn mui-btn-block">请选择离校时间</button>
+							<input type="hidden" id="eduedate" name="eduedate" value=""></span>
+							</li>
+						</ul>
+						<a class="yun_wap_info_brief_tit_bc mui-action-back">确定</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="protimehtml" class="mui-page">
+			<div class="mui-page-content">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="yunset_list mt15">
+							<li><span class="yunset_list_name">开始时间</span > <span class="yunset_list_commentary"><button id='prosdateComPicker' data-options='{"type":"month","beginYear":1955,"endYear":{yun:}time()|date_format:"%Y"{/yun}}'  class="btn mui-btn mui-btn-block">请选择开始时间</button>
+							<input type="hidden" id="prosdate" name="prosdate" value=""></span>
+
+							</li>
+							<li><span class="yunset_list_name">结束时间</span > <span class="yunset_list_commentary"><button id='proedateComPicker' data-options='{"type":"month","beginYear":1955,"endYear":{yun:}time()|date_format:"%Y"{/yun}}'  class="btn mui-btn mui-btn-block">请选择结束时间</button>
+							<input type="hidden" id="proedate" name="proedate" value=""></span>
+							</li>
+						</ul>
+						<a class="yun_wap_info_brief_tit_bc mui-action-back">确定</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{yun:}if strpos($config.code_web,"注册会员")!==false{/yun} 
+		{yun:}if $config.code_kind>2{/yun}
+			{yun:}if $config.resume_create_project==1 || $config.resume_create_exp==1 || $config.resume_create_edu==1{/yun}
+				{yun:}if $config.sy_msg_isopen==1 && $config.sy_msg_regcode==1{/yun}
+				<div id="bind-captcha" data-id='send_msg_tip' data-type='click'></div>
+				{yun:}else{/yun}
+				<div id="bind-captcha" data-id='nextadd' data-type='click'></div>
+				{yun:}/if{/yun}
+			{yun:}else{/yun}
+				{yun:}if $config.sy_msg_isopen==1 && $config.sy_msg_regcode==1{/yun}
+				<div id="bind-captcha" data-id='send_msg_tip' data-type='click'></div>
+				{yun:}else{/yun}
+				<div id="bind-captcha" data-id='applybtn' data-type='click'></div>
+				{yun:}/if{/yun}
+			{yun:}/if{/yun}
+		{yun:}/if{/yun}
+		{yun:}/if{/yun}
+		
+		<script src="{yun:}$config.sy_weburl{/yun}/app/template/wap/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.view.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.picker.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$config_wapdomain{/yun}/js/mui/mui.poppicker.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		{yun:}include file="$wapstyle/verify_js.htm"{/yun}
+		<script type="text/javascript">
+			var wapurl = "{yun:}url m=wap{/yun}";
+			var weburl = "{yun:}$config.sy_weburl{/yun}"
+			var backurl = '{yun:}url m=wap c=job a=comapply id=$job.id{/yun}';
+			var code_web = "{yun:}$config.code_web{/yun}";
+			var sexData = [];
+			'{yun:}foreach item=v key=key from=$user_sex{/yun}';
+			sexData.push({
+				value: '{yun:}$key{/yun}',
+				text: '{yun:}$v{/yun}'
+			});
+			'{yun:}/foreach{/yun}';
+			var eduData = [];
+			'{yun:}foreach item=v from=$userdata.user_edu{/yun}';
+			eduData.push({
+				value: '{yun:}$v{/yun}',
+				text: '{yun:}$userclass_name[$v]{/yun}'
+			});
+			'{yun:}/foreach{/yun}';
+
+			var expData = [];
+			'{yun:}foreach item=v from=$userdata.user_word{/yun}';
+			expData.push({
+				value: '{yun:}$v{/yun}',
+				text: '{yun:}$userclass_name[$v]{/yun}'
+			});
+			'{yun:}/foreach{/yun}';
+
+			mui.init();
+			var viewApi = mui('#app').view({
+				defaultPage: '#main'
+			});
+			
+			var view = viewApi.view;
+			(function($) {
+				//初始化单页的区域滚动
+				mui('.mui-scroll-wrapper').scroll({
+					scrollY: true, //是否竖向滚动
+					scrollX: false, //是否横向滚动
+					startX: 0, //初始化时滚动至x
+					startY: 0, //初始化时滚动至y
+					indicators: false, //是否显示滚动条
+					deceleration: 0.0006, //阻尼系数,系数越小滑动越灵敏
+					// bounce: true //是否启用回弹
+				});
+				//处理view的后退与webview后退
+				var oldBack = $.back;
+				$.back = function() {
+					if(viewApi.canBack()) { //如果view可以后退，则执行view的后退
+						viewApi.back();
+					} else { //执行webview后退
+						oldBack();
+					}
+				};
+			})(mui);
+			view.addEventListener('pageBeforeShow', function(e) {
+				document.activeElement.blur();
+			});
+			view.addEventListener('pageBeforeBack', function(e) {
+				var worksdate = document.getElementById('worksdate').value;
+				var workedate = document.getElementById('workedate').value;
+				if(worksdate && workedate) {
+					document.getElementById('worktimeshow').innerText = worksdate + '~' + workedate;
+				}
+				var workcontent = document.getElementById('workcontent').value;
+				if(workcontent) {
+					document.getElementById('workcontentshow').innerText = workcontent;
+				}
+				var edusdate = document.getElementById('edusdate').value;
+				var eduedate = document.getElementById('eduedate').value;
+				if(edusdate && eduedate) {
+					document.getElementById('edutimeshow').innerText = edusdate + '~' + eduedate;
+				}
+				var prosdate = document.getElementById('prosdate').value;
+				var proedate = document.getElementById('proedate').value;
+				if(prosdate && proedate) {
+					document.getElementById('protimeshow').innerText = prosdate + '~' + proedate;
+				}
+				var procontent = document.getElementById('procontent').value;
+				if(procontent) {
+					document.getElementById('procontentshow').innerText = procontent;
+				}
+			});
+			$(function() {
+				if(document.getElementById('infobase')){
+					document.getElementById('infobase').addEventListener('touchmove', function (e) { e.preventDefault();}, {passive: false});
+				}
+				if(document.getElementById('nextaddhtml')){
+					document.getElementById('nextaddhtml').addEventListener('touchmove', function (e) { e.preventDefault();}, {passive: false});
+				}
+				if(document.getElementById('procontenthtml')){
+					document.getElementById('procontenthtml').addEventListener('touchmove', function (e) { e.stopPropagation();}, {passive: false});
+				}
+				if(document.getElementById('worktimehtml')){
+					document.getElementById('worktimehtml').addEventListener('touchmove', function (e) { e.stopPropagation();}, {passive: false});
+				}
+				$('#nextadd').on('click',function(event) {
+					var uname = $.trim($("#uname").val()),
+						sex = $.trim($("#sex").val()),
+						birthday = $.trim($("#birthday").val()),
+						edu = $.trim($("#edu").val()),
+						exp = $.trim($("#exp").val()),
+						telphone = $.trim($("#telphone").val()),
+						jobid = $.trim($("#jobid").val()),
+						password = $.trim($("#reg_password").val()),
+						actlogin;
+					if(jobid < 1) {
+						mui.toast("职位不存在！");
+						return false;
+					}
+					if(uname == "") {
+						mui.toast("请填写真实姓名");
+						return false;
+					}
+					if(sex == '') {
+						mui.toast("请选择性别");
+						return false;
+					}
+					if(birthday == "") {
+						mui.toast("请选择出生年月");
+						return false;
+					}
+					if(edu == "") {
+						mui.toast("请选择最高学历");
+						return false;
+					}
+					if(exp == "") {
+						mui.toast("请选择工作经验");
+						return false;
+					}
+					if(telphone == '') {
+						mui.toast("请填写手机号码");
+						return false;
+					} else if(telphone && !isjsMobile(telphone)) {
+						mui.toast("手机号码格式错误");
+						return false;
+					}
+					if(password == '') {
+						mui.toast("请填写登录密码");
+						return false;
+					}
+					var codesear=new RegExp('注册会员');
+					if(codesear.test(code_web)){
+						if(code_kind == 1) {
+							authcode = $.trim($("#reg_authcode").val());
+							if(!authcode) {
+								return mui.toast('请填写图片验证码');
+							}
+						} else if(code_kind > 2) {
+							verify_token = $('input[name="verify_token"]').val();
+						
+							if(verify_token == '') {
+								$("#bind-submit").trigger("click");
+								return false; 
+							}
+						}
+					}
+					if(exitsid("mobcode")) {
+						var checkcode = $.trim($("#mobcode").val());
+						if(!checkcode) {
+							mui.toast('请填写短信验证码');return false;
+						}
+					}
+					viewApi.go("#nextaddhtml");
+				})
+				var applybtn = document.getElementById('applybtn');
+				applybtn.addEventListener('click', function(event) {
+					var uname = $.trim($("#uname").val()),
+						sex = $.trim($("#sex").val()),
+						birthday = $.trim($("#birthday").val()),
+						edu = $.trim($("#edu").val()),
+						exp = $.trim($("#exp").val()),
+						telphone = $.trim($("#telphone").val()),
+						jobid = $.trim($("#jobid").val()),
+						password = $.trim($("#reg_password").val());
+					if(jobid < 1) {
+						return mui.toast("职位不存在！");
+					}
+					if(uname == "") {
+						return mui.toast("请填写真实姓名");
+					}
+					if(sex == '') {
+						return mui.toast("请选择性别");
+					}
+					if(birthday == "") {
+						return mui.toast("请选择出生年月");
+					}
+					if(edu == "") {
+						return mui.toast("请选择最高学历");
+					}
+					if(exp == "") {
+						return mui.toast("请选择工作经验");
+					}
+					if(telphone == '') {
+						return mui.toast("请填写手机号码");
+					} else if(telphone && !isjsMobile(telphone)) {
+						return mui.toast("手机号码格式错误");
+					}
+					if(password == '') {
+						mui.toast("请填写登录密码");
+						return false;
+					}
+					var arr = {
+						uname: uname,
+						sex: sex,
+						birthday: birthday,
+						edu: edu,
+						exp: exp,
+						jobid: jobid,
+						telphone: telphone,
+						password:password
+					};
+					var codesear=new RegExp('注册会员');
+					if(codesear.test(code_web)){
+						if(code_kind == 1) {
+							authcode = $.trim($("#reg_authcode").val());
+							if(!authcode) {
+								return mui.toast('请填写图片验证码');
+							}
+							arr.authcode = authcode;
+						} else if(code_kind > 2) {
+							verify_token = $('input[name="verify_token"]').val();
+							
+							if(verify_token == '') {
+								$("#bind-submit").trigger("click");
+								return false; 
+							}
+							arr.verify_token = verify_token;
+						
+						}
+					}
+					if(exitsid("mobcode")) {
+						actlogin = 1;
+						var checkcode = $.trim($("#mobcode").val());
+						if(!checkcode) {
+							return mui.toast('请填写短信验证码');
+						}
+						arr.checkcode=checkcode;
+					} 
+					
+					if($.trim(document.getElementById('resume_exp').value) == '1') {
+						var workname = $.trim(document.getElementById('workname').value),
+							worksdate = $.trim(document.getElementById('worksdate').value),
+							workedate = $.trim(document.getElementById('workedate').value),
+							worktitle = $.trim(document.getElementById('worktitle').value),
+							workcontent = $.trim(document.getElementById('workcontent').value);
+						if(workname == '') {
+							return mui.toast('请填写公司名称！');
+						}
+						if(worktitle == '') {
+							return mui.toast('请填写担任职务！');
+						}
+						if(worksdate == '') {
+							return mui.toast('请填写入职时间！');
+
+						}
+						arr.workname = workname;
+						arr.worksdate = worksdate;
+						arr.workedate = workedate;
+						arr.worktitle = worktitle;
+						arr.workcontent = workcontent;
+					}
+					if($.trim(document.getElementById('resume_edu').value) == '1') {
+						var eduname = $.trim(document.getElementById('eduname').value),
+							edusdate = $.trim(document.getElementById('edusdate').value),
+							eduedate = $.trim(document.getElementById('eduedate').value),
+							education = $.trim(document.getElementById('education').value),
+							eduspec = $.trim(document.getElementById('eduspec').value);
+						if(eduname == '') {
+							return mui.toast('请填写学校名称！');
+						}
+						if(edusdate == '') {
+							return mui.toast('请填写入学时间！');
+						}
+						if(eduedate == '') {
+							return mui.toast('请填写离校或预计离校时间！');
+						}
+						
+						if(education == '') {
+							return mui.toast('请选择毕业学历！');
+						}
+						arr.eduname = eduname;
+						arr.edusdate = edusdate;
+						arr.eduedate = eduedate;
+						arr.eduspec = eduspec;
+						arr.education = education;
+					}
+					if($.trim(document.getElementById('resume_pro').value) == '1') {
+						var proname = $.trim(document.getElementById('proname').value),
+							prosdate = $.trim(document.getElementById('prosdate').value),
+							proedate = $.trim(document.getElementById('proedate').value),
+							protitle = $.trim(document.getElementById('protitle').value),
+							procontent = $.trim(document.getElementById('procontent').value);
+						if(proname == '') {
+							return mui.toast('请填写项目名称！');
+						}
+						if(protitle == '') {
+							return mui.toast('请填写项目担任职务！');
+						}
+						if(prosdate == '') {
+							return mui.toast('请填写项目开始时间！');
+						}
+						if(proedate == '') {
+							return mui.toast('请填写项目结束时间！');
+						}
+						arr.proname = proname;
+						arr.prosdate = prosdate;
+						arr.proedate = proedate;
+						arr.protitle = protitle;
+						arr.procontent = procontent;
+					}
+					layer_load('执行中，请稍候...');
+					mui.post(wapurl + "?c=ajax&a=temporaryresume", arr, function(data) {
+						layer.closeAll();
+						
+						if (data.url) {
+							layermsg(data.msg, 2, function() {
+								location.href = data.url;
+							});
+						}else {
+							layermsg(data.msg, 2, function() {
+								checkCode('vcode_img');
+							});
+						}
+					}, 'json');
+				});
+			});
+			var Timer;
+			var smsTimer_time = 90; //倒数 90
+			var smsTimer_flag = 90; //倒数 90
+			var smsTime_speed = 1000; //速度 1秒钟
+			//发送手机短信
+			function send_msg(url) {
+				var moblie = $('#telphone').val();
+				var code;
+				
+				var verify_token;
+				if(moblie == "" || moblie == "请输入手机号码") {
+					return mui.toast("请输入手机号码");
+				} else {
+					if(!isjsMobile(moblie)) {
+						return mui.toast('手机格式错误');
+					}
+				}
+				var codesear=new RegExp('注册会员');
+				if(codesear.test(code_web)){
+					if(code_kind == 1) {
+						code = $.trim($("#reg_authcode").val());
+						if(!code) {
+							return mui.toast('请填写图片验证码');
+						}
+					} else if(code_kind > 2) {
+						
+						verify_token = $('input[name="verify_token"]').val();
+						if(verify_token == '') {
+							$("#bind-submit").trigger("click");
+							return false; 
+						}
+					}
+				}
+				if(smsTimer_time == smsTimer_flag) {
+					Timer = setInterval("smsTimer($('#send_msg_tip'))", smsTime_speed);
+					layer_load('执行中，请稍候...');
+					$.post(wapurl + "?c=ajax&a=regcode", {
+						moblie: moblie,
+						code: code,
+						
+						verify_token: verify_token
+					}, function(data) {
+						layer.closeAll();
+						if(data){
+							var res = JSON.parse(data);
+							if(res.error != 1){
+								clearInterval(Timer);
+							}
+							layermsg(res.msg, 2, function(){
+								if(res.error != 1){
+									if(code_kind == 1) {
+										checkCode('vcode_img');
+									} else if(code_kind >2) {
+										$("#popup-submit").trigger("click");
+									}
+								}
+							});
+						}
+					})
+				} else {
+					return mui.toast('请勿重复发送！');
+				}
+			}
+
+			function exitsid(id) {
+				if(document.getElementById(id)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+			//倒计时
+			function smsTimer(obj) {
+				if(smsTimer_flag > 0) {
+					$(obj).html('重新发送(' + smsTimer_flag + 's)');
+					$(obj).attr({
+						'style': 'background:#f8f8f8;'
+					});
+					smsTimer_flag--;
+				} else {
+					$(obj).html('重新发送');
+					$(obj).attr({
+						'style': 'background:#f8f8f8;'
+					});
+					smsTimer_flag = smsTimer_time;
+					clearInterval(Timer);
+				}
+			}
+		</script>
+		<script src="{yun:}$wap_style{/yun}/js/category.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<script src="{yun:}$wap_style{/yun}/js/publicselect.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+{yun:}include file="$wapstyle/footer.htm"{/yun}

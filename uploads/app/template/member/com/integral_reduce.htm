@@ -1,0 +1,101 @@
+{yun:}include file="$comstyle/header.htm"{/yun}
+<div class="w1000">
+	<div class="admin_mainbody">
+		<style>.my_table_msg th{ text-align:right}</style>
+
+		{yun:}include file="$comstyle/left.htm"{/yun}
+<div class="yun_com_tit">
+					<span class="yun_com_tit_s">{yun:}$config.integral_pricename{/yun}管理</span>
+				</div>
+		<div class=right_box>
+			<div class=admincont_box>
+				
+				
+
+				<div class="job_list_tit">
+					<ul class="">
+						<li {yun:}if $smarty.get.c=="integral"{/yun}class="job_list_tit_cur"{yun:}/if{/yun}>
+							<a href="index.php?c=integral">{yun:}$config.integral_pricename{/yun}任务</a></li>
+						
+						<li {yun:}if $smarty.get.c=="integral_reduce"{/yun}  class="job_list_tit_cur"{yun:}/if{/yun}>
+							<a href="index.php?c=integral_reduce">消费规则</a></li>
+						
+						<li {yun:}if $smarty.get.c=="reward_list"{/yun}  class="job_list_tit_cur"{yun:}/if{/yun}>
+							<a href="index.php?c=reward_list">{yun:}$config.integral_pricename{/yun}兑换</a></li>
+					</ul>
+				</div>
+        
+				<div class="com_body">
+					<div class="integral_cont mt20">
+
+                    <table class="com_received_resume">
+                      <tr><th>项目名称</th><th>消费{yun:}$config.integral_pricename{/yun}</th></tr>
+                    
+						 <tr><td>发布职位</td> 
+								<td><span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_job{/yun}</b>  元/ 份 </span> </td> 
+							</tr>
+
+							 <tr><td>刷新职位</td> 
+								<td><span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_jobefresh{/yun}</b>  元/ 份 </span> 
+							</td> 
+							</tr>
+
+							 <tr>
+								<td>发布兼职</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_job{/yun}</b>  元/ 份 </span>
+								</td> 
+							</tr>
+
+							 <tr><td>刷新兼职</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_jobefresh{/yun}</b>  元/ 份 </span> 
+							</td> 
+							</tr>
+					  
+							 <tr><td>下载人才简历</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_down_resume{/yun}</b>  元/ 份 </span> 
+							</td> 
+							</tr>
+							
+							 <tr><td>发送面试人才</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_interview{/yun}</b>  元/ 份 </span> 
+							</td> 
+							</tr>			
+							 <tr><td>发布紧急招聘</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.com_urgent{/yun}</b>  元/ 天 </span> 
+							</td> 
+							</tr>
+
+							 <tr><td>发布推荐招聘</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.com_recjob{/yun}</b>   元/ 天 </span> 
+							</td> 
+							</tr>
+							
+							 <tr><td>职位自动刷新</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.job_auto{/yun}</b>  元/ 天 </span> 
+							</td> 
+							</tr>
+							 <tr><td>发布置顶职位</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.integral_job_top{/yun}</b>  元/ 天 </span> 
+							</td> 
+							</tr>
+							 <tr><td>发布推荐兼职</td> 
+								<td>
+								<span class="integral_cont_list_span_c" style="border:none"> 消费 <b>{yun:}$config.com_recjob{/yun}</b>  元/ 天 </span> 
+							</td> 
+							</tr>
+                            </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{yun:}include file="$comstyle/footer.htm"{/yun}

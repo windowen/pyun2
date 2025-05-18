@@ -1,0 +1,68 @@
+{yun:}include file="$userstyle/header.htm"{/yun}
+{yun:}include file="$tplstyle/public_search/index_search.htm"{/yun}
+<script src="{yun:}$config.sy_weburl{/yun}/data/plus/job.cache.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/class.public.css?v={yun:}$config.cachecode{/yun}" type="text/css">
+<script src="{yun:}$config.sy_weburl{/yun}/js/class.public.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script> 
+<form action="index.php?c=expect&act=addsave" method="post" target="supportiframe">
+ 
+ <div class="news_expect">
+<div class="news_expect_cont">
+
+<div class="news_expect_ok">恭喜您，简历创建成功</div>
+{yun:}if $expectnum<=1{/yun}
+<div class="news_expect_ok_jf">成功创建简历获得<span class="news_expect_ok_jf_n">+{yun:}$config.integral_add_resume{/yun}</span>{yun:}$config.integral_pricename{/yun} <a href="{yun:}url m=resume c=show id='`$id`'{/yun}" target="_blank" class="news_expect_ok_yl">简历预览 </a></div>
+{yun:}/if{/yun}
+<div class="news_expect_ok_p">完善简历可以获得更好的工作机会哦~</div>
+<div class="news_expect_ok_bth">
+{yun:}if !$resume.work{/yun}
+<a href="index.php?c=expect&e={yun:}$id{/yun}#work_upbox" class="news_expect_ok_a">完善工作经历   </a>
+{yun:}/if{/yun}
+{yun:}if !$resume.edu{/yun}<a href="index.php?c=expect&e={yun:}$id{/yun}#edu_upbox"  class="news_expect_ok_a">完善教育经历  </a>{yun:}/if{/yun}
+{yun:}if !$resume.training{/yun}<a href="index.php?c=expect&e={yun:}$id{/yun}#training_upbox" class="news_expect_ok_a">完善培训经历  </a>{yun:}/if{/yun}
+{yun:}if !$resume.skill{/yun}<a href="index.php?c=expect&e={yun:}$id{/yun}#skill_upbox"  class="news_expect_ok_a">完善职业技能 </a>{yun:}/if{/yun}
+{yun:}if !$resume.project{/yun}<a href="index.php?c=expect&e={yun:}$id{/yun}#project_upbox"  class="news_expect_ok_a">完善项目经历 </a>{yun:}/if{/yun}
+{yun:}if !$resume.other{/yun}<a href="index.php?c=expect&e={yun:}$id{/yun}#other_upbox"  class="news_expect_ok_a">其他信息  </a>{yun:}/if{/yun}
+<a href="index.php?c=expect&e={yun:}$id{/yun}#description_upbox" class="news_expect_ok_a">自我评价  </a>
+
+{yun:}if $info.photo==""{/yun}
+<a href="index.php?c=uppic" class="news_expect_ok_a">上传头像  </a>
+{yun:}/if{/yun}
+
+</div>
+<div class="clear"></div>
+<div class="news_expect_ok_likejob_box">
+<div style="padding-left:40px; padding-right:45px; position:relative">
+<div class="news_expect_ok_likejob">你可能感兴趣的职位</div>
+<a href="{yun:}url m=job{/yun}" style="position:absolute;right:45px;top:30px;color:#09F">都不满意？查看更多职位></a>
+</div>
+<div class="news_expect_ok_like">
+<ul>
+{yun:}if $job{/yun}
+	{yun:}joblist namelen=30 comlen=30 jobids='@expect.job_classid' key=key limit=6 item=job_list name=joblist1{/yun}
+	<li>
+	<div class="news_expect_ok_likejobname"><a href="{yun:}$job_list.job_url{/yun}">{yun:}$job_list.name_n{/yun} </a></div>
+	<div class="news_expect_ok_likejobxz"><span class="news_expect_ok_likejobxz_n">{yun:}$job_list.job_salary{/yun}</span> {yun:}if $job_list.job_exp{/yun}<span class="news_expect_ok_likejobline">|</span> {yun:}$job_list.job_exp{/yun}经验{yun:}/if{/yun}{yun:}if $job_list.job_edu{/yun}<span class="news_expect_ok_likejobline">|</span> {yun:}$job_list.job_edu{/yun}学历{yun:}/if{/yun}</div> 
+	<div class="news_expect_ok_likecomname">{yun:}$job_list.com_n{/yun} </div> 
+	<a href="{yun:}$job_list.job_url{/yun}" class="news_expect_ok_likesq">申请</a>
+	</li>
+	{yun:}/joblist{/yun}
+{yun:}else{/yun}
+	{yun:}joblist namelen=30 comlen=30 key=key limit=6 item=job_list name=joblist1{/yun}
+	<li>
+	<div class="news_expect_ok_likejobname"><a href="{yun:}$job_list.job_url{/yun}">{yun:}$job_list.name_n{/yun} </a></div>
+	<div class="news_expect_ok_likejobxz"><span class="news_expect_ok_likejobxz_n">{yun:}$job_list.job_salary{/yun}</span> {yun:}if $job_list.job_exp{/yun}<span class="news_expect_ok_likejobline">|</span> {yun:}$job_list.job_exp{/yun}经验{yun:}/if{/yun}{yun:}if $job_list.job_edu{/yun}<span class="news_expect_ok_likejobline">|</span> {yun:}$job_list.job_edu{/yun}学历{yun:}/if{/yun}</div> 
+	<div class="news_expect_ok_likecomname">{yun:}$job_list.com_n{/yun} </div> 
+	<a href="{yun:}$job_list.job_url{/yun}" class="news_expect_ok_likesq">申请</a>
+	</li>
+	{yun:}/joblist{/yun}
+{yun:}/if{/yun}
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</form>
+{yun:}include file="$userstyle/footer.htm"{/yun}

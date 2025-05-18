@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>{yun:}$title{/yun}</title>
+        <meta name=keywords content="{yun:}$keywords{/yun}" />
+        <meta name=description content="{yun:}$description{/yun}" />
+        <link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <link rel="stylesheet" href="{yun:}$style{/yun}/style/login.css?v={yun:}$config.cachecode{/yun}" type="text/css" />
+        <script>
+            var weburl = "{yun:}$config.sy_weburl{/yun}",
+                integral_pricename = '{yun:}$config.integral_pricename{/yun}',
+                pricename = '{yun:}$config.integral_pricename{/yun}',
+                code_web = '{yun:}$config.code_web{/yun}',
+                code_kind = '{yun:}$config.code_kind{/yun}';
+        </script>
+    </head>
+
+    <body style="background:#fff">
+
+        <div class="login_cont">
+            <div class="login_w960">
+                <div class="login_header ">
+                    <div class="logo fl" style="position:relative">
+                        <a href="{yun:}$config.sy_weburl{/yun}"><img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_logo{/yun}" class="png"></a>
+                    </div>
+                    <a href="{yun:}$config.sy_weburl{/yun}" class="logo_fh fr">返回网站首页>></a>
+                </div>
+
+            </div>
+            <div class="clear"></div>
+
+            <div class="logoin_cont_box">
+                <div class="login_left ">
+                    <div class="login_box_cont">
+                        <!--登录方式选择-->
+                        <div class="login_box_h1_d">
+                            <input type="hidden" name="act" id="act_login" value="{yun:}$smarty.get.act{/yun}" />
+                            <ul class="login_box_h_list">
+                                <li id="acount_login" class="{yun:}if !$smarty.get.act{/yun}login_box_h_list_cur{yun:}/if{/yun}">账号登录<i class="login_box_h_icon"></i></li>
+                                {yun:}if $config.sy_msg_isopen==1 && $config.sy_msg_login==1{/yun}
+                                <li id="mobile_login" class="{yun:}if $smarty.get.act{/yun}login_box_h_list_cur{yun:}/if{/yun}">手机号登录<i class="login_box_h_icon"></i></li>
+                                {yun:}/if{/yun}
+                            </ul>
+                            {yun:}if $config.wx_author=='1'{/yun}
+                            <div class="wxcode_login" title="微信扫一扫登录" style="display:block;"></div>
+                            <div class="normal_login none" title="普通登录"></div>
+                            {yun:}/if{/yun}
+                        </div>
+                        <!--扫码登录页面-->
+						
+                        <div class="wx_login_show none">
+							<div class="wx_login_show_new">
+								<div id="wx_login_qrcode" class="wxlogintext">正在获取二维码...</div>
+								<div class="wxlogintxt">请使用微信扫一扫登录</div>
+								<div id="wx_sx" class="none">
+									<div class="wx_login_show_sxbox"><a href="javascript:void(0);" onclick="getwxlogincode()" class="wx_login_show_sxicon"></a>二维码已失效点击刷新</div>
+								</div>
+							</div>
+                        </div>
+
+                        <!--普通登录-->
+                        <div class="login_t_box">
+                            <div class="login_box_cot" id="login_normal">
+                                <!--账号登录-->
+                                <div class="login_normal_box" id="login_normal_box">
+
+                                    <div class="login_box_list">
+                                        <i class="login_box_icon login_box_username"></i>
+                                        <input type="text" class="login_box_bth placeholder loginname" value="{yun:}if $loginname{/yun}{yun:}$loginname{/yun}{yun:}else{/yun}用户名{yun:}/if{/yun}" name="username" id="username" autocomplete="off" />
+                                        <div class="logoin_msg none" id="show_name">
+                                            <div class="logoin_msg_tx">请填写用户名</div>
+                                            <div class="logoin_msg_icon"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="login_box_list">
+                                        <i class="login_box_icon loginpwd"></i>
+                                        <input type="text" id="password2" class="login_box_bth placeholder loginname " value="密码" autocomplete="off" />
+                                        <input type="password" id="password" name="password" class="login_box_bth placeholder loginname  none " value="" />
+                                        <div class="logoin_msg none" id="show_pass">
+                                            <div class="logoin_msg_tx">请填写密码</div>
+                                            <div class="logoin_msg_icon"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                <!--手机动态码登录-->
+                                {yun:}if $config.sy_msg_isopen==1 && $config.sy_msg_login==1{/yun}
+                                <div class="login_sj_box none" id="login_sj_box">
+                                    <div class="login_box_list">
+                                        <i class="login_box_icon login_box_usersj"></i>
+                                        <input name="username" id="usermoblie" type="text" class="loginname" value="请输入手机号码">
+                                        <div class="logoin_msg none" id="show_mobile">
+                                            <div class="logoin_msg_tx">请填写正确的手机号</div>
+                                            <div class="logoin_msg_icon"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                                {yun:}/if{/yun}
+
+                                <!--验证码选择-->
+								
+                                {yun:}if strpos($config.code_web,"前台登录")!==false{/yun} 
+								
+								{yun:}if $config.code_kind>2{/yun}
+                                <div class="gtdx-captcha">
+
+									<input type='hidden' id="verify_token"  name="verify_token" value="">
+                                    <input type='hidden' id="popup-submit">	
+									<input type='hidden' id="bind-submit">
+                                </div>
+								
+                                {yun:}else{/yun}
+                                <div class="clear"></div>
+                                <div class="login_box_list">
+                                    <i class="login_box_icon loginpyz"></i>
+                                    <input id="txt_CheckCode" type="text" class="login_box_bth_yz loginname " value="验证码" maxlength="6" name="authcode" autocomplete="off" />
+                                    <div class="login_box_list_yzm"> <img id="vcode_imgs" src="{yun:}$config.sy_weburl{/yun}/app/include/authcode.inc.php" onclick="checkCode('vcode_imgs');" />
+                                    </div>
+                                    <div class="logoin_msg none" id="show_code">
+                                        <div class="logoin_msg_tx">请输入验证码</div>
+                                        <div class="logoin_msg_icon"></div>
+                                    </div>
+                                </div>
+                                {yun:}/if{/yun} 
+                                {yun:}/if{/yun} 
+                                {yun:}if $config.sy_msg_isopen==1 && $config.sy_msg_login==1{/yun}
+                                <!--手机验证码输入框-->
+                                <div class="login_sj_box none" id="login_sjyz_box">
+                                    <div class="login_box_list">
+                                        <i class="login_box_icon login_box_userdtm"></i>
+                                        <i class="login_box_line"></i>
+                                        <input name="password" type="text" class="login_m_text" id="dynamiccode" value="短信动态码" />
+                                        <div class="logoin_msg none" id="show_dynamiccode">
+                                            <div class="logoin_msg_tx">请填写短信动态码</div>
+                                            <div class="logoin_msg_icon"></div>
+                                        </div>
+                                        <a href="javascript:void(0);" class="send_yzm" id="send_msg_tip" onclick="send_msg2('{yun:}url m=login c=sendmsg{/yun}');">发送动态码</a>
+                                    </div>
+                                </div>
+                                {yun:}/if{/yun}
+
+                                
+                                <!--登录-->
+                                <input type="hidden" id="referurl" name="referurl" value="{yun:}$referurl{/yun}">
+                                <div class="clear"></div>
+                                <div class="login_box_cz">
+                                    <input type="button" value="登 录" id='sublogin' class="login_box_bth2" onclick="check_login('{yun:}url m=login c=loginsave{/yun}','vcode_imgs',2);" />
+                                </div>
+                                <div class="login_box_fw">
+                                   <span class="fl">没有账号？ <a href="{yun:}url m=register{/yun}" class="">注册账号</a></span>
+                                    <a href="{yun:}url m=forgetpw{/yun}" class="fr">忘记密码？</a>
+                                </div>
+                            </div>
+                            <!--其他登录方式-->
+                            {yun:}if $config.sy_qqlogin==1 || $config.sy_sinalogin==1 || $config.wx_author==1{/yun}
+                            <div class="login_other">
+                                <div class="login_other_left"><span class="login_other_left_s">其他方式登录</span></div>
+                                <div class="login_other_p">
+									{yun:}if $config.wx_author==1{/yun}
+                                    <a href="{yun:}url m=wxconnect{/yun}" class=""><i class="l-icon login_weixin-icon"></i></a>
+                                    {yun:}/if{/yun}
+                                    {yun:}if $config.sy_qqlogin==1{/yun}
+                                    <a href="{yun:}$config.sy_weburl{/yun}/qqlogin.php" class="png"><i class="l-icon login_qq-icon"></i></a>
+                                    {yun:}/if{/yun} {yun:}if $config.sy_sinalogin==1{/yun}
+                                    <a href="{yun:}url m=sinaconnect{/yun}" class=" "><i class="l-icon login_sina-icon"></i></a>
+                                    {yun:}/if{/yun} 
+                                </div>
+                            </div>
+                            {yun:}/if{/yun}
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <!--banner-->
+            <div class="logoin_banner">
+                <div class="flexslider">
+                    <ul class="slides">
+                        {yun:}adlist classid=37 item="lunbo" name=foo{/yun}
+                        <li style="background: url({yun:}$lunbo.pic{/yun}) 50% 0 no-repeat;">
+                            <a href="{yun:}$lunbo.src{/yun}" target="_blank" style="display:block;width:100%;height:100%;"></a>
+                        </li>
+                        {yun:}/adlist{/yun}
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+
+             <div class="clear"></div>
+        <div class="reg_footer">如果您有任何疑问或在登录过程中遇到任何困难，您都可以通过以下方式与我们联系
+           <div class="">电话： {yun:}$config.sy_freewebtel{/yun} <span class="reg_footer_yz">客服QQ：{yun:}$config.sy_qq{/yun}</span> </div>
+                     </div>
+        </div>
+        </div>
+ 		<div id="bind-captcha" data-id='sublogin' data-type='click'></div>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+        <script src="{yun:}$style{/yun}/js/reg_ajax.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+        <script src="{yun:}$config.sy_weburl{/yun}/js/slides.jquery.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+        <script src="{yun:}$style{/yun}/js/jquery.flexslider.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+        <script src="{yun:}$style{/yun}/js/jcarousellite.js?v={yun:}$config.cachecode{/yun}" type="text/javascript"></script>
+		
+		{yun:}include file="$tplstyle/verify/verify_js.htm"{/yun}
+
+        <!--[if IE 6]>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script>
+		DD_belatedPNG.fix('.png,.login_fast,.login_box_tit .login_cur');
+		</script>
+		<![endif]-->
+        <script>
+			var setval,
+				setwout;
+            $(document).ready(function() {
+                $("#slides").slides({
+                    preload: true,
+                    preloadImage: '{yun:}$style{/yun}/images/loading.gif',
+                    play: 5000,
+                    pause: 2500,
+                    hoverPause: true
+                });
+
+                $("#username,#txt_CheckCode,#usermoblie,#dynamiccode").focus(function() {
+                    var txAreaVal = $(this).val();
+                    if(txAreaVal == this.defaultValue) {
+                        $(this).val("");
+                    }
+                }).blur(function() {
+                    var txAreaVal = $(this).val();
+                    if(txAreaVal == this.defaultValue || $(this).val() == "") {
+                        $(this).val(this.defaultValue);
+                    }
+                }).keydown(function(e) {
+                    var ev = document.all ? window.event : e;
+                    if(ev.keyCode == 13) {
+                        check_login('{yun:}url m=login c=loginsave{/yun}', 'vcode_imgs');
+                    } else {
+                        return;
+                    }
+                });
+
+                $("#password2").focus(function() {
+                    $("#password").show();
+                    $("#password").focus();
+                    $("#password2").hide();
+                })
+                $("#password").blur(function() {
+                    if($("#password").val() == "") {
+                        $("#password2").show();
+                        $("#password").hide();
+                    }
+                }).keydown(function(e) {
+                    var ev = document.all ? window.event : e;
+                    if(ev.keyCode == 13) {
+                        check_login('{yun:}url m=login c=loginsave{/yun}', 'vcode_imgs');
+                    } else {
+                        return;
+                    }
+                });
+                
+                $('.wxcode_login').click(function(data) {
+                    $('.wxcode_login').hide();
+                    $('.normal_login').show();
+                    $('#login_normal').hide();
+                    $('.login_box_h_list').hide();
+                    $('.wx_login_show').show();
+                    getwxlogincode();
+                });
+                $('.normal_login').click(function(data) {
+                    $('.wxcode_login').show();
+                    $('.normal_login').hide();
+                    $('#login_normal').show();
+                    $('.login_box_h_list').show();
+                    $('.wx_login_show').hide();
+                    if(setval){
+						clearInterval(setval);
+						setval = null;
+					}
+					if(setwout){
+						clearTimeout(setwout);
+						setwout = null;
+					}
+                });
+                //账号登录和手机登录tab选择
+                $('#acount_login').click(function(data) {
+                    $('#acount_login').removeClass().addClass('login_box_h_list_cur');
+                    $('#mobile_login').removeClass();
+                    $('#login_normal_box').show();
+                    $('#login_sj_box').hide();
+                    $('#login_sjyz_box').hide();
+                    $('#act_login').val('0');
+					$('#bind-captcha').attr('data-id','sublogin');
+                });
+                $('#mobile_login').click(function(data) {
+                    $('#mobile_login').removeClass().addClass('login_box_h_list_cur');
+                    $('#acount_login').removeClass();
+                    $('#login_sj_box').show();
+                    $('#login_sjyz_box').show();
+                    $('#login_normal_box').hide();
+                    $('#act_login').val('1');
+					$('#bind-captcha').attr('data-id','send_msg_tip');
+                });
+            });
+
+            $(window).load(function() {
+                $('.flexslider').flexslider({
+                    directionNav: true,
+                    pauseOnAction: false
+                });
+            });
+			function getwxlogincode(){
+				$.post('{yun:}url m=login c=wxlogin{/yun}', {
+					t: 1
+				}, function(data) {
+					if(data == 0) {
+						$('#wx_login_qrcode').html('二维码获取失败..');
+					} else {
+						$('#wx_login_qrcode').html('<img src="' + data + '" width="100" height="100">');
+						setval = setInterval(function(){
+							$.post('{yun:}url m=login c=getwxloginstatus{/yun}', {
+								t: 1
+							}, function(data) {
+								var data = eval('(' + data + ')');
+								if(data.url != '' && data.msg != '') {
+									clearInterval(setval);
+									setval = null;
+									layer.msg(data.msg, 2, 9, function() {
+										window.location.href = data.url;
+									});
+								} else if(data.url) {
+									window.location.href = data.url;
+								}
+							});
+						}, 2000);
+						if(setwout){
+							clearTimeout(setwout);
+							setwout = null;
+						}
+						setwout = setTimeout(function(){
+							clearInterval(setval);
+							setval = null;
+							var wx_sx = $("#wx_sx").html();
+							$('#wx_login_qrcode').html(wx_sx);
+						},300*1000);
+					}
+				});
+			}
+            
+        </script>
+           <div style="display:none">   {yun:}include file="$tplstyle/footer.htm"{/yun}</div>

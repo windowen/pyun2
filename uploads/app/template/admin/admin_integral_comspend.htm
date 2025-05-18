@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+		<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+		<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+		<title>后台管理</title>
+	</head>
+
+	<style>
+		.admin_comclass_add_n li{width: 132px;}
+		.admin_comclass_add_n_dw{width: 54px;}
+	</style>
+	<body class="body_ifm">
+
+		<form class="layui-form">
+			<div class="tty-tishi_top">
+			<div class="infoboxp">
+
+				<div class="tabs_info">
+					<ul>
+						<li><a href="index.php?m=admin_comset">企业设置</a></li>
+						<li><a href="index.php?m=admin_comset&c=logo">头像设置</a></li>
+						<li class="curr"><a href="index.php?m=admin_comset&c=comspend">消费设置</a></li>
+						<li><a href="index.php?m=admin_comset&c=rating">套餐设置</a></li>
+					</ul>
+				</div>
+
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">当前{yun:}$config.integral_pricename{/yun}兑换比为1元={yun:}$config.integral_proportion{/yun}{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}，可设置最低金额是{yun:}1/$config.integral_proportion{/yun}元。</div>
+					</div>
+				</div>
+
+					<div class="tag_box">
+						<div>
+							<table width="100%" class="table_form">
+
+								<tr>
+									<th width="220">发布职位：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="integral_job" id="integral_job" value="{yun:}$config.integral_job{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');" />
+											元 / 份
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<th width="220">下载人才简历：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="integral_down_resume" id="integral_down_resume" value="{yun:}$config.integral_down_resume{/yun}" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');" />
+											元 / 份
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="220">邀请人才面试：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="integral_interview" id="integral_interview" value="{yun:}$config.integral_interview{/yun}" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');" />
+											元 / 份
+										</div>
+									</td>
+								</tr>
+
+
+								<tr class="admin_table_trbg">
+									<th width="220">刷新职位：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="integral_jobefresh" id="integral_jobefresh" value="{yun:}$config.integral_jobefresh{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');" />
+											元 / 份
+										</div>
+									</td>
+								</tr>
+
+
+								<tr>
+									<th width="220">发布紧急招聘：</th>
+									<td>
+										<div class="layui-input-block">
+											<input class="tty_input t_w480" type="text" name="com_urgent" id="com_urgent" required lay-verify="required" value="{yun:}$config.com_urgent{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');">
+											元 / 天
+										</div>
+									</td>
+								</tr>
+
+								<tr>
+									<th width="220">发布置顶职位：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="text" name="integral_job_top" id="integral_job_top" required lay-verify="required" value="{yun:}$config.integral_job_top{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" class="tty_input t_w480" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');">
+											元 / 天
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="220">发布推荐招聘：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="text" name="com_recjob" id="com_recjob" required lay-verify="required" value="{yun:}$config.com_recjob{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" class="tty_input t_w480" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');">
+											元 / 天
+										</div>
+									</td>
+								</tr>
+
+								<tr class="admin_table_trbg">
+									<th width="220">职位自动刷新：</th>
+									<td>
+										<div class="layui-input-block">
+											<input type="text" name="job_auto" id="job_auto" required lay-verify="required" value="{yun:}$config.job_auto{/yun}" autocomplete="off" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" class="tty_input t_w480" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');">
+											元 / 天
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<th width="220" style="float: left;padding-top: 10px;">下载人才简历定价：</th>
+									<td>
+										
+										
+										<div style="width: 535px;padding: 15px;border: 1px solid #dcdee2;border-radius: 4px;overflow: hidden;">
+											{yun:}foreach from=$data item=v key=key{/yun}
+											<ul class="admin_comclass_add_n" style="width: auto;" id="newdayprice{yun:}$key+1{/yun}">
+												<li>
+													<span class="admin_comclass_add_n_s">更新时间</span>
+													<input class="admin_comclass_add_n_text" type="text" name="days[]" value="{yun:}$v.days{/yun}" placeholder=" " /> 
+													<span class="admin_comclass_add_n_dw">天内</span>
+												</li>
+												<li style="margin-right: 0;">
+													<span class="admin_comclass_add_n_s">单价</span>
+													<input class="admin_comclass_add_n_text" type="text" name="price[]" value="{yun:}$v.price{/yun}" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" onBlur="payintegral(this,'{yun:}$config.integral_proportion{/yun}');" />
+													<span class="admin_comclass_add_n_dw">元&nbsp;/&nbsp;份</span>
+												</li>
+												<a href="javascript:;" onclick="deldowndata('{yun:}$key+1{/yun}');" class="admin_resume_jgdelete">删除</a>
+											</ul>
+											{yun:}/foreach{/yun}
+											
+											<div id="newlist"></div>
+					
+											
+											<a class="admin_resume_jg_add" href="javascript:void(0);" onclick="addNewComment();" id="adddowndata">添加新定价</a>
+										</div>
+										
+										
+										
+										<div class="admin_resumedjtip">
+											<span class="admin_web_tip" style="margin-left:0px;">简历可按照更新时间，如：1天内更新,3天内更新或7天内更新等等分别定价</span>
+										</div>
+									</td>
+								</tr>
+								
+								 
+								<tr>
+									<th width="160" class="t_fr">单独购买：</th>
+									<td>
+										<div class="layui-input-block">
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="issuejob" lay-skin="primary" title="发布职位" {yun:}if in_array("issuejob",$com_single_can){/yun} checked {yun:}/if{/yun} >
+												
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											    <input type="checkbox" class="singleCtr" name="com_single_can[]" value="jobtop" lay-skin="primary" title="职位置顶" {yun:}if in_array("jobtop",$com_single_can){/yun} checked {yun:}/if{/yun} >
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="jobrec" lay-skin="primary" title="职位推荐" {yun:}if in_array("jobrec",$com_single_can){/yun} checked {yun:}/if{/yun}>
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="joburgent" lay-skin="primary" title="职位紧急" {yun:}if in_array("joburgent",$com_single_can){/yun} checked {yun:}/if{/yun}>
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="sxjob" lay-skin="primary" title="刷新职位" {yun:}if in_array("sxjob",$com_single_can){/yun} checked {yun:}/if{/yun}>
+												
+											</div>
+
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="downresume" lay-skin="primary" title="下载简历" {yun:}if in_array("downresume",$com_single_can){/yun} checked {yun:}/if{/yun}>
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="invite" lay-skin="primary" title="邀请面试" {yun:}if in_array("invite",$com_single_can){/yun} checked {yun:}/if{/yun}>
+											</div>
+											<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+												<input type="checkbox" class="singleCtr" name="com_single_can[]" value="zph" lay-skin="primary" title="报名招聘会" {yun:}if in_array("zph",$com_single_can){/yun} checked {yun:}/if{/yun}>
+											</div>
+											
+											
+										 
+										</div>
+										<span class="admin_web_tip">提示：已选中的项目可以在套餐外单独使用金额、积分等购买，未选中则必须购买相应的套餐或增值包。</span>
+									</td>
+
+								</tr>
+								<tr class="admin_table_trbg">
+									<th style="border-bottom:none;" width="220">&nbsp;</th>
+									<td align="left" style="border-bottom:none;">
+										<input class="layui-btn tty_sub" id="integral" type="button" name="config" value="提交" />&nbsp;&nbsp;
+										<input class="layui-btn tty_cz" type="reset" value="重置" />
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			</div>
+			<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+		</form>
+		<script>
+			layui.use(['layer', 'form'], function() {
+				var layer = layui.layer,
+					form = layui.form,
+					$ = layui.$;
+			});
+		
+			$(function() {
+				$("#integral").click(function() {
+					var codewebarr = "";
+					var a = document.getElementsByName("days[]");
+					var b = document.getElementsByName("price[]");
+					for (var i = 0; i < a.length; i++) {
+						if (codewebarr == '') {
+							if (a[i].value > 0) {
+								codewebarr += a[i].value;
+								if (b[i].value) {
+									codewebarr += '_' + b[i].value;
+								} else {
+									codewebarr += '_0';
+								}
+							}
+						} else {
+							if (a[i].value > 0) {
+								codewebarr += ':' + a[i].value;
+								if (b[i].value) {
+									codewebarr += '_' + b[i].value;
+								} else {
+									codewebarr += '_0';
+								}
+							}
+						}
+					}
+					var com_single_can = [];
+					$('.singleCtr').each(function(){
+						
+						if($(this).is(":checked")){
+							com_single_can.push($(this).val());
+						}
+					})
+
+					
+					loadlayer();
+					$.post("index.php?m=admin_comset&c=save", {
+							config: $("#integral").val(),
+		
+							integral_job_type: 2,
+							integral_job: $("#integral_job").val(),
+		
+							integral_down_resume_type: 2,
+							integral_down_resume: $("#integral_down_resume").val(),
+							integral_down_resume_dayprice: codewebarr,
+							integral_sons_num_type: 2,
+							integral_sons_num: $("#integral_sons_num").val(),
+		
+							integral_interview_type: 2,
+							integral_interview: $("#integral_interview").val(),
+		
+		
+							integral_jobefresh_type: 2,
+							integral_jobefresh: $("#integral_jobefresh").val(),
+		
+							com_urgent_type: 2,
+							com_urgent: $("#com_urgent").val(),
+		
+							com_recjob_type: 2,
+							com_recjob: $("#com_recjob").val(),
+		
+							job_auto_type: 2,
+							job_auto: $("#job_auto").val(),
+		
+							integral_jobtop_type: 2,
+							integral_job_top: $("#integral_job_top").val(),
+		
+							com_single_can:com_single_can,
+
+							pytoken: $("#pytoken").val()
+						},
+		
+						function(data, textStatus) {
+							parent.layer.closeAll('loading');
+							config_msg(data);
+						});
+				});
+				$('#adddowndata').click(function() {
+					var randnum = parseInt(Math.random() * 1000);
+					var arrstr = '<ul class="admin_comclass_add_n" style="width: auto;" id="newdayprice' + randnum + '"> <li> <span class="admin_comclass_add_n_s">更新时间</span> <input class="admin_comclass_add_n_text" type="text" name="days[]" value=""/> <span class="admin_comclass_add_n_dw">天内</span> </li> <li style="margin-right: 0;"> <span class="admin_comclass_add_n_s">单价</span> <input class="admin_comclass_add_n_text" type="text" name="price[]" value="" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,\'\')" /> <span class="admin_comclass_add_n_dw">元&nbsp;/&nbsp;份</span> </li> <a href="javascript:;" onclick="deldowndata(' +randnum + ');" class="admin_resume_jgdelete">删除</a> </ul>';
+					$("#newlist").before(arrstr);
+				});
+			})
+			
+		
+			function deldowndata(obj) {
+				var commentSet = $("input[name='days[]']");
+				if (commentSet.length <= 1) {
+					parent.layer.msg('再删就没有啦！', 2, 8);
+					return false;
+				} else {
+					$("#newdayprice" + obj).remove();
+				}
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link href="images/reset.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/system.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<link href="images/table_form.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="js/admin_public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+	<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet"
+	 type="text/css" />
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script>
+	<script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+	<title>后台管理</title>
+</head>
+
+<style>
+	.layui-form-item{ margin-bottom:0px;}
+</style>
+
+<body class="body_ifm">
+	<form class="layui-form">
+		<div class="infoboxp">
+			<div class="tty-tishi_top">
+
+				<div class="tabs_info">
+					<ul>
+						<li class="curr"><a href="index.php?m=admin_comset">企业设置</a></li>
+						<li><a href="index.php?m=admin_comset&c=logo">头像设置</a></li>
+						<li><a href="index.php?m=admin_comset&c=comspend">消费设置</a></li>
+						<li><a href="index.php?m=admin_comset&c=rating">套餐设置</a></li>
+					</ul>
+				</div>
+				
+				<div class="clear"></div>
+
+				<div class="admin_new_tip">
+					<a href="javascript:;" class="admin_new_tip_close"></a>
+					<a href="javascript:;" class="admin_new_tip_open" style="display:none;"></a>
+					<div class="admin_new_tit"><i class="admin_new_tit_icon"></i>操作提示</div>
+					<div class="admin_new_tip_list_cont">
+						<div class="admin_new_tip_list">管理员可以部署网站企业会员相关信息的审核、强制完善信息等设置！</div>
+						<div class="admin_new_tip_list">管理员也可以设置企业相关功能的开启或关闭！</div>
+						<div class="admin_new_tip_list">具体信息部署，可以根据实际运营需求设置！</div>
+					</div>
+				</div>
+
+				<div class="clear"></div>
+			
+				<div class="tag_box tty_qiyesSet">
+
+					<div>
+						<table width="100%" class="table_form">
+
+							<tr>
+								<th width="220" style="float: left;">审核信息：</th>
+								<td>
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_status" title="企业会员" type="checkbox" lay-skin="primary" {yun:}if $config.com_status == '0'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_job_status" title="发布职位" type="checkbox" lay-skin="primary" {yun:}if $config.com_job_status == '0'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_partjob_status" title="发布兼职" type="checkbox" lay-skin="primary" {yun:}if $config.com_partjob_status == '0'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_cert_status" title="企业认证" type="checkbox" lay-skin="primary" {yun:}if $config.com_cert_status == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+									</div>
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_logo_status" title="企业LOGO" type="checkbox" lay-skin="primary" {yun:}if $config.com_logo_status == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_show_status" title="企业环境" type="checkbox" lay-skin="primary" {yun:}if $config.com_show_status == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_banner_status" title="企业横幅" type="checkbox" lay-skin="primary" {yun:}if $config.com_banner_status == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+									</div>
+								</td>
+							</tr>
+
+							<tr>
+								<th width="220" style="float: left;">强制操作：</th>
+								<td>
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_enforce_info" title="信息完善" type="checkbox" lay-skin="primary" {yun:}if $config.com_enforce_info == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+										
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_enforce_mobilecert" title="手机认证" type="checkbox" lay-skin="primary" {yun:}if $config.com_enforce_mobilecert == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+										
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_enforce_emailcert" title="邮箱认证" type="checkbox" lay-skin="primary" {yun:}if $config.com_enforce_emailcert == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+									</div>
+
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_enforce_licensecert" title="营业执照" type="checkbox" lay-skin="primary" {yun:}if $config.com_enforce_licensecert == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_enforce_setposition" title="地理位置" type="checkbox" lay-skin="primary" {yun:}if $config.com_enforce_setposition == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+									
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_gzgzh" title="关注微信公众号" type="checkbox" lay-skin="primary" {yun:}if $config.com_gzgzh == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+									</div>
+									<span class="admin_web_tip">提示：强制操作完成才能发布招聘信息</span>	
+								</td>
+							</tr>
+						
+							<tr>
+								<th width="220" style="float: left;">功能开关：</th>
+								<td>
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_message" title="求职咨询" type="checkbox" lay-skin="primary" {yun:}if $config.com_message == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+
+										
+										
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_free_status" title="认证企业职位免审核" type="checkbox" lay-skin="primary" {yun:}if $config.com_free_status == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+										
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th width="220" style="float: left;">人才搜索：</th>
+								<td>
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_search" id="com_search" title="已登录会员" type="checkbox" lay-skin="primary" lay-filter="comSearch" {yun:}if $config.com_search == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+										
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;width: 150px;">
+											<input name="com_status_search" id="com_status_search" title="已审核会员" type="checkbox" lay-skin="primary" lay-filter="statusSearch"{yun:}if $config.com_status_search == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+									</div>
+									<span class="admin_web_tip">会员已登录、会员已审核才能搜索人才</span>	
+								</td>
+							</tr>
+
+							<tr>
+								<th width="220" style="float: left;">人才下载：</th>
+								<td>
+									<div class="layui-input-block">
+										<div class="layui-input-inline" style="margin: 0px 30px 15px 0;">
+											<input name="com_lietou_job" title="在招职位" type="checkbox" lay-skin="primary" {yun:}if $config.com_lietou_job == '1'{/yun}checked{yun:}/if{/yun} />
+										</div>
+									</div>
+									<span class="admin_web_tip">有正在招聘的职位才能下载简历</span>	
+
+								</td>
+							</tr>
+											 
+							<tr class="admin_table_trbg">
+								<th width="200">企业搜索器：</th>
+								<td >
+									<input class="input-text" type="text" name="com_finder" id="com_finder" value="{yun:}$config.com_finder{/yun}" size="20" maxlength="255" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" />个&nbsp;&nbsp;&nbsp;
+									<span class="admin_web_tip">数量太多，发送订阅邮件会很慢，为空则不限</span>
+								</td>
+							</tr>
+							<tr class="admin_table_trbg">
+								<th width="200">邀请面试模板数：</th>
+								<td >
+									<input class="input-text" type="text" name="com_yqmb_num" id="com_yqmb_num" value="{yun:}$config.com_yqmb_num{/yun}" size="20" maxlength="255" onKeyUp="this.value=this.value.replace(/[^0-9.]/g,'')" />个&nbsp;&nbsp;&nbsp;
+									<span class="admin_web_tip">企业邀请面试可保存的模板数</span>
+								</td>
+							</tr> 
+							<tr>
+								<th width="200">会员到期提醒：</th>
+								<td>
+									<input class="input-text tips_class input_text_rp" type="text" name="sy_maturityday" id="sy_maturityday" value="{yun:}$config.sy_maturityday{/yun}" size="10" />天&nbsp;&nbsp;&nbsp;
+									<span class="admin_web_tip">默认为30天,此设置将向站长发送邮件，请先配置站长Email</span>
+								</td>
+							</tr>
+							
+							 
+							
+							 
+							<tr class="admin_table_trbg">
+								<th width="200" class="t_fr">职位列表置顶：</th>
+								<td>
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<input type="radio" name="joblist_top" value="1" title="全部显示" {yun:}if $config.joblist_top==1{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="joblist_top" value="0" title="随机5条" {yun:}if $config.joblist_top==0{/yun}checked{yun:}/if{/yun}>
+										</div>
+										<span class="admin_web_tip">若选择“全部显示”，则职位列表会将置顶职位全部显示完之后再显示其他职位</span>
+									</div>
+								</td>
+							</tr>
+							
+							<tr class="admin_table_trbg">
+								<th width="200" class="t_fr">职位锁定：</th>
+								<td>
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<input type="radio" name="joblock" value="1" title="锁定" {yun:}if $config.joblock==1{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="joblock" value="0" title="不锁定" {yun:}if $config.joblock==0{/yun}checked{yun:}/if{/yun}>
+										</div>
+										<span class="admin_web_tip">若选择“锁定”，则职位名称发布后不可修改</span>
+									</div>
+								</td>
+							</tr>
+
+							<tr class="admin_table_trbg">
+								<th width="200" class="t_fr">会员到期职位下架：</th>
+								<td>
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<input type="radio" name="jobunder" value="1" title="下架" {yun:}if $config.jobunder==1{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="jobunder" value="0" title="保持" {yun:}if $config.jobunder==0{/yun}checked{yun:}/if{/yun}>
+										</div>
+										<span class="admin_web_tip">若选择“下架”，则会员到期后职位自动下架</span>
+									</div>
+								</td>
+							</tr>
+
+							<tr class="admin_table_trbg">
+								<th width="200" class="t_fr">查看企业联系方式：</th>
+								<td>
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											<input type="radio" name="com_login_link" value="1" title="开放" {yun:}if $config.com_login_link==1{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="com_login_link" value="2" title="不开放" {yun:}if $config.com_login_link==2{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="com_login_link" value="3" title="登录后显示" {yun:}if $config.com_login_link==3{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="com_login_link" value="4" title="拥有简历" {yun:}if $config.com_login_link==4{/yun}checked{yun:}/if{/yun}>
+											 <input type="radio" name="com_login_link" value="5" title="投递简历" {yun:}if $config.com_login_link==5{/yun}checked{yun:}/if{/yun}>
+										</div>
+										<span class="admin_web_tip">若选择“开放”，则进入企业自身联系方式设置条件判断</span>
+									</div>
+								</td>
+							</tr>
+
+							<tr class="admin_table_trbg">
+								<th width="200" class="t_fr">屏蔽企业联系方式：</th>
+								{yun:}if is_array($qy_rows){/yun}
+								<td>
+									<div class="layui-form-item">
+										<div class="layui-input-block">
+											{yun:}foreach item=v from=$qy_rows{/yun}
+											<input type="checkbox" name="com_link_no" value="{yun:}$v.id{/yun}" lay-skin="primary" title="{yun:}$v.name{/yun}"
+											 {yun:}if in_array($v.id,$com_link_no){/yun}checked{yun:}/if{/yun}> {yun:}/foreach{/yun} 
+										</div>
+										<span class="admin_web_tip">选中会员等级，对应的的企业联系方式即为不开放状态。</span>
+									</div>
+								</td>
+								{yun:}else{/yun}
+								<td>
+									<div class="iradio_flat_height">暂无等级，
+										<a href="index.php?m=userconfig&c=comclass" style="color:red;">添加会员等级</a>
+										<input type="hidden" name="com_rating" value="0">
+									</div>
+								</td>
+								{yun:}/if{/yun}
+
+							</tr>
+
+							<tr class="admin_table_trbg">
+								<th style="border-bottom:none;" width="200">&nbsp;</th>
+								<td align="left" style="border-bottom:none;">
+									<input type="hidden" name="pytoken" id='pytoken' value="{yun:}$pytoken{/yun}">
+									<input class="layui-btn tty_sub" id="mconfig" type="button" name="config" value="提交" />&nbsp;&nbsp;
+									<input class="layui-btn tty_cz" type="reset" value="重置" /></td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+			</div>
+			<script>
+				layui.use(['layer', 'form'], function() {
+					var layer = layui.layer,
+						form = layui.form,
+						$ = layui.$;
+
+					form.on('checkbox(comSearch)', function(data){
+						if(!data.elem.checked){
+							$("#com_status_search").prop("checked", false);
+							form.render('checkbox');
+						}
+					}); 
+					form.on('checkbox(statusSearch)', function(data){
+						if(data.elem.checked){
+							$("#com_search").prop("checked", true);
+							form.render('checkbox');
+						}
+					}); 
+					
+				});
+
+				$(function() {
+					$("#mconfig").click(function() {
+
+						var com_link_no = "";
+
+						$('input[name="com_link_no"]:checked').each(function() {
+							if (com_link_no == "") {
+								com_link_no = $(this).val();
+							} else {
+								com_link_no = com_link_no + "," + $(this).val();
+							}
+						});
+
+						loadlayer();
+						$.post("index.php?m=admin_comset&c=save", {
+							config: $("#mconfig").val(),
+							
+							// 审核信息
+							com_status: $("input[name=com_status]").is(":checked") ? 0 : 1,
+							com_job_status: $("input[name=com_job_status]").is(":checked") ? 0 : 1,
+							com_partjob_status: $("input[name=com_partjob_status]").is(":checked") ? 0 : 1,
+							com_cert_status: $("input[name=com_cert_status]").is(":checked") ? 1 : 0,
+							com_logo_status: $("input[name=com_logo_status]").is(":checked") ? 1 : 2,
+							com_show_status: $("input[name=com_show_status]").is(":checked") ? 1 : 0,
+							com_banner_status: $("input[name=com_banner_status]").is(":checked") ? 1 : 0,
+					
+							// 强制操作
+							com_enforce_info: $("input[name=com_enforce_info]").is(":checked") ? 1 : 0,
+							com_enforce_mobilecert: $("input[name=com_enforce_mobilecert]").is(":checked") ? 1 : 0,
+							com_enforce_emailcert: $("input[name=com_enforce_emailcert]").is(":checked") ? 1 : 0,
+							com_enforce_licensecert: $("input[name=com_enforce_licensecert]").is(":checked") ? 1 : 0,
+							com_enforce_setposition: $("input[name=com_enforce_setposition]").is(":checked") ? 1 : 0,
+							com_gzgzh: $("input[name=com_gzgzh]").is(":checked") ? 1 : 0,
+						
+							// 功能开关
+							com_message: $("input[name=com_message]").is(":checked") ? 1 : 0,
+							com_free_status: $("input[name=com_free_status]").is(":checked") ? 1 : 0,
+							com_msg_status: $("input[name=com_msg_status]").is(":checked") ? 1 : 0,
+							com_search: $("input[name=com_search]").is(":checked") ? 1 : 0,
+							com_status_search: $("input[name=com_status_search]").is(":checked") ? 1 : 0,
+							com_lietou_job: $("input[name=com_lietou_job]").is(":checked") ? 1 : 0,
+
+							com_finder: $("#com_finder").val(),
+							sy_maturityday: $("#sy_maturityday").val(),
+							com_yqmb_num: $("#com_yqmb_num").val() ? $("#com_yqmb_num").val() : 0,
+							
+							joblist_top: $("input[name=joblist_top]:checked").val(),
+							joblock: $("input[name=joblock]:checked").val(),
+							jobunder: $("input[name=jobunder]:checked").val(),
+							com_login_link: $("input[name=com_login_link]:checked").val(),
+							com_link_no: com_link_no,
+							pytoken: $("#pytoken").val()
+						}, function(data, textStatus) {
+							parent.layer.closeAll('loading');
+							config_msg(data);
+						});
+					});
+				})
+			</script>
+		</div>
+	</form>
+</body>
+
+</html>

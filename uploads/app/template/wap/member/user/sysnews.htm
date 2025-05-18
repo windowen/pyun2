@@ -1,0 +1,134 @@
+{yun:}include file="$wapstyle/member/header.htm"{/yun}
+<style>
+.header_h{ display:none;}
+body{ background:#fff}
+</style>
+<div class="news_header">
+<ul class="news_header_tit">
+<li class="news_header_cur"><a href="index.php?c=synews">消息</a></li> 
+<li><a href="index.php?c=invite">面试通知{yun:}if $wkyqnum{/yun}<i class="news_header_n">{yun:}$wkyqnum{/yun}</i>{yun:}/if{/yun}</a></li> 
+<li><a href="index.php?c=look">谁看了我{yun:}if $lrnum{/yun}<i class="news_header_n">{yun:}$lrnum{/yun}</i>{yun:}/if{/yun}</a></li>  
+</ul>
+<a href="javascript:void(0);" onclick="setAllRead();" class="news_header_yd"><span class="news_header_yd_c">全部已读</span></a>
+</div>
+
+
+<!--投递反馈-->
+<div class="news_tz_list">
+<a href="index.php?c=sq&back=1">
+<i class="news_tz_tdicon"></i>
+ <div class="news_tz_list_r">
+  <div class="news_tz_list_h1">  <div class="news_tz_list_h1_c"><span class="news_tz_list_h1name">投递反馈</span> <span class="news_tz_list_time">{yun:}if $sqrows.time_n{/yun}{yun:}$sqrows.time_n{/yun}{yun:}/if{/yun}</span></div></div>
+    <div class="news_tz_list_pc">
+        <div class="news_tz_list_p">
+            {yun:}if $sqrows{/yun}
+            <span class="news_tz_list_zt">
+                {yun:}if $sqrows.is_browse=='1'{/yun}[未查看]
+                {yun:}elseif $sqrows.is_browse=='2'{/yun}[已查看]
+                {yun:}elseif $sqrows.is_browse=='3'{/yun}[等待通知]
+                {yun:}elseif $sqrows.is_browse=='4'{/yun}[条件不符]
+                {yun:}elseif $sqrows.is_browse=='5'{/yun}[无法联系]
+                {yun:}/if{/yun}
+            </span>
+            {yun:}$sqrows.com_name{/yun}
+            {yun:}else{/yun}
+            暂无投递反馈
+            {yun:}/if{/yun}
+        </div> 
+        
+    </div>
+ </div>
+ </a>
+</div>
+
+
+<!--系统消息-->
+<div class="news_tz_list">
+<a href="index.php?c=sxnews">
+<i class="news_tz_xxicon"></i>
+<div class="news_tz_list_r">
+    
+    {yun:}if $sxrowsnum > 0{/yun}
+    <a href="index.php?c=sxnews">
+        
+        <div class="news_tz_list_h1">  
+            <div class="news_tz_list_h1_c">
+                <span class="news_tz_list_h1name">系统消息</span>
+                <span class="news_tz_list_time">{yun:}$sxrows.ctime|date_format:"%Y-%m-%d %H:%M"{/yun}</span>
+            </div>
+        </div>
+        <div class="news_tz_list_pc">
+            <div class="news_tz_list_p">{yun:}$sxrows.content_n{/yun}</div>
+            <i class="news_tz_list_n">{yun:}$sxrowsnum{/yun}</i>
+        </div>
+
+    </a>
+    {yun:}else{/yun}
+    <a href="index.php?c=sxnews">
+        <div class="news_tz_list_h1">  
+            <div class="news_tz_list_h1_c">
+                <span class="news_tz_list_h1name">系统消息</span>
+            </div>
+        </div>
+        <div class="news_tz_list_pc">
+            <div class="news_tz_list_p">暂无新的通知~</div>
+        </div>
+    </a>
+    {yun:}/if{/yun}
+</div>
+ </a>
+</div>
+<!--职位咨询-->
+<div class="news_tz_list">
+
+
+{yun:}if $commsgnum{/yun}
+<a href="index.php?c=commsg">
+    <i class="news_tz_zxicon"></i>
+    <div class="news_tz_list_r">
+        <div class="news_tz_list_h1"> 
+            <div class="news_tz_list_h1_c">
+                <span class="news_tz_list_h1name">职位咨询</span>
+                <span class="news_tz_list_time">{yun:}$commsg.reply_time|date_format:"%Y-%m-%d %H:%M"{/yun}</span>
+            </div>
+        </div>
+        <div class="news_tz_list_pc">
+            <div class="news_tz_list_p">企业{yun:}$commsg.com_name{/yun}回复了你的咨询 !</div>
+            <i class="news_tz_list_n">{yun:}$commsgnum{/yun}</i>
+        </div>
+    </div>
+</a>
+{yun:}else{/yun}
+<a href="index.php?c=commsg">
+    <i class="news_tz_zxicon"></i>
+    <div class="news_tz_list_r">
+        <div class="news_tz_list_h1">
+            <div class="news_tz_list_h1_c">
+                <span class="news_tz_list_h1name">职位咨询</span>
+            </div>
+        </div>
+        <div class="news_tz_list_pc">
+            <div class="news_tz_list_p">暂无咨询内容</div>
+        </div>
+    </div>
+</a>
+{yun:}/if{/yun}
+</div>
+
+
+
+<script>
+    
+    function setAllRead(){
+
+        layer.open({type: 2});
+
+        $.post('index.php?c=setAllRead',{'type':'all'},function(data){
+            layer.closeAll('loading');
+            if(data=='1'){
+                window.location.reload();
+            }
+        }); 
+    }
+</script>    
+{yun:}include file="$wapstyle/footer.htm"{/yun}

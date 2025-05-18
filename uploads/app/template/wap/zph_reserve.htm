@@ -1,0 +1,131 @@
+{yun:}include file="$wapstyle/header_cont.htm"{/yun}
+<div id="bg" class="bg" style="width:100%;height:100%;background-color:#000;opacity:0.3;display:none; position:fixed;left:0px;top:0px;filter: alpha(opacity=30); z-index:100"></div>
+
+<section>
+	<div class="zph_show_body">
+		<div class="zph_show_box" >
+			<div class="zph_bg_name">
+				<h2> 
+					{yun:}$Info.title{/yun}
+				  {yun:}if $Info.stime<'0'&&$Info.etime>'0'{/yun}
+						<span class="zphshow_zt">已开始</span>
+					{yun:}elseif $Info.stime>'0'{/yun}
+						<span class="zphshow_zt zph_zt_yd ">预定中</span>
+					{yun:}/if{/yun}	
+				</h2>
+			</div> 
+		 
+			<div class="zphshowinfo">
+				<i class="zphshow_time_icon"></i>{yun:}$Info.starttime|date_format:"%Y-%m-%d"{/yun} 至 {yun:}$Info.endtime|date_format:"%Y-%m-%d"{/yun}
+			</div>
+
+			<div class="zphshowinfo"><i class="zphshow_tel_icon"></i>{yun:}$Info.phone{/yun} ({yun:}$Info.user{/yun})</div>
+			{yun:}if $Info.address{/yun}<div class="zphshowinfo"><i class="zphshowadd_icon"></i>{yun:}$Info.address{/yun}</div>{yun:}/if{/yun}
+		</div>    
+	</div>
+</section>
+
+<div class="zph_show_pd">
+	<section>
+		{yun:}if $space.pic_n{/yun}  
+		<div class="zph_bg_pd mt15">
+			<div class="zphwap_title"><span class="">招聘会展位图</span></div>
+			<div class="fairs_display">
+				<img src="{yun:}$space.pic_n{/yun}" class="png" style="max-width:100%" />
+			</div> 
+		</div>
+		{yun:}/if{/yun}
+		<div class="zph_show_zwcontent mt15">
+			<div class="zphwap_title"><span class="">招聘会展位在线预订</span></div>
+			<div class="zph_show_content">
+				
+				<div class="zph_make">
+					<div class="zph_makelist"><img class="zph_make_ticon" src="{yun:}$wap_style{/yun}/images/zw_wyd.png" style="background:no-repeat; background-size:100%;"/>
+					可选</div>
+					<div class="zph_makelist"><img class="zph_make_ticon" src="{yun:}$wap_style{/yun}/images/zw_yxz.png" style="background:no-repeat; background-size:100%;"/> 已选</div>
+					<div class="zph_makelist"><img class="zph_make_ticon" src="{yun:}$wap_style{/yun}/images/zw_yyd.png" style="background:no-repeat; background-size:100%;"/>
+					不可选</div>
+				</div>
+
+				<input type="hidden" id="jobid"/>
+
+				{yun:}foreach item=v from=$spacelist{/yun}
+				<div class="zph_show_xz_box">
+					<div class="zph_show_zwname">{yun:}$v.name{/yun}</div>	
+					<div class="zph_show_zwbox">
+						{yun:}foreach item=val key=key from=$v.list{/yun}
+							{yun:}if $val.comstatus=="-1"{/yun}
+								<div class="zph_show_zwlist fairs_disp_position" aid="{yun:}$val.id{/yun}" price="{yun:}if $config.com_integral_online==3{/yun}{yun:}$val.price{/yun}{yun:}else{/yun}{yun:}$val.price/$config.integral_proportion{/yun}{yun:}/if{/yun}">
+									<i class="zph_make_icon zph_make_icon_kyd"></i>
+									<div class="zph_show_zw_n">{yun:}$val.name{/yun}</div>
+									<div class="zph_show_zw_zt">可选</div>
+								</div>
+							{yun:}else{/yun}
+								
+								<div class="zph_show_zwlist fairs_disp_position1" aid="{yun:}$val.id{/yun}">
+									<i class="zph_make_icon zph_make_icon_yyd"></i>
+									<div class="zph_show_zw_n">{yun:}$val.name{/yun}</div>
+									<div class="zph_show_zw_zt">不可选</div>
+								</div>
+
+								<div class="zph_makebox" id="showstatus{yun:}$val.id{/yun}" style="display:none; position:fixed;left:50%; margin-left:-130px;top:160px; z-index:1000">
+									<div class="zph_makeboxfix">
+										<div class="zph_make_bth_box">
+											<div class="zph_make_zw_c">
+												<a href="{yun:}url m=wap c=company a=show id=$val.uid{/yun}"> {yun:}$val.comname|mb_substr:0:14:'utf-8'{/yun} </a>已预订
+											</div>
+										</div>
+									</div>
+								</div>			
+							{yun:}/if{/yun}	
+						{yun:}/foreach{/yun}
+					</div>
+				</div>
+				{yun:}/foreach{/yun}
+			</div>
+		</div>      
+	</section>
+</div>
+
+<div id="zphjobbox" class="zph_makebox" style="display:none; position:fixed;left:50%; margin-left:-130px;top:160px; z-index:1000">
+	<div class="zph_makeboxfix">	
+		<div class="zph_make_bth_box">
+			<div class="zph_make_zw_c">
+				已选择展位：<span id="zphzwname"></span>
+				<text class="zph_make_zw_jg">价格
+				{yun:}if $config.com_integral_online==3{/yun}
+				<text class="zph_make_zw_jg_n" id="zphzwprice"></text>{yun:}$config.integral_priceunit{/yun}{yun:}$config.integral_pricename{/yun}
+				{yun:}else{/yun}
+				<text class="zph_make_zw_jg_n" id="zphzwprice">{yun:}$val.price/$config.integral_proportion {/yun}</text>元
+				{yun:}/if{/yun}	
+				</text>
+			</div>
+			
+			<div style="font-weight:bold">选择参会职位</div>
+
+			<div class="zph_make_zw_c" style="height:200px; overflow:auto">
+				{yun:}foreach item=jv key=jk from=$joblist{/yun}
+					<div class="mui-input-row mui-checkbox">
+						<label style="padding-left:0px;">{yun:}$jv.name{/yun}</label>
+						<input id="status_{yun:}$jv.id{/yun}" name="checkbox_job" value="{yun:}$jv.id{/yun}" type="checkbox" class="lang" data-id="{yun:}$jv.id{/yun}">
+					</div>
+				{yun:}/foreach{/yun}	
+			</div>
+
+			<div class="mui-input-row mui-checkbox">
+				<label style="padding-left:0px;">全选</label>
+				<input name="checkall" value="checkall" type="checkbox" class="checkall">
+			</div>
+			<a href="javascript:void(0);" id="clickzph" onclick=""><text class="zph_make_bth">确认选择此展位</text></a>
+		</div>
+	</div>
+</div>
+<input id="zph_id" value='{yun:}$Info.id{/yun}' type="hidden" />
+<input id="zph_etime" value='{yun:}$Info.etime{/yun}' type="hidden" />
+<input id="zph_stime" value='{yun:}$Info.stime{/yun}' type="hidden" />
+<script src="{yun:}$wap_style{/yun}/js/prefixfree.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/layer/layer.m.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<script src="{yun:}$wap_style{/yun}/js/zph.js?v={yun:}$config.cachecode{/yun}" language="javascript"></script>
+<div style="display:none;">{yun:}include file="$wapstyle/footer.htm"{/yun}</div>

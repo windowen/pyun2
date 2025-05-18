@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>{yun:}$title{/yun}</title>
+<meta name="keywords" content="{yun:}$keywords{/yun}"/>
+<meta name="description" content="{yun:}$description{/yun}"/>
+<link rel="stylesheet" href="{yun:}$style{/yun}/style/css.css?v={yun:}$config.cachecode{/yun}"type="text/css"/>
+<!--evaluate模块内的css-->
+<link rel="stylesheet" type="text/css" href="{yun:}$style{/yun}/style/evaluate.css?v={yun:}$config.cachecode{/yun}"/>
+</head>
+<body>
+<!--头部导航-->
+{yun:}include file="$tplstyle/header.htm"{/yun}
+<div class="clear"></div>
+<!--content内容部分-->
+<div class="cp_content">
+<div class="wrap">
+<div class="current_Location  png">您当前的位置：<a href="{yun:}$config.sy_weburl{/yun}">首页</a>  >  <span>测评</span></div>
+<div class="clear"></div>
+<div class="evaluate_left">
+<div class="evaluation_results">
+    	<h1 class="evaluation_results_tit">{yun:}$exambase.name{/yun}</h1>
+      <div class="evaluation_results_tit_p">本测试 <em>{yun:}$exambase.num{/yun}</em> 题，<em>{yun:}$exambase.visits{/yun}</em> 人访问过，<em>{yun:}$exambase.comnum{/yun}</em> 条评论</div>
+       
+        
+        <div class="evaluation_results_df">  
+       <div class="evaluation_results_df_c"> 
+       <div class="evaluation_results_df_c_n">{yun:}$info.grade{/yun}<span class="evaluation_results_df_c_n_dw">分</span></div>
+       您的测评得分
+       </div>
+       </div>
+     </div>
+             <div class="evaluation_results_fx">
+          <div class="evaluation_results_fx_tit"><i class="evaluation_results_fx_tit_icon"></i><span class="evaluation_results_fx_tit_s">测试结果分析</span></div>
+          <div class="evaluation_results_fx_p">  {yun:}$info.comment_n{/yun}    </div>
+             </div>
+                <div class="evaluation_results_fx">
+          <div class="evaluation_results_fx_tit"><i class="evaluation_results_fx_tit_icon"></i><span class="evaluation_results_fx_tit_s">所有结果分析</span></div>
+          <div class="evaluation_results_fx_p">   
+          {yun:}foreach from=$exambase.result item=v key=key{/yun}
+		<div class="evaluation_results_fx_list">
+        <div class="cp_jg_box_list_tit">成绩范围：<span style="color:#C30; font-size:30px;">{yun:}$v.fromscore{/yun}</span> 分到 <span style="color:#C30; font-size:30px;">{yun:}$v.toscore{/yun}</span> 分</div>
+        <div class="cp_jg_box_list_p">评语：{yun:}$v.comment{/yun}</div></div>
+        {yun:}/foreach{/yun}   </div>
+            
+             </div>
+             
+   <div class="evaluation_results_share">    说准你了吗？不如分享给朋友看看他们是什么样的吧</div>
+     <div class="complay_h1_share">
+              <span >
+                  <div class="bdsharebuttonbox" style="margin:0 auto;width:195px;">
+                      <a href="#" class="bds_more" data-cmd="more"></a>
+                      <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
+                      <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
+                      <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
+                  </div>
+              </span>
+          </div>
+
+ 
+ <div class="evaluation_results_fx">
+          <div class="evaluation_results_fx_tit"><i class="evaluation_results_fx_tit_icon"></i><span class="evaluation_results_fx_tit_s">发表留言</span></div>
+          <form name="myform" target="supportiframe"  action="{yun:}url m=evaluate c=exampaper a=message{/yun}" method="post" onsubmit="return gradely();">
+		<div class="evaluation_results_ly"><textarea id="grademessage" name="message" class="evaluation_results_lytextarea" placeholder="输入发表内容"  onblur="if(this.value==''){this.value='输入发表内容'}" onclick="if(this.value=='输入发表内容'){this.value=''}" value="输入发表内容"></textarea></div>
+		<div class="evaluation_results_ly_bth">
+			<!--span>还有500字</span-->
+			<input name='examid' type="hidden" value='{yun:}$exambase.id{/yun}'/>
+			<input name="submit" class="evaluation_results_ly_bth_a" type="submit" value="发表留言"/>
+		</div>
+		</form>
+        
+        <div id="leaveMessageList" class="cp_call_qt01">
+		{yun:}foreach from=$rows  item=rlist key=key{/yun}
+		<div class="evaluation_results_ly_list">
+			<div class="evaluation_results_ly_list_pic fl">
+			{yun:}if $rlist.name&&$rlist.usertype{/yun}
+			<a href="{yun:}url m=ask c=friend a=myquestion uid=$rlist.uid{/yun}" target="_blank"><img src="{yun:}$rlist.pic{/yun}" width="50" height="50" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_friend_icon{/yun}',2);"/></a>
+			{yun:}else{/yun}
+			<img src="{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_friend_icon{/yun}" width="50" height="50" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_friend_icon{/yun}',2);"/>
+			{yun:}/if{/yun}
+			</div>
+			<div class="evaluation_results_ly_list_info">
+				<div class="evaluation_results_ly_list_info_name">
+					{yun:}if $rlist.name&&$rlist.usertype{/yun}
+					<a href="{yun:}url m=ask c=friend a=myquestion uid=$rlist.uid{/yun}" target="_blank">{yun:}$rlist.name{/yun}</a>
+					{yun:}else{/yun}
+					访客
+					{yun:}/if{/yun}
+				</div>
+				<div class="evaluation_results_ly_list_info_p">{yun:}$rlist.message{/yun}</div>
+				<div class="evaluation_results_ly_list_info_time">{yun:}$rlist.ctime|date_format:"%Y-%m-%d %H:%M"{/yun}</div>
+			</div>
+		</div>   
+		{yun:}foreachelse{/yun} 
+        <div class="evaluation_results_ly_sofa">我来抢沙发~</div>
+		{yun:}/foreach{/yun} 
+	</div>
+    
+        <div class="pages"> {yun:}$pagenav{/yun}</div>
+        
+        
+             </div>
+
+    
+
+</div>
+<div class="evaluate_right">
+<div class="evaluate_right_box"><div class="evaluate_right_box_h1"><i class="evaluate_right_box_h1_n"></i><span class="evaluate_right_box_h1_s">热门测评</span></div>
+<div class="evaluate_right_hot">
+      <ul>
+             {yun:}foreach from=$recom item=item key=key{/yun}
+              <li><a href="{yun:}url m=evaluate c=exampaper titleid='`$item.id`' gid='`$item.keyid`'{/yun}">{yun:}$item.name{/yun}</a><span class="evaluate_right_hot_yl">{yun:}$item.visits{/yun}</span></li>
+              {yun:}/foreach{/yun}
+              
+             
+            </ul>
+</div>
+</div>
+<div class="evaluate_right_box mt20"><div class="evaluate_right_box_h1"><i class="evaluate_right_box_h1_n"></i><span class="evaluate_right_box_h1_s">测评记录</span></div>
+<div class="evaluate_right_hot">
+  <ul>
+              {yun:}foreach from=$list item=item key=key{/yun}
+              <li><a href="{yun:}url m=evaluate c=exampaper titleid='`$item.examid`'{/yun}">{yun:}$item.title{/yun}</a><span class="evaluate_right_hot_yl">{yun:}$item.grade{/yun}分</span></li> 
+              {yun:}/foreach{/yun}
+            </ul>
+</div>
+</div>
+
+<div class="evaluate_right_box mt20"><div class="evaluate_right_box_h1"><i class="evaluate_right_box_h1_n"></i><span class="evaluate_right_box_h1_s">他们也参加了测评</span></div>
+<div class="evaluate_right_user">
+  <ul>
+          {yun:}foreach from=$examinee item=elist{/yun}
+            <li><a href="{yun:}url m=ask c=friend a=myquestion uid=$elist.uid{/yun}" target="_blank"><img src="{yun:}$elist.pic{/yun}" width="48" height="48" onerror="showImgDelay(this,'{yun:}$config.sy_ossurl{/yun}/{yun:}$config.sy_friend_icon{/yun}',2);"/></a><div class="evaluate_right_user_name">{yun:}$elist.nickname{/yun}</div></li>
+			{yun:}/foreach{/yun} 
+            </ul>
+
+</div>
+</div>
+  <div class="evaluation_results_more"><a href="{yun:}url m=evaluate c=morelist{/yun}" class="evaluation_results_more_a" >更多测评</a></div>
+</div>
+
+
+
+<div class="clear"></div>
+</div>
+<!--content内容部分结束-->
+<div class="clear"></div>
+<!--尾部导航-->
+<script src="{yun:}$config.sy_weburl{/yun}/js/jquery-1.8.0.min.js?v={yun:}$config.cachecode{/yun}"	language="javascript"></script>
+<link href="{yun:}$config.sy_weburl{/yun}/js/layui/css/layui.css?v={yun:}$config.cachecode{/yun}" rel="stylesheet" type="text/css" /><script src="{yun:}$config.sy_weburl{/yun}/js/layui/layui.js?v={yun:}$config.cachecode{/yun}"></script><script src="{yun:}$config.sy_weburl{/yun}/js/layui/phpyun_layer.js?v={yun:}$config.cachecode{/yun}"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/lazyload.min.js?v={yun:}$config.cachecode{/yun}"	language="javascript"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/public.js?v={yun:}$config.cachecode{/yun}"	language="javascript"></script> 
+<script type="text/javascript" src="{yun:}$style{/yun}/js/evaluate.js?v={yun:}$config.cachecode{/yun}"></script>
+<!--[if IE 6]>
+<script src="{yun:}$config.sy_weburl{/yun}/js/png.js?v={yun:}$config.cachecode{/yun}"></script>
+<script>
+DD_belatedPNG.fix('.png');
+</script>
+<![endif]-->
+<script>
+  window._bd_share_config={
+	  "common":{
+		  "bdSnsKey":{},
+		  "bdText":"我在 {yun:}$config.sy_webname{/yun} 测试《{yun:}$exambase.name{/yun}》得到了{yun:}$info.grade{/yun}分，评语：{yun:}$comment{/yun}",
+		  "bdMini":"2",
+		  "bdUrl":'{yun:}$config.sy_weburl{/yun}',
+		  "bdPic":"{yun:}$config.sy_weburl{/yun}/{yun:}$config.sy_logo{/yun}",
+		  "bdStyle":"0",
+		  "bdSize":"24"
+	  },
+	  "share":{}
+  };
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src=weburl+'/js/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+<iframe id="supportiframe" name="supportiframe" onload="returnmessage('supportiframe');" class="none"></iframe>
+{yun:}include file="$tplstyle/public_search/login.htm"{/yun}
+{yun:}include file="$tplstyle/footer.htm"{/yun}
