@@ -35,7 +35,17 @@ bash
 复制
 编辑
 ssh-keygen -t ed25519 -C "your_email@example.com"
+
+
+ssh-keygen -t ed25519 -C "honey@163.com"
 一路回车，默认路径即可。
+
+示例：生成多个 SSH Key
+bash
+复制
+编辑
+ssh-keygen -t ed25519 -C "gitea@yourdomain.com" -f ~/.ssh/id_ed25519_gitea
+ssh-keygen -t ed25519 -C "github@yourdomain.com" -f ~/.ssh/id_ed25519_github
 
 添加 SSH 密钥到 GitHub：
 
@@ -46,8 +56,11 @@ pbcopy < ~/.ssh/id_ed25519.pub
 然后打开 GitHub：
 👉 https://github.com/settings/keys
 点击 New SSH Key，粘贴进去。
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICRlfdeqT4iTwYky8i2P53R0S4V1IY0eV+U58ghcrEw/ honey@163.com
 
 修改远程地址为 SSH：
+
+SHA256:EUlCtzJPb28Pjc5ynMmLM7t2Uo8G1yu+/3iJk5PPNkg honey@163.com
 
 bash
 复制
@@ -74,6 +87,18 @@ https://github.com/xxx/xxx.git
 
 如果你告诉我你的项目仓库地址（比如是不是你自己的，是否私有），我可以帮你写出完整命令或修正你的 Git 配置。要不要我带你一步步改为 SSH？
 
-
+URL=https://www.aapanel.com/script/install_7.0_en.sh && if [ -f /usr/bin/curl ];then curl -ksSO "$URL" ;else wget --no-check-certificate -O install_7.0_en.sh "$URL";fi;bash install_7.0_en.sh aapanel
 
 git remote set-url origin git@github.com:windowen/pyun2.git
+
+
+
+location / {
+###The following is the pseudo-static rewrite rule for PHPCMS
+rewrite ^(.*)show-([0-9]+)-([0-9]+)\.html$ $1/show.php?itemid=$2&page=$3;
+rewrite ^(.*)list-([0-9]+)-([0-9]+)\.html$ $1/list.php?catid=$2&page=$3;
+rewrite ^(.*)show-([0-9]+)\.html$ $1/show.php?specialid=$2;
+####Here are the PHPWind pseudo-static rewrite rules
+rewrite ^(.*)-htm-(.*)$ $1.php?$2 last;
+rewrite ^(.*)/simple/([a-z0-9\_]+\.html)$ $1/simple/index.php?$2 last;
+}

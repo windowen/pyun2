@@ -65,15 +65,50 @@ class mysql {
 			$this->show_error("SQL语句错误：", "SQL查询语句为空");
 		}
 		$this->sql = $sql;
-		
+		$action_sql = $sql;
+
 		$result = mysqli_query($this->conn,$this->sql);
-		
-	
+
+
 		$this->result = $result;
-		
-		
+// 		 file_put_contents("log.txt", SQL_LOG."测试内容\n", FILE_APPEND);
+
+// 		 $logPath = __DIR__ . "/log.txt";  // 推荐这样写
+//         file_put_contents($logPath, "测试内2容\n", FILE_APPEND);
+
+
+         // 记录 SQL 日志
+        $this->logSql($action_sql);
+
+
+
 		return $this->result;
 	}
+
+
+	 private function logSql($sql) {
+        if (defined('SQL_LOG') && SQL_LOG === true) {
+            // 写日志
+                $time = date('Y-m-d H:i:s');
+                $line = "[{$time}] {$sql}\n";
+                file_put_contents("sql-select-log.txt", $line, FILE_APPEND);
+        }
+
+    }
+
+    private function logSqlCUD($sql) {
+        if (defined('SQL_LOG') && SQL_LOG === true) {
+
+            $action = strtoupper(substr(trim($sql), 0, 6));
+            if (in_array($action, ['INSERT', 'UPDATE', 'DELETE'])) {
+                $time = date('Y-m-d H:i:s');
+                $line = "[{$time}] {$sql}\n";
+                file_put_contents($logDir, $line, FILE_APPEND);
+            }
+        }
+    }
+
+
     function GetMicrotime5(){
         if (PHP_VERSION >= '5.0.0'){
             return microtime(true);
@@ -91,10 +126,11 @@ class mysql {
         }
         return $query_time;
     }
-     
+
 
 	function DB_query_all($sql,$type='one'){
 		$query = $this->query($sql);
+		file_put_contents("DB_query_all.txt", $sql."测试内容\n", FILE_APPEND);
 		if($type=='all'){
 			 while($row=$this->fetch_array($query)){$return[]=$row;}
 		}else{
@@ -102,34 +138,58 @@ class mysql {
 		}
 		return $return;
 	}
-    
+
 	function DB_select_once($tablename, $where = 1, $select = "*") {
 		$cachename=$tablename.$where;
-		if(!$return=$this->Memcache_set($cachename)){	
+		if(!$return=$this->Memcache_set($cachename)){
 			$SQL = "SELECT $select FROM " . $this->def . $tablename . " WHERE $where limit 1";
 			$query = $this->query($SQL);
 			$return=$this->fetch_array($query);
-			$this->Memcache_set($cachename,$return);	
+			$this->Memcache_set($cachename,$return);
 		}
 		return $return;
 	}
 	function update_all($tablename, $value, $where = 1) {
 		$cachename=$tablename.$where;
-		if(!$return=$this->Memcache_set($cachename)){	
+			file_put_contents("update_all.txt", $tablename."测试内容\n", FILE_APPEND);
+		if(!$return=$this->Memcache_set($cachename)){
 			$SQL = "UPDATE `" . $this->def . $tablename . "` SET $value WHERE $where";
+
+			if (defined('SQL_LOG') && SQL_LOG === true) {
+            // 写日志
+                $time = date('Y-m-d H:i:s');
+                $line = "[{$time}] {$SQL}\n";
+                file_put_contents("sql-update_all-log.txt", $line, FILE_APPEND);
+            }
+
+
 			$query = $this->query($SQL);
 			$return=$this->fetch_array($query);
-			$this->Memcache_set($cachename,$return);	
+			$this->Memcache_set($cachename,$return);
+
+
 		}
 		return $return;
 	}
 	function insert_once($tablename, $value) {
 		$cachename=$tablename.$value;
-		if(!$return=$this->Memcache_set($cachename)){	
+			file_put_contents("insert_once.txt", $tablename."测试内容\n", FILE_APPEND);
+		if(!$return=$this->Memcache_set($cachename)){
 			$SQL = "INSERT INTO `" . $this->def . $tablename . "` SET ".$value;
+
+
+			if (defined('SQL_LOG') && SQL_LOG === true) {
+            // 写日志
+
+                $time = date('Y-m-d H:i:s');
+                $line = "[{$time}] {$SQL}\n";
+                file_put_contents("sql-insert_once-log.txt", $line, FILE_APPEND);
+            }
+
 			$query = $this->query($SQL);
 			$return=$this->fetch_array($query);
-			$this->Memcache_set($cachename,$return);	
+			$this->Memcache_set($cachename,$return);
+
 		}
 		return $return;
 	}
@@ -137,7 +197,7 @@ class mysql {
 
 		$this->connect();
 	}
-    
+
 	function select_num($tablename, $where = 1, $select = "*") {
 		$cachename=$tablename.$where;
 		if(!$return=$this->Memcache_set($cachename)){//获取是否存在memcache
@@ -151,7 +211,7 @@ class mysql {
 		}
 		return $return;
 	}
- 
+
 	function select_all($tablename, $where = 1, $select = "*") {
 		$row_return=array();
 		$SQL = "SELECT $select FROM `" . $this->def . $tablename . "` WHERE $where";
@@ -159,7 +219,7 @@ class mysql {
         while($row=$this->fetch_array($query)){$row_return[]=$row;}
         return $row_return;
 	}
-    
+
 	function select_only($tablename, $where = 1, $select = "*") {
         $row_return=array();
         $SQL = "SELECT $select FROM " .$tablename . " WHERE $where";
@@ -231,7 +291,7 @@ class mysql {
 		$job_info[job_city_two] = $city_name[$job_info[cityid]];
 		$job_info[job_city_three] = $city_name[$job_info[three_cityid]];
 		$job_info[job_hy] = $industry_name[$job_info[hy]];
-       
+
 		if($job_info[lang]!=""){
 			$lang = @explode(",",$job_info[lang]);
 			foreach($lang as $key=>$value){
@@ -275,7 +335,7 @@ class mysql {
 		$job_info["mun_info"] = $comclass_name[$job_info["mun"]];
 		$job_info["pr_info"] = $comclass_name[$job_info["pr"]];
 		$job_info["jobone"]=$ltjob_name[$job_info["jobone"]];
-	 
+
 		$welfare=@explode(',', $job_info['welfare']);
 		if($welfare){
 		    foreach($welfare as $val){
@@ -300,7 +360,7 @@ class mysql {
 		$job_info['job_city_three'] = $city_name[$job_info['three_cityid']];
 		return $job_info;
 	}
-	
+
 	public function show_databases() {
 		$this->query("show databases");
 		echo "现有数据库：" . $amount = $this->db_num_rows($rs);
@@ -336,7 +396,7 @@ class mysql {
 			$i++;
 		}
 	}
-	
+
 	public function mysql_result_li() {
 		$this->connect();
 		return mysqli_result($str);
@@ -408,13 +468,15 @@ class mysql {
 		return mysqli_select_db($db_database);
 	}
 	public function num_fields($table_name) {
-		
+
 		$this->connect();
 		return mysqli_num_fields($this->result);
-		 
+
 	}
 	public function mysql_server($num = '') {
 		$this->connect();
+					file_put_contents("mysql_server.txt", $num."测试内容\n", FILE_APPEND);
+
 		switch ($num) {
 			case 1 :
 				return mysqli_get_server_info($this->conn);	

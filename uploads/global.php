@@ -18,6 +18,8 @@ define('TPL_PATH',APP_PATH.'app/template/');
 define('MODEL_PATH',APP_PATH.'model/');
 define('PLUS_PATH',DATA_PATH.'plus/');
 define('ALL_PS','conn');
+define('SQL_LOG', true);
+
 
 ini_set('session.gc_maxlifetime',9000);
 ini_set('session.gc_probability',10);

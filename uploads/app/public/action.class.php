@@ -487,6 +487,16 @@ class model{
 		$this->db->query("set sql_mode=''");
 		$this->db->query($SQL);
 		$nid= $this->db->insert_id();
+
+         // 写日志到 data/sql_log.txt
+        if (defined('SQL_LOG') && SQL_LOG === true) {
+            $time = date('Y-m-d H:i:s');
+            $line = "[{$time}] {$SQL}\n";
+            $logFile = defined('APP_PATH') ? APP_PATH . 'insert_once-log.txt' : dirname(__FILE__) . '/../../sqlDB_insert_once_log.txt';
+            file_put_contents($logFile, $line, FILE_APPEND);
+        }
+
+
 		return $nid;
 	}
 
@@ -546,6 +556,16 @@ class model{
  
         $this->db->query("set sql_mode=''");
 		$return=$this->db->query($SQL);
+
+
+		// 写日志到 data/sql_log.txt
+    	if (defined('SQL_LOG') && SQL_LOG === true) {
+    	    $time = date('Y-m-d H:i:s');
+    	    $line = "[{$time}] {$SQL}\n";
+    	    $logFile = defined('APP_PATH') ? APP_PATH . 'update_all_log.txt' : dirname(__FILE__) . '/../../db_update_all_log.txt';
+    	    file_put_contents($logFile, $line, FILE_APPEND);
+    	}
+
 		return $return;
 	}
 
