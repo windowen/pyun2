@@ -1,0 +1,80 @@
+postman中的 pre-request 和 post-response 加解密  返回值解密后在控制台
+
+const CryptoJS = require('crypto-js');
+
+// AES 配置（可修改）
+const AES_KEY = "1111111111111111"; // 16字节密钥（128位）
+const AES_IV = "1111111111111111";  // 16字节偏移量（IV）
+
+/**
+ * AES-CBC 加密
+ * @param {string} plaintext - 需要加密的字符串（JSON）
+ * @returns {string} - Base64 编码的加密数据
+ */
+function encryptRequestData(plaintext) {
+const encrypted = CryptoJS.AES.encrypt(plaintext, CryptoJS.enc.Utf8.parse(AES_KEY), {
+iv: CryptoJS.enc.Utf8.parse(AES_IV),
+mode: CryptoJS.mode.CBC,
+padding: CryptoJS.pad.Pkcs7
+});
+
+return encrypted.toString(); // 返回 Base64 编码的加密数据
+}
+
+// **获取 Postman Body 的原始 JSON**
+const rawBody = pm.request.body.raw; // 读取 Body 的 JSON 数据
+
+if (rawBody) {
+// **加密 JSON 数据**
+const encryptedData = encryptRequestData(rawBody);
+
+// **存入 Postman 变量，供 Body 使用**
+pm.variables.set("encryptedData", encryptedData);
+
+// **修改请求 Body，自动变为 { "data": "{{encryptedData}}" }**
+const newBody = JSON.stringify({ data: encryptedData });
+pm.request.body.update(newBody);
+} else {
+console.error("❌ 请求 Body 为空，请检查！");
+}
+
+
+        ////////////------------------------------response-----------------------------------
+
+const CryptoJS = require('crypto-js');
+
+// AES 配置（可修改）
+const AES_KEY = "1111111111111111"; // 16字节密钥（128位）
+const AES_IV = "1111111111111111";  // 16字节偏移量（IV）
+
+/**
+ * AES-CBC 加密
+ * @param {string} plaintext - 需要加密的字符串（JSON）
+ * @returns {string} - Base64 编码的加密数据
+ */
+function encryptRequestData(plaintext) {
+const encrypted = CryptoJS.AES.encrypt(plaintext, CryptoJS.enc.Utf8.parse(AES_KEY), {
+iv: CryptoJS.enc.Utf8.parse(AES_IV),
+mode: CryptoJS.mode.CBC,
+padding: CryptoJS.pad.Pkcs7
+});
+
+return encrypted.toString(); // 返回 Base64 编码的加密数据
+}
+
+// **获取 Postman Body 的原始 JSON**
+const rawBody = pm.request.body.raw; // 读取 Body 的 JSON 数据
+
+if (rawBody) {
+// **加密 JSON 数据**
+const encryptedData = encryptRequestData(rawBody);
+
+// **存入 Postman 变量，供 Body 使用**
+pm.variables.set("encryptedData", encryptedData);
+
+// **修改请求 Body，自动变为 { "data": "{{encryptedData}}" }**
+const newBody = JSON.stringify({ data: encryptedData });
+pm.request.body.update(newBody);
+} else {
+console.error("❌ 请求 Body 为空，请检查！");
+}
